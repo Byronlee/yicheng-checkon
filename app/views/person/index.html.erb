@@ -1,0 +1,29 @@
+<p>当月全勤天数为25天，缺勤2天，请假3天<p>
+<input type="text" id="example" />
+<script>
+     $(window).load(function()
+        {
+          $('#example').glDatePicker({
+            cssName: 'flatwhite',
+            showAlways: true,
+            specialDates: [
+              {
+                date: new Date(2013, 1, 10),
+                data: { message: '全勤' },
+              },
+              {
+                date: new Date(2013, 1, 7),
+                data: { message: '请假' },
+              },
+            ],
+            onClick: function(target, cell, date, data) {
+              target.val(date.getFullYear() + ' - ' +
+                         date.getMonth() + ' - ' +
+                         date.getDate());
+              if(data != null) {
+                alert(data.message);
+              }
+            }
+          });
+        });
+</script>
