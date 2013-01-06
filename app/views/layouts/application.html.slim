@@ -1,0 +1,13 @@
+doctype 5
+html
+  head
+    meta charset="UTF-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    title = t('title')
+    meta name="author" content="Byronlee and simlegate"
+    = stylesheet_link_tag  :application, :recursive => true
+    = javascript_include_tag :application,:recursive => true
+    = csrf_meta_tags
+  body
+    .navbar-inner 伊诚管理系统
+    = render "login/sign_in_form"
