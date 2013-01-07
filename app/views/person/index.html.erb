@@ -1,29 +1,40 @@
-<p>当月全勤天数为25天，缺勤2天，请假3天<p>
-<input type="text" id="example" />
+<div id="output" style="width:500px;height:518px;margin:0,auto">
+  <div id="example" gldp-id="example"/></div>
+</div>
+<p>本月25天全勤，3天缺勤，2天请假</p>
 <script>
      $(window).load(function()
         {
           $('#example').glDatePicker({
-            cssName: 'flatwhite',
             showAlways: true,
             specialDates: [
               {
-                date: new Date(2013, 1, 10),
-                data: { message: '全勤' },
+                date: new Date(2013, 0, 2),
+                data: { message: '缺勤' },
+                cssClass: 'special-red'
               },
               {
-                date: new Date(2013, 1, 7),
-                data: { message: '请假' },
+                date: new Date(2013, 0, 5),
+                data: { message: '缺勤' },
+                cssClass: 'special-red'
+              },
+              {
+                date: new Date(2013, 0, 15),
+                data: { message: '请假原因:生病住院\n日志:\n2012年1月7号递交假条\n2012年1月10日由张三审批通过' },
+              },
+              {
+                date: new Date(2013, 0, 20),
+                data: { message: '请假原因:外出考察\n日志:\n2012年1月10号递交假条\n2012年1月11日由张三审批通过' },
               },
             ],
             onClick: function(target, cell, date, data) {
-              target.val(date.getFullYear() + ' - ' +
-                         date.getMonth() + ' - ' +
-                         date.getDate());
-              if(data != null) {
-                alert(data.message);
+              if(data.message!=null){
+                alert(data.message)
               }
             }
           });
         });
+$(document).ready(function(){
+       $('#example1').popover({ selector: true,trigger: 'hover', title: 'Look! A bird!', content: "yes! this is a bird" });
+            })
 </script>
