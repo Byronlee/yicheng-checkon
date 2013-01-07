@@ -7,6 +7,8 @@ class LoginController < ApplicationController
       redirect_to "/person/index"
     elsif(params["auth_key"]=="1234")
       redirect_to "/person/clerk"
+    elsif (params["auth_key"]=="12345")
+      redirect_to "/person/minister_view"
     else redirect_to "/login/login"
     end
   end
