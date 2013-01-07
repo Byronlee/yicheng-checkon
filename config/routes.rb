@@ -1,7 +1,7 @@
 Attendance::Application.routes.draw do
   get "person/index"
 
-  get "login/index"
+  root :to => "login#index"
  
   get "person/clerk"
   get "person/mark_clerk"
