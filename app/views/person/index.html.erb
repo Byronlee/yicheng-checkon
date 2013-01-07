@@ -3,11 +3,14 @@
   <div type="text" id="example"></div>
 </div>
 <p style="text-align: center;font-size:25px">本月<font color="#888"><strong>27天</strong></font>全勤，<font color="#FF0000"><strong>3天</strong></font>缺勤，<font color="#3A87AD"><strong>2天</strong></font>请假</p>
+<script type="text/javascript">
+</script>
 <script>
      $(window).load(function()
         {
           $('#example').glDatePicker({
             showAlways: true,
+            zIndex: 0,
             selectedDate: new Date(2013, 0, 29),
             specialDates: [
               {
@@ -36,14 +39,10 @@
                 cssClass: 'special-blue'
               },
             ],
-            onClick: function(target, cell, date, data) {
-              if(data.message!=null){
-                alert(data.message)
-              }
+            onHover: function(target, cell, date, data) {
             }
           });
+       $('.special-red').popover({ selector: true,trigger: 'hover',title: "详细情况", content: "缺勤" });
+       $('.special-blue').popover({ selector: true,trigger: 'hover',title: "详细情况" , content: "请假原因:外出考察\n日志:\n2012年1月10号递交假条\n2012年1月11日由张三审批通过" });
         });
-$(document).ready(function(){
-       $('#example1').popover({ selector: true,trigger: 'hover', title: 'Look! A bird!', content: "yes! this is a bird" });
-            })
 </script>
