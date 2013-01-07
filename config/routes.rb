@@ -2,6 +2,8 @@ Attendance::Application.routes.draw do
   get "person/index"
 
   get "login/index"
+ 
+  get "person/clerk"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

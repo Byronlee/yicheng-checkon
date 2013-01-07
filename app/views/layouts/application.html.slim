@@ -9,5 +9,17 @@ html
     = javascript_include_tag :application,:recursive => true
     = csrf_meta_tags
   body
-    .navbar-inner 伊诚管理系统
-    = yield     
+    .navbar-inverse.navbar.navbar-fixed-top
+      .navbar-inner
+        a.brand   伊诚管理系统
+        ul.nav
+          li.active
+            a 首页
+          li
+            a 关于
+          li
+            a 联系
+        p.navbar-text.pull-right 2013年1月1号
+    .container-fluid
+      .row-fluid
+        = yield
