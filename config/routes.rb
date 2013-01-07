@@ -4,6 +4,10 @@ Attendance::Application.routes.draw do
   get "login/index"
  
   get "person/clerk"
+  get "person/mark_clerk"
+
+  get "person/minister_view"
+  get "person/minister_view_1"
 
   post "login/login"
   # The priority is based upon order of creation:
