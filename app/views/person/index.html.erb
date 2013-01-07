@@ -1,17 +1,19 @@
-<div id="output" style="width:500px;height:518px;margin:0,auto">
-  <div id="example" gldp-id="example"/></div>
+<div class="alert alert-info"><span>    职位： 员工　　姓名：　李四　　　　ID号：　201010414409</span></div>
+<div id="output" style="width:500px;height:518px;margin-left:30%">
+  <div type="text" id="example"></div>
 </div>
-<p>本月25天全勤，3天缺勤，2天请假</p>
+<p style="text-align: center;font-size:25px">本月<font color="#888"><strong>27天</strong></font>全勤，<font color="#FF0000"><strong>3天</strong></font>缺勤，<font color="#3A87AD"><strong>2天</strong></font>请假</p>
 <script>
      $(window).load(function()
         {
           $('#example').glDatePicker({
             showAlways: true,
+            selectedDate: new Date(2013, 0, 29),
             specialDates: [
               {
                 date: new Date(2013, 0, 2),
                 data: { message: '缺勤' },
-                cssClass: 'special-red'
+                cssClass: 'special-red',
               },
               {
                 date: new Date(2013, 0, 5),
@@ -21,10 +23,17 @@
               {
                 date: new Date(2013, 0, 15),
                 data: { message: '请假原因:生病住院\n日志:\n2012年1月7号递交假条\n2012年1月10日由张三审批通过' },
+                cssClass: 'special-blue'
               },
               {
                 date: new Date(2013, 0, 20),
                 data: { message: '请假原因:外出考察\n日志:\n2012年1月10号递交假条\n2012年1月11日由张三审批通过' },
+                cssClass: 'special-blue'
+              },
+              {
+                date: new Date(2013, 0, 25),
+                data: { message: '请假原因:外出考察\n日志:\n2012年1月10号递交假条\n2012年1月11日由张三审批通过' },
+                cssClass: 'special-blue'
               },
             ],
             onClick: function(target, cell, date, data) {

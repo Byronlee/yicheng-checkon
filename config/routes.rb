@@ -5,6 +5,7 @@ Attendance::Application.routes.draw do
  
   get "person/clerk"
 
+  post "login/login"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
