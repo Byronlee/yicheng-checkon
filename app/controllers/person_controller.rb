@@ -16,4 +16,11 @@ class PersonController < ApplicationController
 
   def leader_view
   end
+
+
+  def  minister_day_view
+  end
+
+
+
 end
