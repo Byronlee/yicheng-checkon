@@ -1,17 +1,23 @@
 .alert.alert-info
-  span 状态：　填写考勤情况　　　查看其他日期考勤情况　：
-  .btn-group
-    button.btn.btn-mini.btn-primary
-      a(style="color:#fff" href="clerk" ) 选择你要查看日期
-    button.btn.btn-mini.btn-primary.dropdown-toggle( data-toggle="dropdown")
-      span.caret
-        ul.dropdown-menu
-          li
-            a 作
-          li
-            a 其他动作
-  span  　　　　　
-  span     职位：　区域文员　　姓名：　张三　　　　ID号：　201010414456
+  ul class="nav nav-pills" style="margin-bottom:0px"
+    li style="line-height: 34px" 状态：
+    li 
+      .btn-group style="margin-top:2px"
+        button.btn.btn-primary
+          a(style="color:#fff" href="clerk" ) 选择你要查看日期
+        button.btn.btn-primary.dropdown-toggle( data-toggle="dropdown")
+         span.caret
+    li &nbsp;
+    li class="dropdown" id="menutest1"
+      .dropdown-toggle.btn.btn-primary style="margin-top:2px" data-toggle="dropdown" href="#menutest1"
+        | 上午 | &nbsp;
+        b.caret 
+      ul.dropdown-menu
+        li
+          a href="#" 下午
+    li style="line-height: 34px"    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;职位：　区域文员　　
+    li style="line-height: 34px"    姓名：　张三　
+    li style="line-height: 34px"　　ID号：　201010414456
 .bs-docs-example
   table.table.table-bordered
     thead
@@ -27,27 +33,33 @@
               td 张阿斯顿
               td 2313435
               td
-                input(type="radio" name="sex" value="male") 全勤
-                input(type="radio" name="sex" value="male") 半勤
-                input(type="radio" name="sex" value="male") 请假
+                input(type="radio" name="s" value="m" checked) 出勤
+                input(type="radio" name="s" value="m") 迟到 
+                input(type="radio" name="s" value="m") 旷工
+                input(type="radio" name="s" value="m") 病假
+                input(type="radio" name="s" value="m") 事假
               td
                 input(type="text" placeholder="Type something…")
             tr
               td 张恶臭
               td 2313435
               td
-                input(type="radio" name="sex" value="male") 全勤
-                input(type="radio" name="sex" value="male") 半勤
-                input(type="radio" name="sex" value="male") 请假
+                input(type="radio" name="a" value="male" checked) 出勤
+                input(type="radio" name="a" value="male") 迟到
+                input(type="radio" name="a" value="male") 旷工 
+                input(type="radio" name="a" value="male") 病假
+                input(type="radio" name="a" value="male") 事假
               td
                 input(type="text" placeholder="Type something…")
             tr
               td 迭代
               td 2313435
               td
-                input(type="radio" name="sex" value="male") 全勤
-                input(type="radio" name="sex" value="male") 半勤
-                input(type="radio" name="sex" value="male") 请假
+                input(type="radio" name="b" value="male" checked) 事勤
+                input(type="radio" name="b" value="male") 迟到
+                input(type="radio" name="b" value="male") 旷工 
+                input(type="radio" name="b" value="male") 病假
+                input(type="radio" name="b" value="male") 事假
               td
                 input(type="text" placeholder="Type something…")
 
@@ -55,9 +67,11 @@
               td 李四
               td 2313435
               td
-                input(type="radio" name="sex" value="male") 全勤
-                input(type="radio" name="sex" value="male") 半勤
-                input(type="radio" name="sex" value="male") 请假
+                input(type="radio" name="c" value="male" checked) 出勤
+                input(type="radio" name="c" value="male") 迟到
+                input(type="radio" name="c" value="male") 旷工
+                input(type="radio" name="c" value="male") 病假
+                input(type="radio" name="c" value="male") 事假
               td
                 input(type="text" placeholder="Type something…")
 
@@ -65,9 +79,11 @@
               td 哇马钢
               td 2313435
               td
-                input(type="radio" name="sex" value="male") 全勤
-                input(type="radio" name="sex" value="male") 半勤
-                input(type="radio" name="sex" value="male" checked) 请假
+                input(type="radio" name="d" value="male" checked) 出勤
+                input(type="radio" name="d" value="male") 迟到 
+                input(type="radio" name="d" value="male") 旷工
+                input(type="radio" name="d" value="male") 病假
+                input(type="radio" name="d" value="male") 事假
               td
                 input(type="text" placeholder="Type something…")
 
@@ -75,9 +91,11 @@
               td 张达
               td 2313435
               td
-                input(type="radio" name="sex" value="male") 全勤
-                input(type="radio" name="sex" value="male") 半勤
-                input(type="radio" name="sex" value="male") 请假
+                input(type="radio" name="e" value="male" checked) 出勤
+                input(type="radio" name="e" value="male") 迟到
+                input(type="radio" name="e" value="male") 旷工
+                input(type="radio" name="e" value="male") 病假
+                input(type="radio" name="e" value="male") 事假
               td
                 input(type="text" placeholder="Type something…")
 
@@ -85,9 +103,11 @@
               td 张额
               td 2313435
               td
-                input(type="radio" name="sex" value="male") 全勤
-                input(type="radio" name="sex" value="male") 半勤
-                input(type="radio" name="sex" value="male") 请假
+                input(type="radio" name="f" value="male" checked) 出勤
+                input(type="radio" name="f" value="male") 迟到
+                input(type="radio" name="f" value="male") 旷工
+                input(type="radio" name="f" value="male") 病假
+                input(type="radio" name="f" value="male") 事假
               td
                 input(type="text" placeholder="Type something…")
 
@@ -95,9 +115,11 @@
               td 张三
               td 2313435
               td
-                input(type="radio" name="sex" value="male") 全勤
-                input(type="radio" name="sex" value="male") 半勤
-                input(type="radio" name="sex" value="male") 请假
+                input(type="radio" name="g" value="male" checked) 出勤
+                input(type="radio" name="g" value="male") 迟到
+                input(type="radio" name="g" value="male") 旷工
+                input(type="radio" name="g" value="male") 病假
+                input(type="radio" name="g" value="male") 事假
               td
                 input(type="text" placeholder="Type something…")
 
@@ -105,9 +127,11 @@
               td 萨达
               td 2313435
               td
-                input(type="radio" name="sex" value="male") 全勤
-                input(type="radio" name="sex" value="male") 半勤
-                input(type="radio" name="sex" value="male") 请假
+                input(type="radio" name="h" value="male" checked) 出勤
+                input(type="radio" name="h" value="male") 迟到
+                input(type="radio" name="h" value="male") 旷工 
+                input(type="radio" name="h" value="male") 病假
+                input(type="radio" name="h" value="male") 事假
               td
                 input(type="text" placeholder="Type something…")
 
