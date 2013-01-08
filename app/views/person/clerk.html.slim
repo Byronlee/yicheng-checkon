@@ -1,5 +1,5 @@
 .alert.alert-info
-  span 状态：　查看考勤情况　　　查看其他日期考勤情况　：
+  span 状态：　查看<strong>2013年1月1日</strong>考勤情况　　　查看其他日期考勤情况　：
   .btn-group
     button.btn.btn-mini.btn-primary  选择你要查看日期
     button.btn.btn-mini.btn-primary.dropdown-toggle( data-toggle="dropdown")
@@ -17,7 +17,8 @@
       tr
         th 人员＼ID＼考察科目
         th ID编号
-        th 出勤情况
+        th 上午出勤情况
+        th 下午出勤情况
         th 登记人
         th 登记区域
         th 登记日期
@@ -29,6 +30,7 @@
               td 挖到
               td 2313435
               td 全勤
+              td 全勤
               td 李文
               td 十凌镇
               td 2012／2／12
@@ -37,6 +39,7 @@
               td 张三
               td 2313435
               td 全勤
+              td 全勤
               td 李文
               td 十凌镇
               td 2012／2／12
@@ -44,6 +47,7 @@
             tr
               td 李四
               td 2313435
+              td 全勤
               td 全勤
               td 李文
               td 十凌镇
@@ -54,6 +58,7 @@
               td 的瓦
               td 2313435
               td 全勤
+              td 全勤
               td 李文
               td 十凌镇
               td 2012／2／12
@@ -62,6 +67,7 @@
             tr
               td 丽江
               td 2313435
+              td 全勤
               td 请假
               td 李文
               td 十凌镇
@@ -72,12 +78,13 @@
               td 张生
               td 2313435
               td 全勤
+              td 全勤
               td 李文
               td 十凌镇
               td 2012／2／12
               td 无
-h3 修改日志：
-pre.prettyprint.linenums
+//h3 修改日志：
+  pre.prettyprint.linenums
   ol.linenums
     li.L0
       span.tag 张三，４号补上请假条，却勤改为　请假　修改人：张么，日期：2012／1／12
