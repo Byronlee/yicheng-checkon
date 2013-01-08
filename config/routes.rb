@@ -3,6 +3,7 @@ Attendance::Application.routes.draw do
 
   root :to => "login#index"
  
+  get "person/stores"
   get "person/clerk"
   get "person/mark_clerk"
 
