@@ -11,11 +11,10 @@
           $('#example').glDatePicker({
             showAlways: true,
             zIndex: 0,
-            selectedDate: new Date(2013, 0, 29),
             specialDates: [
               {
                 date: new Date(2013, 0, 2),
-                data: { message: '缺勤' },
+                data: { message: '' },
                 cssClass: 'special-red',
               },
               {
@@ -42,7 +41,7 @@
             onHover: function(target, cell, date, data) {
             }
           });
-       $('.special-red').popover({ selector: true,trigger: 'hover',title: "详细情况", content: "缺勤" });
+       $('.special-red').popover({ selector: true,trigger: 'hover',title: "详细情况", content: "无故缺勤，没有相关说明" });
        $('.special-blue').popover({ selector: true,trigger: 'hover',title: "详细情况" , content: "请假原因:外出考察\n日志:\n2012年1月10号递交假条\n2012年1月11日由张三审批通过" });
         });
 </script>
