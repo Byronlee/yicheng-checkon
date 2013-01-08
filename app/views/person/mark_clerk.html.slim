@@ -1,20 +1,8 @@
 .alert.alert-info
   ul class="nav nav-pills" style="margin-bottom:0px"
     li style="line-height: 34px" 状态：对<strong>2013年1月1号</strong>考勤 &nbsp;&nbsp;&nbsp;&nbsp;
-    li 
-      .btn-group style="margin-top:2px"
-        button.btn.btn-primary
-          a(style="color:#fff" href="clerk" ) 选择以往考勤日期
-        button.btn.btn-primary.dropdown-toggle( data-toggle="dropdown")
-         span.caret
-    li &nbsp;
-    li class="dropdown" id="menutest1"
-      .dropdown-toggle.btn.btn-primary style="margin-top:2px" data-toggle="dropdown" href="#menutest1"
-        | 上午 | &nbsp;
-        b.caret 
-      ul.dropdown-menu
-        li
-          a href="#" 下午
+
+
     li style="line-height: 34px"    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;职位：　区域文员　　
     li style="line-height: 34px"    姓名：　张三　
     li style="line-height: 34px"　　ID号：　201010414456
@@ -24,7 +12,8 @@
       tr
         th 人员＼ID＼考察科目
         th ID编号
-        th 出勤情况
+        th 上午出勤情况
+        th 下午出勤情况
         th 备注
       tr
         thead
@@ -33,22 +22,36 @@
               td 张阿斯顿
               td 2313435
               td
-                input(type="radio" name="s" value="m" checked) 出勤
-                input(type="radio" name="s" value="m") 迟到 
-                input(type="radio" name="s" value="m") 旷工
-                input(type="radio" name="s" value="m") 病假
-                input(type="radio" name="s" value="m") 事假
+                input(type="radio" name="2" value="m" checked) 出勤
+                input(type="radio" name="2" value="m") 迟到
+                input(type="radio" name="2" value="m") 旷工
+                input(type="radio" name="2" value="m") 病假
+                input(type="radio" name="2" value="m") 事假
+              td
+                input(type="radio" name="1" value="1" checked) 出勤
+                input(type="radio" name="1" value="2") 迟到
+                input(type="radio" name="1" value="m") 旷工
+                input(type="radio" name="1" value="m") 病假
+                input(type="radio" name="1" value="m") 事假
+
               td
                 input(type="text" placeholder="Type something…")
             tr
               td 张恶臭
               td 2313435
               td
-                input(type="radio" name="a" value="male" checked) 出勤
-                input(type="radio" name="a" value="male") 迟到
-                input(type="radio" name="a" value="male") 旷工 
-                input(type="radio" name="a" value="male") 病假
-                input(type="radio" name="a" value="male") 事假
+                input(type="radio" name="3" value="male" checked) 出勤
+                input(type="radio" name="3" value="male") 迟到
+                input(type="radio" name="3" value="male") 旷工
+                input(type="radio" name="3" value="male") 病假
+                input(type="radio" name="a3" value="male") 事假
+              td
+                input(type="radio" name="s2" value="m" checked) 出勤
+                input(type="radio" name="s2" value="m") 迟到
+                input(type="radio" name="s2" value="m") 旷工
+                input(type="radio" name="s2" value="m") 病假
+                input(type="radio" name="s2" value="m") 事假
+
               td
                 input(type="text" placeholder="Type something…")
             tr
@@ -57,9 +60,16 @@
               td
                 input(type="radio" name="b" value="male" checked) 事勤
                 input(type="radio" name="b" value="male") 迟到
-                input(type="radio" name="b" value="male") 旷工 
+                input(type="radio" name="b" value="male") 旷工
                 input(type="radio" name="b" value="male") 病假
                 input(type="radio" name="b" value="male") 事假
+              td
+                input(type="radio" name="sf" value="m" checked) 出勤
+                input(type="radio" name="sf" value="m") 迟到
+                input(type="radio" name="sf" value="m") 旷工
+                input(type="radio" name="sf" value="m") 病假
+                input(type="radio" name="sf" value="m") 事假
+
               td
                 input(type="text" placeholder="Type something…")
 
@@ -73,6 +83,14 @@
                 input(type="radio" name="c" value="male") 病假
                 input(type="radio" name="c" value="male") 事假
               td
+                input(type="radio" name="ss" value="m" checked) 出勤
+                input(type="radio" name="ss" value="m") 迟到
+                input(type="radio" name="ss" value="m") 旷工
+                input(type="radio" name="ss" value="m") 病假
+                input(type="radio" name="ss" value="m") 事假
+
+
+              td
                 input(type="text" placeholder="Type something…")
 
             tr
@@ -80,10 +98,16 @@
               td 2313435
               td
                 input(type="radio" name="d" value="male" checked) 出勤
-                input(type="radio" name="d" value="male") 迟到 
+                input(type="radio" name="d" value="male") 迟到
                 input(type="radio" name="d" value="male") 旷工
                 input(type="radio" name="d" value="male") 病假
                 input(type="radio" name="d" value="male") 事假
+              td
+                input(type="radio" name="sw" value="m" checked) 出勤
+                input(type="radio" name="sw" value="m") 迟到
+                input(type="radio" name="sw" value="m") 旷工
+                input(type="radio" name="sw" value="m") 病假
+                input(type="radio" name="sw" value="m") 事假
               td
                 input(type="text" placeholder="Type something…")
 
@@ -97,6 +121,14 @@
                 input(type="radio" name="e" value="male") 病假
                 input(type="radio" name="e" value="male") 事假
               td
+                input(type="radio" name="st" value="m" checked) 出勤
+                input(type="radio" name="st" value="m") 迟到
+                input(type="radio" name="st" value="m") 旷工
+                input(type="radio" name="st" value="m") 病假
+                input(type="radio" name="st" value="m") 事假
+
+
+              td
                 input(type="text" placeholder="Type something…")
 
             tr
@@ -108,6 +140,14 @@
                 input(type="radio" name="f" value="male") 旷工
                 input(type="radio" name="f" value="male") 病假
                 input(type="radio" name="f" value="male") 事假
+              td
+                input(type="radio" name="sy" value="m" checked) 出勤
+                input(type="radio" name="sy" value="m") 迟到
+                input(type="radio" name="sy" value="m") 旷工
+                input(type="radio" name="sy" value="m") 病假
+                input(type="radio" name="sy" value="m") 事假
+
+
               td
                 input(type="text" placeholder="Type something…")
 
@@ -121,6 +161,14 @@
                 input(type="radio" name="g" value="male") 病假
                 input(type="radio" name="g" value="male") 事假
               td
+                input(type="radio" name="su" value="m" checked) 出勤
+                input(type="radio" name="su" value="m") 迟到
+                input(type="radio" name="su" value="m") 旷工
+                input(type="radio" name="su" value="m") 病假
+                input(type="radio" name="su" value="m") 事假
+
+
+              td
                 input(type="text" placeholder="Type something…")
 
             tr
@@ -129,12 +177,20 @@
               td
                 input(type="radio" name="h" value="male" checked) 出勤
                 input(type="radio" name="h" value="male") 迟到
-                input(type="radio" name="h" value="male") 旷工 
+                input(type="radio" name="h" value="male") 旷工
                 input(type="radio" name="h" value="male") 病假
                 input(type="radio" name="h" value="male") 事假
+              td
+                input(type="radio" name="si" value="m" checked) 出勤
+                input(type="radio" name="si" value="m") 迟到
+                input(type="radio" name="si" value="m") 旷工
+                input(type="radio" name="si" value="m") 病假
+                input(type="radio" name="si" value="m") 事假
+
+
               td
                 input(type="text" placeholder="Type something…")
 
 
-<button class="btn  btn-primary">确定提交</button>
-<button class="btn  btn-primary"  style=" float: right;">重新填写</button>
+<button class="btn  btn-primary" style=" float: right;"  >确定提交</button>
+<button class="btn  btn-primary"  style=" float: right;  margin-right:50px;">重新填写</button>
