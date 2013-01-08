@@ -1,7 +1,16 @@
 .alert.alert-info
-  span 查询某天某区域出勤情况：　
+  span 当期店面：１号店　查询某天某区域某店面出勤情况：　
   .btn-group
     button.btn.btn-mini.btn-primary  选择区域
+    button.btn.btn-mini.btn-primary.dropdown-toggle( data-toggle="dropdown")
+      span.caret
+        ul.dropdown-menu
+          li
+            a 东区
+          li
+            a 西区
+  .btn-group
+    button.btn.btn-mini.btn-primary  选择店面
     button.btn.btn-mini.btn-primary.dropdown-toggle( data-toggle="dropdown")
       span.caret
         ul.dropdown-menu
@@ -21,7 +30,7 @@
   span　　　
   button.btn.btn-mini.btn-primary 确定
   span
-  span   职位：　人事部＼劳动部　姓名：　张三　ID号：　201010414456　
+  span   职位：人事部＼劳动部　姓名：张三　ID号：201010414456　
   button.btn.btn-mini.btn-primary
    a( href="minister_view_1" style="color:#000" )切换
 .bs-docs-example
@@ -103,6 +112,12 @@
               td 无
               td
                 button.btn.btn-success 修改
+
+button.btn.btn-primary(style="float: right; margin-right:100px;")
+   a( href="minister_day_view" style="color:#000" )审阅完毕
+
+
+
 
 h3 修改日志：
 pre.prettyprint.linenums
