@@ -12,4 +12,8 @@ class LoginController < ApplicationController
     else redirect_to "/login/login"
     end
   end
+
+  def logout
+    CASClient::Frameworks::Rails::Filter.logout(self)
+  end
 end

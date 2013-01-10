@@ -64,5 +64,9 @@ module Attendance
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # ruby cas 
+#   config.rubycas.cas_base_url = 'http://localhost:443'
+#   config.rubycas.logger = Rails.logger
   end
 end

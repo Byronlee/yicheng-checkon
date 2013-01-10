@@ -1,5 +1,5 @@
 source 'http://ruby.taobao.org'
-
+ruby '1.9.3'
 gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
@@ -19,7 +19,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
-gem 'slim'
-gem 'slim-rails'
+gem "rubycas-client", "~> 2.3.9"
+gem 'jquery-rails',"~> 2.1.4"
+gem 'slim',"~> 1.3.6"
+gem 'slim-rails',"~> 1.1.0"
