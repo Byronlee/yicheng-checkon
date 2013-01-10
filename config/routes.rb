@@ -12,6 +12,7 @@ Attendance::Application.routes.draw do
   get "person/minister_day_view"
 
   post "login/login"
+  get "login/logout"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
