@@ -22,4 +22,8 @@ html
         p.navbar-text.pull-right 2013年1月1号
     .container-fluid
       .row-fluid
-        = yield
+        = render "common/sidebar"
+        .span10
+          = render "common/user_information"
+          = render "common/location"
+          = yield

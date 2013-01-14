@@ -1,4 +1,14 @@
 Attendance::Application.routes.draw do
+ 
+
+ # clerk route
+  get "clerk/index"
+  get "clerk/query"
+
+
+
+
+
   get "person/index"
 
   root :to => "login#index"
@@ -8,6 +18,7 @@ Attendance::Application.routes.draw do
   get "person/clerk"
   get "person/mark_clerk"
 
+  get "person/attendance_query"
   get "person/minister_view"
   get "person/minister_view_1"
   get "person/minister_day_view"

@@ -22,5 +22,8 @@ class PersonController < ApplicationController
   end
 
 
+  def attendance_query
+  end
+
 
 end
