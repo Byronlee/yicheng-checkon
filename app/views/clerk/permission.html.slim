@@ -1,0 +1,36 @@
+div.control-group.alert.alert-info
+  label.control-label for="inlineCheckboxes" 设置考勤文员权限：
+  .controls
+    label.checkbox.inline
+      input type="checkbox" name="ck" checked="true" 上东阳光1-张三
+    label.checkbox.inline
+      input type="checkbox" name="ck" 万科2-李四
+    label.checkbox.inline
+      input type="checkbox" name="ck" checked="true"魅力-王无
+a.btn.btn-success data-toggle="modal" href="#set-permission" data-backdrop="false" 设置权限
+span &nbsp;
+a.btn.btn-success data-toggle="modal" href="#cancel-permission" data-backdrop="false" 取消权限
+.modal.hide.fade#set-permission
+  .modal-header
+    a.close data-dismiss="modal" ×
+    h3 设置权限
+  .modal-body
+    p 
+      span 是否赋予
+      strong style="color:red" 张三
+      span ,
+      strong style="color:red" 李四
+      span 报考勤的权限
+  .modal-footer
+    a href="#" class="btn btn-primary" 保存
+.modal.hide.fade#cancel-permission
+  .modal-header
+    a.close data-dismiss="modal" ×
+    h3 取消权限
+  .modal-body
+    p
+      span 是否取消 
+      strong style="color:red" 王二
+      span 报考勤的权限
+  .modal-footer
+    a href="#" class="btn btn-primary" 保存
