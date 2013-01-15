@@ -4,6 +4,8 @@ Attendance::Application.routes.draw do
  # clerk route
   get "clerk/index"
   get "clerk/query"
+  get "clerk/permission"
+  get "clerk/attend"
 
 
 
