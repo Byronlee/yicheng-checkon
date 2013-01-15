@@ -1,10 +1,14 @@
 
-
 .table-shop table{
  margin: 0 auto;
 
 }
 .table-shop p{
 /* text-align:center;*/
-
+}
+.layout-sidebar{
+  height: 318px;
+}
+.accordion-inner ul li{
+  line-height:24px;
 }

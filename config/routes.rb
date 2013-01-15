@@ -4,6 +4,7 @@ Attendance::Application.routes.draw do
   root :to => "login#index"
  
   get "person/stores"
+  get "person/stores_index"
   get "person/clerk"
   get "person/mark_clerk"
 
@@ -12,6 +13,7 @@ Attendance::Application.routes.draw do
   get "person/minister_day_view"
 
   post "login/login"
+  get "login/logout"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
