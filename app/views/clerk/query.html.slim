@@ -1,18 +1,27 @@
-.span12
-  .span12
-      span 考勤查询
-      select.span2
-        option 2012/1/14
-        option 2012/1/15
-      span --
-      select.span2
-        option 2012/1/14
-        option 2012/1/15
-      span　考勤项
-      select.span2
-        option 全勤
-        option 半勤
-      button.btn.btn-mini.btn-primary 　查询　
+.span12.clerk_query
+  form
+    table.span12
+     tbody.span12
+      tr.span12
+        td.span2
+          .lalert.alert-success 考勤查询
+        td.span2
+          select.span12
+            option 2012/1/14
+            option 2012/1/15
+        td 　至
+
+        td.span2
+          select.span12
+            option 2012/1/14
+            option 2012/1/15
+        td.span4
+          span　考勤项:　
+          select.span6
+            option 全勤
+            option 半勤
+        td
+          button.btn.btn-mini.btn-primary 　查询　
   .bs-docs-example
     table.table.table-bordered
       thead
