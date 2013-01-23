@@ -1,38 +1,29 @@
- source 'http://ruby.taobao.org'
+source 'http://ruby.taobao.org'
+ruby '1.9.3'
 gem 'rails', '3.2.11'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem "mongoid"
-
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails','2.12.2'
 end
 
 group :test do
-  gem 'cucumber-rails'
-  gem 'database_cleaner'
-  gem 'capybara'
+  gem 'cucumber-rails','1.3.0'
+  gem 'database_cleaner','0.9.1'
+  gem 'capybara','2.0.2'
 end
 
 
-# Gems used only for assets and not required
-# in production environments by default.
+gem "mongoid",'3.0.18'
+gem "bson_ext",'1.8.2'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
- #gem "twitter-bootstrap-rails"
   gem 'anjlab-bootstrap-rails', '>= 2.2', :require => 'bootstrap-rails'
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
   gem 'uglifier', '>= 1.0.3'
 end
 
-
-
-gem "rubycas-client", "~> 2.3.9"
-gem 'jquery-rails',"~> 2.1.4"
-gem 'slim',"~> 1.3.6"
-gem 'slim-rails',"~> 1.1.0"
+gem "rubycas-client", "2.3.9"
+gem 'jquery-rails',"2.1.4"
+gem 'slim',"1.3.6"
+gem 'slim-rails',"1.1.0"
