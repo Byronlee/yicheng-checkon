@@ -14,7 +14,7 @@ Attendance::Application.routes.draw do
 
   get "person/index"
 
-  root :to => "clerk#index"
+  root :to => "clerk#task"
  
   get "person/stores"
   get "person/stores_index"
