@@ -6,6 +6,7 @@ Attendance::Application.routes.draw do
   get "clerk/query"
   get "clerk/old_data"
   get "clerk/attend"
+  get "clerk/task"
 
 
 
