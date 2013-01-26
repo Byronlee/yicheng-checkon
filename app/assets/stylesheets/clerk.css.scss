@@ -17,12 +17,13 @@ div[class~=clerk_query]{
 
 
 
-div[class~=table-shop]{
-  .span3 .span12{
+table[class~=all_group]{
+ th{
     background:#e5e5e5;
-    padding-left:20px;
-   padding-top:3px;
-  }
-  margin-bottom:40px;
+    text-align:center;
+     }
+ td{
+  text-align:center;
+}
 
 }
