@@ -1,0 +1,28 @@
+strong ＞详细情况：
+hr
+
+table.table.table-bordered
+      thead
+        tr
+          th 店组
+          th 员工编号
+          th 职位
+          th 姓名
+          th 出勤为
+          th 操作
+        - if @resources
+          - @resources.each  do |resource|
+            tr
+              td = resource["group_name"]
+              td = resource["staffid"]
+              td = resource["position"]
+              td = resource["name"]
+              td 出勤一天
+              td
+                 button.btn.btn-mini
+                   a href="/records/create" 考勤
+                 button.btn.btn-mini
+                   a.set_attend href="#" 修改
+
+
+//= render "common/attendance_options"
