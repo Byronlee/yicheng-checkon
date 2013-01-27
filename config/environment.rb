@@ -9,5 +9,5 @@ Attendance::Application.initialize!
 # cas_logger.level = Logger::DEBUG
 
 CASClient::Frameworks::Rails::Filter.configure(
-  :cas_base_url => "http://localhost:443"
+  :cas_base_url => "http://iphelper.cdu.edu.cn/sso"
 )
