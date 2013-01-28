@@ -1,5 +1,7 @@
 Attendance::Application.routes.draw do
- 
+
+
+  get "records/index"
 
  # clerk route
   get "clerk/index"
@@ -10,12 +12,19 @@ Attendance::Application.routes.draw do
 
 
 
+   # records route
+
+  get "records/modify_atend_record"
+
+  resource :records
+
+  get "clerk/all_user"
 
 
   get "person/index"
 
   root :to => "clerk#task"
- 
+
   get "person/stores"
   get "person/stores_index"
   get "person/clerk"
