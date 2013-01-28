@@ -9,7 +9,9 @@ Attendance::Application.routes.draw do
   get "clerk/old_data"
   get "clerk/attend"
   get "clerk/task"
-
+  api :version => 1 do
+    resources :foods
+  end
 
 
    # records route
