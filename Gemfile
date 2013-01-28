@@ -27,4 +27,4 @@ gem "rubycas-client", "2.3.9"
 gem 'jquery-rails',"2.1.4"
 gem 'slim',"1.3.6"
 gem 'slim-rails',"1.1.0"
-gem 'rocket_pants', '~> 1.0'
+gem 'rocket_pants', '1.6.1'
