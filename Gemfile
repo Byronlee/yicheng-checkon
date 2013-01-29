@@ -1,4 +1,6 @@
-source 'http://ruby.taobao.org'
+ source 'http://ruby.taobao.org'
+
+#  source 'http://rubygems.org'
 ruby '1.9.3'
 gem 'rails', '3.2.11'
 
@@ -9,7 +11,7 @@ end
 group :test do
   gem 'cucumber-rails','1.3.0'
   gem 'database_cleaner','0.9.1'
-  gem 'capybara','2.0.2'
+#  gem 'capybara','2.0.2'
 end
 
 
@@ -28,3 +30,10 @@ gem 'jquery-rails',"2.1.4"
 gem 'slim',"1.3.6"
 gem 'slim-rails',"1.1.0"
 gem 'rocket_pants', '~> 1.0'
+
+
+
+gem 'ruote'
+gem 'ruote-mon'
+
+gem 'state_machine'
