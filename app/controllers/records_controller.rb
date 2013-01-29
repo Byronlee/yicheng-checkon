@@ -11,8 +11,13 @@ class RecordsController < ApplicationController
   end
 
   def create
+   sta = params[:staff]
+   render :json => sta
   end
 
+  def update
+     
+  end
 
   def modify_atend_record
 

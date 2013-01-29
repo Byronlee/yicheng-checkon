@@ -17,7 +17,8 @@ table.table.table-bordered
               td = resource["staffid"]
               td = resource["position"]
               td = resource["name"]
-              td 出勤一天
+              td 
+                input type="input" name="attend[#{resource['staffid']}]" value="出勤一天"
               td
                  button.btn.btn-mini
                    a href="/records/create"  考勤
