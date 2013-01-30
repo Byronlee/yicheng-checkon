@@ -1,7 +1,7 @@
 strong ＞详细情况：
 hr
-
-table.table.table-bordered
+= form_for( Record.new ,:remote =>true ) do |f|
+  table.table.table-bordered
       thead
         tr
           th 店组
@@ -17,12 +17,11 @@ table.table.table-bordered
               td = resource["staffid"]
               td = resource["position"]
               td = resource["name"]
-              td 出勤一天
+              td
+                = f.text_field resource["staffid"] , :value => "出勤一天"
               td
                  button.btn.btn-mini
-                   a href="/records/create"  考勤
-                 button.btn.btn-mini
                    a.set_attend href="#" 修改
-
+  = f.submit "保存" , :disable_with => "请稍等.."
 
 //= render "common/attendance_options"

@@ -6,32 +6,32 @@ class ApplicationController < ActionController::Base
 
 
   def resources
-    @meili={"meili1" => [{"staffid"=>"1",
+    @meili={"meili1" => [{"staffid"=>"1", "id" => "123" ,
                   "position"=>"经济人＿售",
                    "group_name"=>"魅力１",
                    "name"=>"张三"
                  },
-                 {"staffid"=>"2",
+                 {"staffid"=>"2","id" => "124" ,
                   "position"=>"经济人＿售",
                    "group_name"=>"魅力１",
                    "name"=>"夏某"
                  },
-                 {"staffid"=>"3",
+                 {"staffid"=>"3","id" => "125" ,
                   "position"=>"高级经济人＿售",
                    "group_name"=>"魅力１",
                    "name"=>"李某"
                  },
-                 {"staffid"=>"4",
+                 {"staffid"=>"4","id" => "126" ,
                   "position"=>"经济人",
                    "group_name"=>"魅力１",
                    "name"=>"张某"
                  },
-                 {"staffid"=>"5",
+                 {"staffid"=>"5","id" => "127" ,
                   "position"=>"见习经济人",
                    "group_name"=>"魅力１",
                    "name"=>"王五"
                  },
-                 {"staffid"=>"6",
+                 {"staffid"=>"6","id" => "128" ,
                   "position"=>"见习经济人＿售",
                    "group_name"=>"魅力１",
                    "name"=>"李四"

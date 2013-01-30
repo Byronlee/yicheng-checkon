@@ -11,7 +11,16 @@ class RecordsController < ApplicationController
   end
 
   def create
+
+    params[:record].each do | key , value |
+       p key
+       p value
+    end
+
+
+
   end
+
 
 
   def modify_atend_record
