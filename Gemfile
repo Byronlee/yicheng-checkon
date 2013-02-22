@@ -1,22 +1,26 @@
- source 'http://ruby.taobao.org'
+source 'http://ruby.taobao.org'
 
-#  source 'http://rubygems.org'
 ruby '1.9.3'
 gem 'rails', '3.2.11'
 
-group :development, :test do
-  gem 'rspec-rails','2.12.2'
-end
-
 group :test do
-  gem 'cucumber-rails','1.3.0'
-  gem 'database_cleaner','0.9.1'
-#  gem 'capybara','2.0.2'
+  gem 'turn', :require => false
+  gem 'rspec-rails'
+  gem 'spork'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails', :require => false
+  gem "capybara"
+  gem "launchy"
+  gem 'guard-spork'
+  gem 'guard-rspec'
+  gem 'guard-livereload'
+  gem 'guard-bundler'
+  gem 'rb-fsevent'
+  gem 'simplecov', :require => false
 end
 
-
-gem "mongoid",'3.0.18'
-gem "bson_ext",'1.8.2'
+gem "mongoid"
+gem "bson_ext"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
