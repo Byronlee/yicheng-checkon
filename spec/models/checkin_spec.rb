@@ -5,6 +5,7 @@ require 'spec_helper'
 describe Checkin do
 
   before(:each) do
+    create :work
     [ :forenoon, :afternoon ].each { |unit| create unit }
     @yesterday = create :yesterday_with_employee
   end

@@ -16,7 +16,7 @@ class Record
   after_create do |record|
     if checkins.count == 0
       CheckUnit.each do |unit|
-        record.checkins << Checkin.create!( check_unit: unit, behave: Behave.default )
+        record.checkins << Checkin.create!( record: record, check_unit: unit, behave: Behave.default )
       end
     end
   end

@@ -11,7 +11,7 @@ FactoryGirl.define do
     end
 
     factory :work, traits: [:good] do
-      name '出勤'
+      name '全勤'
       default true
       association :behave_type, factory: :present
     end
