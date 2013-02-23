@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :record, class: :record do
-    factory :yesterday do
-      date { 1.days.ago }
+    factory :yesterday_with_employee do
+      period { 1.days.ago }
       association :user, factory: :employee
     end
   end
