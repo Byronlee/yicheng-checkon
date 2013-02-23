@@ -3,9 +3,13 @@
     tr
       td 你的位置：/东南区/红河区　　
       td 职位：文员　
-      td　姓名：张三
-      td　　编号：201010414456
       td
+        span 姓名：
+        span = @current_user["SU_USERNAME"]
+      td
+        span 　　工号：
+        span = @current_user["SU_USER_NO"]
+/!    td
         span　 选择本月其他日期　
         select
           option １月１号

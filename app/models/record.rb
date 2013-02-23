@@ -23,4 +23,11 @@ class Record
     end
 
   end
+
+  def self.attend
+
+
+  end
+
+
 end

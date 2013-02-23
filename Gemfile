@@ -14,7 +14,7 @@ group :test do
 #  gem 'capybara','2.0.2'
 end
 
-
+gem 'whenever'
 gem "mongoid",'3.0.18'
 gem "bson_ext",'1.8.2'
 
@@ -25,6 +25,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+
+gem "patron"
 gem "rubycas-client", "2.3.9"
 gem 'jquery-rails',"2.1.4"
 gem 'slim',"1.3.6"
