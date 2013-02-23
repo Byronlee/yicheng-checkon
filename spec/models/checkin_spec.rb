@@ -9,8 +9,7 @@ describe Checkin do
     @yesterday = create :yesterday_with_employee
   end
 
-  it "生成一名员工的默认考勤登记数据" do
-    @yesterday.create_checkins
+  it "考勤记录创建时应默认生成基本考勤登记数据，所有考勤单元为一组" do
     @yesterday.checkins.count.should == CheckUnit.all.count
   end
 end
