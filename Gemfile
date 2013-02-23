@@ -37,3 +37,5 @@ gem 'rocket_pants', '1.6.1'
 gem 'ruote'
 gem 'ruote-mon'
 gem 'state_machine'
+
+gem 'unirole', :git => 'git@task.zhiyisoft.com:bazaar/xiegang/zhiyi-unirole.git'

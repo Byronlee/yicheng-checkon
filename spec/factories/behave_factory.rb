@@ -12,6 +12,7 @@ FactoryGirl.define do
 
     factory :work, traits: [:good] do
       name '出勤'
+      default true
       association :behave_type, factory: :present
     end
 
@@ -28,6 +29,16 @@ FactoryGirl.define do
     factory :thing_leave, traits: [:bad] do
       name '事假'
       association :behave_type, factory: :leave
+    end
+
+    factory :neglect, traits: [:bad] do
+      name '旷工'
+      association :behave_type, factory: :away
+    end
+
+    factory :rest, traits: [:good] do
+      name '轮休'
+      association :behave_type, factory: :away
     end
   end
 end

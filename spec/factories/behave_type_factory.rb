@@ -11,7 +11,7 @@ FactoryGirl.define do
     end
 
     factory :away do
-      name '旷工'
+      name '缺席'
     end
   end
 end
