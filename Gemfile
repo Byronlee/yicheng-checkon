@@ -19,14 +19,10 @@ group :test do
   gem 'simplecov', :require => false
 end
 
-<<<<<<< HEAD
+
 gem 'whenever'
 gem "mongoid",'3.0.18'
 gem "bson_ext",'1.8.2'
-=======
-gem "mongoid"
-gem "bson_ext"
->>>>>>> 0ebb8ba7110fd7a5d83f8fb22cc848d304d923e4
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -34,7 +30,6 @@ group :assets do
   gem 'anjlab-bootstrap-rails', '>= 2.2', :require => 'bootstrap-rails'
   gem 'uglifier', '>= 1.0.3'
 end
-
 
 gem "patron"
 gem "rubycas-client", "2.3.9"
