@@ -44,4 +44,7 @@ guard 'rspec', :all_after_pass => false, :cli => '--color --format nested --fail
   # Turnip features and steps
   watch(%r{^spec/acceptance/(.+)\.feature$})
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
+
+  # Factory Girls
+  watch(%r{^spec/factories/(.+)_factory\.rb$}) { |m| "spec/models/#{m[1]}_spec.rb" }
 end
