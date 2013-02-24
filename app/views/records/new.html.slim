@@ -2,7 +2,7 @@
 .title
   .content
     strong 对魅力店魅力１组进行考勤
-= form_for( Record.new ,:remote =>true ) do |f|
+= form_for( Record.new ) do |f|
   table.table.table-bordered
       thead
         tr
@@ -20,7 +20,7 @@
               td 见习经济人
               td = resource["SU_USERNAME"]
               td
-                = f.text_field resource["SU_USER_NO"],  :value => "出勤一天"
+                = f.text_field resource["SU_USER_ID"],  :value => "出勤一天"
               td
                  button.btn.btn-mini
                    a.set_attend href="#" 修改
