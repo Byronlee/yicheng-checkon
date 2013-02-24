@@ -9,6 +9,12 @@ class Record
   belongs_to :user, class_name: 'Unirole::User'
   has_many :checkins
 
+  state_machine initial: :checking do
+    event :register do
+      transition [:checking] => :registered
+    end
+  end
+
   validates_presence_of :period, :user
   validates_uniqueness_of :period, scope: [:user]
 
