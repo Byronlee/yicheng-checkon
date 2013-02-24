@@ -3,7 +3,7 @@ class Record
   include Mongoid::Document
   include Mongoid::Timestamps::Created
   include Mongoid::Timestamps::Updated
-  field :staffid , type:  Integer
+  field :staffid , type: String 
   field :record_person , type: String
   field :attend_option , type: String ,default: "出勤一天"
   field :record_zone , type: String
@@ -24,10 +24,13 @@ class Record
 
   end
 
-  def self.attend
+def self.attend id,opt
+  record = Record.create(staffid: id,attend_option: opt)
+  record.attend
+end
 
-
-  end
-
+def self.state state
+  where(state: state)
+end
 
 end
