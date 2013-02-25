@@ -19,7 +19,7 @@ Attendance::Application.routes.draw do
   get "records/modify_atend_record"
 
   resource :records
-
+  get "records/update"
   get "clerk/all_user"
 
 
