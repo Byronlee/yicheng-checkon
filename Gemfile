@@ -21,7 +21,7 @@ end
 
 
 gem 'whenever'
-gem "mongoid",'3.0.18'
+gem "mongoid", "3.0.18"
 gem "bson_ext",'1.8.2'
 
 group :assets do
