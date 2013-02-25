@@ -2,6 +2,7 @@ source 'http://ruby.taobao.org'
 
 ruby '1.9.3'
 gem 'rails'
+gem 'rb-inotify', '~> 0.8.8'
 
 group :test do
   gem 'turn', :require => false
