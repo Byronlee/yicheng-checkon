@@ -5,47 +5,22 @@
 
 .bs-docs
   table.table.table-bordered
-    tr
-      td
-        span 对
-        font color="red" 魅力店魅力１组
-        span 今日考勤
-      td
-          span 一键考勤为：
-          input type="radio" name="aaa"  全勤
-          input type="radio" name="aaa" 全休
-          button class="btn  btn-primary  btn-mini"  style=" float: right;  margin-right:50px;" 保存
+    - if @ary
+      - @ary.each do |a| 
+        tr
+          td
+            span 对
+            font color="red" = a[:group_name]
+            span = a[:created_at].to_date
+            span 考勤
+          td
+            span 一键考勤为：
+            input type="radio" name="aaa"  全勤
+            input type="radio" name="aaa" 全休
+            button class="btn  btn-primary  btn-mini"  style=" float: right;  margin-right:50px;" 保存
 
-      td
-        a href="/records/new" 进入考勤
-    tr
-      td
-        span 对
-        font color="red" 魅力店魅力2组
-        span 今日考勤
-      td
-          span 一键考勤为：
-          input type="radio" name="aaa"  全勤
-          input type="radio" name="aaa" 全休
-          button class="btn  btn-primary  btn-mini"  style=" float: right;  margin-right:50px;" 保存
-
-      td
-        a href="/records/new" 进入考勤
-    tr
-      td
-        span 对
-        font color="red" 魅力店魅力3组
-        span 今日考勤
-      td
-          span 一键考勤为：
-          input type="radio" name="aaa"  全勤
-          input type="radio" name="aaa" 全休
-          button class="btn  btn-primary  btn-mini"  style=" float: right;  margin-right:50px;" 保存
-
-      td
-        a href="/records/new" 进入考勤
-
-
+          td
+            a href="/records/new?groupid=#{a[:groupid]}&time=#{a[:created_at].to_date}" 进入考勤
 .bs-docs
   table.table.table-bordered
     tr

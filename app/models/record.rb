@@ -1,9 +1,8 @@
 # encoding: utf-8
 class Record
   include Mongoid::Document
-  include Mongoid::Timestamps::Created
-  include Mongoid::Timestamps::Updated
-  field :staffid , type:  Integer
+  include Mongoid::Timestamps
+  field :staffid , type: String 
   field :record_person , type: String
   field :attend_option , type: String ,default: "出勤一天"
   field :record_zone , type: String
@@ -29,10 +28,12 @@ class Record
      create!
   end
 
-  def self.attend
+def self.attend id,opt,time
+  record = Record.where(:created_at.gte => time,:created_at.lt => (time.to_time)+1.days,staffid: id).update(attend_option: opt,state: "saved")
+end
 
-
-  end
-
+def self.state state
+  where(state: state)
+end
 
 end
