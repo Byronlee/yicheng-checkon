@@ -23,7 +23,6 @@ class Record
 
   end
 
-
   def self.whenever_add
      create!
   end
