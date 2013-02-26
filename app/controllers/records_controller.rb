@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
 
   def index
-    @ary = [] 
+    @ary = []
     data = Record.state("init")
     data1 = data.map do |v|
       { groupid: Webservice.getData("user/id/"+v.staffid)["SU_DEPT_ID"],created_at: v.created_at.to_s }
