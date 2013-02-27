@@ -1,7 +1,8 @@
 source 'http://ruby.taobao.org'
 
 ruby '1.9.3'
-gem 'rails', '3.2.11'
+gem 'rails'
+gem 'rb-inotify', '~> 0.8.8'
 
 group :test do
   gem 'turn', :require => false
@@ -19,8 +20,10 @@ group :test do
   gem 'simplecov', :require => false
 end
 
-gem "mongoid"
-gem "bson_ext"
+
+gem 'whenever'
+gem "mongoid", "3.0.18"
+gem "bson_ext",'1.8.2'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -29,6 +32,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem "patron"
 gem "rubycas-client", "2.3.9"
 gem 'jquery-rails',"2.1.4"
 gem 'slim',"1.3.6"

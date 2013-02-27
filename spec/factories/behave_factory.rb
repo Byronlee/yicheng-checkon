@@ -10,7 +10,11 @@ FactoryGirl.define do
       proper false
     end
 
-    factory :work, traits: [:good] do
+    trait :defaut do
+      default true
+    end
+
+    factory :work, traits: [:good, :default] do
       name '全勤'
       default true
       association :behave_type, factory: :present

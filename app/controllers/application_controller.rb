@@ -1,82 +1,15 @@
 # -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-# before_filter CASClient::Frameworks::Rails::Filter
+  before_filter CASClient::Frameworks::Rails::Filter
+  before_filter :my_account
 
-
-
-  def resources
-    @meili={"meili1" => [{"staffid"=>"1", "id" => "123" ,
-                  "position"=>"经济人＿售",
-                   "group_name"=>"魅力１",
-                   "name"=>"张三"
-                 },
-                 {"staffid"=>"2","id" => "124" ,
-                  "position"=>"经济人＿售",
-                   "group_name"=>"魅力１",
-                   "name"=>"夏某"
-                 },
-                 {"staffid"=>"3","id" => "125" ,
-                  "position"=>"高级经济人＿售",
-                   "group_name"=>"魅力１",
-                   "name"=>"李某"
-                 },
-                 {"staffid"=>"4","id" => "126" ,
-                  "position"=>"经济人",
-                   "group_name"=>"魅力１",
-                   "name"=>"张某"
-                 },
-                 {"staffid"=>"5","id" => "127" ,
-                  "position"=>"见习经济人",
-                   "group_name"=>"魅力１",
-                   "name"=>"王五"
-                 },
-                 {"staffid"=>"6","id" => "128" ,
-                  "position"=>"见习经济人＿售",
-                   "group_name"=>"魅力１",
-                   "name"=>"李四"
-                 }
-               ]
-    }
-
+  def my_account
+    @current_user = Webservice.getData "user/id/4028809b3c6fbaa7013c6fbc3db41bc3"
   end
-  # meili={:meili1 => [{:staffid =>"425645",
-  #                     :position =>"经济人＿售",
-  #                     :name =>"张三"
-  #                     },
-  #                    {"staffid"=>"4３12623",
-  #                     "position"=>"经济人＿售",
-  #                     "name"=>"夏某"
-  #                    },
-  #                 {"staffid"=>"42３5645",
-  #                  "position"=>"高级经济人＿售",
-  #                   "name"=>"李某"
-  #                 },
-  #                 {"staffid"=>"425２645",
-  #                  "position"=>"经济人",
-  #                   "name"=>"张某"
-  #                 },
-  #                 {"staffid"=>"4256１45",
-  #                  "position"=>"见习经济人",
-  #                   "name"=>"王五"
-  #                 }，
-  #                 {"staffid"=>"425345",
-  #                  "position"=>"见习经济人＿售",
-  #                   "name"=>"李四"
-  #                 }
-  #               ]
-  #     ]
 
-
-
-
-
-
-
-
-
-
-
-
+  def logout
+    CASClient::Frameworks::Rails::Filter.logout(self)
+  end
 
 end

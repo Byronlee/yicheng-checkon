@@ -1,0 +1,47 @@
+.title
+  .content
+    strong 未完成任务[共4个]
+  a href="#" style="float: right; margin-top:-20px" 更多
+
+.bs-docs
+  table.table.table-bordered
+    - if @ary
+      - @ary.each do |a| 
+        tr
+          td
+            span 对
+            font color="red" = a[:group_name]
+            span = a[:created_at].to_date
+            span 考勤
+          td
+            span 一键考勤为：
+            input type="radio" name="aaa"  全勤
+            input type="radio" name="aaa" 全休
+            button class="btn  btn-primary  btn-mini"  style=" float: right;  margin-right:50px;" 保存
+
+          td
+            a href="/records/new?groupid=#{a[:groupid]}&time=#{a[:created_at].to_date}" 进入考勤
+.bs-docs
+  table.table.table-bordered
+    tr
+      td 你还未确认2010年1月的考勤数据
+      td
+        div.btn.btn-primary.btn-mini 查看
+
+.title
+  .content
+    strong 未读信息[共2个]
+  a href="#" style="float: right; margin-top:-20px" 更多
+.bs-docs
+  table.table.table-bordered
+    tr
+      th 信息详情
+      th 操作
+    tr
+      td 人事部已同意你修改张三2012-6-9的出勤状态
+      td
+        div.btn.btn-primary.btn-mini 标记已读
+    tr
+      td 人事部已同意你修改李四2012-5-30的出勤状态
+      td
+        div.btn.btn-primary.btn-mini 标记已读
