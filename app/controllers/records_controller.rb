@@ -46,15 +46,4 @@ class RecordsController < ApplicationController
 
 
   end
-
-
-  def update
-
-  end
-
-
-  def modify_atend_record
-
-  end
-
 end
