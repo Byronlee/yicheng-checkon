@@ -7,7 +7,7 @@ class Record
   include Mongoid::Timestamps::Updated
   include Mongoid::Timestamps
 
-  field :staffid , type: String 
+  field :staffid, type: String 
   field :record_person , type: String
   field :record_zone , type: String
   field :last_updated , type: Time

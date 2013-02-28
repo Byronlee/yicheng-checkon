@@ -42,4 +42,5 @@ gem 'ruote'
 gem 'ruote-mon'
 gem 'state_machine'
 
-gem 'unirole', :git => 'git@task.zhiyisoft.com:bazaar/xiegang/zhiyi-unirole.git'
+# gem 'unirole', :git => 
+'git@task.zhiyisoft.com:bazaar/xiegang/zhiyi-unirole.git'
