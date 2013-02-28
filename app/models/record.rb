@@ -32,7 +32,6 @@ class Record
     end
   end
 
-<<<<<<< HEAD
  # validates_presence_of :period, :user
 #  validates_uniqueness_of :period, scope: [:user]
 
@@ -43,20 +42,17 @@ class Record
         record.checkins << Checkin.create!( record: record, check_unit: unit, behave: Behave.default )
       end
     end
-=======
-  def self.whenever_add
-     create!
->>>>>>> 7227f62d3bf38ae6a959fc14299ed0e458c4e557
   end
 
-def self.attend id,opt,time
-  record = Record.where(:created_at.gte => time,:created_at.lt => (time.to_time)+1.days,staffid: id).update(attend_option: opt,state: "saved")
-end
+  def self.whenever_add
+     create!
+  end
 
+  def self.attend id,opt,time
+    record = Record.where(:created_at.gte => time,:created_at.lt => (time.to_time)+1.days,staffid: id).update(attend_option: opt,state: "saved")
+  end
 
-
-def self.state state
-  where(state: state)
-end
-
+  def self.state state
+    where(state: state)
+  end
 end
