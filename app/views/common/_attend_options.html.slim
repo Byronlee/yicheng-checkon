@@ -1,0 +1,9 @@
+span
+  = unit_name+"："
+select class="span3" name=resource
+  - Behave.all.map do |behave| 
+    - if behave.default
+      option value=behave.id selected="selected" = behave.name 
+    - else
+      option value=behave.id = behave.name   
+

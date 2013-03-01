@@ -10,19 +10,17 @@
           th 员工编号
           th 职位
           th 姓名
-          th 出勤为
-          th 操作
-        - if @resources
-          - @resources.each  do |resource|
+          th 填报考勤
+        - if @users
+          - @users.each  do |user|
             tr
               td 魅力１店
-              td = resource["SU_USER_NO"]
+              td = user.user_no
               td 见习经济人
-              td = resource["SU_USERNAME"]
+              td = user.username
               td
-                = f.text_field resource["SU_USER_ID"],  :value => "出勤一天"
-              td
-                 button.btn.btn-mini
-                   a.set_attend href="#" 修改
+                 -  CheckUnit.all.map do  |unit|
+                    =  render "common/attend_options", :resource => "record[#{user.id}][#{unit.id}]" ,:unit_name => unit.name
+            
   input type="hidden" name="time" value=@time
   = f.submit "保存" , :disable_with => "请稍等.."

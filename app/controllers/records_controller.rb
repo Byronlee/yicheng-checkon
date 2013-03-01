@@ -2,6 +2,7 @@
 class RecordsController < ApplicationController
 
   before_filter :initialize_records, only: [:index]
+  before_filter :current_user
 
  # 根据 考勤日期和 部门，返回 那些部门的考勤没有注册
   def index
@@ -15,32 +16,39 @@ class RecordsController < ApplicationController
 
 
   def new
-#     groupid = params[:groupid]
-#     @time    = params[:time]
-#     @resources = Webservice.dpt_users "dept/users/4028809b3c6fbaa7013c6fbc39900380"
-#     @resources = Webservice.dpt_users "dept/users/"+groupid
-# #   @records = Record.where(:created_at.gte => time,:created_at.lt => (time.to_time)+1.days)
-
-
-
-
+     @dept_id = params[:dept_id]
+     @time    = params[:time]
+     @users = Department.new(@dept_id).users
   end
 
   def create
-
-
-    # params[:record].each do | key , value |
-    #   p key
-    #   p value
-    #   Record.attend key,value,params[:time]
-    # end
-    # redirect_to :action => "index"
-
-
+    
+    # key 表示user_id value 是一个hash，他的key表示check_unit,value表示behave
+    @checkins ={}
+    params[:record].each do | user_id , checks|
+      record =  Record.find_by(staffid: user_id, attend_date: params[:time])
+      checks.map do |unit_id,behave_id|
+        @checkins << { checkunit_id: unit_id,behave:behave_id  }
+      end
+      record.checkins.update_all @chenckins
+      record.register
+    end
   end
 
-  private 
-    def initialize_records
-      @records = Record.state('checking')
+  
+    # redirect_to :action => "index"
+
+  def whether_checkin 
+    if params[:option]=="yes"
+      
     end
+  end
+
+ 
+
+  private 
+   def initialize_records
+      @records = Record.state('checking')
+   end
+ 
 end
