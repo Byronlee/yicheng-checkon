@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*- 
+
 class Record
   include Mongoid::Document
   include Mongoid::Timestamps
