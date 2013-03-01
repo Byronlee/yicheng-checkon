@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter CASClient::Frameworks::Rails::Filter
 
   def current_user
-    User.new("4028809b3c6fbaa7013c6fbc3db41bc3")
+   @current_user = User.new("4028809b3c6fbaa7013c6fbc3db41bc3")
   end
 
   def logout

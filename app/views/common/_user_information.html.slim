@@ -5,15 +5,14 @@
       td 职位：文员　
       td
         span 姓名：
-        span = @current_user["SU_USERNAME"]
+        span = current_user.username
       td
         span 　　工号：
-        span = @current_user["SU_USER_NO"]
-/!    td
-        span　 选择本月其他日期　
-        select
-          option １月１号
-          option １月3号
-          option １月4号
-          option １月5号
-          option １月6号
+        span = current_user.user_no
+      td
+        span　 是否对今天考勤:　　
+        button(class="btn btn-small btn-primary" type="button")
+         a(style="color:#fff"  href="/records/whether_checkin?option=yes") 是
+        span 　　
+        button(class="btn btn-small btn-primary" type="button")
+          a 否

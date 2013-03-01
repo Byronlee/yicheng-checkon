@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*- 
 class Record
   include Mongoid::Document
-
-  include Mongoid::Timestamps::Created
-  include Mongoid::Timestamps::Updated
   include Mongoid::Timestamps
 
   field :staffid, type: String 
