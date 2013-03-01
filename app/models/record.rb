@@ -32,8 +32,8 @@ class Record
   # 自动生成本条记录的检查数据
   after_create do |record|
     if checkins.count == 0
-      CheckUnit.each do |unit|
-        record.checkins << Checkin.create!( record: record, check_unit: unit, behave: Behave.default )
+      CheckUnit.all.each do |unit|
+        record.checkins << Checkin.create!( checkunit_id: unit.id, behave_id: Behave.default.id )
       end
     end
   end
