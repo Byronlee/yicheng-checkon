@@ -46,3 +46,8 @@ Spork.each_run do
   FactoryGirl.reload
   SimpleCov.start
 end
+
+
+def login 
+  CASClient::Frameworks::Rails::Filter.fake("admin")
+end

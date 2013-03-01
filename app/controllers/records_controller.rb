@@ -1,31 +1,24 @@
+# -*- coding: utf-8 -*-
 class RecordsController < ApplicationController
 
 
   def index
-
-
-
-
-   #  @ary = [] 
-   #  data = Record.state("checking")
-   #  data1 = data.map do |v|
-   #    { groupid: Webservice.getData("user/id/"+v.staffid)["SU_DEPT_ID"],created_at: v.created_at.to_s }
-   #  end
-   #  data1.uniq.map do |v|
-   #    @ary << {groupid: v[:groupid],created_at: v[:created_at],group_name: Webservice.getData("dept/id/"+v[:groupid])["SD_DEPT_NAME"]}
-   #  end 
-   # p "============="
-   #  p @ary
-
+    
+      if records=Record.state("checking")  # 根据 考勤日期和 部门，返回 那些部门的考勤没有注册
+        @tasks= (records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date.to_s} }
+                ).uniq.map do |task|
+                   {dept_id: task[:dept_id], attend_date: task[:attend_date] ,dept_name: Department.new(task[:dept_id]).name}
+                 end 
+       else
+        @tasks="无任务"
+       end
   end
 
+
   def new
-
-
-
 #     groupid = params[:groupid]
 #     @time    = params[:time]
-#     #@resources = Webservice.dpt_users "dept/users/4028809b3c6fbaa7013c6fbc39900380"
+#     @resources = Webservice.dpt_users "dept/users/4028809b3c6fbaa7013c6fbc39900380"
 #     @resources = Webservice.dpt_users "dept/users/"+groupid
 # #   @records = Record.where(:created_at.gte => time,:created_at.lt => (time.to_time)+1.days)
 
