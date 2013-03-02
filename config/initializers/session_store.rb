@@ -6,3 +6,7 @@ Attendance::Application.config.session_store :cookie_store, key: '_attendance_se
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
 # Attendance::Application.config.session_store :active_record_store
+
+#require "mongo_session_store/mongoid"
+#ActionController::Base.session_store = :mongoid_store
+
