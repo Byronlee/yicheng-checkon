@@ -43,7 +43,7 @@ class Record
     find_by(staffid: id, attend_date: time)
   end
 
-  def update_records attrs
+  def update_checkins attrs
     checkins.update_all attrs
   end
 end

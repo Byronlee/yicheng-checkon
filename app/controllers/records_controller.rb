@@ -6,20 +6,19 @@ class RecordsController < ApplicationController
 
  # 根据 考勤日期和 部门，返回 那些部门的考勤没有注册
   def index
-      if @records.any?
-        @tasks= (@records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date.to_s} }
-                ).uniq.map do |task|
-                   {dept_id: task[:dept_id], attend_date: task[:attend_date] ,dept_name: Department.new(task[:dept_id]).name}
-                 end 
-       end
+    if @records.any?
+      @tasks= (@records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date.to_s} }
+               ).uniq.map do |task|
+                {dept_id: task[:dept_id], attend_date: task[:attend_date] ,dept_name: Department.new(task[:dept_id]).name}
+      end 
+    end
   end
 
 
   def new
-     @dept_id = params[:dept_id]
-     @dept_name = params[:dept_name]
-     @time    = params[:time]
-     @users = Department.new(@dept_id).users
+    @resource ={dept_name: params[:dept_name] ,
+                time: params[:time],
+                users: Department.new(params[:dept_id]).users }
   end
 
   def create
@@ -30,16 +29,13 @@ class RecordsController < ApplicationController
       checks.map do |unit_id,behave_id|
         @checkins << { checkunit_id: unit_id,behave:behave_id  }
       end
-      record.update_records @chenckins
-      p "5555555555555555"
-     p  record.register
+      record.update_checkins @chenckins
+      record.register
     end
     redirect_to records_path
   end
 
   def fast_register
-    p "444444444444444444444444"
-    p params
     redirect_to records_path
   end
 
@@ -62,5 +58,4 @@ class RecordsController < ApplicationController
    def initialize_records
       @records = Record.state('checking')
    end
- 
 end

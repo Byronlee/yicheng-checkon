@@ -1,7 +1,7 @@
 
 .title
   .content
-    strong 对 <font color=red> #{@dept_name}</font> 组进行考勤 
+    strong 对 <font color=red> #{@resource[:dept_name]}</font> 组进行考勤 
 = form_for( Record.new ) do |f|
   table.table.table-bordered
       thead
@@ -11,8 +11,8 @@
           th 职位
           th 姓名
           th 填报考勤
-        - if @users
-          - @users.each  do |user|
+        - if @resource[:users]
+          - @resource[:users].each  do |user|
             tr
               td = user.dept_name
               td = user.user_no
@@ -22,5 +22,5 @@
                  -  CheckUnit.all.map do  |unit|
                     =  render "common/attend_options", :resource => "record[#{user.id}][#{unit.id}]" ,:unit_name => unit.name
             
-  input type="hidden" name="time" value=@time
+  input type="hidden" name="time" value=@resource[:time]
   = f.submit "保存" , :disable_with => "请稍等.."
