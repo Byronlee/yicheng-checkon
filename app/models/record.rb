@@ -8,7 +8,6 @@ class Record
   field :record_zone , type: String
   field :attend_date , type: Time
 
-  belongs_to :user, class_name: 'Unirole::User'
   has_many :checkins
 
  # field :period, type: Date
