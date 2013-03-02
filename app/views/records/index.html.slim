@@ -1,7 +1,7 @@
 - if @tasks
   .title
     .content
-      strong 未完成任务[共4个]
+      strong 未完成考勤任务共 <font color=red >#{@tasks.count}</font> 个
     a href="#" style="float: right; margin-top:-20px" 更多
 
   .bs-docs
@@ -10,16 +10,21 @@
         - @tasks.each do |task| 
           tr
             td
+              span = task[:attend_date].to_date
               span 对
               font color="red" = task[:dept_name]
-              span = task[:attend_date].to_date
               span 考勤
             td
-              span 一键考勤为：
-              input type="radio" name="aaa"  全勤
-              input type="radio" name="aaa" 全休
-              button class="btn  btn-primary  btn-mini"  style=" float: right;  margin-right:50px;" 保存
+
+              form(action="/records/fast_register" method="post")
+                span 一键考勤为：
+                -  CheckUnit.all.map do  |unit|
+                   =  render "common/attend_options", :resource => "record[#{task[:dept_id]}[#{unit.id}]" ,:unit_name => unit.name
+                input type="hidden" name="record[time]" value=task[:attend_date]
+                button class="btn  btn-primary  btn-mini" type="submit"  style=" float: right;  margin-right:50px;" 保存
+
+
             td
-              a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date].to_date}" 进入考勤
+              a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date].to_date}&dept_name=#{task[:dept_name]}" 进入考勤
 - else
   = render "common/no_task"

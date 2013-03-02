@@ -7,7 +7,6 @@ class Record
   field :staffid, type: String 
   field :record_person , type: String
   field :record_zone , type: String
-  field :last_updated , type: Time
   field :attend_date , type: Time
 
   belongs_to :user, class_name: 'Unirole::User'
