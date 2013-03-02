@@ -1,8 +1,10 @@
 Attendance::Application.routes.draw do
-  get "records/index"
-  get "records/whether_checkin"
-  post "records/fast_register"
-  resources :records
+  resources :records do
+    collection do 
+      post "fast_register"
+      get "whether_checkin"
+    end
+  end
   root :to => "records#index"
 
 
