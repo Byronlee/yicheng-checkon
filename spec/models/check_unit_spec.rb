@@ -9,6 +9,6 @@ describe CheckUnit do
   end
 
   it "所有考勤单元的系数累加应当为考勤基数" do
-    CheckUnit.all.map(&:ratio).inject(&:+).should == CheckUnit.BASE
+    CheckUnit.all.map(&:ratio).inject(&:+).should == CheckUnit::BASE
   end
 end

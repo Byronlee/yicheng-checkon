@@ -1,24 +1,20 @@
+<<<<<<< HEAD
 # -*- coding: utf-8 -*-
+=======
+# -*- coding: utf-8 -*- 
+>>>>>>> fc263beda4b2be17bb8bd5b41c24d1db4c51b122
 class Record
   include Mongoid::Document
-
-  include Mongoid::Timestamps::Created
-  include Mongoid::Timestamps::Updated
   include Mongoid::Timestamps
 
-  field :staffid , type: String 
+  field :staffid, type: String 
   field :record_person , type: String
   field :record_zone , type: String
-  field :last_updated , type: Time
   field :attend_date , type: Time
 
-  has_one :definition
-  belongs_to :user, class_name: 'Unirole::User'
   has_many :checkins
 
  # field :period, type: Date
-
-
 
   state_machine initial: :checking do
     event :register do
@@ -37,10 +33,11 @@ class Record
   # 自动生成本条记录的检查数据
   after_create do |record|
     if checkins.count == 0
-      CheckUnit.each do |unit|
-        record.checkins << Checkin.create!( record: record, check_unit: unit, behave: Behave.default )
+      CheckUnit.all.each do |unit|
+        record.checkins << Checkin.create!( checkunit_id: unit.id, behave_id: Behave.default.id )
       end
     end
+<<<<<<< HEAD
   end
   def self.whenever_add
      create!
@@ -54,5 +51,19 @@ class Record
 
   def self.state state
     where(state: state)
+=======
+  end
+
+  def self.state state
+    where(state: state)
+  end
+
+  def self.get_record id,time
+    find_by(staffid: id, attend_date: time)
+  end
+
+  def update_records attrs
+    checkins.update_all attrs
+>>>>>>> fc263beda4b2be17bb8bd5b41c24d1db4c51b122
   end
 end

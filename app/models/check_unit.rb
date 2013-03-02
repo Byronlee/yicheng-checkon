@@ -4,7 +4,6 @@ class CheckUnit
   field :name, type: String
   field :ratio, type: Integer
 
-  def self.BASE
-    100
-  end
+  has_many :checkins
+  BASE = 100 
 end

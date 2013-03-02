@@ -1,49 +1,66 @@
+# -*- coding: utf-8 -*-
 class RecordsController < ApplicationController
 
+  before_filter :initialize_records, only: [:index]
+  before_filter :current_user
 
+ # 根据 考勤日期和 部门，返回 那些部门的考勤没有注册
   def index
-
-
-
-
-   #  @ary = [] 
-   #  data = Record.state("checking")
-   #  data1 = data.map do |v|
-   #    { groupid: Webservice.getData("user/id/"+v.staffid)["SU_DEPT_ID"],created_at: v.created_at.to_s }
-   #  end
-   #  data1.uniq.map do |v|
-   #    @ary << {groupid: v[:groupid],created_at: v[:created_at],group_name: Webservice.getData("dept/id/"+v[:groupid])["SD_DEPT_NAME"]}
-   #  end 
-   # p "============="
-   #  p @ary
-
+      if @records.any?
+        @tasks= (@records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date.to_s} }
+                ).uniq.map do |task|
+                   {dept_id: task[:dept_id], attend_date: task[:attend_date] ,dept_name: Department.new(task[:dept_id]).name}
+                 end 
+       end
   end
 
+
   def new
-
-
-
-#     groupid = params[:groupid]
-#     @time    = params[:time]
-#     #@resources = Webservice.dpt_users "dept/users/4028809b3c6fbaa7013c6fbc39900380"
-#     @resources = Webservice.dpt_users "dept/users/"+groupid
-# #   @records = Record.where(:created_at.gte => time,:created_at.lt => (time.to_time)+1.days)
-
-
-
-
+     @dept_id = params[:dept_id]
+     @dept_name = params[:dept_name]
+     @time    = params[:time]
+     @users = Department.new(@dept_id).users
   end
 
   def create
-
-
-    # params[:record].each do | key , value |
-    #   p key
-    #   p value
-    #   Record.attend key,value,params[:time]
-    # end
-    # redirect_to :action => "index"
-
-
+    # key 表示user_id value 是一个hash，他的key表示check_unit,value表示behave
+    @checkins =[]
+    params[:record].each do | user_id , checks|
+      record =  Record.get_record user_id,params[:time]
+      checks.map do |unit_id,behave_id|
+        @checkins << { checkunit_id: unit_id,behave:behave_id  }
+      end
+      record.update_records @chenckins
+      p "5555555555555555"
+     p  record.register
+    end
+    redirect_to root_url
   end
+
+  def fast_register
+    p "444444444444444444444444"
+    p params
+    redirect_to root_url
+  end
+
+  def show
+  end
+
+
+  def whether_checkin 
+    if params[:option]=="yes"
+      current_user.attend_depts["children"].map do | dept | 
+         Department.new(dept["id"]).users.map do | user |
+          Record.create(staffid: user.id, attend_date: Time.now.to_date ,record_person: current_user.username, record_zone: dept["name"])
+        end
+      end
+    end
+    redirect_to root_url
+  end
+
+  private 
+   def initialize_records
+      @records = Record.state('checking')
+   end
+ 
 end

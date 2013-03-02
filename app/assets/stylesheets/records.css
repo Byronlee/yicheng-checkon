@@ -1,0 +1,30 @@
+
+div[class=title] div[class=content]{
+  padding: 0px 5px 0px 5px;
+  width:168px;
+  border-bottom: 8px solid #D9EDF7;
+ }
+
+div[class=title]{
+  border-bottom: 2px solid #D9EDF7;
+  margin-bottom: 15px;
+}
+
+p[class=no_task]{
+ font-size: 21px;
+ color: #999;
+ margin-top: 115px;
+ margin-left:50px;
+}
+
+form{
+    margin: 0 0 0px  ;
+}
+.table td{
+
+    padding: 6px;
+    line-height: 28px;
+}
+select{
+    margin-bottom: 0px;
+}
