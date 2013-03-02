@@ -2,8 +2,8 @@ source 'http://ruby.taobao.org'
 
 ruby '1.9.3'
 gem 'rails'
-gem 'rb-inotify', '~> 0.8.8'
 
+require 'rbconfig'
 group :test do
   gem 'turn', :require => false
   gem 'rspec-rails'
@@ -20,6 +20,20 @@ group :test do
   gem 'simplecov', :require => false
 end
 
+
+HOST_OS = RbConfig::CONFIG['host_os']
+case HOST_OS
+  when /darwin/i
+    gem 'rb-fsevent', :group =>:development
+    gem 'growl', :group =>:development
+  when /linux/i
+    gem 'libnotify', :group =>:development
+    gem 'rb-inotify', :group =>:development
+  when /mswin|windows/i
+    gem 'rb-fchange', :group =>:development
+    gem 'win32console', :group =>:development
+    gem 'rb-notifu', :group =>:development
+end
 
 gem 'whenever'
 gem "mongoid", "3.0.18"
