@@ -14,7 +14,7 @@
               font color="red" = task[:dept_name]
               span 考勤
             td
-              form(action="/records/fast_register" method="post")
+              form action="/records/fast_register" method="post" class="hello" remote="true"
                 span 一键考勤为：
                 -  CheckUnit.all.map do  |unit|
                    =  render "common/attend_options", :resource => "record[#{task[:dept_id]}[#{unit.id}]" ,:unit_name => unit.name

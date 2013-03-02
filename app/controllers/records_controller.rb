@@ -7,7 +7,7 @@ class RecordsController < ApplicationController
  # 根据 考勤日期和 部门，返回 那些部门的考勤没有注册
   def index
       if @records.any?
-        @tasks= (@records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_datef => record.attend_date.to_s} }
+        @tasks= (@records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date.to_s} }
                 ).uniq.map do |task|
                    {dept_id: task[:dept_id], attend_date: task[:attend_date] ,dept_name: Department.new(task[:dept_id]).name}
                  end 
@@ -26,11 +26,11 @@ class RecordsController < ApplicationController
     # key 表示user_id value 是一个hash，他的key表示check_unit,value表示behave
     @checkins =[]
     params[:record].each do | user_id , checks|
-      record =  Record.get_needed_records user_id,params[:time]
+      record =  Record.get_record user_id,params[:time]
       checks.map do |unit_id,behave_id|
         @checkins << { checkunit_id: unit_id,behave:behave_id  }
       end
-      record.update_needed_records @chenckins
+      record.update_records @chenckins
       record.register
     end
     redirect_to records_path
@@ -39,6 +39,7 @@ class RecordsController < ApplicationController
   def fast_register
     p "444444444444444444444444"
     p params
+    redirect_to records_path
   end
 
   def show

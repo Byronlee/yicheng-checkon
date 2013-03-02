@@ -35,19 +35,15 @@ class Record
     end
   end
 
-  def self.whenever_add
-     create!
-  end
-
   def self.state state
     where(state: state)
   end
 
-  def self.get_needed_records id,time
+  def self.get_record id,time
     find_by(staffid: id, attend_date: time)
   end
 
-  def update_needed_records hash
-    checkins.update_all hash
+  def update_records attrs
+    checkins.update_all attrs
   end
 end

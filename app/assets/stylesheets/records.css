@@ -17,4 +17,14 @@ p[class=no_task]{
  margin-left:50px;
 }
 
+form{
+    margin: 0 0 0px  ;
+}
+.table td{
 
+    padding: 6px;
+    line-height: 28px;
+}
+select{
+    margin-bottom: 0px;
+}
