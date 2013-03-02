@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*- 
-
 class Record
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -41,11 +40,15 @@ class Record
      create!
   end
 
-  def self.attend id,opt,time
-    record = Record.where(:created_at.gte => time,:created_at.lt => (time.to_time)+1.days,staffid: id).update(attend_option: opt,state: "saved")
-  end
-
   def self.state state
     where(state: state)
+  end
+
+  def self.get_needed_records id,time
+    find_by(staffid: id, attend_date: time)
+  end
+
+  def update_needed_records hash
+    checkins.update_all hash
   end
 end

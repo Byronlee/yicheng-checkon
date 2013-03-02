@@ -23,18 +23,17 @@ class RecordsController < ApplicationController
   end
 
   def create
-    
     # key 表示user_id value 是一个hash，他的key表示check_unit,value表示behave
     @checkins =[]
     params[:record].each do | user_id , checks|
-      record =  Record.find_by(staffid: user_id, attend_date: params[:time])
+      record =  Record.get_needed_records user_id,params[:time]
       checks.map do |unit_id,behave_id|
         @checkins << { checkunit_id: unit_id,behave:behave_id  }
       end
-      record.checkins.update_all @chenckins
+      record.update_needed_records @chenckins
       record.register
     end
-    redirect_to :action => "index"
+    redirect_to records_path
   end
 
   def fast_register
@@ -54,7 +53,7 @@ class RecordsController < ApplicationController
         end
       end
     end
-    redirect_to :action => "index"
+    redirect_to records_path
   end
 
   private 
