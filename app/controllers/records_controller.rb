@@ -31,7 +31,8 @@ class RecordsController < ApplicationController
         @checkins << { checkunit_id: unit_id,behave:behave_id  }
       end
       record.update_records @chenckins
-      record.register
+      p "5555555555555555"
+     p  record.register
     end
     redirect_to records_path
   end
