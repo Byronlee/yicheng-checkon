@@ -33,13 +33,13 @@ class RecordsController < ApplicationController
       record.update_records @chenckins
       record.register
     end
-    redirect_to records_path
+    redirect_to root_url
   end
 
   def fast_register
     p "444444444444444444444444"
     p params
-    redirect_to records_path
+    redirect_to root_url
   end
 
   def show
@@ -54,7 +54,7 @@ class RecordsController < ApplicationController
         end
       end
     end
-    redirect_to records_path
+    redirect_to root_url
   end
 
   private 
