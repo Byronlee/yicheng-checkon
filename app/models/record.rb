@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# -*- coding: utf-8 -*-
-=======
 # -*- coding: utf-8 -*- 
->>>>>>> fc263beda4b2be17bb8bd5b41c24d1db4c51b122
 class Record
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -37,21 +33,6 @@ class Record
         record.checkins << Checkin.create!( checkunit_id: unit.id, behave_id: Behave.default.id )
       end
     end
-<<<<<<< HEAD
-  end
-  def self.whenever_add
-     create!
-  end
-
-  def self.attend id,opt,time
-    record = Record.where(:created_at.gte => time,:created_at.lt => (time.to_time)+1.days,staffid: id).update(attend_option: opt,state: "saved")
-  end
-
-
-
-  def self.state state
-    where(state: state)
-=======
   end
 
   def self.state state
@@ -62,8 +43,7 @@ class Record
     find_by(staffid: id, attend_date: time)
   end
 
-  def update_records attrs
+  def update_checkins attrs
     checkins.update_all attrs
->>>>>>> fc263beda4b2be17bb8bd5b41c24d1db4c51b122
   end
 end
