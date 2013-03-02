@@ -29,7 +29,7 @@ class RecordsController < ApplicationController
       checks.map do |unit_id,behave_id|
         @checkins << { checkunit_id: unit_id,behave:behave_id  }
       end
-      record.update_records @chenckins
+      record.update_checkins @chenckins
       record.register
     end
     redirect_to root_url
