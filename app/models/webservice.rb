@@ -1,8 +1,7 @@
 class Webservice
 
  @sess = Patron::Session.new
- @sess.base_url = "http://localhost:4567/"
-
+ @sess.base_url = "http://project.zhiyisoft.com/"
 
  def self.get_data str
     response = @sess.get str
