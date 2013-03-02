@@ -47,7 +47,8 @@ class RecordsController < ApplicationController
     if params[:option]=="yes"
       current_user.attend_depts["children"].map do | dept | 
          Department.new(dept["id"]).users.map do | user |
-          Record.create(staffid: user.id, attend_date: Time.now.to_date ,record_person: current_user.username, record_zone: dept["name"])
+          # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug
+          Record.find_or_create_by(staffid: user.id, attend_date: Time.now.to_date ,record_person: current_user.username, record_zone: dept["name"])
         end
       end
     end
