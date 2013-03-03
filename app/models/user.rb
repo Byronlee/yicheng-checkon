@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 class User
-
   attr_accessor :nickname_code , :nickname_display , :phone_num , :username ,  :user_no , :dept_id , :id , :dept_name
 
-  def  initialize id 
+  def initialize id
     resource= Webservice.get_data "/user/id/"+id
     @nickname_code= resource["SU_NICKNAME_CODE"]
     @nickname_display= resource["SU_NICKNAME_DISPLAY"]
@@ -15,9 +14,7 @@ class User
     @id = id
   end
 
-
- def attend_depts
+  def attend_depts
    Webservice.get_data("/attend/tree/"+@id)
- end
-
+  end
 end

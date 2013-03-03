@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*- 
-class Record
+# -*- coding: utf-8 -*- class Record
   include Mongoid::Document
   include Mongoid::Timestamps
 
   field :staffid, type: String 
   field :record_person , type: String
   field :record_zone , type: String
-  field :attend_date , type: Time
+  field :attend_date , type: String
 
   has_many :checkins
 
@@ -30,7 +29,7 @@ class Record
   after_create do |record|
     if checkins.count == 0
       CheckUnit.all.each do |unit|
-        record.checkins << Checkin.create!( checkunit_id: unit.id, behave_id: Behave.default.id )
+        record.checkins << Checkin.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
       end
     end
   end
@@ -44,6 +43,6 @@ class Record
   end
 
   def update_checkins attrs
-    checkins.update_all attrs
+    checkins.update_attributes attrs
   end
 end

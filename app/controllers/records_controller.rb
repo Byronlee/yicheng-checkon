@@ -25,17 +25,23 @@ class RecordsController < ApplicationController
     # key 表示user_id value 是一个hash，他的key表示check_unit,value表示behave
     @checkins =[]
     params[:record].each do | user_id , checks|
-      record =  Record.get_record user_id,params[:time].to_time
+      record =  Record.get_record user_id,params[:time]
       checks.map do |unit_id,behave_id|
-        @checkins << { checkunit_id: unit_id,behave:behave_id  }
+        record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave , behave_id)
       end
-      record.update_checkins @chenckins
       record.register
     end
     redirect_to root_url
   end
 
   def fast_register
+    dept_id = params[:dept_id]
+    # behave_id  = params[:behave_id]
+    behave_id  = "513231f91229bce4fc00000a"
+    Department.new(dept_id).users.map do | user |
+      record =  Record.get_record user.id,params[:time]
+      record.checkins.update_all(behave: behave_id)
+    end
     redirect_to root_url
   end
 

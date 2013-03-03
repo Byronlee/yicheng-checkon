@@ -20,6 +20,9 @@ group :test do
   gem 'simplecov', :require => false
 end
 
+group :development do 
+  gem "debugger"
+end
 
 HOST_OS = RbConfig::CONFIG['host_os']
 case HOST_OS
