@@ -15,6 +15,6 @@ class User
   end
 
   def attend_depts
-   Webservice.get_data("/attend/tree/"+@id)
+    Webservice.get_data("/attend/tree/"+@id)
   end
 end
