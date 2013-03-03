@@ -1,8 +1,8 @@
-
-.title
-  .content
-    strong 对 <font color=red> #{@resource[:dept_name]}</font> 组进行考勤 
 = form_for( Record.new ) do |f|
+  .title
+    .content
+      strong 登记：<font color=red> #{@resource[:dept_name]}</font> ，#{FormatDate @resource[:time]}
+    = f.submit "保存", :disable_with => "请稍等.." ,:class =>"title_pull_right btn-primary"
   table.table.table-bordered
       thead
         tr
@@ -21,4 +21,4 @@
                     =  render "common/attend_options", :resource => "record[#{user.id}][#{unit.id}]" ,:unit_name => unit.name
             
   input type="hidden" name="time" value=@resource[:time]
-  = f.submit "保存" , :disable_with => "请稍等.."
+

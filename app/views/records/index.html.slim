@@ -9,14 +9,17 @@
       - if @tasks
         - @tasks.each do |task| 
           tr
-            td
-              span = task[:attend_date].to_date
-              span 对
+            td 
               font color="red" = task[:dept_name]
-              span 考勤
             td
-              a href="/records/fast_register?dept_id=#{task[:dept_id]}&behave_id=#{Behave.default.id}&time=#{task[:attend_date].to_date}" 所有人全勤
+              = FormatDate task[:attend_date]
             td
-              a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date].to_date}&dept_name=#{task[:dept_name]}" 考勤
+             button class="btn btn-small btn-primary" type="button"
+              i class="icon-plus"
+              a href="/records/fast_register?dept_id=#{task[:dept_id]}&behave_id=#{Behave.default.id}&time=#{task[:attend_date]}" 所有人全勤
+            td
+
+              a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" 考勤登记 
+              i class="icon-fast-forward"  
 - else
   = render "common/no_task"

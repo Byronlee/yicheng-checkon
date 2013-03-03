@@ -1,0 +1,41 @@
+
+div[class=title]{
+  border-bottom: 2px solid #D9EDF7;
+  margin-bottom: 15px;
+
+  div[class=content]{
+    padding: 0px 5px 0px 5px;
+    width:168px;
+    border-bottom: 8px solid #D9EDF7;
+ }
+  input[name=commit]{
+   float: right; 
+   margin: -30px 201px 0 0;
+  }
+}
+
+p[class=no_task]{
+ font-size: 21px;
+ color: #999;
+ margin-top: 115px;
+ margin-left:50px;
+}
+
+
+.table{
+   th{text-align: center;}
+   td{
+   text-align: center;
+   padding: 6px;
+   line-height: 28px;
+   button  a{  color: #fff;  }
+   a:hover { text-decoration: none; }
+   form{
+     margin: 0 0 0px  ;
+
+    select{
+      margin-bottom: 0px;
+    }
+   }
+}
+}
