@@ -6,18 +6,16 @@
   table.table.table-bordered
       thead
         tr
-          th 店组
           th 员工编号
-          th 职位
           th 姓名
+          th 职位
           th 填报考勤
         - if @resource[:users]
           - @resource[:users].each  do |user|
             tr
-              td = user.dept_name
               td = user.user_no
-              td 见习经济人
               td = user.username
+              td 见习经济人
               td
                  -  CheckUnit.all.map do  |unit|
                     =  render "common/attend_options", :resource => "record[#{user.id}][#{unit.id}]" ,:unit_name => unit.name

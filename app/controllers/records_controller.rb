@@ -8,7 +8,7 @@ class RecordsController < ApplicationController
   def index
     if @records.any?
      #  debugger 
-       @tasks= (@records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date.to_s} }
+      @tasks= (@records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date} }
                ).uniq.map do |task|
              {dept_id: task[:dept_id], attend_date: task[:attend_date] ,dept_name: Department.new(task[:dept_id]).name}
       end 
@@ -37,11 +37,11 @@ class RecordsController < ApplicationController
 
   def fast_register
     dept_id = params[:dept_id]
-    # behave_id  = params[:behave_id]
-    behave_id  = "513231f91229bce4fc00000a"
+    behave_id  = params[:behave_id]
     Department.new(dept_id).users.map do | user |
       record =  Record.get_record user.id,params[:time]
       record.checkins.update_all(behave: behave_id)
+      record.register
     end
     redirect_to root_url
   end
