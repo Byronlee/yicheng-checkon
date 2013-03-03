@@ -7,7 +7,7 @@ class RecordsController < ApplicationController
  # 根据 考勤日期和 部门，返回 那些部门的考勤没有注册
   def index
     if @records.any?
-      @tasks= (@records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date.to_s} }
+      @tasks= (@records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date} }
                ).uniq.map do |task|
                 {dept_id: task[:dept_id], attend_date: task[:attend_date] ,dept_name: Department.new(task[:dept_id]).name}
       end 
