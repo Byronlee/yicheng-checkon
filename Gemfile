@@ -20,6 +20,9 @@ group :test do
   gem 'simplecov', :require => false
 end
 
+group :development do 
+  gem "debugger"
+end
 
 HOST_OS = RbConfig::CONFIG['host_os']
 case HOST_OS
@@ -45,7 +48,7 @@ gem "mongoid", "3.0.18"
 gem "bson_ext",'1.8.2'
 #gem "mongoid_session_store"
 #gem "mongo_session_store"
-
+gem "mongo_session_store-rails3"
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -62,3 +65,4 @@ gem 'rocket_pants', '1.6.1'
 gem 'ruote'
 gem 'ruote-mon'
 gem 'state_machine'
+gem 'cancan'

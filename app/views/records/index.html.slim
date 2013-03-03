@@ -21,8 +21,7 @@
                    =  render "common/attend_options", :resource => "record[#{task[:dept_id]}[#{unit.id}]" ,:unit_name => unit.name
                 input type="hidden" name="record[time]" value=task[:attend_date]
                 button class="btn  btn-primary  btn-mini" type="submit"  style=" float: right;  margin-right:50px;" 保存
-
-
+                a href="/records/fast_register?dept_id=#{task[:dept_id]}&behave_id=#{Behave.default.id}&time=#{task[:attend_date].to_date}" 所有人全勤
             td
               a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date].to_date}&dept_name=#{task[:dept_name]}" 进入考勤
 - else

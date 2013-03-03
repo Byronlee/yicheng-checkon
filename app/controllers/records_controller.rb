@@ -28,16 +28,22 @@ class RecordsController < ApplicationController
     params[:record].each do | user_id , checks|
       record =  Record.get_record user_id,params[:time]
       checks.map do |unit_id,behave_id|
-        @checkins << { checkunit_id: unit_id,behave:behave_id  }
+        record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave , behave_id)
       end
-      record.update_checkins @chenckins
       record.register
     end
-    redirect_to records_path
+    redirect_to root_url
   end
 
   def fast_register
-    redirect_to records_path
+    dept_id = params[:dept_id]
+    # behave_id  = params[:behave_id]
+    behave_id  = "513231f91229bce4fc00000a"
+    Department.new(dept_id).users.map do | user |
+      record =  Record.get_record user.id,params[:time]
+      record.checkins.update_all(behave: behave_id)
+    end
+    redirect_to root_url
   end
 
   def show
@@ -48,11 +54,12 @@ class RecordsController < ApplicationController
     if params[:option]=="yes"
       current_user.attend_depts["children"].map do | dept | 
          Department.new(dept["id"]).users.map do | user |
-          Record.create(staffid: user.id, attend_date: Time.now.to_date ,record_person: current_user.username, record_zone: dept["name"])
+          # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug
+          Record.find_or_create_by(staffid: user.id, attend_date: Time.now.to_date ,record_person: current_user.username, record_zone: dept["name"])
         end
       end
     end
-    redirect_to records_path
+    redirect_to root_url
   end
 
   private 
