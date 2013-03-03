@@ -8,6 +8,7 @@ class Record
   field :record_zone , type: String
   field :attend_date , type: String
 
+  index({state: 1}) 
   has_many :checkins
 
  # field :period, type: Date
@@ -36,7 +37,7 @@ class Record
   end
 
   def self.state state
-    where(state: state)
+    where(state: state).sort({state: 1})
   end
 
   def self.get_record id,time
