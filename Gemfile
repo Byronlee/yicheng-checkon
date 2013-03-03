@@ -38,11 +38,6 @@ case HOST_OS
     gem 'rb-notifu', :group =>:development
 end
 
-
-
-
-
-gem 'debugger'
 gem 'whenever'
 gem "mongoid", "3.0.18"
 gem "bson_ext",'1.8.2'

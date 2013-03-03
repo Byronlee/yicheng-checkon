@@ -12,6 +12,7 @@ class RecordsController < ApplicationController
                ).uniq.map do |task|
              {dept_id: task[:dept_id], attend_date: task[:attend_date] ,dept_name: Department.new(task[:dept_id]).name}
       end 
+    @tasks = sort_by_dept_name
     end
   end
 
@@ -63,7 +64,14 @@ class RecordsController < ApplicationController
   end
 
   private 
-   def initialize_records
+    def initialize_records
       @records = Record.state('checking')
-   end
+    end
+
+  private
+    def sort_by_dept_name
+      @tasks.sort_by do |dept|
+        dept[:dept_name]
+      end
+    end
 end

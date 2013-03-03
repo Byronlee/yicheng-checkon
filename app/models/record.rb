@@ -37,7 +37,7 @@ class Record
   end
 
   def self.state state
-    where(state: state).sort({state: 1})
+    where(state: state)
   end
 
   def self.get_record id,time
