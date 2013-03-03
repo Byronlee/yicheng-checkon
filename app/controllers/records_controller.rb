@@ -36,11 +36,11 @@ class RecordsController < ApplicationController
 
   def fast_register
     dept_id = params[:dept_id]
-    # behave_id  = params[:behave_id]
-    behave_id  = "513231f91229bce4fc00000a"
+    behave_id  = params[:behave_id]
     Department.new(dept_id).users.map do | user |
       record =  Record.get_record user.id,params[:time]
       record.checkins.update_all(behave: behave_id)
+      record.register
     end
     redirect_to root_url
   end
