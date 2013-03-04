@@ -7,4 +7,6 @@ class Checkin
 
 # validates_presence_of :record, :check_unit, :behave
 # validates_uniqueness_of :check_unit, scope: [:record]
+  
+  
 end

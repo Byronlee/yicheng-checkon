@@ -11,6 +11,8 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 *.swp
+/app/models/*_old.rb
+
 
 # Ignore all logfiles and tempfiles.
 /log/*.log

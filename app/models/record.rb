@@ -47,4 +47,8 @@ class Record
   def update_checkins attrs
     checkins.update_attributes attrs
   end
+
+  def self.cal_period(num)
+    Record.all.keep_if { |e| (Date.today - e.created_at.to_date).to_i == num  }
+  end
 end

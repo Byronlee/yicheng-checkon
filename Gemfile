@@ -51,6 +51,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+
 gem "patron"
 gem "rubycas-client", "2.3.9"
 gem 'jquery-rails',"2.1.4"
