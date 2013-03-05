@@ -4,7 +4,7 @@ class CountsController < ApplicationController
 	
   def index
     counts = Count.addup
-    if counts.any?
+    if counts.empty?
       @stats = counts.map do |count|
         user = User.new(count["staffid"])
         behaves = Hash.new.replace(@init)
@@ -13,6 +13,7 @@ class CountsController < ApplicationController
         end
         {user_no: user.user_no , username: user.username , behaves: behaves }
       end
+      sort_by_user_no
     end
   end
 
@@ -20,6 +21,12 @@ class CountsController < ApplicationController
     def init_behaves
       @init = Behave.all.inject({}) do |bh ,value|
         bh.merge({value.name => 0})
+      end
+    end
+
+    def sort_by_user_no
+      @stats.sort_by do |s|
+        s[:user_no]
       end
     end
 end

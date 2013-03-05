@@ -1,7 +1,7 @@
 - if @tasks
   .title
     .content
-      strong 未完成考勤任务共 <font color=red >#{@tasks.count}</font> 个
+      strong = t("view.records.index.unfinished_tasks" ,count: @tasks.count)
     a href="#" style="float: right; margin-top:-20px" 更多
 
   .bs-docs
@@ -19,7 +19,7 @@
               a href="/records/fast_register?dept_id=#{task[:dept_id]}&behave_id=#{Behave.default.id}&time=#{task[:attend_date]}" 所有人全勤
             td
 
-              a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" 考勤登记 
+              a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" = t("view.records.index.register") 
               i class="icon-fast-forward"  
 - else
   = render "common/no_task"
