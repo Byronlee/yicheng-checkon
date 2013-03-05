@@ -13,7 +13,6 @@ class CountsController < ApplicationController
         end
         {user_no: user.user_no , username: user.username , behaves: behaves }
       end
-      sort_by_user_no
     end
   end
 
