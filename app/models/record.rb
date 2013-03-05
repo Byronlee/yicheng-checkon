@@ -34,7 +34,9 @@ class Record
     if checkins.count == 0
       CheckUnit.all.each do |unit|
      # record.checkins << Checkin.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
+     
        record.checkins.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
+   #     record.checkins.create!( check_unit_id: unit.id, behave_id: "全勤" )
       end
     end
   end
@@ -51,9 +53,6 @@ class Record
     checkins.update_attributes attrs
   end
 
-  def self.cal_period(num)
-    Record.all.keep_if { |e| (Date.today - e.created_at.to_date).to_i == num  }
-  end
 
 
   def self.get_records_by_period first,last

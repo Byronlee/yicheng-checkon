@@ -17,7 +17,7 @@ class RecordsController < ApplicationController
     params[:record].each do | user_id , checks|     # key 表示user_id value 是一个hash，他的key表示check_unit,value表示behave
       record =  Record.get_record user_id,params[:time]
       checks.map do |unit_id,behave_id|
-        record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave , behave_id)
+        record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
       end
       record.register
     end
