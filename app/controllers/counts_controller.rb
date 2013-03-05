@@ -1,19 +1,25 @@
 # -*- coding: utf-8 -*-
 class CountsController < ApplicationController
+  before_filter :behave_init , only: [:index]
+
   def index
 
-    behaves = Behave.all.inject({}) do |h ,value|
-      h.merge({value.name => 0})
-    end
     @stats = Count.addup.map do |count|
-      
       user = User.new(count["staffid"])
+      h = ""
+      h = behave_init
       count["result"].map do | behave_id , num |
-        behaves["#{Behave.find(behave_id).name}"] = num         
+        h["#{Behave.find(behave_id).name}"] = num         
       end
 
-      {user_no: user.user_no , username: user.username , behaves: behaves }
+      {user_no: user.user_no , username: user.username , behaves: h }
       
+    end
+  end
+
+  def behave_init
+    @init = Behave.all.inject({}) do |h ,value|
+      h.merge({value.name => 0})
     end
   end
 end
