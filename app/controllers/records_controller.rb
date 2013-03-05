@@ -54,7 +54,7 @@ class RecordsController < ApplicationController
   private 
     def initialize_records
       @records_not_register = Record.state('checking')
-      @records_today_registered = Record.get_records_by_period_and_state Date.today-1,Date.today+1,"registered"
+      @records_today_registered = Record.by_period_and_state Date.today-1,Date.today+1,"registered"
     end
     
     def initialize_tasks

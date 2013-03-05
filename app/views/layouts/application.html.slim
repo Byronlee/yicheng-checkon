@@ -3,7 +3,7 @@ html
   head
     meta charset="UTF-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
-    title 伊诚考勤
+    title = t("system_name") 
     meta name="author" content="Byronlee and simlegate"
     = stylesheet_link_tag  :application, :recursive => true
     = javascript_include_tag :application,:recursive => true
@@ -11,14 +11,14 @@ html
   body
     .navbar-inverse.navbar.navbar-fixed-top
       .navbar-inner
-        a.brand   伊诚考勤
+        a.brand = t("view.layouts.application.title")
         ul.nav
           li.active
-            a 首页
+            a = t("view.layouts.application.home")
           li
-            a 关于
+            a = t("view.layouts.application.about")
           li
-            a 联系
+            a = t("view.layouts.application.contact")
         p.navbar-text.pull-right 2013年1月1号　12:34:32
     .container-fluid
       .row-fluid

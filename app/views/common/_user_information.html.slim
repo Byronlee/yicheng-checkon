@@ -1,18 +1,18 @@
 .alert.alert-info
   table
     tr
-      td 你的位置：/东南区/红河区　　
-      td 职位：文员　
+      td = t("view.common.user_info.your_place",place: "/东南区/红河区")
+      td = t("view.common.user_info.position",pos: "文员")
       td
-        span 姓名：
+        span = t("view.common.user_info.name") 
         span = current_user.username
       td
-        span 　　工号：
+        span = t("view.common.user_info.nu") 
         span = current_user.user_no
       td
-        span　 是否对今天考勤:　　
+        span = t("view.common.user_info.is_register") 
         button(class="btn btn-small btn-primary" type="button")
-         a(style="color:#fff"  href="/records/whether_checkin?option=yes") 是
+         a(style="color:#fff"  href="/records/whether_checkin?option=yes") = t("view.common.user_info.good")   
         span 　　
         button(class="btn btn-small btn-primary" type="button")
-          a 否
+          a = t("view.common.user_info.bad")

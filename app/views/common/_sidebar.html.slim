@@ -4,7 +4,7 @@
       .accordion-heading
         a.accordion-toggle data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"
           i.icon-plus
-          span &nbsp;考勤系统
+          span = t("system_name")
       #collapseOne.accordion-body.collapse.in
         .accordion-inner
           ul style="list-style:none;line-height: 18px"
@@ -12,15 +12,16 @@
               a href="#"
                 i.icon-chevron-right
                 span
-                  a href=records_path &nbsp;待办事务
+                  a href=records_path = t("sidebar_task")
 
             li
               a href="#"
                 i.icon-chevron-right
                 span
-                  a href="/records/update" &nbsp;修改考勤
+                  a href="/records/update" = t("sidebar_update")
+
             li
               a href="#"
                 i.icon-chevron-right
                 span
-                  a href="/counts/index" &nbsp;月度统计表
+                  a href="/counts" = t("sidebar_count")

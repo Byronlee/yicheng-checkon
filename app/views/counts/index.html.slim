@@ -1,10 +1,10 @@
 .title
   .content
-    strong 伊诚公司2013年3月考勤统计表
+    strong = t("view.counts.index.header")
 table class="table table-condensed"
   tr
-    th 工号
-    th 姓名
+    th = t("view.counts.index.count_header.nu")
+    th = t("view.counts.index.count_header.name")
     - Behave.all.map do | bh|
       th = bh.name   
   - if @stats
