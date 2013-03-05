@@ -24,7 +24,7 @@ class Count
     end
   
     def addup
-      Record.get_records_by_period("2013-03-01","2013-03-06").map_reduce(map,reduce).out(replace: "mr_results").map do | document |
+      Record.get_records_by_period_and_state("2013-03-01","2013-03-06","registered").map_reduce(map,reduce).out(replace: "mr_results").map do | document |
         result = document["value"]["ids"].inject(Hash.new(0)) do |h,v|
           h[v.to_s] += 1
           h

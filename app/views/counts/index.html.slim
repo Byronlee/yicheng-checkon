@@ -7,7 +7,7 @@ table class="table table-condensed"
     th 姓名
     - Behave.all.map do | bh|
       th = bh.name   
-  - if @stats.any?
+  - if @stats
     - @stats.map do |stat|
       tr 
         td = stat[:user_no]

@@ -19,7 +19,7 @@ class CountsController < ApplicationController
   private 
     def init_behaves
       @init = Behave.all.inject({}) do |bh ,value|
-        bh.merge({value.name => 0})
+        bh.merge({value.name => ""})
       end
     end
 end

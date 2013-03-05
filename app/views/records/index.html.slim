@@ -7,19 +7,8 @@
   .bs-docs
     table.table.table-bordered
       - if @tasks
-        - @tasks.each do |task| 
-          tr
-            td 
-              font color="red" = task[:dept_name]
-            td
-              = FormatDate task[:attend_date]
-            td
-             button class="btn btn-small btn-primary" type="button"
-              i class="icon-plus"
-              a href="/records/fast_register?dept_id=#{task[:dept_id]}&behave_id=#{Behave.default.id}&time=#{task[:attend_date]}" 所有人全勤
-            td
-
-              a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" 考勤登记 
-              i class="icon-fast-forward"  
+        = render "common/table_tasks_tr" , :resource => {:tasks => @tasks}
+      - if @tasks_finished
+        = render "common/table_tasks_tr" , :resource => {:tasks => @tasks_finished , :type => "finished" }
 - else
   = render "common/no_task"
