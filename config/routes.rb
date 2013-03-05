@@ -1,4 +1,5 @@
 Attendance::Application.routes.draw do
+
   get "counts/index"
 
   resources :records do

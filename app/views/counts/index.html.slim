@@ -1,2 +1,14 @@
-h1 Counts#index
-p Find me in app/views/counts/index.html.slim
+
+table class="table table-condensed"
+  tr
+    th 工号
+    th 姓名
+    - Behave.all.map do | bh|
+      th = bh.name   
+  - if @stats.any?
+    - @stats.map do |stat|
+      tr 
+        td = stat[:user_no]
+        td = stat[:username]
+        - stat[:behaves].map do |k ,v|
+          td = v

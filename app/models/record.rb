@@ -56,7 +56,7 @@ class Record
   end
 
 
-  def self.get_record_by_period first,last
+  def self.get_records_by_period first,last
     where(attend_date: {"$gte"=>first, "$lte"=>last})
   end
 

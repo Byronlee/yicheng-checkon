@@ -2,7 +2,7 @@
 class RecordsController < ApplicationController
 
   before_filter :initialize_records, :initialize_tasks , only: [:index]
-  before_filter :current_user
+
 
 
   def new
