@@ -1,7 +1,7 @@
 - if @tasks
   .title
     .content
-      strong 未完成考勤任务共 <font color=red >#{@tasks.count}</font> 个
+      strong = t("view.records.index.unfinished_tasks" ,count: @tasks.count)
     a href="#" style="float: right; margin-top:-20px" 更多
 
   .bs-docs

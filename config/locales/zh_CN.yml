@@ -1,0 +1,6 @@
+zh_CN:
+  view:
+    records:
+      index:
+        unfinished_tasks: 未完成考勤任务共%{count}个
+        register: 考勤登记
