@@ -19,13 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
-job_type :runner, 'cd /home/simlegate/workspace/yicheng-checkon && rails runner -e :environment ":task"'
+job_type :runner, 'cd /home/simlegate/workspace/yicheng-checkon && /home/simlegate/.rvm/gems/ruby-1.9.3-p374/bin/rails runner -e :environment ":task"'
 
-
-
-every 1.minute do
-  command "echo 'one' && echo 'two'"
-end
 
 every 1.minute  do
   runner "Record.whenever_add", :environment => :development 

@@ -41,6 +41,10 @@ class Record
     end
   end
 
+  def self.whenever_add
+    create!
+  end
+
   def self.state state
     where(state: state)
   end
@@ -55,8 +59,8 @@ class Record
 
 
 
-  def self.by_period first,last
-    where(attend_date: {"$gte"=>first, "$lte"=>last} , state:"registered")
+  def self.by_period_and_state first,last,state
+    where(attend_date: {"$gte"=>first, "$lte"=>last} , state: state)
   end
 
 end

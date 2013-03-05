@@ -28,10 +28,9 @@ class RecordsController < ApplicationController
 
   def fast_register
     dept_id = params[:dept_id]
-    behave_id  = params[:behave_id]
     Department.new(dept_id).users.map do | user |
       record =  Record.get_record user.id,params[:time]
-      record.checkins.update_all(behave: behave_id)
+      record.checkins.update_all(behave_id: Behave.default.id)
       record.register
     end
     redirect_to root_url
@@ -54,23 +53,28 @@ class RecordsController < ApplicationController
 
   private 
     def initialize_records
-      @records = Record.state('checking')
+      @records_not_register = Record.state('checking')
+      @records_today_registered = Record.get_records_by_period_and_state Date.today-1,Date.today+1,"registered"
     end
     
-   
-    def initialize_tasks       # 根据 考勤日期和 部门，返回 那些部门的考勤没有注册
-      if @records.any?
-         #  debugger 
-         @tasks= (@records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date} }).uniq.map do |task|
+    def initialize_tasks
+      @tasks = get_tasks @records_not_register   # 根据 考勤日期和 部门，返回 那些部门的考勤没有注册
+      @tasks_finished = get_tasks @records_today_registered   # 找到今天完成的考勤任务
+    end
+
+
+    def get_tasks  records
+      if records
+         tasks= (records.map{ |record| { :dept_id => User.new(record.staffid).dept_id, :attend_date => record.attend_date} }).uniq.map do |task|
           {dept_id: task[:dept_id], attend_date: task[:attend_date] ,dept_name: Department.new(task[:dept_id]).name}
         end 
-         @tasks =  sort_by_dept_name
+        sort_by_dept_name tasks
       end
     end
 
 
-    def sort_by_dept_name
-      @tasks.sort_by do |dept|
+    def sort_by_dept_name tasks
+      tasks.sort_by do |dept|
         dept[:dept_name]
       end
     end
