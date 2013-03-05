@@ -11,8 +11,8 @@ class Record
   attr_accessor :checks 
 
   index({state: 1}) 
-  has_many :checkins
-
+ #has_many :checkins
+  embeds_many :checkins
  # field :period, type: Date
 
   state_machine initial: :checking do
@@ -33,7 +33,8 @@ class Record
   after_create do |record|
     if checkins.count == 0
       CheckUnit.all.each do |unit|
-        record.checkins << Checkin.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
+     # record.checkins << Checkin.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
+       record.checkins.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
       end
     end
   end
@@ -55,9 +56,8 @@ class Record
   end
 
 
- 
-  # def << arry
-  #   self.checkins = arry
-  # end
+  def self.get_record_by_period first,last
+    where(attend_date: {"$gte"=>first, "$lte"=>last})
+  end
 
 end

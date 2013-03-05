@@ -39,11 +39,11 @@ case HOST_OS
 end
 
 gem 'whenever'
-gem "mongoid", "3.0.18"
-gem "bson_ext",'1.8.2'
+gem "mongoid"
+gem "bson_ext"
 #gem "mongoid_session_store"
 #gem "mongo_session_store"
-gem "mongo_session_store-rails3"
+#gem "mongo_session_store-rails3"
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
