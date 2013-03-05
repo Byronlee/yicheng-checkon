@@ -3,6 +3,7 @@ class Checkin
 
  # belongs_to :record
   embedded_in :record
+
   belongs_to :check_unit
   belongs_to :behave
 
