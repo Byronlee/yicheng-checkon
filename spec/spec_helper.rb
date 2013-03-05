@@ -49,5 +49,5 @@ end
 
 
 def login 
-  CASClient::Frameworks::Rails::Filter.fake("admin")
+  CASClient::Frameworks::Rails::Filter.fake("admin",{:user => "wo"})
 end
