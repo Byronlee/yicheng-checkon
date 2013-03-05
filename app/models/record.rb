@@ -8,6 +8,8 @@ class Record
   field :record_zone , type: String
   field :attend_date , type: String
 
+  attr_accessor :checks 
+
   index({state: 1}) 
   has_many :checkins
 
@@ -51,4 +53,11 @@ class Record
   def self.cal_period(num)
     Record.all.keep_if { |e| (Date.today - e.created_at.to_date).to_i == num  }
   end
+
+
+ 
+  # def << arry
+  #   self.checkins = arry
+  # end
+
 end
