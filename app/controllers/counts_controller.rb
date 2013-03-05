@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 class CountsController < ApplicationController
-
+  before_filter :init_behaves , only: [:index]
+	
   def index
     counts = Count.addup
     if counts.any?
       @stats = counts.map do |count|
         user = User.new(count["staffid"])
-        behaves = init_behaves
+        behaves = Hash.new.replace(@init)
         count["result"].map do | behave_id , num |
           behaves["#{Behave.find(behave_id).name}"] = num         
         end
@@ -17,7 +18,7 @@ class CountsController < ApplicationController
 
   private 
     def init_behaves
-      Behave.all.inject({}) do |bh ,value|
+      @init = Behave.all.inject({}) do |bh ,value|
         bh.merge({value.name => 0})
       end
     end
