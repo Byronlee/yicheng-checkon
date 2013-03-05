@@ -1,0 +1,24 @@
+- if resource[:tasks]
+  - resource[:tasks].each do |task| 
+    tr
+      td 
+        - if resource[:type]=="finished"
+          font color="green" = task[:dept_name]
+        - else
+          font color="red" = task[:dept_name]
+      td
+        = FormatDate task[:attend_date]
+      td
+        - if resource[:type]=="finished"
+          button class="btn btn-small" type="button"
+            i class="icon-plus"
+            a href="/records/fast_register?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}" 所有人全勤
+        - else
+          button class="btn btn-small btn-primary" type="button"
+            i class="icon-plus"
+            a href="/records/fast_register?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}" 所有人全勤
+
+      td
+        a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" 考勤登记 
+        i class="icon-fast-forward"  
+
