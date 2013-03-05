@@ -5,7 +5,7 @@ div[class=title]{
 
   div[class=content]{
     padding: 0px 5px 0px 5px;
-    width:168px;
+    width:250px;
     border-bottom: 8px solid #D9EDF7;
  }
   input[name=commit]{
@@ -32,10 +32,9 @@ p[class=no_task]{
    a:hover { text-decoration: none; }
    form{
      margin: 0 0 0px  ;
-
-    select{
-      margin-bottom: 0px;
-    }
+   }  
+   select{
+     margin-bottom: 0px;
    }
 }
 }
