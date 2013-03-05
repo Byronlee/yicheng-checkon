@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
    @current_user = User.new("4028809b3c6fbaa7013c6fbc3db41bc3")
   end
 
+
   def logout
     CASClient::Frameworks::Rails::Filter.logout(self)
   end
