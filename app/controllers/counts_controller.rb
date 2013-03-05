@@ -3,17 +3,13 @@ class CountsController < ApplicationController
   before_filter :behave_init , only: [:index]
 
   def index
-
     @stats = Count.addup.map do |count|
       user = User.new(count["staffid"])
-      h = ""
-      h = behave_init
+      h = Hash.new.replace(@init)
       count["result"].map do | behave_id , num |
         h["#{Behave.find(behave_id).name}"] = num         
       end
-
       {user_no: user.user_no , username: user.username , behaves: h }
-      
     end
   end
 
