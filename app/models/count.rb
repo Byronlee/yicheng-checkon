@@ -32,5 +32,14 @@ class Count
         Count.find_or_create_by(staffid: document["_id"],result: result) 
       end
     end
+
+
+#    Record.where(staffid: "4028809b3c6fbaa7013c6fbc3da51b70").first.checkins.map_reduce(map,reduce).out(replace: "results").each do | document |
+#      p document
+#    end
   end
+
+
+
+
 end
