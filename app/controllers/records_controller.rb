@@ -4,9 +4,17 @@ class RecordsController < ApplicationController
   before_filter :initialize_records, :initialize_tasks , only: [:index]
 
   def new
-    @resource ={dept_name: params[:dept_name] ,
-                time: params[:time],
-                users: Department.new(params[:dept_id]).users }
+    time = params[:time]
+    users =  Department.new(params[:dept_id]).users
+    users.each do |user|
+      behaves = Record.get_record user.id,time
+      user.instance_variable_set(:@behaves,behaves.checkins)
+    end
+    @resource ={
+      dept_name: params[:dept_name] ,
+      time: time,
+      users: users
+     }
   end
 
   def create
