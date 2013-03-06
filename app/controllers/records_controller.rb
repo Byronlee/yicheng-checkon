@@ -3,8 +3,6 @@ class RecordsController < ApplicationController
 
   before_filter :initialize_records, :initialize_tasks , only: [:index]
 
-
-
   def new
     @resource ={dept_name: params[:dept_name] ,
                 time: params[:time],

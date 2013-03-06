@@ -4,7 +4,7 @@ class CountsController < ApplicationController
 	
   def index
     counts = Count.addup
-    if counts.empty?
+    unless counts.empty?
       @stats = counts.map do |count|
         user = User.new(count["staffid"])
         behaves = @init.clone
@@ -13,6 +13,8 @@ class CountsController < ApplicationController
         end
         {user_no: user.user_no , username: user.username , behaves: behaves }
       end
+      @stats = sort_by_user_no
+      debugger
     end
   end
 
