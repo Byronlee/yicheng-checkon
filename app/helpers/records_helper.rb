@@ -21,10 +21,13 @@ module RecordsHelper
   def generate_selects default,select_name
     default = default || Behave.default.id
     str_over = Behave.all.inject("") do |str,behave|
-      selected = { :selected => "selected" } if behave.id == default
-      str <<  content_tag(:option,behave.name , selected , value: behave.id)
+      if behave.id == default 
+        str << content_tag(:option,behave.name,selected: "selected",value: behave.id)
+      else
+        str << content_tag(:option,behave.name,value: behave.id)
+      end
     end
-    content_tag :select,str_over.html_safe,class: "span3"
+    content_tag :select,str_over.html_safe,class: "span3",name: select_name
   end
 
   def generate_unit_selects user
