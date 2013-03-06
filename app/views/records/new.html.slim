@@ -18,7 +18,8 @@
         - if @resource[:users]
           - @resource[:users].each_with_index  do |user,index|
             tr
-              td = index+1
+              td 
+                span class="badge" = index+1
               td = user.user_no
               td 见习经济人
               td = user.username

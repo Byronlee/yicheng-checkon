@@ -2,7 +2,7 @@
 zh_CN:
   system_name: 考勤系统
   sidebar_task: 待办事务
-  sidebar_update: 修改考勤
+  sidebar_update: 申请修改
   sidebar_count: 月度统计表
   view:
     records:
@@ -11,7 +11,7 @@ zh_CN:
         unit: 个
         more: 更多
       new:
-        register: "登记:"
+        register: 登记：
         save: 保存
         waiting: 请稍等..
         table_header:
@@ -24,16 +24,17 @@ zh_CN:
       user_info:
         good: 是
         bad: 否
-        your_place: 你的职位:%{place}
-        position: 职位:%{pos}
-        name: "姓名:"
-        nu: "工号:"
-        is_register: "是否对今天进行考勤:"
+        your_place: 你的位置：
+        position: 职位：
+        name: 姓名：
+        nu: 工号：
+        is_register: 是否对今天进行考勤：
       no_task:
         no_task_tip: 目前没有需要您来处理在任务呢
       table_tasks_tr:
         all_work: 所有人出勤
         register: 考勤登记
+        registered: 修改考勤
     counts:
       index:
         header: 伊诚公司2013年3月考勤统计表

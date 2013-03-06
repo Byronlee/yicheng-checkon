@@ -7,7 +7,7 @@ class CountsController < ApplicationController
     if counts.empty?
       @stats = counts.map do |count|
         user = User.new(count["staffid"])
-        behaves = Hash.new.replace(@init)
+        behaves = @init.clone
         count["result"].map do | behave_id , num |
           behaves["#{Behave.find(behave_id).name}"] = num         
         end

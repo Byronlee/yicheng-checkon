@@ -1,3 +1,12 @@
+table[class=user_infor]{
+ td{ padding-right: 30px;} 
+ span{padding-right: 5px;}
+
+}
+
+
+
+
 
 div[class=title]{
   border-bottom: 2px solid #D9EDF7;
@@ -14,6 +23,7 @@ div[class=title]{
   }
 }
 
+
 p[class=no_task]{
  font-size: 21px;
  color: #999;
@@ -28,7 +38,9 @@ p[class=no_task]{
    text-align: center;
    padding: 6px;
    line-height: 28px;
-   button  a{  color: #000;  }
+   span[class~=alert]{padding: 4px 18px; }
+   a{padding-right:5px}
+   button  a{  color: #000;  padding-right:0px;}
    a:hover { text-decoration: none; }
    form{
      margin: 0 0 0px  ;
