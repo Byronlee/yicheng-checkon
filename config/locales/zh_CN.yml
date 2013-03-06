@@ -46,3 +46,8 @@ zh_CN:
         home: 首页
         about: 关于
         contact: 联系
+  helper:
+    records:
+      today: 今天
+      yesterday: 昨天
+      before_yesterday: 前天

@@ -10,11 +10,11 @@ module RecordsHelper
  def FormatDate time
    case (Time.now.to_date - time.to_date)
    when 0
-     "今天"
+     t("helper.records.today")
    when 1
-     "昨天"
+     t("helper.records.yesterday")
    when 2
-     "前天"
+     t("helper.records.before_yesterday")
    else
      time
    end
