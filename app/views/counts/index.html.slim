@@ -12,5 +12,5 @@ table class="table table-condensed"
       tr 
         td = stat[:user_no]
         td = stat[:username]
-        - stat[:behaves].map do |k ,v|
+        - stat[:behaves].map do |_ ,v|
           td = v

@@ -12,7 +12,6 @@
         tr
           th = t("view.records.new.table_header.number")
           th = t("view.records.new.table_header.user_number")
-          th = t("view.records.new.table_header.position")
           th = t("view.records.new.table_header.name")
           th = t("view.records.new.table_header.register_attend")
         - if @resource[:users]
@@ -20,7 +19,6 @@
             tr
               td = index+1
               td = user.user_no
-              td 见习经济人
               td = user.username
               td
                  -  CheckUnit.all.map do  |unit|

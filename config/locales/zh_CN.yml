@@ -17,7 +17,6 @@ zh_CN:
         table_header:
           number: 序号
           user_number: 员工编号
-          position: 职位
           name: 姓名
           register_attend: 考勤填报
     common:
