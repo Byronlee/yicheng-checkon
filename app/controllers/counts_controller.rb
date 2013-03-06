@@ -14,7 +14,6 @@ class CountsController < ApplicationController
         {user_no: user.user_no , username: user.username , behaves: behaves }
       end
       @stats = sort_by_user_no
-      debugger
     end
   end
 
