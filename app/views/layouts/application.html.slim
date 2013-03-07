@@ -19,7 +19,9 @@ html
             a = t("view.layouts.application.about")
           li
             a = t("view.layouts.application.contact")
-        p.navbar-text.pull-right 2013年1月1号　12:34:32
+        p.navbar-text.pull-right 
+          span 当前时间：
+          span#time
     .container-fluid
       .row-fluid
         = render "common/sidebar"

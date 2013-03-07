@@ -37,7 +37,7 @@ case HOST_OS
     gem 'win32console', :group =>:development
     gem 'rb-notifu', :group =>:development
 end
-
+gem 'mongo'
 gem 'whenever'
 gem "mongoid"
 gem "bson_ext"

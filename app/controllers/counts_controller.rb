@@ -4,6 +4,7 @@ class CountsController < ApplicationController
 	
   def index
     counts = Count.addup
+#    debugger 
     unless counts.empty?
       @stats = counts.map do |count|
         user = User.new(count["staffid"])

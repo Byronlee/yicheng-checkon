@@ -1,11 +1,10 @@
-- if @tasks
+- if @tasks.any?
   .title
     .content
       strong = t("view.records.index.unfinished_tasks") 
       strong 
         font color="red" = @tasks.count
       strong = t("view.records.index.unit")
-    a href="#" style="float: right; margin-top:-20px" = t("view.records.index.more") 
 
   .bs-docs
     table.table.table-bordered
@@ -14,4 +13,4 @@
       - if @tasks_finished
         = render "common/table_tasks_tr" , :resource => {:tasks => @tasks_finished , :type => "finished" }
 - else
-  = render "common/no_task"
+  = render "common/no_content" , :message =>  t("view.common.no_message.no_task_tip")

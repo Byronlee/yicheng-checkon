@@ -1,16 +1,19 @@
-.title
-  .content
-    strong = t("view.counts.index.header")
-table class="table table-condensed"
-  tr
-    th = t("view.counts.index.count_header.nu")
-    th = t("view.counts.index.count_header.name")
-    - Behave.all.map do | bh|
-      th = bh.name   
-  - if @stats
-    - @stats.map do |stat|
-      tr 
-        td = stat[:user_no]
-        td = stat[:username]
-        - stat[:behaves].map do |_ ,v|
-          td = v
+- if @stats
+  .title
+    .content
+      strong = t("view.counts.index.header")
+  table class="table table-condensed table-bordered"
+    tr
+      th = t("view.counts.index.count_header.nu")
+      th = t("view.counts.index.count_header.name")
+      - Behave.all.map do | bh|
+        th = bh.name   
+    - if @stats
+      - @stats.map do |stat|
+        tr 
+          td = stat[:user_no]
+          td = stat[:username]
+          - stat[:behaves].map do |_ ,v|
+            td = v
+- else
+  = render "common/no_content" ,:message =>  t("view.common.no_content.no_count_tip")

@@ -28,8 +28,9 @@ zh_CN:
         name: 姓名：
         nu: 工号：
         is_register: 是否对今天进行考勤：
-      no_task:
+      no_content:
         no_task_tip: 目前没有需要您来处理在任务呢
+        no_count_tip: 目前还没有数据可以统计呢
       table_tasks_tr:
         all_work: 所有人出勤
         register: 考勤登记

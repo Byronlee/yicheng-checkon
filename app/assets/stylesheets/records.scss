@@ -24,11 +24,19 @@ div[class=title]{
 }
 
 
-p[class=no_task]{
+p[class=no_message]{
  font-size: 21px;
  color: #999;
  margin-top: 115px;
  margin-left:50px;
+}
+
+
+.table-bordered{
+ border: 0px;
+ th:first-child , td:first-child {
+ border-left:0px;
+}
 }
 
 

@@ -8,12 +8,9 @@ class Record
   field :record_zone , type: String
   field :attend_date , type: String
 
-  attr_accessor :checks 
-
   index({state: 1}) 
- #has_many :checkins
+
   embeds_many :checkins
- # field :period, type: Date
 
   state_machine initial: :checking do
     event :register do
@@ -26,8 +23,7 @@ class Record
     end
   end
 
- # validates_presence_of :period, :user
-#  validates_uniqueness_of :period, scope: [:user]
+
 
   # 自动生成本条记录的检查数据
   after_create do |record|
@@ -44,6 +40,7 @@ class Record
   def self.whenever_add
     create!
   end
+
 
   def self.state state
     where(state: state)
