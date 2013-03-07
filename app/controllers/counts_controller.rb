@@ -3,8 +3,7 @@ class CountsController < ApplicationController
   before_filter :init_behaves , only: [:index]
 	
   def index
-    counts = Count.addup
-#    debugger 
+    counts = Count.addup if Count.exists?
     unless counts.empty?
       @stats = counts.map do |count|
         user = User.new(count["staffid"])

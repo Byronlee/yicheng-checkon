@@ -22,8 +22,6 @@
               td = user.user_no
               td = user.username
               td
-                 -  CheckUnit.all.map do  |unit|
-                    =  render "common/attend_options", :resource => "record[#{user.id}][#{unit.id}]" ,:unit_name => unit.name
+                = raw(generate_unit_selects(user))
             
   input type="hidden" name="time" value=@resource[:time]
-
