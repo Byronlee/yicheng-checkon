@@ -11,8 +11,8 @@ job_type :runner, 'cd /home/simlegate/workspace/yicheng-checkon && rails runner 
 
 
 every :day, :at => '12:00pm' do
-    runner " RecordsController.new.default_everyday_records", :environment => :development 
-    runner " RecordsController.new.default_everyday_records", :environment => :production 
+    runner " Record.default_everyday_records", :environment => :development 
+    runner " Record.default_everyday_records", :environment => :production 
 end
 
 
