@@ -9,14 +9,17 @@ class Department
   end
 
   def resource
-    Webservice.get_data("/dept/id/"+id)
+    Webservice.get_data("dept/id/"+id)
   end
 
   def user_ids 
-    Webservice.get_data("/dept/users/"+id)
+    Webservice.get_data("dept/users/"+id)
+  end
+  def user_hashs
+    Webservice.get_data("dept/users1/"+id)
   end
 
   def users
-    user_ids.inject([]){|arry,user_id| arry << User.new(user_id)}
+    user_hashs.inject([]){|arry,user_id| arry << User.new(user_id)}
   end
 end
