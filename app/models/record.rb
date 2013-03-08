@@ -30,6 +30,7 @@ class Record
       end
     end
   end
+
   def self.state state
     where(state: state)
   end

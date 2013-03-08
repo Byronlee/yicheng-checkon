@@ -3,7 +3,6 @@ class RecordsController < ApplicationController
   before_filter :initialize_records, :initialize_tasks , only: [:index]
   caches_page :index
 
-
   def new
     time = params[:time]
     users =  Department.new(params[:dept_id]).users
