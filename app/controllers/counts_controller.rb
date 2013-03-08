@@ -3,17 +3,9 @@ class CountsController < ApplicationController
   before_filter :init_behaves , only: [:index]
 	
   def index
-    counts = Count.addup if Count.exists?
+    counts = Count.addup("2013-03-01","2013-04-01","registered")
     unless counts.empty?
-      @stats = counts.map do |count|
-        user = User.new(count["staffid"])
-        behaves = @init.clone
-        count["result"].map do | behave_id , num |
-          behaves["#{Behave.find(behave_id).name}"] = num         
-        end
-        {user_no: user.user_no , username: user.username , behaves: behaves }
-      end
-      @stats = sort_by_user_no
+     @stats = sort_by_field Count.counts_result(counts,@init),:user_no
     end
   end
 
@@ -21,12 +13,6 @@ class CountsController < ApplicationController
     def init_behaves
       @init = Behave.all.inject({}) do |bh ,value|
         bh.merge({value.name => ""})
-      end
-    end
-
-    def sort_by_user_no
-      @stats.sort_by do |s|
-        s[:user_no]
       end
     end
 end
