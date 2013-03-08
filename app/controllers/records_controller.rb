@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class RecordsController < ApplicationController
-
   before_filter :initialize_records, :initialize_tasks , only: [:index]
+  caches_page :index
 
 
   def new
@@ -26,7 +26,8 @@ class RecordsController < ApplicationController
       checks.map do |unit_id,behave_id|
         record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
       end
-      record.register
+    # record.register
+    record.update_attribute(:state,"registered")
     end
     redirect_to root_url
   end

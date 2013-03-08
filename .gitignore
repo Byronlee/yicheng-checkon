@@ -24,3 +24,5 @@ Gemfile.lock
 
 # Ignore SimpleCov reports
 /coverage
+
+/public/*
