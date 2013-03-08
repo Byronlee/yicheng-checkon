@@ -3,8 +3,7 @@ class CountsController < ApplicationController
   before_filter :init_behaves , only: [:index]
 	
   def index
-    counts = Count.addup("2013-03-01","2013-04-01","registered")
-    unless counts.empty?
+    unless Count.addup("2013-03-01","2013-04-01","registered").empty?
      @stats = sort_by_field Count.counts_result(counts,@init),:user_no
     end
   end

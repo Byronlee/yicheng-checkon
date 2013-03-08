@@ -30,6 +30,7 @@ class Record
       end
     end
   end
+
   def self.state state
     where(state: state)
   end
@@ -42,6 +43,7 @@ class Record
     where(attend_date: {"$gte"=>first, "$lte"=>last})
   end
 
+
   def self.fast_register arg
     Department.new(arg[:dept_id]).users.map do | user |
       record =  Record.get_record user.id,arg[:time]
@@ -49,6 +51,7 @@ class Record
       record.register
     end
   end
+
 
   def self.register arg
     arg[:record].each do | user_id , checks| 
@@ -59,4 +62,40 @@ class Record
     record.register
     end
   end
+
+
+  def self.get_tasks  records
+    if records
+      taskes = records.map do | record |
+        { dept_id: User.new(record.staffid).dept_id, 
+          attend_date: record.attend_date 
+        }
+      end
+      tasks = taskes.uniq.map do |task|
+        {  dept_id: task[:dept_id], 
+          attend_date: task[:attend_date] ,
+          dept_name: Department.new(task[:dept_id]).name
+        }
+      end 
+    end
+  end
+
+
+
+  def self.default_everyday_records 
+         current_user =  User.new("4028809b3c6fbaa7013c6fbc3db41bc3")
+         current_user.attend_depts["children"].map do | dept | 
+         Department.new(dept["id"]).users.map do | user |
+          # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug
+          Record.find_or_create_by(  staffid: user.id, 
+                                     attend_date: Time.now.to_date , 
+                                     record_person: current_user.username, 
+                                     record_zone: dept["name"]
+                                  )
+        end
+      end
+  end
+
+
+
 end

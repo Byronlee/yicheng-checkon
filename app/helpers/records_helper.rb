@@ -36,4 +36,9 @@ module RecordsHelper
       html_str << generate_selects(checkin.behave_id,"record[#{user.id}][#{checkin.check_unit_id}]")
     end
   end
+
+
+  def register_or_modify type
+    type=="finished" ? t("view.common.table_tasks_tr.registered") : t("view.common.table_tasks_tr.register")
+  end
 end
