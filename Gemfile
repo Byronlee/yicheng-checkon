@@ -47,10 +47,13 @@ gem "bson_ext"
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'anjlab-bootstrap-rails', '>= 2.2', :require => 'bootstrap-rails'
+  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  gem 'therubyracer'
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem "twitter-bootstrap-rails"
+gem 'asf-soap-adapter', :require =>'activerecord-activesalesforce-adapter'
 
 gem "patron"
 gem "rubycas-client", "2.3.9"

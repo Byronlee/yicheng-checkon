@@ -81,3 +81,13 @@ test:
         retry_interval: 0
 
 
+production:
+  sessions:
+    default:
+      database: attendance_production
+      hosts:
+        - localhost:27017
+      options:
+        consistency: :strong
+        max_retries: 1
+        retry_interval: 0
