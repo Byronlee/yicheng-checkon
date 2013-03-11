@@ -3,7 +3,6 @@ source 'http://ruby.taobao.org'
 ruby '1.9.3'
 gem 'rails'
 
-require 'rbconfig'
 group :test do
   gem 'turn', :require => false
   gem 'rspec-rails'
@@ -20,7 +19,7 @@ group :test do
   gem 'simplecov', :require => false
 end
 
-group :development do 
+group :development do
   gem "debugger"
 end
 
@@ -41,9 +40,7 @@ gem 'mongo'
 gem 'whenever'
 gem "mongoid", "~> 3.1.2"
 gem "bson_ext"
-#gem "mongoid_session_store"
-#gem "mongo_session_store"
-#gem "mongo_session_store-rails3"
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
