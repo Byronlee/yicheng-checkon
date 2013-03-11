@@ -4,7 +4,7 @@ class CountsController < ApplicationController
 	
   def index
     unless Count.addup("2013-03-01","2013-04-01","registered").empty?
-     @stats = sort_by_field Count.counts_result(counts,@init),:user_no
+     @stats = Count.counts_result(counts,@init).sort_by_field(:user_no)
     end
   end
 

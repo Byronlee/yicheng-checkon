@@ -39,7 +39,7 @@ case HOST_OS
 end
 gem 'mongo'
 gem 'whenever'
-gem "mongoid"
+gem "mongoid", "~> 3.1.2"
 gem "bson_ext"
 #gem "mongoid_session_store"
 #gem "mongo_session_store"

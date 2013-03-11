@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
     CASClient::Frameworks::Rails::Filter.logout(self)
   end
 
-  def sort_by_field value,field
-    value.sort_by do |v|
+  def sort_by_field field
+    sort_by! do |v|
       v[field]
     end
   end
