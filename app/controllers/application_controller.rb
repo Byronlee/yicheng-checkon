@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter CASClient::Frameworks::Rails::Filter
+# before_filter CASClient::Frameworks::Rails::Filter
   before_filter :current_user
 
   def current_user
