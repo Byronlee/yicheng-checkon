@@ -2,7 +2,7 @@
 zh_CN:
   system_name: 考勤系统
   sidebar_task: 待办事务
-  sidebar_update: 申请修改
+  sidebar_operate: 数据操作
   sidebar_count: 月度统计表
   view:
     records:
