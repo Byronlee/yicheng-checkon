@@ -27,7 +27,6 @@ class RecordsController < ApplicationController
     redirect_to root_url
   end
 
-
   private 
     def initialize_tasks 
       @tasks = sort_by_field(Record.get_tasks(Record.state('checking')),:dept_name)

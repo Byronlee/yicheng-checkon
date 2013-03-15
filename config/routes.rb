@@ -8,7 +8,7 @@ Attendance::Application.routes.draw do
     collection do 
       get "fast_register"
       get "whether_checkin" 
-
+      get "operate"
     end
   end
   root :to => "records#index"

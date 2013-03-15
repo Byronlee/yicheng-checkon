@@ -2,7 +2,6 @@
 class Record
   include Mongoid::Document
   include Mongoid::Timestamps
-
   field :staffid, type: String 
   field :record_person , type: String
   field :record_zone , type: String
