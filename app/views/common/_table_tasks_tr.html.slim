@@ -13,7 +13,6 @@
           span.alert.alert-success  
             i.icon-ok &nbsp;
             span 已登记
-         
         - else
             form(action="records/update" method="post")
               input name="dept_id" value="#{task[:dept_id]}" type="hidden"
@@ -25,4 +24,3 @@
       td
           a href="/records/edit?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" = register_or_modify resource[:type]
           i class="icon-fast-forward"  
- 

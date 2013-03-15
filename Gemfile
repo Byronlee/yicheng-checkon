@@ -3,7 +3,6 @@ source 'http://ruby.taobao.org'
 ruby '1.9.3'
 gem 'rails'
 
-require 'rbconfig'
 group :test do
   gem 'turn', :require => false
   gem 'rspec-rails'
@@ -20,7 +19,7 @@ group :test do
   gem 'simplecov', :require => false
 end
 
-group :development do 
+group :development do
   gem "debugger"
 end
 
@@ -39,13 +38,8 @@ case HOST_OS
 end
 
 gem 'whenever'
-gem "mongoid"
+gem "mongoid", "~> 3.1.2"
 gem "bson_ext"
-#gem "mongoid_session_store"
-#gem "mongo_session_store"
-#gem "mongo_session_store-rails3"
-
-
 gem 'bootstrap-daterangepicker-rails'
 
 group :assets do
