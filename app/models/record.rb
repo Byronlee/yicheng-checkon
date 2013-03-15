@@ -90,7 +90,7 @@ class Record
           Record.find_or_create_by(  staffid: user.id, 
                                      attend_date: Time.now.to_date , 
                                      record_person: current_user.username, 
-                                     record_zone: dept["name"]
+                                     record_zone: dept["id"]
                                   )
         end
       end

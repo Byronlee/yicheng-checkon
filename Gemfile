@@ -37,13 +37,17 @@ case HOST_OS
     gem 'win32console', :group =>:development
     gem 'rb-notifu', :group =>:development
 end
-gem 'mongo'
+
 gem 'whenever'
 gem "mongoid"
 gem "bson_ext"
 #gem "mongoid_session_store"
 #gem "mongo_session_store"
 #gem "mongo_session_store-rails3"
+
+
+gem 'bootstrap-daterangepicker-rails'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -53,7 +57,7 @@ group :assets do
 end
 
 gem "twitter-bootstrap-rails"
-gem 'asf-soap-adapter', :require =>'activerecord-activesalesforce-adapter'
+#gem 'asf-soap-adapter', :require =>'activerecord-activesalesforce-adapter'
 
 gem "patron"
 gem "rubycas-client", "2.3.9"
