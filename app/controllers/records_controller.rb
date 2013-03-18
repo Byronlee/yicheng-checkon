@@ -31,7 +31,8 @@ class RecordsController < ApplicationController
 
 
   def query_attach
-      @query_attach_result = Record.query_attach(@query_result||@query_resource, params)
+      @query_attach_result = Record.query_attach( @query_result||@query_resource, params)
+      render "common/_table_show_records",locals:{:records => @query_attach_result },:layout => false
   end
 
   private 

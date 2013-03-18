@@ -23,15 +23,6 @@ jQuery(function(){
 	}
     );   
 });
-/*
-    function ajax_select(o){
-       if( (o.attr("type")!= o.attr("next"))&& (o.val()!="")){
-	  $.post("ajax_select",{type:o.attr("next") , data:o.val() },function(html){
-	      $("."+o.attr("next")+"_select").html(html);
-	  });
-       }
-    }
-*/
 
     function query_records(){
      $.post("query" ,{start_time: $('input[name=start_time]').val() , 
@@ -42,4 +33,26 @@ jQuery(function(){
 		 $(".show_query_result").html(html);
 	     });
     }
+
+
+    function query_attach(o){
+
+
+     alert(o.attr("order")=="false"&&o.val()=="")
+     if(o.attr("order")=="false"&&o.val()=="") return false
+
+        $.post("query" ,{value: o.val() , 
+			 field: o.attr("field"),
+			 order: o.attr("order") 
+			},
+               function(html){
+		   $(".show_query_result").html(html);
+	       });
+	
+    }
+
+
+
+
+
 

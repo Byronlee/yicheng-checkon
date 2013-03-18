@@ -1,4 +1,3 @@
-
 .query_attach_condition
     ul.nav.nav-pills
       li.active
@@ -21,22 +20,22 @@
           i.icon-arrow-down
       li
         .input-append
-          select.condition
+          select.condition#condition_behave field="behave"  order="false" 
             option 考勤项
             option 2
             option 3
             option 4
             option 5
-          button.btn type="button" onclick="query_attach()" 确认
+          button.btn type="button"  onclick="query_attach($('#condition_behave'))" 确认
       li 
         .input-append
-          input#appendedPrependedInput.condition type="text" placeholder="工号"
-          button.btn type="button" 确认
+          input#appendedPrependedInput.condition.staffid type="text" placeholder="工号" field="staffid"  order="false"
+          button.btn type="button"  onclick="query_attach($('.staffid'))" 确认
       li
         .input-append
-          input#appendedPrependedInput.condition type="text" placeholder="姓名"    
-          button.btn type="button" 确认
+          input#appendedPrependedInput.condition.username type="text" placeholder="姓名"  field="username"  order="false"  
+          button.btn type="button"  onclick="query_attach($('.username'))" 确认
       li
         .input-append
-          input#appendedPrependedInput.condition type="text" placeholder="昵称"
-          button.btn type="button" 确认
+          input#appendedPrependedInput.condition.nickname type="text" placeholder="昵称" field="nickname"  order="false"
+          button.btn type="button"   onclick="query_attach($('.nickname'))" 确认
