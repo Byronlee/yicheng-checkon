@@ -99,7 +99,7 @@ class Record
     current_user.attend_depts["children"].map do | dept | 
       Department.new(dept["id"]).users.map do | user |
       # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug
-      Record.new_record user.id,Date.today,current_user.username,dept["name"]
+      Record.new_record user.staffid,Date.today,current_user.username,dept["name"]
       end
     end
   end
