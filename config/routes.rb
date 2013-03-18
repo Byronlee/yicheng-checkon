@@ -1,9 +1,10 @@
 Attendance::Application.routes.draw do
 
   resources :counts , only: [:index]
-
-  post "records/update" 
+  resources :users 
  
+  post "records/update" 
+
   resources :records do
     collection do 
       get "fast_register"

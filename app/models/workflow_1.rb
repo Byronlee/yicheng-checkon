@@ -1,4 +1,4 @@
-class Workflow
+class Workflow_1
 
 
   def self.launch

@@ -1,4 +1,3 @@
 # -*- coding: utf-8 -*-
-class Search < RailsSimpleSearch::Base
-  include Mongoid::Document
+class Search
 end

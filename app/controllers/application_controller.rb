@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :current_user
 
   def current_user
-   @current_user = User.new("4028809b3c6fbaa7013c6fbc3db41bc3")
+   @current_user = User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
   end
 
   def logout
