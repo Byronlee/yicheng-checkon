@@ -16,17 +16,17 @@ class User
 # validates_presence_of :username , :salary_time , :dept_id
 # validates_uniqueness_of :username
 
-  def self.resource id
-    if id.class == String 
-      init_attr Webservice.get_data("/user/id/"+id),id
+  def self.resource sid
+    if sid.class == String 
+      init_attr Webservice.get_data("/user/id/"+sid),sid
     else
-      init_attr id
+      init_attr sid
     end
   end
 
-  def self.init_attr rs,id
+  def self.init_attr rs,sid=nil
     attrs = {
-      staffid: id || rs["SU_USER_ID"],
+      staffid: sid || rs["SU_USER_ID"],
       nickname_code: rs["SU_NICKNAME_CODE"],
       nickname_display: rs["SU_NICKNAME_DISPLAY"],
       phone_num: rs["SU_PHONE_NUM"],

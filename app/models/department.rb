@@ -18,7 +18,7 @@ class Department
   end
 
   def users
-    users_with_infor.inject([]){|arry,user_id| arry << User.new(user_id)}
+    users_with_infor.inject([]){|arry,user_id| arry << User.resource(user_id)}
   end
 
   def users_with_priod_checkins time
