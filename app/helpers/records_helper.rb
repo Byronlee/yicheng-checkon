@@ -5,6 +5,15 @@ module RecordsHelper
     @current_user
   end
 
+  def query_dept_tree
+    {region: [],
+     cell: [],
+     dept: {type: "dept" , 
+            options: current_user.attend_depts["children"].map{|v| [v["name"] , v["id"]]} ,
+            tips: "--选择店组--" } }
+  end
+
+
   def FormatDate time
     case (Time.now.to_date - time.to_date)
     when 0

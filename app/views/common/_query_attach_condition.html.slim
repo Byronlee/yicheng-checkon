@@ -1,0 +1,42 @@
+
+.query_attach_condition
+    ul.nav.nav-pills
+      li.active
+        a href="#labels" 默认排序
+      li
+        a href="#badges" field="attend_data" order="right" onclick="query_attach($(this))"
+          span 时间
+          i.icon-arrow-up
+      li
+        a href="#typography" field="attend_date"  order="opposite" onclick="query_attach($(this))"
+          span 时间 
+          i.icon-arrow-down  
+      li
+        a href="#thumbnails" field="staffid"  order="right" onclick="query_attach($(this))"
+          span 工号
+          i.icon-arrow-up
+      li  
+        a href="#alerts"  field="staffid"  order="opposite" onclick="query_attach($(this))"
+          span 工号
+          i.icon-arrow-down
+      li
+        .input-append
+          select.condition
+            option 考勤项
+            option 2
+            option 3
+            option 4
+            option 5
+          button.btn type="button" onclick="query_attach()" 确认
+      li 
+        .input-append
+          input#appendedPrependedInput.condition type="text" placeholder="工号"
+          button.btn type="button" 确认
+      li
+        .input-append
+          input#appendedPrependedInput.condition type="text" placeholder="姓名"    
+          button.btn type="button" 确认
+      li
+        .input-append
+          input#appendedPrependedInput.condition type="text" placeholder="昵称"
+          button.btn type="button" 确认

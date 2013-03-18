@@ -40,7 +40,7 @@ p[class=no_message]{
    th{text-align: center;}
    td{
    text-align: center;
-   padding: 6px;
+   padding: 6px;   
    line-height: 28px;
    span[class~=alert]{padding: 4px 18px; }
    a{padding-right:5px}
@@ -53,4 +53,58 @@ p[class=no_message]{
      margin-bottom: 0px;
    }
 }
+}
+
+form.query_data_form{
+   margin: 0 0 0px;
+   float: left;
+   width: 100%;
+   .query_data{
+      float: left;
+      width: 100%;
+      background-color: #D9EDF7 ;
+      border-bottom: 10px solid #eee;
+      div[class*=select]{
+       float:left;
+       input[type=text]{   width: 180px;}
+       select{   width: 110px;}	
+      .input-prepend{   margin: 6px 20px 6px 4px;  } }
+      button[type=button]{
+        float: left;	
+        margin-top: 8px;
+      }
+    }
+}
+.query_attach_condition{
+      background: #eee;
+      ul.nav{
+        margin-bottom: 0px;	
+        li{
+        a {border: 1px #ddd solid;}
+        .input-append {
+          select{height: 26px;}
+          input, select{	     
+	     font-size: 12px;
+	     padding: 2px 2px;
+	     -webkit-border-radius: 1px 0 0 1px;
+	     -moz-border-radius: 1px 0 0 1px;
+	     border-radius: 1px 0 0 1px;
+ 	   }
+           margin: 0px 5px 0px 5px;
+          .condition{ width: 78px;}
+          .btn{
+            padding:2px 4px; 
+ 	    font-size:12px;
+            -webkit-border-radius: 0 1px 1px 0;
+	    -moz-border-radius: 0 1px 1px 0;
+	    border-radius: 0 1px 1px 0;
+	   }
+
+        }
+      }
+     } 
+}
+
+.total{
+ background: #fafafa
 }

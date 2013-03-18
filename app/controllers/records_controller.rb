@@ -2,16 +2,9 @@
 class RecordsController < ApplicationController
 
   before_filter  :initialize_tasks , only: [:index]
+  before_filter  :initialize_query_records , only: [:query , :operate]
 #  caches_page :index
 
-#  def new
-#    time = params[:time]
-#    users =  Department.new(params[:dept_id]).users
-#    users.each do |user|
-#      behaves = Record.get_record user.id,time
-#      user.instance_variable_set(:@behaves,behaves.checkins)
-#    end
-#  end
 
   def show
     @resource ={
@@ -29,22 +22,18 @@ class RecordsController < ApplicationController
 
 
   def operate
-     dept_ids = current_user.attend_depts["children"].map do | dept |     
-       dept["id"]
-     end
-     @records = Record.state("registered").in(record_zone: dept_ids)
-    @regions =[["东南区" ,  "1243"]]
+     @records = @query_resource.paginate(:page => params[:page], :per_page => 5)
   end
-
-
 
   def query
-     record_zone = params[:cell_id] || params[:region_id] ||  params[:dept_id]
-     @result = Record.where(record_zone: record_zone).by_period(params[:start_time],params[:end_time]).state("registered")
-    render :operate
+    @query_result = Record.query @query_resource , params
+    render "common/_table_show_records",locals:{:records => @query_result },:layout => false
   end
 
 
+  def query_attach
+      @query_attach_result = Record.query_attach(@query_result||@query_resource, params)
+  end
 
 
   private 
@@ -52,4 +41,8 @@ class RecordsController < ApplicationController
       @tasks = sort_by_field(Record.get_tasks(Record.state('checking')),:dept_name)
       @tasks_finished = sort_by_field(Record.get_tasks(Record.by_period(Date.today-1,Date.today+1).state("registered")),:dept_name)
     end
+   
+   def initialize_query_records
+     @query_resource = Record.in(record_zone: current_user.attend_depts["children"].map{|dept| dept["id"]} ).state("registered")
+   end
 end

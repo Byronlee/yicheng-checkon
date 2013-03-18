@@ -18,9 +18,16 @@
               input name="dept_id" value="#{task[:dept_id]}" type="hidden"
               input name="time" value="#{task[:attend_date]}" type="hidden"
               input type="hidden" name="register_way" value="fast_register" 
+              span 所有人
+              lable class="behave_present"
+                input type="radio" name="behave_present" id="behave_present" value="" checked="" 全勤
+              lable class="behave_reset"
+                input type="radio" name="behave_reset" id="behave_reset" value=""  休息
+              lable class="behave_business"
+                input type="radio" name="behave_business" id="behave_business" value=""  公出
               button.btn.btn-small.btn-primary type="submit" 
                 i.icon-plus
-                = t ("view.common.table_tasks_tr.all_work")          
+                span 保存         
       td
           a href="/records/edit?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" = register_or_modify resource[:type]
           i class="icon-fast-forward"  

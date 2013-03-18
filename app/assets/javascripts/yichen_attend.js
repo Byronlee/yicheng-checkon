@@ -3,10 +3,7 @@ jQuery(function(){
     document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());
     setInterval("document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
     
-// Usage:
-// $('#element').daterangepicker(options, callback); 
-//  $('input[name="start_time"]').daterangepicker();
-
+    function farmat(num){return num = num<10 ? "0"+num : num} 
 
     $('input[name=range_time]').daterangepicker(
 	{
@@ -20,8 +17,29 @@ jQuery(function(){
             }
 	},
 	function(start, end) {
-            $('input[name=end_time]').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+	    $('input[name=end_time]').val(end.getFullYear()+"-"+farmat((end.getMonth()+1))+"-"+farmat(end.getDate()));
+            $('input[name=start_time]').val(start.getFullYear()+"-"+farmat((start.getMonth()+1))+"-"+farmat(start.getDate()));
+
 	}
-    );
-    
+    );   
 });
+/*
+    function ajax_select(o){
+       if( (o.attr("type")!= o.attr("next"))&& (o.val()!="")){
+	  $.post("ajax_select",{type:o.attr("next") , data:o.val() },function(html){
+	      $("."+o.attr("next")+"_select").html(html);
+	  });
+       }
+    }
+*/
+
+    function query_records(){
+     $.post("query" ,{start_time: $('input[name=start_time]').val() , 
+		      end_time:  $('input[name=end_time]').val() ,
+		      organization:($('#condition_dept').val()||  $('#condition_cell').val() || $('#condition_region').val()) 
+		     },
+             function(html){
+		 $(".show_query_result").html(html);
+	     });
+    }
+

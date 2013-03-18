@@ -11,10 +11,15 @@ class ApplicationController < ActionController::Base
   def logout
     CASClient::Frameworks::Rails::Filter.logout(self)
   end
-
-    def sort_by_field v,field
-      v.sort_by! do |v|
-        v[field]
-      end
+  
+  def sort_by_field v,field
+    v.sort_by! do |v|
+      v[field]
+    end
   end
+
+  def empty? str
+     str.empty?  ? nil : str  if str
+  end
+
 end

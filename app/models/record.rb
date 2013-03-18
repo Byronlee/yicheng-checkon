@@ -63,6 +63,19 @@ class Record
   end
 
 
+  def self.query records , params
+     records = records.where(record_zone: params[:organization])     if(params[:organization]&&params[:organization]!="")
+     records = records.by_period(params[:start_time],params[:end_time]) if(params[:start_time]&&params[:start_time]!="")
+     records.paginate(:page => params[:page], :per_page => 5) if records.any?
+  end
+
+
+  def self.query_attach records , params
+
+  end
+
+
+
   def self.get_tasks  records
     if records
       taskes = records.map do | record |

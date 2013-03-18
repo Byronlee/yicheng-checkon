@@ -10,6 +10,7 @@ Attendance::Application.routes.draw do
       get "whether_checkin" 
       get "operate"
       post "query"
+      post "ajax_select"
     end
   end
   root :to => "records#index"

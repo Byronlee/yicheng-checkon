@@ -18,7 +18,6 @@ group :test do
   gem 'rb-fsevent'
   gem 'simplecov', :require => false
 end
-
 group :development do
   gem "debugger"
 end
@@ -41,6 +40,11 @@ gem 'whenever'
 gem "mongoid", "~> 3.1.2"
 gem "bson_ext"
 gem 'bootstrap-daterangepicker-rails'
+gem 'will_paginate_mongoid'  #分页
+
+
+
+
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
