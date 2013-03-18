@@ -52,10 +52,8 @@ group :assets do
   gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
   gem 'therubyracer'
   gem 'uglifier', '>= 1.0.3'
+  gem "twitter-bootstrap-rails"
 end
-
-gem "twitter-bootstrap-rails"
-#gem 'asf-soap-adapter', :require =>'activerecord-activesalesforce-adapter'
 
 gem "patron"
 gem "rubycas-client", "2.3.9"
@@ -67,3 +65,6 @@ gem 'ruote'
 gem 'ruote-mon'
 gem 'state_machine'
 gem 'cancan'
+gem 'will_paginate', '~> 3.0'
+gem 'workflow'
+gem 'workflow_on_mongoid'

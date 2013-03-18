@@ -20,7 +20,6 @@ class RecordsController < ApplicationController
     redirect_to root_url
   end
 
-
   def operate
      @records = @query_resource.paginate(:page => params[:page], :per_page => 5)
   end
@@ -34,7 +33,6 @@ class RecordsController < ApplicationController
   def query_attach
       @query_attach_result = Record.query_attach(@query_result||@query_resource, params)
   end
-
 
   private 
     def initialize_tasks 

@@ -38,8 +38,4 @@ describe RecordsController do
 
   end
 
-
-
-
-
 end

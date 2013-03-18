@@ -1,0 +1,20 @@
+= form_for User.new do |f|
+  = f.text_field :dept_id
+  = f.text_field :username
+  = f.submit :添加
+hr
+table.table.table-bordered.table-condensed
+  - unless @users.nil? || @users.empty?
+    tr
+      th 工号
+      th 大区
+      th 小区
+      th 姓名
+      th 计薪时间
+    - @users.each do | u |
+      tr
+        td = u.user_no
+        td = u.user_no
+        td = u.user_no
+        td = u.username
+        td = u.salary_time
