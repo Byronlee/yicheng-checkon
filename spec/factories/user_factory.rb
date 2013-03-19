@@ -21,6 +21,5 @@ FactoryGirl.define do
       username "you"
       salary_time {2.days.ago.to_date}
     end
-
   end
 end

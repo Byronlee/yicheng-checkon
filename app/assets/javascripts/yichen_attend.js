@@ -33,6 +33,12 @@ jQuery(function(){
     }
 */
 
+    function ajax_select(params,url,update,o){
+      $.get(url,{dept_id :o.val()},function(html){
+      o.parent("td").append(html);
+      })
+    }
+
     function query_records(){
      $.post("query" ,{start_time: $('input[name=start_time]').val() , 
 		      end_time:  $('input[name=end_time]').val() ,

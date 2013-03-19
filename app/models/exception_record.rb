@@ -14,7 +14,7 @@ class ExceptionRecord < Record
 
   def self.merge o_id,n_id
      user = User.find(o_id)
-     user.exception_records.each do |record|
+     user.exception_records.map do |record|
        record.update_attributes(_type: "Record",staffid: n_id)
      end
      user.destroy
