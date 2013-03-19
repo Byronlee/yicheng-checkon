@@ -2,7 +2,43 @@
 jQuery(function(){ 
     document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());
     setInterval("document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
-    
+
+
+
+   var yy = { 
+	"data" : "node_title", 
+	// omit `attr` if not needed; the `attr` object gets passed to the jQuery `attr` function
+	"attr" : { "id" : "node_identificator", "some-other-attribute" : "attribute_value" }, 
+	// `state` and `children` are only used for NON-leaf nodes
+	"state" : "open", // or "open", defaults to "closed"
+	"children" : ["adf","asdf" ]
+   }
+
+
+	 $(".permission").jstree({
+                "core" : { "initially_open" : [ "topic_root" ] }, 
+                "json_data": {  "data": yy},
+                "themes": { "theme": "default", "dots": false, "icons": true },
+                "plugins": ["themes", "json_data", "ui"]
+            })
+
+/*
+    $.get("tree_dept" , function(data){
+	 $(".permission").jstree({
+                "core" : { "initially_open" : [ "topic_root" ] }, 
+                "json_data": {  "data": data },
+                "themes": { "theme": "default", "dots": false, "icons": true },
+                "plugins": ["themes", "json_data", "ui"]
+            })
+    });
+*/
+
+   
+
+
+
+
+
     function farmat(num){return num = num<10 ? "0"+num : num} 
 
     $('input[name=range_time]').daterangepicker(
@@ -38,14 +74,15 @@ jQuery(function(){
     function query_attach(o){
 
 
-     alert(o.attr("order")=="false"&&o.val()=="")
+//     alert(o.attr("order")=="false"&&o.val()=="")
      if(o.attr("order")=="false"&&o.val()=="") return false
 
-        $.post("query" ,{value: o.val() , 
+        $.post("query_attach" ,{value: o.val() , 
 			 field: o.attr("field"),
 			 order: o.attr("order") 
 			},
                function(html){
+                   alert(html)
 		   $(".show_query_result").html(html);
 	       });
 	

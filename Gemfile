@@ -44,8 +44,6 @@ gem 'will_paginate_mongoid'  #分页
 
 
 
-
-
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

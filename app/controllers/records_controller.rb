@@ -2,7 +2,7 @@
 class RecordsController < ApplicationController
 
   before_filter  :initialize_tasks , only: [:index]
-  before_filter  :initialize_query_records , only: [:query , :operate]
+  before_filter  :initialize_query_records , only: [:query , :operate ,:query_attach]
 #  caches_page :index
 
 
@@ -14,6 +14,12 @@ class RecordsController < ApplicationController
      }
   end
 
+  def tree_dept
+    render :json =>  Webservice.get_data("dept_tree/").to_json
+  end
+
+
+
 
   def update
     Record.send(params[:register_way].to_sym , params)
@@ -21,6 +27,8 @@ class RecordsController < ApplicationController
   end
 
   def operate
+    p @query_resource.map{|x| p x}
+     p "asdfdfffffffffff"
      @records = @query_resource.paginate(:page => params[:page], :per_page => 5)
   end
 
@@ -33,6 +41,9 @@ class RecordsController < ApplicationController
   def query_attach
       @query_attach_result = Record.query_attach( @query_result||@query_resource, params)
       render "common/_table_show_records",locals:{:records => @query_attach_result },:layout => false
+  end
+
+  def permission
   end
 
   private 

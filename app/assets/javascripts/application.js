@@ -18,4 +18,5 @@
 //= require date
 //= require daterangepicker
 
+
 //= require_tree .

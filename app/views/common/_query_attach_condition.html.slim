@@ -20,13 +20,8 @@
           i.icon-arrow-down
       li
         .input-append
-          select.condition#condition_behave field="behave"  order="false" 
-            option 考勤项
-            option 2
-            option 3
-            option 4
-            option 5
-          button.btn type="button"  onclick="query_attach($('#condition_behave'))" 确认
+          = raw(generate_selects nil,nil, "condition condition_behave")
+          button.btn type="button"  onclick="query_attach($('.condition_behave'))" 确认
       li 
         .input-append
           input#appendedPrependedInput.condition.staffid type="text" placeholder="工号" field="staffid"  order="false"

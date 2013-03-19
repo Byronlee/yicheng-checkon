@@ -2,25 +2,15 @@
   table.table.table-bordered(style="border-top: 10px solid #eee;")
     thead
       tr     
-        th 大区
-        th 区域
-        th 店组
-        th 员工工号
-        th 职位
-        th 登记人
-        th 上午考勤
-        th 下午考勤
-        th 考勤日期
-        th 操作
+        - show_query_recors_reulst_table_titles.each do |title|
+          th = title
       - if records
         - records.each do |record|
           tr
-            td 东南区
-            td 红河区
-            td 魅力1店
-            td 4567
-            td 经济人_租
-            td 张三
+            - attach_attr=full_attr(record)
+              - attach_attr.each do |attr|
+              td = attr
+            td = record.record_person_name
             - record.checkins.map do |checkin|
               td = checkin.behave.name
             td = record.attend_date

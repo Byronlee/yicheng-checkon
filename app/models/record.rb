@@ -5,6 +5,7 @@ class Record
 
   field :staffid, type: String 
   field :record_person , type: String
+  field :record_person_name , type: String
   field :record_zone , type: String
   field :attend_date , type: String
   
@@ -71,7 +72,9 @@ class Record
 
 
   def self.query_attach records , params
-    records.where(params[:field].to_sym => params[:value]) unless params[:order]
+  #  records = records.where(:checkins => where(params[:field].to_sym => params[:value])) if  params[:order]=="false"
+    records = records.where(params[:field].to_sym => params[:value]) if  params[:order]=="false"
+    records.paginate(:page => params[:page], :per_page => 5) if records.any?
     #  sort_by(records, params[:field], params[:order])   if params[:order]
   end
 
@@ -79,12 +82,12 @@ class Record
 
   def self.get_tasks  records
     if records
-      taskes = records.map do | record |
-        { dept_id: User.new(record.staffid).dept_id, 
+      tasks = records.map do | record |
+        { dept_id: User.resource(record.staffid).dept_id, 
           attend_date: record.attend_date 
         }
       end
-      tasks = taskes.uniq.map do |task|
+      tasks = tasks.uniq.map do |task|
         {  dept_id: task[:dept_id], 
           attend_date: task[:attend_date] ,
           dept_name: Department.new(task[:dept_id]).name
@@ -94,12 +97,22 @@ class Record
   end
 
   def self.default_everyday_records 
-    current_user =  User.new("4028809b3c6fbaa7013c6fbc3db41bc3")
+    current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
     current_user.attend_depts["children"].map do | dept | 
       Department.new(dept["id"]).users.map do | user |
       # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug
-      Record.new_record user.staffid,Date.today,current_user.username,dept["name"]
+        Record.new_record user.staffid,Date.today,current_user.username, current_user.id ,dept["id"]
       end
     end
+  end
+
+# arg[0]: 用户id,arg[1]: 考勤日期,arg[2]: 考勤人,arg[3]: 考勤区域
+  def self.new_record *arg
+    find_or_create_by(  staffid: arg[0],
+                      attend_date: arg[1],
+                      record_person_name: arg[2],
+                      record_person: arg[3],
+                      record_zone: arg[4]
+                     )
   end
 end
