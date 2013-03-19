@@ -27,8 +27,6 @@ class RecordsController < ApplicationController
   end
 
   def operate
-    p @query_resource.map{|x| p x}
-     p "asdfdfffffffffff"
      @records = @query_resource.paginate(:page => params[:page], :per_page => 5)
   end
 

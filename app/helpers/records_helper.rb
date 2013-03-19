@@ -46,7 +46,7 @@ module RecordsHelper
   def unit_selects user
     user.instance_variable_get(:@behaves).inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
-      html_str << behave_selects(checkin,{},{name: "record[#{user.staffid}][#{checkin.check_unit_id}]"})
+      html_str << behave_selects(checkin,{},{name: "record[#{user.staffid}][#{checkin.check_unit_id}]",class:"span3"})
 
     end
   end
@@ -67,7 +67,7 @@ module RecordsHelper
   end
 
   def behave_selects checkin,options = {}, html_options = {}
-    @checkin = checkin
+    @checkin = checkin 
     behaves = Behave.all.collect{|b|[b.name,b.id]}
     select("checkin","behave_id",behaves,options,html_options)
   end

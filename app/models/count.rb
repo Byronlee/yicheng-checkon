@@ -36,7 +36,7 @@ class Count
 
     def counts_result counts,init
       counts.map do |count|
-        user = User.new(count["staffid"])
+        user = User.resource(count["staffid"])
         behaves = init.clone
         count["result"].map do | behave_id , num |
           behaves["#{Behave.find(behave_id).name}"] = num         

@@ -20,7 +20,7 @@
           i.icon-arrow-down
       li
         .input-append
-          = raw(generate_selects nil,nil, "condition condition_behave")
+          = raw(behave_selects nil,{},{:class => "condition condition_behave" , :field => "staffid" ,:order =>"false"})
           button.btn type="button"  onclick="query_attach($('.condition_behave'))" 确认
       li 
         .input-append
