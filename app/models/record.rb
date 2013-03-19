@@ -80,7 +80,7 @@ class Record
   def self.get_tasks  records
     if records
       taskes = records.map do | record |
-        { dept_id: User.new(record.staffid).dept_id, 
+        { dept_id: User.resource(record.staffid).dept_id, 
           attend_date: record.attend_date 
         }
       end
