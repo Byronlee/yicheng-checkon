@@ -26,28 +26,10 @@ module RecordsHelper
     end
   end
 
-  # def generate_selects default=nil ,select_name = nil , class_name=nil
-  #   default = default || Behave.default.id
-  #   str_over = Behave.all.inject("") do |str,behave|
-  #     if behave.id == default 
-  #       str << content_tag(:option,behave.name,selected: "selected",value: behave.id)
-  #     else
-  #       str << content_tag(:option,behave.name,value: behave.id)
-  #     end
-  #   end
-  #   content_tag :select,str_over.html_safe,name: select_name, class: class_name , field: "behave_id" , order: "false"
-  # end
-
-  # def generate_unit_selects user
-  #   user.instance_variable_get(:@behaves).inject("") do |html_str,checkin|
-  #     html_str << content_tag(:span ,checkin.check_unit.name+" : ")
-  #     html_str << generate_selects(checkin.behave_id,"record[#{user.staffid}][#{checkin.check_unit_id}]" ,"span3")
-
   def unit_selects user
     user.instance_variable_get(:@behaves).inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
       html_str << behave_selects(checkin,{},{name: "record[#{user.staffid}][#{checkin.check_unit_id}]"})
-
     end
   end
 
@@ -67,7 +49,7 @@ module RecordsHelper
   end
 
   def behave_selects checkin,options = {}, html_options = {}
-    @checkin = checkin
+    @checkin = checkin 
     behaves = Behave.all.collect{|b|[b.name,b.id]}
     select("checkin","behave_id",behaves,options,html_options)
   end
