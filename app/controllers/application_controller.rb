@@ -21,5 +21,4 @@ class ApplicationController < ActionController::Base
   def empty? str
      str.empty?  ? nil : str  if str
   end
-
 end

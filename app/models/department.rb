@@ -3,22 +3,27 @@ class Department
   attr_accessor :number , :name , :id 
 
   def initialize id
-    resource = Webservice.get_data("dept/id/"+id)
-    @number= resource["SD_DEPT_CODE"]
-    @name= resource["SD_DEPT_NAME"]
+    @number= ws_dept(id)["SD_DEPT_CODE"]
+    @name= ws_dept(id)["SD_DEPT_NAME"]
     @id = id
   end
 
-  def users_ids 
-    Webservice.get_data("dept/users/"+@id)
-  end
-
-  def users_with_infor
-    Webservice.get_data("dept/users1/"+@id)
+  def sub_dept
+     
   end
 
   def users
-    users_with_infor.inject([]){|arry,user_id| arry << User.resource(user_id)}
+    ws_users.map do |user|
+      User.resource(user["SU_USER_ID"])
+    end
+  end
+
+  def ws_users
+    Webservice.get_data("dept/users1/"+id)
+  end
+
+  def ws_dept id
+    Webservice.get_data("dept/id/"+id)
   end
 
   def users_with_priod_checkins time

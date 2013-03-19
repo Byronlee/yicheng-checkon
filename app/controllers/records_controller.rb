@@ -42,6 +42,10 @@ class RecordsController < ApplicationController
       @query_attach_result = Record.query_attach( @query_result||@query_resource, params)
       render "common/_table_show_records",locals:{:records => @query_attach_result },:layout => false
   end
+  
+  def ajax_select
+    
+  end
 
   def permission
   end

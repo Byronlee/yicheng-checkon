@@ -13,7 +13,6 @@ module RecordsHelper
             tips: "--选择店组--" } }
   end
 
-
   def FormatDate time
     case (Time.now.to_date - time.to_date)
     when 0
@@ -27,22 +26,28 @@ module RecordsHelper
     end
   end
 
-  def generate_selects default=nil ,select_name = nil , class_name=nil
-    default = default || Behave.default.id
-    str_over = Behave.all.inject("") do |str,behave|
-      if behave.id == default 
-        str << content_tag(:option,behave.name,selected: "selected",value: behave.id)
-      else
-        str << content_tag(:option,behave.name,value: behave.id)
-      end
-    end
-    content_tag :select,str_over.html_safe,name: select_name, class: class_name , field: "behave_id" , order: "false"
-  end
+  # def generate_selects default=nil ,select_name = nil , class_name=nil
+  #   default = default || Behave.default.id
+  #   str_over = Behave.all.inject("") do |str,behave|
+  #     if behave.id == default 
+  #       str << content_tag(:option,behave.name,selected: "selected",value: behave.id)
+  #     else
+  #       str << content_tag(:option,behave.name,value: behave.id)
+  #     end
+  #   end
+  #   content_tag :select,str_over.html_safe,name: select_name, class: class_name , field: "behave_id" , order: "false"
+  # end
 
-  def generate_unit_selects user
+  # def generate_unit_selects user
+  #   user.instance_variable_get(:@behaves).inject("") do |html_str,checkin|
+  #     html_str << content_tag(:span ,checkin.check_unit.name+" : ")
+  #     html_str << generate_selects(checkin.behave_id,"record[#{user.staffid}][#{checkin.check_unit_id}]" ,"span3")
+
+  def unit_selects user
     user.instance_variable_get(:@behaves).inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
-      html_str << generate_selects(checkin.behave_id,"record[#{user.staffid}][#{checkin.check_unit_id}]" ,"span3")
+      html_str << behave_selects(checkin,{},{name: "record[#{user.staffid}][#{checkin.check_unit_id}]"})
+
     end
   end
 
@@ -59,5 +64,19 @@ module RecordsHelper
 
   def register_or_modify type
     type=="finished" ? t("view.common.table_tasks_tr.registered") : t("view.common.table_tasks_tr.register")
+  end
+
+  def behave_selects checkin,options = {}, html_options = {}
+    @checkin = checkin
+    behaves = Behave.all.collect{|b|[b.name,b.id]}
+    select("checkin","behave_id",behaves,options,html_options)
+  end
+
+  def depts
+    depts = current_user.attend_depts["children"].map{|v| [v["name"] , v["id"]]}
+  end
+
+  def organization_selects(depts,options = {}, html_options = {})
+    select("dept","dept_id",depts,options,html_options)
   end
 end

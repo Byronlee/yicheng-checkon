@@ -1,5 +1,5 @@
 = form_for User.new do |f|
-  = f.text_field :dept_id
+  = render "common/form_organization_selects"  , :selects => query_dept_tree
   = f.text_field :username
   = f.submit :添加
 hr
@@ -12,6 +12,7 @@ table.table.table-bordered.table-condensed
       th 姓名
       th 计薪时间
       th 操作
+      th 操作
     - @users.each do | u |
       tr
         td = u.user_no
@@ -19,4 +20,4 @@ table.table.table-bordered.table-condensed
         td = u.user_no
         td = u.username
         td = u.salary_time
-        td 选择员工
+        td = select("dept","dept_id",depts,{prompt: "--选择店组--"},{onChange: "ajax_select('dept_id','users/ajax_user_select','user_select',$(this))"})

@@ -17,7 +17,7 @@ class User
 # validates_uniqueness_of :username
 
   def self.resource sid
-    if sid.class == String 
+    if sid.instance_of?(String)
       init_attr Webservice.get_data("/user/id/"+sid),sid
     else
       init_attr sid
