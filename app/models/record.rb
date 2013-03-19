@@ -47,8 +47,8 @@ class Record
 
   def self.fast_register arg
     Department.new(arg[:dept_id]).users.map do | user |
-      record = get_record user.id,arg[:time]
-      record.checkins.update_all(behave_id: Behave.default.id)
+      record = get_record user.staffid,arg[:time]
+      record.checkins.update_all(behave_id: arg[:behave_id])
       record.register
     end
   end

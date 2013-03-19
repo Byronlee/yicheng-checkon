@@ -19,7 +19,7 @@
               input name="time" value="#{task[:attend_date]}" type="hidden"
               input type="hidden" name="register_way" value="fast_register" 
               .input-append
-                = raw(behave_selects nil,{},{:class => "condition condition_behave span7"})
+                = raw(behave_selects nil,{},{:class => "span7",name: "behave_id"})
                 button.btn.btn-primary type="type" 保存   
       td
           a href="/records/edit?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" = register_or_modify resource[:type]
