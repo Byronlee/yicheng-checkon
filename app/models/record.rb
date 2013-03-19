@@ -2,7 +2,6 @@
 class Record
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::WorkFlow
 
   field :staffid, type: String 
   field :record_person , type: String
@@ -22,7 +21,6 @@ class Record
       transition [:registered] => :submited
     end
   end
-
 
   # 自动生成本条记录的检查数据
   after_create do |record|
@@ -73,7 +71,8 @@ class Record
 
 
   def self.query_attach records , params
-
+    records.where(params[:field].to_sym => params[:value]) unless params[:order]
+    #  sort_by(records, params[:field], params[:order])   if params[:order]
   end
 
 
@@ -81,7 +80,7 @@ class Record
   def self.get_tasks  records
     if records
       taskes = records.map do | record |
-        { dept_id: User.resource(record.staffid).dept_id, 
+        { dept_id: User.new(record.staffid).dept_id, 
           attend_date: record.attend_date 
         }
       end
@@ -95,21 +94,12 @@ class Record
   end
 
   def self.default_everyday_records 
-    current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
+    current_user =  User.new("4028809b3c6fbaa7013c6fbc3db41bc3")
     current_user.attend_depts["children"].map do | dept | 
       Department.new(dept["id"]).users.map do | user |
       # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug
       Record.new_record user.staffid,Date.today,current_user.username,dept["name"]
       end
     end
-  end
-
-  # arg[0]: 用户id,arg[1]: 考勤日期,arg[2]: 考勤人,arg[3]: 考勤区域
-  def self.new_record *arg
-    find_or_create_by(  staffid: arg[0],
-                      attend_date: arg[1],
-                      record_person: arg[2],
-                      record_zone: arg[3]
-                     )
   end
 end
