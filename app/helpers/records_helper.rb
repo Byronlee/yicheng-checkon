@@ -26,7 +26,7 @@ module RecordsHelper
   end
 
   def unit_selects user
-    user.instance_variable_get(:@behaves).inject("") do |html_str,checkin|
+    user.instance_variable_get(:@cins).inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
       html_str << behave_selects(checkin,{},{name: "record[#{user.staffid}][#{checkin.check_unit_id}]",class:"span3"})
     end
