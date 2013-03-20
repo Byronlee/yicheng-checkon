@@ -17,6 +17,6 @@
 
 //= require date
 //= require daterangepicker
-
+//= require bootstrap-datepicker
 
 //= require_tree .

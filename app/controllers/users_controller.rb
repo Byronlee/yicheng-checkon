@@ -1,12 +1,12 @@
 # encoding: utf-8
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @users = User.all.decorate
   end
 
   def create
     @user = User.create(params[:user])
-    render :index
+    redirect_to users_path
   end
 
   def ajax_user_select
