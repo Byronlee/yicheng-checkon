@@ -2,7 +2,7 @@
 class Record
   include Mongoid::Document
   include Mongoid::Timestamps
-
+  include Mongoid::WorkFlow
   field :staffid, type: String 
   field :record_person , type: String
   field :record_person_name , type: String
@@ -27,7 +27,7 @@ class Record
   after_create do |record|
     if checkins.count == 0
       CheckUnit.all.each do |unit|
-       record.checkins.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
+        record.checkins.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
       end
     end
   end

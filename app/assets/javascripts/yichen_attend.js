@@ -50,7 +50,7 @@ jQuery(function(){
 			today: "今日"
 	};
     $('.salary_time').datepicker({
-                          format: 'yyyy-dd-mm',
+                          format: 'yyyy-mm-dd',
                           language: 'zh-CN'
                           })
 

@@ -19,6 +19,6 @@ class UsersController < ApplicationController
 
   def merge
     @result = ExceptionRecord.merge(params[:o_id],params[:n_id])
-    render action: "index"
+    redirect_to users_path
   end
 end
