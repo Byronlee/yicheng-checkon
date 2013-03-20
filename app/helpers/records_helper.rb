@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 module RecordsHelper
+
   def current_user
     @current_user
   end
@@ -25,10 +26,12 @@ module RecordsHelper
     end
   end
 
+
   def unit_selects user
     user.instance_variable_get(:@cins).inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
       html_str << behave_selects(checkin,{},{name: "record[#{user.staffid}][#{checkin.check_unit_id}]",class:"span3"})
+
     end
   end
 
