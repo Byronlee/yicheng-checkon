@@ -5,7 +5,6 @@ require 'spec_helper'
 describe "考勤数据" do
 
   before(:each) do
-    [:work , :sick_leave, :forenoon, :afternoon ].each { |unit| create unit }
     @yesterday = create :yesterday_with_employee
   end
 

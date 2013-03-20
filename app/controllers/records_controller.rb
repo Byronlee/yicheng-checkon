@@ -18,9 +18,6 @@ class RecordsController < ApplicationController
     render :json =>  Webservice.get_data("dept_tree/").to_json
   end
 
-
-
-
   def update
     Record.send(params[:register_way].to_sym , params)
     redirect_to root_url

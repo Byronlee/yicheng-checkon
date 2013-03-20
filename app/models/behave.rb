@@ -7,8 +7,8 @@ class Behave
   belongs_to :behave_type
 
 #  has_many :checkins
-  validates_presence_of :name, :proper
-  validates_uniqueness_of :name
+# validates_presence_of :name, :proper
+# validates_uniqueness_of :name
 
   def self.default
     where(default: true).first
