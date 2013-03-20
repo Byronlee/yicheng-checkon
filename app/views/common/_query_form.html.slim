@@ -1,0 +1,12 @@
+form( class="query_data_form")
+  .query_data
+    .time_range_select
+      .input-prepend
+        span.add-on 
+          i.icon-calendar
+        input#prependedInput type="text"  name="range_time"  placeholder="--选择要操作时间段--"
+        input type="hidden" name="start_time" value=""
+        input type="hidden" name="end_time"   value=""
+    = render "common/form_organization_selects"  , :selects => query_dept_tree
+    button.btn.btn-small.btn-primary type="button" onclick="query_records()"  查询
+

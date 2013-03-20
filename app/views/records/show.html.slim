@@ -1,4 +1,4 @@
-= form_for( Record.new ) do |f|
+form(action="update" method="post")
   .title
     .content
       strong = t("view.records.new.register")
@@ -6,7 +6,7 @@
         font color="red" = @resource[:dept_name]
       strong &nbsp , &nbsp
       strong = FormatDate @resource[:time]
-    = f.submit t("view.records.new.save"), :disable_with => "#{t('view.records.new.waiting')}" ,:class =>"title_pull_right btn-primary"
+    = button_tag t("view.records.new.save"), :disable_with => "#{t('view.records.new.waiting')}" ,:class =>"title_pull_right btn-primary"
   table.table.table-bordered
       thead
         tr
@@ -18,10 +18,10 @@
           - @resource[:users].each_with_index  do |user,index|
             tr
               td 
-                span class="badge" = index+1
+                span.badge = index+1
               td = user.user_no
               td = user.username
               td
-                = raw(generate_unit_selects(user))
-            
+                = raw(unit_selects(user))
+  input type="hidden" name="register_way" value="register"         
   input type="hidden" name="time" value=@resource[:time]

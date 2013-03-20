@@ -9,14 +9,8 @@ Attendance::Application.initialize!
 #cas_logger = CASClient::Logger.new(::Rails.root+'/log/cas.log')
 #cas_logger.level = Logger::DEBUG
 
-# CASClient::Frameworks::Rails::Filter.configure(:cas_base_url => "http://iphelper.cdu.edu.cn/sso",:username_session_key => "login",:extra_attributes_session_key => :login_extra_attributes,:enable_single_sign_out => true,:authenticate_on_every_request => false)
-#CASClient::Frameworks::Rails::Filter.configure(
-#  :cas_base_url => "http://iphelper.cdu.edu.cn/sso",
-#  :username_session_key => :login,
-#  :extra_attributes_session_key => :login_extra_attributes,
-#  :enable_single_sign_out => true,
-#  :authenticate_on_every_request => false
-#)
+#Slim::Engine.set_default_options :shortcut => {'&' => {:tag => 'a', :attr => 'href'}, '#' => {:attr => 'id'}, '.' => {:attr => 'class'}}
+
 CASClient::Frameworks::Rails::Filter.configure(
   :cas_base_url => "http://iphelper.cdu.edu.cn/sso",
 # :cas_base_url => "http://sso.zhiyisoft.com/",
@@ -25,3 +19,7 @@ CASClient::Frameworks::Rails::Filter.configure(
   :enable_single_sign_out => true,
   :authenticate_on_every_request => false
 )
+
+
+
+

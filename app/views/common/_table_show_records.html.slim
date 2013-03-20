@@ -1,0 +1,28 @@
+- if records
+  table.table.table-bordered(style="border-top: 10px solid #eee;")
+    thead
+      tr     
+        - show_query_recors_reulst_table_titles.each do |title|
+          th = title
+      - if records
+        - records.each do |record|
+          tr
+            - attach_attr=full_attr(record)
+              - attach_attr.each do |attr|
+              td = attr
+            td = record.record_person_name
+            - record.checkins.map do |checkin|
+              td = checkin.behave.name
+            td = record.attend_date
+            td 
+              button.btn.btn-mini.btn-primary 申请修改
+  .total_infor
+    p 
+      span 共计：#{records.count} 条记录 ， 将这些数据进行 
+      span  
+        button.btn.btn-mini.btn-primary 统计
+  .apple_pagination
+    .page_info
+    = will_paginate records, :container => false 
+- else
+  = render "common/no_content" , :message => "无数据...."

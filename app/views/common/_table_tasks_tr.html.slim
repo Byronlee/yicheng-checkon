@@ -13,16 +13,14 @@
           span.alert.alert-success  
             i.icon-ok &nbsp;
             span 已登记
-         
         - else
-          button class="btn btn-small btn-primary" type="button"
-            i class="icon-plus"
-            a href="/records/fast_register?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}"  = t ("view.common.table_tasks_tr.all_work")
+            form(action="records/update" method="post")
+              input name="dept_id" value="#{task[:dept_id]}" type="hidden"
+              input name="time" value="#{task[:attend_date]}" type="hidden"
+              input type="hidden" name="register_way" value="fast_register" 
+              .input-append
+                = raw(behave_selects nil,{},{:class => "span7",name: "behave_id"})
+                button.btn.btn-primary type="type" 保存   
       td
-        - if resource[:type]=="finished"
-          a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" = t ("view.common.table_tasks_tr.registered")
+          a href="/records/edit?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" = register_or_modify resource[:type]
           i class="icon-fast-forward"  
-        - else
-          a href="/records/new?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" = t ("view.common.table_tasks_tr.register")
-          i class="icon-fast-forward"  
-

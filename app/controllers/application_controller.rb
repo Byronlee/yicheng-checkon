@@ -5,11 +5,20 @@ class ApplicationController < ActionController::Base
   before_filter :current_user
 
   def current_user
-   @current_user = User.new("4028809b3c6fbaa7013c6fbc3db41bc3")
+   @current_user = User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
   end
-
 
   def logout
     CASClient::Frameworks::Rails::Filter.logout(self)
+  end
+  
+  def sort_by_field v,field
+    v.sort_by! do |v|
+      v[field]
+    end
+  end
+
+  def empty? str
+     str.empty?  ? nil : str  if str
   end
 end

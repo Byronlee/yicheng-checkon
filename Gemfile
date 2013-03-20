@@ -3,7 +3,6 @@ source 'http://ruby.taobao.org'
 ruby '1.9.3'
 gem 'rails'
 
-require 'rbconfig'
 group :test do
   gem 'turn', :require => false
   gem 'rspec-rails'
@@ -19,8 +18,7 @@ group :test do
   gem 'rb-fsevent'
   gem 'simplecov', :require => false
 end
-
-group :development do 
+group :development do
   gem "debugger"
 end
 
@@ -37,20 +35,24 @@ case HOST_OS
     gem 'win32console', :group =>:development
     gem 'rb-notifu', :group =>:development
 end
-gem 'mongo'
+
 gem 'whenever'
-gem "mongoid"
+gem "mongoid", "~> 3.1.2"
 gem "bson_ext"
-#gem "mongoid_session_store"
-#gem "mongo_session_store"
-#gem "mongo_session_store-rails3"
+gem 'bootstrap-daterangepicker-rails'
+gem 'bootstrap-datepicker-rails'
+gem 'will_paginate_mongoid'  #分页
+
+
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'anjlab-bootstrap-rails', '>= 2.2', :require => 'bootstrap-rails'
+  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  gem 'therubyracer'
   gem 'uglifier', '>= 1.0.3'
+  gem "twitter-bootstrap-rails"
 end
-
 
 gem "patron"
 gem "rubycas-client", "2.3.9"
@@ -62,3 +64,6 @@ gem 'ruote'
 gem 'ruote-mon'
 gem 'state_machine'
 gem 'cancan'
+gem 'will_paginate', '~> 3.0'
+gem 'workflow'
+gem 'workflow_on_mongoid'
