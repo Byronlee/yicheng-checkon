@@ -40,6 +40,7 @@ gem 'whenever'
 gem "mongoid", "~> 3.1.2"
 gem "bson_ext"
 gem 'bootstrap-daterangepicker-rails'
+gem 'bootstrap-datepicker-rails'
 gem 'will_paginate_mongoid'  #分页
 
 

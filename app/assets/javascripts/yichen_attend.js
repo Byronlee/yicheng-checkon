@@ -37,7 +37,7 @@ jQuery(function(){
 
 
 
-
+//   $('input[class=salary_time]').datepicker();
 
     function farmat(num){return num = num<10 ? "0"+num : num} 
 
@@ -58,11 +58,16 @@ jQuery(function(){
 
 	}
     );   
+
+
+
+
+
 });
 
     function ajax_select(params,url,update,o){
       $.get(url,{dept_id :o.val()},function(html){
-      o.parent("td").append(html);
+      $("#"+update).html(html);
       })
     }
 

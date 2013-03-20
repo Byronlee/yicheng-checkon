@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class User
   include Mongoid::Document
-  field :salary_time ,type: String , default: Time.now.to_date
+  field :salary_time ,type: String 
   field :user_no ,type: String, default: "000000"
   field :username ,type: String
 
