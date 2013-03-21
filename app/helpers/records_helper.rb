@@ -31,7 +31,13 @@ module RecordsHelper
     user.instance_variable_get(:@cins).inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
       html_str << behave_selects(checkin,{},{name: "record[#{user.staffid}][#{checkin.check_unit_id}]",class:"span3"})
+    end
+  end
 
+  def no_number_selects record
+    record.checkins.inject("") do |html_str,checkin|
+      html_str << content_tag(:span ,checkin.check_unit.name+" : ")
+      html_str << behave_selects(checkin,{},{name: "record[#{record.user_id}][#{checkin.check_unit_id}]",class:"span3"})
     end
   end
 

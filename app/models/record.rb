@@ -9,7 +9,7 @@ class Record
   field :record_zone , type: String
   field :attend_date , type: String
   
-  default_scope where(_type: Record)
+  default_scope where(_type: "Record")
 
   index({state: 1}) 
 
@@ -51,6 +51,7 @@ class Record
     Department.new(arg[:dept_id]).users.map do | user |
       record = get_record user.staffid,arg[:time]
       record.checkins.update_all(behave_id: arg[:behave_id])
+      record.update_attribute(:attend_date,Date.today)
       record.register
     end
   end
@@ -61,8 +62,13 @@ class Record
       checks.map do |unit_id,behave_id|
         record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
       end
+      record.update_attribute(:attend_date,Date.today)
       record.register
     end
+  end
+
+  def self.no_number_register arg
+    Record.where(_type: "ExceptionRecord").register arg
   end
 
 
@@ -86,12 +92,13 @@ class Record
     if records
       tasks = records.map do | record |
         { dept_id: User.resource(record.staffid).dept_id, 
-          attend_date: record.attend_date 
+          created_at: record.created_at.to_date.to_s
         }
       end
+      p tasks
       tasks = tasks.uniq.map do |task|
         {  dept_id: task[:dept_id], 
-          attend_date: task[:attend_date] ,
+          created_at: task[:created_at] ,
           dept_name: Department.new(task[:dept_id]).name
         }
       end 
@@ -103,18 +110,18 @@ class Record
     current_user.attend_depts["children"].map do | dept | 
       Department.new(dept["id"]).users.map do | user |
       # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug
-        Record.new_record user.staffid,Date.today,current_user.username, current_user.id ,dept["id"]
+        Record.new_record user.staffid,current_user.username, current_user.id ,dept["id"]
       end
     end
+    ExceptionRecord.exception_everyday
   end
 
 # arg[0]: 用户id,arg[1]: 考勤日期,arg[2]: 考勤人,arg[3]: 考勤区域
   def self.new_record *arg
     find_or_create_by(  staffid: arg[0],
-                      attend_date: arg[1],
-                      record_person_name: arg[2],
-                      record_person: arg[3],
-                      record_zone: arg[4]
+                      record_person_name: arg[1],
+                      record_person: arg[2],
+                      record_zone: arg[3]
                      )
   end
 end

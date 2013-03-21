@@ -49,6 +49,8 @@ class RecordsController < ApplicationController
     def initialize_tasks 
       @tasks = sort_by_field(Record.get_tasks(Record.state('checking')),:dept_name)
       @tasks_finished = sort_by_field(Record.get_tasks(Record.by_period(Date.today-1,Date.today+1).state("registered")),:dept_name)
+      @u_tasks = ExceptionRecord.exception_records.decorate
+      @u_finished_tasks = ExceptionRecord.exception_finished_records.decorate
     end
    
    def initialize_query_records

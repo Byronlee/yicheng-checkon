@@ -104,6 +104,11 @@ jQuery(function(){
 	
     }
 
+function u_submit(o){
+   //  o.parents('tr').children('td form').submit()
+     $('#u_form').submit()
+}
+
 
 
 

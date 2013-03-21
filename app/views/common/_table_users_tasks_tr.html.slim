@@ -1,0 +1,25 @@
+- if resource[:tasks]
+  - resource[:tasks].each do |task| 
+    tr
+      td 
+        - if resource[:type]=="finished"
+          font color="green" = task.user[:dept_name]
+        - else
+          font color="red" = task.user[:dept_name]
+      td
+        = task.user[:name]
+      td
+        = FormatDate task.date
+      td
+       form action="/records/update" method="post" id="u_form"
+         input name="time" type="hidden" value=task[:attend_date]
+         input name="register_way" type="hidden" value="no_number_register"
+          - if resource[:type]=="finished"
+            span.alert.alert-success  
+              i.icon-ok &nbsp;
+              span 已登记
+          - else
+                  = raw no_number_selects(task)
+      td 
+        button.btn.btn-primary type="type" onclick="u_submit($(this))" 保存
+
