@@ -30,11 +30,11 @@ module Attendance
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
     config.mongoid.observers = Dir["#{config.root}/app/observers/*.rb"].collect do |full_name|
-  File.basename(full_name,'.rb').to_sym
-end
+      File.basename(full_name,'.rb').to_sym
+    end
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-     config.time_zone = 'Beijing'
+    config.time_zone = 'Beijing'
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :zh_CN
@@ -64,9 +64,8 @@ end
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-#   config.gem "mongoid"
-#   config.gem "mongo_session_store"
-    # config.autoload_paths += %w(#{config.root}/app/sweepers)  
     # config.action_controller.page_cache_directory = Rails.root + "/public/cache/"  
+ #  config.i18n.fallbacks = true
+ #  ::I18n.fallbacks["zh_CN"] = [ :en ]
   end
 end

@@ -2,6 +2,7 @@
 class Record
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::WorkFlow
 
   field :staffid, type: String # 用户下信息
   field :staff_name , type: String 
@@ -13,6 +14,8 @@ class Record
   field :record_zone_name , type: String 
   field :attend_date , type: String
   
+  default_scope where(_type: "Record")
+
   index({state: 1}) 
 
   embeds_many :checkins
@@ -31,7 +34,7 @@ class Record
   after_create do |record|
     if checkins.count == 0
       CheckUnit.all.each do |unit|
-       record.checkins.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
+        record.checkins.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
       end
     end
   end
@@ -53,6 +56,7 @@ class Record
     Department.new(arg[:dept_id]).users.map do | user |
       record = get_record user.staffid,arg[:time]
       record.checkins.update_all(behave_id: arg[:behave_id])
+      record.update_attribute(:attend_date,Date.today)
       record.register
     end
   end
@@ -63,20 +67,28 @@ class Record
       checks.map do |unit_id,behave_id|
         record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
       end
+      record.update_attribute(:attend_date,Date.today)
       record.register
     end
   end
+
+
+  def self.no_number_register arg
+    Record.where(_type: "ExceptionRecord").register arg
+  end
+
 
   def self.get_tasks  records
     if records
       tasks = records.map do | record |
         { dept_id: User.resource(record.staffid).dept_id, 
-          attend_date: record.attend_date 
+          created_at: record.created_at.to_date.to_s
         }
       end
+      p tasks
       tasks = tasks.uniq.map do |task|
         {  dept_id: task[:dept_id], 
-          attend_date: task[:attend_date] ,
+          created_at: task[:created_at] ,
           dept_name: Department.new(task[:dept_id]).name
         }
       end 
@@ -109,9 +121,10 @@ class Record
       # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug
         Record.new_record(user.staffid  ,        user.username,          user.user_no ,
                           user.nickname_display, current_user.username,  current_user.id  ,
-                          current_user.dept_id,  current_user.dept_name, Date.today  )
+                          current_user.dept_id,  current_user.dept_name )
       end
     end
+    ExceptionRecord.exception_everyday
   end
 
 # arg[0]: 用户id,arg[1]:用户名字，arg[2]:用户工号， arg[3]:昵称，
@@ -125,7 +138,6 @@ class Record
                       record_person: arg[5],
                       record_zone: arg[6],
                       record_zone_name: arg[7],
-                      attend_date: arg[8]
                      )
   end
 end

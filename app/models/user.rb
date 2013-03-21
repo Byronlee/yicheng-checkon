@@ -4,6 +4,7 @@ class User
   field :salary_time ,type: String 
   field :user_no ,type: String, default: "000000"
   field :username ,type: String
+  field :is_first ,type: Boolean, default: true
 
   field :nickname_code 
   field :nickname_display 
@@ -16,8 +17,8 @@ class User
 
 
   has_many :exception_records
-# validates_presence_of :username , :salary_time , :dept_id
-# validates_uniqueness_of :username
+  validates_presence_of :username , :salary_time , :dept_id
+  validates_uniqueness_of :username
 
   def self.resource sid
     if sid.instance_of?(String)
@@ -50,5 +51,9 @@ class User
 
   def initialized_days
     (Date.today - Date.parse(salary_time)).to_i + 1
+  end
+
+  def not_first
+    update_attribute(:is_first, false)
   end
 end

@@ -25,11 +25,11 @@ describe "ExceptionRecord" do
     end
 
     it "这时User中没有此无工号员工信息" do
-      User.where(_id: @no_number_user.id).first.should be_nil
+    User.where(_id: @no_number_user.id).first.should be_nil
     end
 
     it "这时Record中包含合并的数据" do
-      Record.find(@default_record.id).should_not be_nil
+     ExceptionRecord.find_by(user_id: @no_number_user.id).should_not be_nil
     end
   end
 end
