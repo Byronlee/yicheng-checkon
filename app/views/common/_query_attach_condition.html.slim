@@ -18,19 +18,15 @@
         a href="#alerts"  field="staffid"  order="opposite" onclick="query_attach($(this))"
           span 工号
           i.icon-arrow-down
-      li
-        .input-append
-          = raw(behave_selects nil,{},{:class => "condition condition_behave" , :field => "staffid" ,:order =>"false"})
-          button.btn type="button"  onclick="query_attach($('.condition_behave'))" 确认
       li 
         .input-append
-          input#appendedPrependedInput.condition.staffid type="text" placeholder="工号" field="staffid"  order="false"
+          input#appendedPrependedInput.condition.staffid type="text" placeholder="工号" field="user_no"  order="false"
           button.btn type="button"  onclick="query_attach($('.staffid'))" 确认
       li
         .input-append
-          input#appendedPrependedInput.condition.username type="text" placeholder="姓名"  field="username"  order="false"  
+          input#appendedPrependedInput.condition.username type="text" placeholder="姓名"  field="staff_name"  order="false"  
           button.btn type="button"  onclick="query_attach($('.username'))" 确认
       li
         .input-append
-          input#appendedPrependedInput.condition.nickname type="text" placeholder="昵称" field="nickname"  order="false"
+          input#appendedPrependedInput.condition.nickname type="text" placeholder="昵称" field="nick_name"  order="false"
           button.btn type="button"   onclick="query_attach($('.nickname'))" 确认

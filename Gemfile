@@ -39,7 +39,6 @@ end
 gem 'whenever'
 gem "mongoid", "~> 3.1.2"
 gem "bson_ext"
-gem 'will_paginate_mongoid' 
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -62,7 +61,12 @@ gem 'ruote'
 gem 'ruote-mon'
 gem 'state_machine'
 gem 'cancan'
+
+
 gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
+gem 'will_paginate_mongoid'
+
 gem 'workflow'
 gem 'workflow_on_mongoid'
 gem 'draper', '~> 1.0'

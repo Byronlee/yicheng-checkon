@@ -86,8 +86,11 @@ jQuery(function(){
 
     function query_records(){
      $.post("query" ,{start_time: $('input[name=start_time]').val() , 
-		      end_time:  $('input[name=end_time]').val() ,
-		      organization:($('#condition_dept').val()||  $('#condition_cell').val() || $('#condition_region').val()) 
+		      end_time  : $('input[name=end_time]').val() ,
+		      dept_id   : $('#condition_dept').val(),
+		      cell_id   : $('#condition_cell').val(), 
+	              region    : $('#condition_region').val(),
+                      type      : "direct"
 		     },
              function(html){
 		 $(".show_query_result").html(html);
@@ -96,17 +99,13 @@ jQuery(function(){
 
 
     function query_attach(o){
-
-
-//     alert(o.attr("order")=="false"&&o.val()=="")
      if(o.attr("order")=="false"&&o.val()=="") return false
-
-        $.post("query_attach" ,{value: o.val() , 
+        $.post("query" ,{value: o.val() , 
 			 field: o.attr("field"),
-			 order: o.attr("order") 
+			 order: o.attr("order"),
+			 type : "attach"
 			},
                function(html){
-                   alert(html)
 		   $(".show_query_result").html(html);
 	       });
 	

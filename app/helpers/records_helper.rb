@@ -31,19 +31,13 @@ module RecordsHelper
     user.instance_variable_get(:@cins).inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
       html_str << behave_selects(checkin,{},{name: "record[#{user.staffid}][#{checkin.check_unit_id}]",class:"span3"})
-
     end
   end
 
 
-  def full_attr record
-     user = User.resource(record.staffid)
-     ["" ,user.user_no , "" ]
-  end
-
-
+  
   def show_query_recors_reulst_table_titles
-    ["所在位置" ," 员工工号" , "职位" , " 登记人" , "上午考勤" , "下午考勤" , "考勤日期" , "操作"]
+    ["所在位置" ," 员工工号" , "职位" , "姓名", "昵称" ," 登记人" , "上午考勤" , "下午考勤" , "考勤日期" , "操作"]
   end
 
   def register_or_modify type
@@ -60,6 +54,8 @@ module RecordsHelper
     depts = current_user.attend_depts["children"].map{|v| [v["name"] , v["id"]]}
   end
 
+
+  
   def organization_selects(depts,options = {}, html_options = {})
     select("dept","dept_id",depts,options,html_options)
   end

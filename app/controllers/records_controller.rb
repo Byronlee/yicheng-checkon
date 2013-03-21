@@ -2,7 +2,7 @@
 class RecordsController < ApplicationController
 
   before_filter  :initialize_tasks , only: [:index]
-  before_filter  :initialize_query_records , only: [:query , :operate ,:query_attach]
+  before_filter  :initialize_query_records 
 #  caches_page :index
 
 
@@ -14,9 +14,6 @@ class RecordsController < ApplicationController
      }
   end
 
-  def tree_dept
-    render :json =>  Webservice.get_data("dept_tree/").to_json
-  end
 
   def update
     Record.send(params[:register_way].to_sym , params)
@@ -24,26 +21,15 @@ class RecordsController < ApplicationController
   end
 
   def operate
-     @records = @query_resource.paginate(:page => params[:page], :per_page => 5)
+   @records =  RecordDecorator.new(eval(session[:query_map]).paginate(:page => params[:page]))
   end
 
   def query
-    @query_result = Record.query @query_resource , params
-    render "common/_table_show_records",locals:{:records => @query_result },:layout => false
-  end
-
-
-  def query_attach
-      @query_attach_result = Record.query_attach( @query_result||@query_resource, params)
-      render "common/_table_show_records",locals:{:records => @query_attach_result },:layout => false
+    map = session[:query_map]+Record.query_map(params)
+    render "common/_table_show_records",locals:{:records => RecordDecorator.new(eval(map).paginate(:page => params[:page]))},:layout => false
   end
   
-  def ajax_select
-    
-  end
 
-  def permission
-  end
 
   private 
     def initialize_tasks 
@@ -52,6 +38,6 @@ class RecordsController < ApplicationController
     end
    
    def initialize_query_records
-     @query_resource = Record.in(record_zone: current_user.attend_depts["children"].map{|dept| dept["id"]} ).state("registered")
+     session[:query_map] ="Record.where(record_zone: '#{current_user.dept_id}').state('registered')"
    end
 end

@@ -11,6 +11,9 @@ class User
   field :dept_id 
   field :staffid
   field :dept_name
+  field :dept_ancestors ,type:Array
+  field :position , type:Array
+
 
   has_many :exception_records
 # validates_presence_of :username , :salary_time , :dept_id
@@ -33,7 +36,10 @@ class User
       username: rs["SU_USERNAME"],
       user_no: rs["SU_USER_NO"],
       dept_id: rs["SU_DEPT_ID"],
-      dept_name: Department.new(rs["SU_DEPT_ID"]).name
+      dept_name: Department.new(rs["SU_DEPT_ID"]).name ,
+      dept_ancestors: rs["DEPT_ANCESTORS"],
+      position: rs["POSTS"]
+
     }
     new(attrs)
   end
