@@ -13,8 +13,8 @@ class User
   field :dept_name
 
   has_many :exception_records
-# validates_presence_of :username , :salary_time , :dept_id
-# validates_uniqueness_of :username
+  validates_presence_of :username , :salary_time , :dept_id
+  validates_uniqueness_of :username
 
   def self.resource sid
     if sid.instance_of?(String)

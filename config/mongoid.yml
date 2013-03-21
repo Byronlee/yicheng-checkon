@@ -44,7 +44,7 @@ development:
 
     # Preload all models in development, needed when models use
     # inheritance. (default: false)
-    # preload_models: false
+    preload_models: true
 
     # Protect id and type from mass assignment. (default: true)
     # protect_sensitive_fields: true

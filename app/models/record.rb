@@ -9,6 +9,8 @@ class Record
   field :record_zone , type: String
   field :attend_date , type: String
   
+  default_scope where(_type: Record)
+
   index({state: 1}) 
 
   embeds_many :checkins
