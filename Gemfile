@@ -39,19 +39,16 @@ end
 gem 'whenever'
 gem "mongoid", "~> 3.1.2"
 gem "bson_ext"
-gem 'bootstrap-daterangepicker-rails'
-gem 'bootstrap-datepicker-rails'
-gem 'will_paginate_mongoid'  #分页
-
-
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  gem "less-rails" 
   gem 'therubyracer'
   gem 'uglifier', '>= 1.0.3'
   gem "twitter-bootstrap-rails"
+  gem 'bootstrap-daterangepicker-rails'
+  gem 'bootstrap-datepicker-rails'
 end
 
 gem "patron"
@@ -64,6 +61,12 @@ gem 'ruote'
 gem 'ruote-mon'
 gem 'state_machine'
 gem 'cancan'
+
+
 gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
+gem 'will_paginate_mongoid'
+
 gem 'workflow'
 gem 'workflow_on_mongoid'
+gem 'draper', '~> 1.0'

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Webservice
 
  @sess = Patron::Session.new
@@ -14,5 +15,8 @@ class Webservice
    @users
  end
 
+ def self.users_with_subdept dept_id    # 用户组[]
+  Webservice.get_data("dept/users_with_subdept/#{dept_id}")
+ end
 
 end

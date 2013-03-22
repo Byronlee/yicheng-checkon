@@ -7,7 +7,7 @@
         - else
           font color="red" = task[:dept_name]
       td
-        = FormatDate task[:attend_date]
+        = FormatDate task[:created_at]
       td
         - if resource[:type]=="finished"
           span.alert.alert-success  
@@ -16,11 +16,11 @@
         - else
             form(action="records/update" method="post")
               input name="dept_id" value="#{task[:dept_id]}" type="hidden"
-              input name="time" value="#{task[:attend_date]}" type="hidden"
+              input name="time" value="#{task[:created_at]}" type="hidden"
               input type="hidden" name="register_way" value="fast_register" 
               .input-append
                 = raw(behave_selects nil,{},{:class => "span7",name: "behave_id"})
                 button.btn.btn-primary type="type" 保存   
       td
-          a href="/records/edit?dept_id=#{task[:dept_id]}&time=#{task[:attend_date]}&dept_name=#{task[:dept_name]}" = register_or_modify resource[:type]
+          a href="/records/edit?dept_id=#{task[:dept_id]}&time=#{task[:created_at]}&dept_name=#{task[:dept_name]}" = register_or_modify resource[:type]
           i class="icon-fast-forward"  

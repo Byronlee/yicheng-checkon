@@ -1,12 +1,12 @@
 # encoding: utf-8
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @users = User.all.decorate
   end
 
   def create
     @user = User.create(params[:user])
-    render :index
+    redirect_to users_path
   end
 
   def ajax_user_select
@@ -19,6 +19,6 @@ class UsersController < ApplicationController
 
   def merge
     @result = ExceptionRecord.merge(params[:o_id],params[:n_id])
-    render action: "index"
+    redirect_to users_path
   end
 end
