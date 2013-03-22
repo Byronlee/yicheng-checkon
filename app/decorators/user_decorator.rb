@@ -6,7 +6,7 @@ class UserDecorator < Draper::Decorator
     Department.new(source.dept_id).name
   end
 
-  def user_no
+  def user_number
      User.resource(source.staffid).user_no
   end
 
