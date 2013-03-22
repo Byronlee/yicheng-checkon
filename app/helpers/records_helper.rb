@@ -69,7 +69,4 @@ module RecordsHelper
     s == "registered" ? "修改" : "保存"
   end
 
-  def exception_records_number record
-    record.state("checking").length
-  end
 end

@@ -45,4 +45,8 @@ class ExceptionRecord < Record
     ExceptionRecord.or({state: "checking"},{state: "registered",attend_date: Date.today})
   end
 
+  def self.auto_submit
+    Record.send(:auto_submit)
+    super
+  end
 end

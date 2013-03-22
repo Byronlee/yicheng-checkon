@@ -25,7 +25,7 @@ class Record
     end
 
     event :submit do
-      transition [:registered] => :submited
+      transition [:registered] => :submitted
     end
   end
 
@@ -110,9 +110,6 @@ class Record
     end
   end
 
-
-
-
   def self.default_everyday_records 
     current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
     current_user.attend_depts["children"].map do | dept | 
@@ -138,5 +135,11 @@ class Record
                       record_zone: arg[6],
                       record_zone_name: arg[7],
                      )
+  end
+
+  def self.auto_submit
+    where(attend_date: Date.today).state("registered").each do |record|
+      record.submit
+    end
   end
 end
