@@ -14,12 +14,8 @@
        form action="/records/update" method="post" id="u_form"
          input name="time" type="hidden" value=task[:attend_date]
          input name="register_way" type="hidden" value="no_number_register"
-          - if resource[:type]=="finished"
-            span.alert.alert-success  
-              i.icon-ok &nbsp;
-              span 已登记
-          - else
-                  = raw no_number_selects(task)
+          = raw no_number_selects(task)
       td 
-        button.btn.btn-primary type="type" onclick="u_submit($(this))" 保存
+        button.btn.btn-primary type="type" onclick="u_submit($(this))" = btn_name(resource[:type])
+	  
 

@@ -1,16 +1,14 @@
-- if resource[:tasks].any?
+- if resource[:u_tasks].any? || resource[:u_finished_tasks].any?
   .title
     .content
       strong = t("view.records.index.unfinished_tasks") 
       strong 
-        font color="red" = resource[:tasks].count
+        font color="red" = resource[:u_tasks].count
       strong = t("view.records.index.unit")
   .bs-docs
     table.table.table-bordered
-      - if @tasks
-        = render "common/table_users_tasks_tr" , :resource => {:tasks => resource[:tasks]}
-      - if @tasks_finished
-        = render "common/table_users_tasks_tr" , :resource => {:tasks => @tasks_finished , :type => "finished" }
-- else
-  = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+      - if resource[:u_tasks]
+        = render "common/table_users_tasks_tr" , :resource => {:tasks => resource[:u_tasks]}
+      - if @u_finished_tasks
+        = render "common/table_users_tasks_tr" , :resource => {:tasks => resource[:u_finished_tasks] , :type => "finished" }
 
