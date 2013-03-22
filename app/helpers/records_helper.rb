@@ -60,10 +60,13 @@ module RecordsHelper
   def depts
     depts = current_user.attend_depts["children"].map{|v| [v["name"] , v["id"]]}
   end
-
-
   
   def organization_selects(depts,options = {}, html_options = {})
     select("dept","dept_id",depts,options,html_options)
   end
+
+  def btn_name s
+    s == "registered" ? "修改" : "保存"
+  end
+
 end

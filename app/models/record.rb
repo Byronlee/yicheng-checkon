@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 class Record
   include Mongoid::Document
-  include Mongoid::Timestamps
   include Mongoid::WorkFlow
-
   field :staffid, type: String # 用户下信息
   field :staff_name , type: String 
   field :user_no, type: String 
@@ -13,6 +11,7 @@ class Record
   field :record_zone , type: String #登记区域信息
   field :record_zone_name , type: String 
   field :attend_date , type: String
+  field :created_at, type: Date,default: Date.today
   
   default_scope where(_type: "Record")
 
@@ -26,7 +25,7 @@ class Record
     end
 
     event :submit do
-      transition [:registered] => :submited
+      transition [:registered] => :submitted
     end
   end
 
@@ -44,11 +43,11 @@ class Record
   end
 
   def self.get_record id,time
-    find_by(staffid: id, attend_date: time)
+    find_by(staffid: id, created_at: time)
   end
 
   def self.by_period first,last
-    where(attend_date: {"$gte"=>first, "$lte"=>last})
+    between(attend_date: [first,last])
   end
 
 
@@ -82,7 +81,7 @@ class Record
     if records
       tasks = records.map do | record |
         { dept_id: User.resource(record.staffid).dept_id, 
-          created_at: record.created_at.to_date.to_s
+          created_at: record.created_at
         }
       end
       p tasks
@@ -111,9 +110,6 @@ class Record
     end
   end
 
-
-
-
   def self.default_everyday_records 
     current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
     current_user.attend_depts["children"].map do | dept | 
@@ -139,5 +135,11 @@ class Record
                       record_zone: arg[6],
                       record_zone_name: arg[7],
                      )
+  end
+
+  def self.auto_submit
+    where(attend_date: Date.today).state("registered").each do |record|
+      record.submit
+    end
   end
 end

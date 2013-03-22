@@ -20,6 +20,7 @@ table.table.table-bordered.table-condensed
       th 姓名
       th 计薪时间
       th 选择匹配用户
+      th 操作
     - @users.each do | u |
       tr
         td = u.user_no
@@ -27,12 +28,13 @@ table.table.table-bordered.table-condensed
         td = u.username
         td = u.salary_time
         td
-         form action=merge_users_path method="post"
-          span.input-prepend.m_r
-            span.add-on 
-              i.icon-home
-            = select("dept","dept_id",depts,{prompt: "--选择店组--"},{onChange: "ajax_select('dept_id','users/ajax_user_select','user_select',$(this))" , :class => "span10"} )
-          span#user_select.m_r
-            = render "common/organization_select" , :select => {type:"user" ,options: [], tips: "请选择用户"}
-          input type="hidden" name="o_id" value=u.id
-          input.btn.btn-primary  type="submit" value="确认合并"
+           form action=merge_users_path method="post" id="merge_users"
+            span.input-prepend.m_r
+              span.add-on 
+                i.icon-home
+              = select("dept","dept_id",depts,{prompt: "--选择店组--"},{onChange: "ajax_select('dept_id','users/ajax_user_select','user_select',$(this))" , :class => "span10"} )
+            span#user_select.m_r
+              = render "common/organization_select" , :select => {type:"user" ,options: [], tips: "请选择用户"}
+            input type="hidden" name="o_id" value=u.id
+        td
+          input.btn.btn-primary  type="submit" onclick="u_submit($(this),'merge_users')" value="确认合并"
