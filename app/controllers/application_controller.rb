@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   end
   
   def sort_by_field v,field
+    return  if v.empty?
     v.sort_by! do |v|
       v[field]
     end

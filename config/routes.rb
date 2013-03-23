@@ -1,6 +1,11 @@
 Attendance::Application.routes.draw do
 
-  resources :counts , only: [:index]
+  resources :counts do
+    collection do
+      get :amount
+    end
+  end
+
   resources :users do
     collection do
       get :ajax_user_select

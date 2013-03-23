@@ -10,7 +10,7 @@ module RecordsHelper
      cell: [],
      dept: {type: "dept" , 
             options: current_user.attend_depts["children"].map{|v| [v["name"] , v["id"]]} ,
-            tips: "--选择店组--" } }
+            tips: "--全部--" } }
   end
 
   def FormatDate time
@@ -46,6 +46,9 @@ module RecordsHelper
   def show_query_recors_reulst_table_titles
     ["所在位置" ," 员工工号" , "职位" , "姓名", "昵称" ," 登记人" , "上午考勤" , "下午考勤" , "考勤日期" , "操作"]
   end
+
+ 
+
 
   def register_or_modify type
     type=="finished" ? t("view.common.table_tasks_tr.registered") : t("view.common.table_tasks_tr.register")

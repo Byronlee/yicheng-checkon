@@ -13,5 +13,9 @@ FactoryGirl.define do
     factory :away do
       name '缺席'
     end
+
+    factory :late do
+      name '迟到'
+    end
   end
 end

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps::Short
   field :salary_time ,type: String 
   field :user_no ,type: String, default: "000000"
   field :username ,type: String
