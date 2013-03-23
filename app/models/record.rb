@@ -112,20 +112,7 @@ class Record
           dept_name: user.dept_name
         }
       end
-<<<<<<< HEAD
       tasks.uniq
-=======
-<<<<<<< HEAD
-      tasks = tasks.uniq.map do |task|
-        {  dept_id: task[:dept_id], 
-          created_at: task[:created_at] ,
-          dept_name: Department.new(task[:dept_id]).name
-        }
-      end 
-=======
-      tasks.uniq
->>>>>>> ef6b1a8c14f3af93c7bca470fa6c952579fac5ac
->>>>>>> b824a6d0ad3ea52839d8e42cf584370ca3c7e643
     end
   end
 
