@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 class Record
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Mongoid::WorkFlow
+
   field :staffid, type: String # 用户下信息
   field :staff_name , type: String 
   field :user_no, type: String 
@@ -11,7 +13,6 @@ class Record
   field :record_zone , type: String #登记区域信息
   field :record_zone_name , type: String 
   field :attend_date , type: String
-  field :created_at, type: Date,default: Date.today
   
   default_scope where(_type: "Record")
 
@@ -25,7 +26,7 @@ class Record
     end
 
     event :submit do
-      transition [:registered] => :submitted
+      transition [:registered] => :submited
     end
   end
 
@@ -43,11 +44,11 @@ class Record
   end
 
   def self.get_record id,time
-    find_by(staffid: id, created_at: time)
+    find_by(staffid: id, attend_date: time)
   end
 
   def self.by_period first,last
-    between(attend_date: [first,last])
+    where(attend_date: {"$gte"=>first, "$lte"=>last})
   end
 
 
@@ -78,17 +79,12 @@ class Record
 
 
   def self.get_tasks  records
-    records.map{|x| p x}
-    p "777777777"
     if records
-
-      
       tasks = records.map do | record |
         { dept_id: User.resource(record.staffid).dept_id, 
-          created_at: record.created_at
+          created_at: record.created_at.to_date.to_s
         }
       end
-      p tasks
       tasks = tasks.uniq.map do |task|
         {  dept_id: task[:dept_id], 
           created_at: task[:created_at] ,
@@ -113,6 +109,9 @@ class Record
       params[:cell_id]&&!params[:cell_id].empty?     ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" : map
     end
   end
+
+
+
 
   def self.default_everyday_records 
     current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
@@ -139,11 +138,5 @@ class Record
                       record_zone: arg[6],
                       record_zone_name: arg[7]
                      )
-  end
-
-  def self.auto_submit
-    where(attend_date: Date.today).state("registered").each do |record|
-      record.submit
-    end
   end
 end
