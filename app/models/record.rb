@@ -19,6 +19,10 @@ class Record
 
   embeds_many :checkins
 
+  validates_presence_of :staffid , :record_person , :record_zone
+  # staffid,created_at共同检验唯一约束,防止重复产生记录
+  validates_uniqueness_of :staffid ,:scope => :created_at 
+
   state_machine initial: :checking do
     event :register do
       transition [:checking] => :registered
@@ -130,7 +134,7 @@ class Record
 # arg[0]: 用户id,arg[1]:用户名字，arg[2]:用户工号， arg[3]:昵称，
 # arg[4]: 记录人名字，arg[5]: 记录人id, arg[6]:记录人区域id ，arg[7]:记录人区域名字， ,arg[8]: 考勤日期
   def self.new_record *arg
-    find_or_create_by(staffid: arg[0],
+    create!(staffid: arg[0],
                       staff_name: arg[1],
                       user_no: arg[2],
                       nick_name: arg[3],
