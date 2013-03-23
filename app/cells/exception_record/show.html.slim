@@ -11,11 +11,11 @@
         tr
           td 
             - if task.state =="registered"
-              font color="green" = task.user[:dept_name]
+              /!font color="green" = task.user[:dept_name]
             - else
-              font color="red" = task.user[:dept_name]
+              /! font color="red" = task.user[:dept_name]
           td
-            = task.user[:name]
+            /! = task.user[:name]
           td
             = FormatDate task.date
           td

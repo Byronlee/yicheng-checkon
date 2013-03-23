@@ -50,7 +50,6 @@ class Record
     between(attend_date: [first,last])
   end
 
-
   def self.fast_register arg
     Department.new(arg[:dept_id]).users.map do | user |
       record = get_record user.staffid,arg[:time]
