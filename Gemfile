@@ -3,6 +3,12 @@ source 'http://ruby.taobao.org'
 ruby '1.9.3'
 gem 'rails'
 
+gem "sinatra"
+gem 'json'
+gem 'rubytree'
+gem 'sqlite3'
+
+
 group :test do
   gem 'turn', :require => false
   gem 'rspec-rails'
@@ -71,3 +77,13 @@ gem 'workflow'
 gem 'workflow_on_mongoid'
 gem 'draper', '~> 1.0'
 gem 'cells'
+
+
+## gem 'rack'
+
+## group :test do
+##   gem 'rspec'                               
+##   gem 'rack-test'
+##   gem 'patron'                              
+## end
+## >>>>>>> remotes/ws/master

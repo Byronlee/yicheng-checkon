@@ -1,0 +1,19 @@
+connect :
+  oracle :
+    host : 61.139.76.161
+    port : 1521
+    sid : ORCL
+    username : ecen_kq
+    password : 123456
+  test-expection : 
+    username : ecen_kq
+    password : 123456
+  sqlite :
+    db : ref/test_data.db 
+
+default_connect : sqlite
+
+logger_file : ws.log
+
+
+        
