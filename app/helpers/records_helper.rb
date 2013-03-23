@@ -35,6 +35,7 @@ module RecordsHelper
   end
 
   def no_number_selects record
+#   debugger
     record.checkins.inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
       html_str << behave_selects(checkin,{},{name: "record[#{record.user_id}][#{checkin.check_unit_id}]",class:"span3"})

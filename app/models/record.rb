@@ -2,6 +2,7 @@
 class Record
   include Mongoid::Document
   include Mongoid::WorkFlow
+
   field :staffid, type: String # 用户下信息
   field :staff_name , type: String 
   field :user_no, type: String 
@@ -11,9 +12,9 @@ class Record
   field :record_zone , type: String #登记区域信息
   field :record_zone_name , type: String 
   field :attend_date , type: String
-  field :created_at, type: Date,default: Date.today
-  
-  default_scope where(_type: "Record")
+  field :created_at, type: String,default: Date.today.to_s
+
+# default_scope where(_type: "Record")
 
   index({state: 1}) 
 
@@ -35,6 +36,14 @@ class Record
       CheckUnit.all.each do |unit|
         record.checkins.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
       end
+    end
+  end
+
+  def assign_collection
+    if instance_of?(ExceptionRecord)
+      with(collection: "exception_records")
+    else
+      with(collection: "records")
     end
   end
 
@@ -71,11 +80,9 @@ class Record
     end
   end
 
-
   def self.no_number_register arg
-    Record.where(_type: "ExceptionRecord").register arg
+    ExceptionRecord.register arg
   end
-
 
   def self.get_tasks  records
     if records
@@ -84,7 +91,6 @@ class Record
           created_at: record.created_at
         }
       end
-      p tasks
       tasks = tasks.uniq.map do |task|
         {  dept_id: task[:dept_id], 
           created_at: task[:created_at] ,
