@@ -2,7 +2,7 @@
 class Record
   include Mongoid::Document
   include Mongoid::WorkFlow
-
+  include Mongoid::Timestamps::Short
   field :staffid, type: String # 用户下信息
   field :staff_name , type: String 
   field :user_no, type: String 
@@ -12,10 +12,7 @@ class Record
   field :record_zone , type: String #登记区域信息
   field :record_zone_name , type: String 
   field :attend_date , type: String
-  field :created_at, type: String,default: Date.today.to_s
-
-# default_scope where(_type: "Record")
-
+  
   index({state: 1}) 
 
   embeds_many :checkins
@@ -50,15 +47,18 @@ class Record
   def self.state state
     where(state: state)
   end
+  
 
   def self.get_record id,time
-    find_by(staffid: id, created_at: time)
+    by_period(time.to_date-1,time.to_date+1).find_by(staffid: id)
   end
 
-  def self.by_period first,last
-    between(attend_date: [first,last])
+  def self.by_period first,last  
+    between(u_at: [first,last])
   end
 
+
+  
   def self.fast_register arg
     Department.new(arg[:dept_id]).users.map do | user |
       record = get_record user.staffid,arg[:time]
@@ -86,16 +86,22 @@ class Record
   def self.get_tasks  records
     if records
       tasks = records.map do | record |
-        { dept_id: User.resource(record.staffid).dept_id, 
-          created_at: record.created_at
+        user =  User.resource(record.staffid)
+        { dept_id: user.dept_id, 
+          created_at: record.created_at.to_date.to_s,
+          dept_name: user.dept_name
         }
       end
+<<<<<<< HEAD
       tasks = tasks.uniq.map do |task|
         {  dept_id: task[:dept_id], 
           created_at: task[:created_at] ,
           dept_name: Department.new(task[:dept_id]).name
         }
       end 
+=======
+      tasks.uniq
+>>>>>>> ef6b1a8c14f3af93c7bca470fa6c952579fac5ac
     end
   end
 

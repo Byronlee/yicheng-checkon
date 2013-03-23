@@ -7,7 +7,7 @@ class RecordDecorator < Draper::CollectionDecorator
    user =  User.resource(source.staffid)
    user.dept_ancestors.delete_if{|dept| dept[0]=="4028809b3c60dcc8013c60e107810001" || dept[0]=="4028809b3c6fbaa7013c6fbc39510002" }
        .inject(""){|str,position| str+position[1]+"/"}+user.dept_name
-  end
+   end
 
   def  position   
     position =  User.resource(source.staffid).position

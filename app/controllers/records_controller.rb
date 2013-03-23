@@ -29,8 +29,6 @@ class RecordsController < ApplicationController
     render "common/_table_show_records",locals:{:records => RecordDecorator.new(eval(map).paginate(:page => params[:page]))},:layout => false
   end
   
-
-
   private 
     def initialize_tasks 
       @tasks = sort_by_field(Record.get_tasks(Record.state('checking')),:dept_name)
@@ -41,3 +39,6 @@ class RecordsController < ApplicationController
      session[:query_map] ="Record.where(record_zone: '#{current_user.dept_id}').state('registered')"
    end
 end
+
+
+
