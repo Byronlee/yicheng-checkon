@@ -10,5 +10,4 @@ class ExceptionRecordDecorator < Draper::Decorator
   def date
     source.created_at.to_date
   end
-   
 end
