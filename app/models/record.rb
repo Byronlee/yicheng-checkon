@@ -79,7 +79,11 @@ class Record
 
 
   def self.get_tasks  records
+    records.map{|x| p x}
+    p "777777777"
     if records
+
+      
       tasks = records.map do | record |
         { dept_id: User.resource(record.staffid).dept_id, 
           created_at: record.created_at.to_date.to_s
@@ -137,7 +141,7 @@ class Record
                       record_person_name: arg[4],
                       record_person: arg[5],
                       record_zone: arg[6],
-                      record_zone_name: arg[7],
+                      record_zone_name: arg[7]
                      )
   end
 end

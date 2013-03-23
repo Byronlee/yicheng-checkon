@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
    @current_user = User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
-  end
+  end 
 
   def logout
     CASClient::Frameworks::Rails::Filter.logout(self)

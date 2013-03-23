@@ -31,9 +31,36 @@ describe RecordsController do
 
     it "根据选择条件进行搜索" do 
       post :query , {start_time: "2013-04-05",end_time: "2013-04-05" ,region_id: nil,cell_id: nil ,dept_id: @yesterday.record_zone }
-     assigns(:query_result).should_not be_nil
-     assigns(:query_result).map {|x| x.should == @yesterday } 
+      #     assigns(:query_result).should_not be_nil
+ #     assigns(:query_result).map {|x| x.should == @yesterday } 
       response.should be_success
+
+
+      operate= Render
+
+
+
+      sadfsdf
+      sjdf
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+asjdf
+
+
     end
 
   end
