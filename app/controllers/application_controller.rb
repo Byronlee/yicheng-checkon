@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
   before_filter :current_user
 
   def current_user
-    @current_user = User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
+  #  @current_user = User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
+    attrs = session[:cas_extra_attributes]["attrs"]
+    @current_user = User.resource(attrs)
   end 
 
   def logout

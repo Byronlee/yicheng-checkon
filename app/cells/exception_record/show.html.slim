@@ -11,16 +11,16 @@
         tr
           td 
             - if task.state =="registered"
-              /!font color="green" = task.user[:dept_name]
+              font color="green" = task.user[:dept_name]
             - else
-              /! font color="red" = task.user[:dept_name]
+              font color="red" = task.user[:dept_name]
           td
-            /! = task.user[:name]
+            = task.user[:name]
           td
             = FormatDate task.date
           td
            form action="/records/update" method="post" id="u_form"
-             input name="time" type="hidden" value=task[:attend_date]
+             input name="time" type="hidden" value=task[:created_at]
              input name="register_way" type="hidden" value="no_number_register"
               = raw no_number_selects(task)
           td 

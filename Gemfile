@@ -39,6 +39,7 @@ end
 gem 'whenever'
 gem "mongoid", "~> 3.1.2"
 gem "bson_ext"
+gem "mongo_session_store-rails3"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

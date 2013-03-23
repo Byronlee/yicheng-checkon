@@ -67,5 +67,6 @@ module Attendance
     # config.action_controller.page_cache_directory = Rails.root + "/public/cache/"  
  #  config.i18n.fallbacks = true
  #  ::I18n.fallbacks["zh_CN"] = [ :en ]
+   config.action_controller.allow_forgery_protection = false
   end
 end
