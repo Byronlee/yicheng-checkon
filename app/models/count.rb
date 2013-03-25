@@ -23,8 +23,8 @@ class Count
     end
   
     def addup(start,over,state)
-      return [] unless Record.exists?
-      counts =  Record.by_period(start,over).state(state).map_reduce(map,reduce).out(replace: "mr_results").map do | document |
+      return [] unless StaffRecord.exists?
+      counts =  StaffRecord.by_period(start,over).state(state).map_reduce(map,reduce).out(replace: "mr_results").map do | document |
         result = document["value"]["ids"].inject(Hash.new(0)) do |h,v|
           h[v.to_s] += 1
           h

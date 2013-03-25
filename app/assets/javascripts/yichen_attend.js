@@ -104,8 +104,7 @@ jQuery(function(){
     }
 
 function u_submit(o,update){
-   //  o.parents('tr').children('td form').submit()
-     $('#'+update).submit()
+     o.parent().siblings().children('form').submit()
 }
 
 

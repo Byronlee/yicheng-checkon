@@ -1,0 +1,18 @@
+- if @tasks.any?
+  .title
+    .content
+      strong = t("view.records.index.unfinished_tasks") 
+      strong 
+        font color="red" = @tasks.count
+      strong = t("view.records.index.unit")
+
+  .bs-docs
+    table.table.table-bordered
+      - if @tasks
+        = render "common/table_tasks_tr" , :resource => {:tasks => @tasks}
+      - if @tasks_finished
+        = render "common/table_tasks_tr" , :resource => {:tasks => @tasks_finished , :type => "finished" }
+  = render_cell :trainee_record,:show
+- else
+  = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+ 

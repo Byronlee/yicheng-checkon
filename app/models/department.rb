@@ -28,7 +28,7 @@ class Department
 
   def users_with_priod_checkins time
     users.each do |user|
-      record = Record.get_record user.staffid,time
+      record = StaffRecord.get_record user.staffid,time
       user.instance_variable_set(:@cins,record.checkins)
     end
   end

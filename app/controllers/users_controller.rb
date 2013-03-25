@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def merge
-    @result = ExceptionRecord.merge(params[:o_id],params[:n_id])
+    @result = TranieeRecord.merge(params[:o_id],params[:n_id])
     redirect_to users_path
   end
 end

@@ -65,7 +65,7 @@ zh_CN:
               blank: "计薪时间不能为空"
             dept_id:
               blank: "部门ID不能为空" 
-        record:
+        trainee_record:
           attributes:
             staffid:
               taken: "用户id已经存在"

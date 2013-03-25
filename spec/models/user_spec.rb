@@ -23,7 +23,7 @@ describe "用户数据" do
     end
 
     it "计算需要产生考勤数据的天数" do
-      @no_number_user.initialized_days.should == 3
+      @no_number_user.initialized_days.should == 2
     end
   end
 end
