@@ -2,7 +2,7 @@
 class TraineeRecord 
   include Mongoid::Record
 
-  field :is_deleted,type: String,default: false
+  field :is_deleted,type: Boolean,default: false
 
   default_scope where(is_deleted: false)
 

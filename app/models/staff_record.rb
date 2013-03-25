@@ -7,7 +7,7 @@ class StaffRecord
   end
 
   def self.by_period first,last  
-    between(u_at: [first,last])
+    between(created_date: [first,last])
   end
 
   def self.fast_register arg
@@ -28,7 +28,7 @@ class StaffRecord
       tasks = records.map do | record |
         user =  User.resource(record.staffid)
         { dept_id: user.dept_id, 
-          created_at: record.c_at.to_date.to_s,
+          created_at: record.created_date,
           dept_name: user.dept_name
         }
       end
