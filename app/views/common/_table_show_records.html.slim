@@ -1,30 +1,29 @@
-- if is_empty? records
-  .total_infor
-    p 
-      span 共计:#{records.total_entries}条&nbsp;&nbsp;
-      span  
-        button.btn.btn-mini.btn-primary 
-          a href="/counts" 数据统计分析
+- if available? records
+ .total_infor
+   p 
+     span 共计:#{records.total_entries}条&nbsp;&nbsp;
+     span  
+       button.btn.btn-mini.btn-primary 
+         a href="/counts" 数据统计分析
 
-  table.table.table-bordered(style="border-top: 10px solid #eee;")
-    thead
-      tr     
-        - show_query_recors_reulst_table_titles.each do |title|
-          th = title
-      - if records
-        - records.each do |record|
-          tr
-            td = ancestors record.staffid
-            td = record.user_no
-            td = position record.staffid
-            td = record.staff_name
-            td = record.nick_name
-            td = record.record_person_name
-            - record.checkins.map do |checkin|
-              td = checkin.behave.name
-            td = record.attend_date
-            td 
-              button.btn.btn-mini.btn-primary 申请修改
-  = will_paginate records, :renderer => BootstrapPagination::Rails
+ table.table.table-bordered(style="border-top: 10px solid #eee;")
+   thead
+     tr     
+       - show_query_recors_reulst_table_titles.each do |title|
+         th = title     
+     - records.each do |record|
+       tr
+         td = ancestors record.staffid
+         td = record.user_no
+         td = position record.staffid
+         td = record.staff_name
+         td = record.nick_name
+         td = record.record_person_name
+         - record.checkins.map do |checkin|
+           td = checkin.behave.name
+         td = record.attend_date
+         td 
+           button.btn.btn-mini.btn-primary 申请修改
+ = will_paginate records, :renderer => BootstrapPagination::Rails
 - else
   = render "common/no_content" , :message => "无数据...."

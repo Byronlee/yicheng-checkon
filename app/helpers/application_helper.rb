@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 module ApplicationHelper
 
- def is_empty? data
-  data.empty?  ?  nil : (data.any? ? data : nil)
- end 
+ def available? var
+   var.empty?  ? nil : var  if var
+ end
 
+ 
  def current_user
     @current_user
  end
