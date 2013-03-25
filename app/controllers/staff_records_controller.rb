@@ -16,8 +16,6 @@ class StaffRecordsController < ApplicationController
 
 
   def update
-    p '++++++++++++++++++++++'
-    p params
     StaffRecord.send(params[:register_way].to_sym , params)
     redirect_to root_url
   end
