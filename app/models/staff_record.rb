@@ -1,55 +1,7 @@
 # -*- coding: utf-8 -*-
-class Record
-  include Mongoid::Document
-  include Mongoid::WorkFlow
-  include Mongoid::Timestamps::Short
-
-  field :staffid, type: String # 用户下信息
-  field :staff_name , type: String 
-  field :user_no, type: String 
-  field :nick_name, type: String 
-  field :record_person , type: String # 记录人信息
-  field :record_person_name , type: String
-  field :record_zone , type: String #登记区域信息
-  field :record_zone_name , type: String 
-  field :attend_date , type: String
-
-  index({state: 1}) 
-
-  embeds_many :checkins
-
-  state_machine initial: :checking do
-    event :register do
-      transition [:checking] => :registered
-    end
-
-    event :submit do
-      transition [:registered] => :submitted
-    end
-  end
-
-  # 自动生成本条记录的检查数据
-  after_create do |record|
-    if checkins.count == 0
-      CheckUnit.all.each do |unit|
-        record.checkins.create!( check_unit_id: unit.id, behave_id: Behave.default.id )
-      end
-    end
-  end
-
-  def assign_collection
-    if instance_of?(ExceptionRecord)
-      with(collection: "exception_records")
-    else
-      with(collection: "records")
-    end
-  end
-
-  def self.state state
-    where(state: state)
-  end
+class StaffRecord
+  include Mongoid::Record
   
-
   def self.get_record id,time
     by_period(time.to_date-1,time.to_date+1).find_by(staffid: id)
   end
@@ -58,8 +10,6 @@ class Record
     between(u_at: [first,last])
   end
 
-
-  
   def self.fast_register arg
     Department.new(arg[:dept_id]).users.map do | user |
       record = get_record user.staffid,arg[:time]
@@ -69,19 +19,8 @@ class Record
     end
   end
 
-  def self.register arg
-    arg[:record].each do | user_id , checks| 
-      record = get_record user_id,arg[:time]
-      checks.map do |unit_id,behave_id|
-        record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
-      end
-      record.update_attribute(:attend_date,Date.today)
-      record.register
-    end
-  end
-
-  def self.no_number_register arg
-    ExceptionRecord.register arg
+  def self.trainee_register arg
+    TraineeRecord.register arg
   end
 
   def self.get_tasks  records
@@ -89,14 +28,13 @@ class Record
       tasks = records.map do | record |
         user =  User.resource(record.staffid)
         { dept_id: user.dept_id, 
-          created_at: record.created_at.to_date.to_s,
+          created_at: record.c_at.to_date.to_s,
           dept_name: user.dept_name
         }
       end
       tasks.uniq
     end
   end
-
 
   def self.query_map params, map =""
     if params[:type].eql?("attach")
@@ -113,23 +51,22 @@ class Record
     end
   end
 
-  def self.default_everyday_records 
+  def self.staff_everyday_records 
     current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
     current_user.attend_depts["children"].map do | dept | 
       Department.new(dept["id"]).users.map do | user |
       # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug
-        Record.new_record(user.staffid  ,        user.username,          user.user_no ,
+        new_record(user.staffid  ,        user.username,          user.user_no ,
                           user.nickname_display, current_user.username,  current_user.id  ,
                           current_user.dept_id,  current_user.dept_name )
       end
     end
-    ExceptionRecord.exception_everyday
   end
 
 # arg[0]: 用户id,arg[1]:用户名字，arg[2]:用户工号， arg[3]:昵称，
 # arg[4]: 记录人名字，arg[5]: 记录人id, arg[6]:记录人区域id ，arg[7]:记录人区域名字， ,arg[8]: 考勤日期
   def self.new_record *arg
-    find_or_create_by(staffid: arg[0],
+    create!(staffid: arg[0],
                       staff_name: arg[1],
                       user_no: arg[2],
                       nick_name: arg[3],

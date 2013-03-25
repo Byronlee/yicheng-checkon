@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
-module RecordsHelper
+module StaffRecordsHelper
 
- 
-
- 
 
   def unit_selects user
     user.instance_variable_get(:@cins).inject("") do |html_str,checkin|
@@ -13,7 +10,6 @@ module RecordsHelper
   end
 
   def no_number_selects record
-#   debugger
     record.checkins.inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
       html_str << behave_selects(checkin,{},{name: "record[#{record.user_id}][#{checkin.check_unit_id}]",class:"span3"})
@@ -21,12 +17,12 @@ module RecordsHelper
   end
 
 
-  
+
   def show_query_recors_reulst_table_titles
     ["所在位置" ," 员工工号" , "职位" , "姓名", "昵称" ," 登记人" , "上午考勤" , "下午考勤" , "考勤日期" , "操作"]
   end
 
- 
+
 
 
   def register_or_modify type
@@ -34,7 +30,7 @@ module RecordsHelper
   end
 
   def behave_selects checkin,options = {}, html_options = {}
-    @checkin = checkin 
+    @checkin = checkin
     behaves = Behave.all.collect{|b|[b.name,b.id]}
     select("checkin","behave_id",behaves,options,html_options)
   end
@@ -42,7 +38,7 @@ module RecordsHelper
   def depts
     depts = current_user.attend_depts["children"].map{|v| [v["name"] , v["id"]]}
   end
-  
+
   def organization_selects(depts,options = {}, html_options = {})
     select("dept","dept_id",depts,options,html_options)
   end

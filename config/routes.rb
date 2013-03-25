@@ -15,9 +15,9 @@ Attendance::Application.routes.draw do
     end
   end
  
-  post "records/update" 
+  post "staff_records/update" 
 
-  resources :records do
+  resources :staff_records do
     collection do 
       get  :fast_register
       get  :whether_checkin 
@@ -29,5 +29,5 @@ Attendance::Application.routes.draw do
       get  :tree_dept
     end
   end
-  root :to => "records#index"
+  root :to => "staff_records#index"
 end

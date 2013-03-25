@@ -2,11 +2,6 @@
 
 FactoryGirl.define do
   factory :user do
-
-    factory :employee do
-      
-    end
-
     factory :no_number_employee do 
       dept_id "00000000"
       username "you"
