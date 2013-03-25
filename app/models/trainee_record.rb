@@ -2,6 +2,10 @@
 class TraineeRecord 
   include Mongoid::Record
 
+  field :is_deleted,type: String,default: false
+
+  default_scope where(is_deleted: false)
+
   belongs_to :user
 
   @current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
@@ -23,11 +27,10 @@ class TraineeRecord
   def self.merge o_id,n_id
      user = User.find(o_id)
      user.trainee_records.map do |r|
-       r.update_attributes(_type: "Record")
-       r.staffid =  n_id
-       r.save
+       StaffRecord.create!(r.handle_attrs(n_id))
+       r.update_attributes(is_deleted: true)
      end
-     user.destroy
+     user.to_staff
   end
 
   def self.trainee_records
@@ -37,4 +40,10 @@ class TraineeRecord
   def self.get_record id,time
     User.find(id).trainee_records.find_by(created_date: time)
   end
+
+  def handle_attrs n_id
+    attributes.update("staffid" => n_id).delete("_id")
+    attributes
+  end
+
 end

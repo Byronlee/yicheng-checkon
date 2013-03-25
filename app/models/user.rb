@@ -22,8 +22,8 @@ class User
 
   has_many :trainee_records
 
-# validates_presence_of :username , :salary_time , :dept_id
-# validates_uniqueness_of :username
+  validates_presence_of :username , :salary_time , :dept_id
+  validates_uniqueness_of :username
 
   after_create do |user|
     (0...(user.initialized_days)).map do |t|
@@ -66,5 +66,9 @@ class User
 
   def initialized_days
     (Date.today - Date.parse(salary_time)).to_i + 1
+  end
+
+  def to_staff
+    update_attributes(state: "staff")
   end
 end
