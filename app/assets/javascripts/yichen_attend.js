@@ -22,22 +22,6 @@ jQuery(function(){
                 "plugins": ["themes", "json_data", "ui"]
             })
 
-/*
-    $.get("tree_dept" , function(data){
-	 $(".permission").jstree({
-                "core" : { "initially_open" : [ "topic_root" ] }, 
-                "json_data": {  "data": data },
-                "themes": { "theme": "default", "dots": false, "icons": true },
-                "plugins": ["themes", "json_data", "ui"]
-            })
-    });
-*/
-
-   
-
-
-
-//   $('input[class=salary_time]').datepicker();
 
     function farmat(num){return num = num<10 ? "0"+num : num} 
 

@@ -1,21 +1,17 @@
-table[class=user_infor]{
- td{ padding-right: 30px;} 
- span{padding-right: 5px;}
+
+@import "function.css.less";
+
+table.user_infor{
+ td{ padding-right: @base-padding +10px;} 
+ span{padding-right: @base-padding /4;}
 }
 
-
-.total_infor{
-  float: right;
-  margin: -122px 106px;	
-  a {color:#fff}
-  a:hover{text-decoration: none;}
+p.no_message {
+ font-size: 21px;
+ color: @grey;
+ margin-top: 115px;
+ margin-left: @base-margin;
 }
-.count_kind{margin-top: -45px;}
-/* 添加无工号员工 的添加表格 */
-table.align_left{
- td{text-align: left;}
-}
-
 
 
 div[class=title]{
@@ -34,24 +30,7 @@ div[class=title]{
 }
 
 
-p[class=no_message]{
- font-size: 21px;
- color: #999;
- margin-top: 115px;
- margin-left:50px;
-}
-
-
-.table-bordered{
- border: 0px;
- td .m_r{margin-right:15px;}
- th:first-child , td:first-child {
- border-left:0px;
-}
-}
-
-
-.table{
+table.table{
    th{text-align: center;}
    td{
    text-align: center;
@@ -68,8 +47,31 @@ p[class=no_message]{
    select{
      margin-bottom: 0px;
    }
+   }
 }
+
+.table-bordered{
+ border: 0px;
+ td .m_r{margin-right:15px;}
+ th:first-child , td:first-child {
+ border-left:0px;
+ }
 }
+
+
+
+.total_infor{
+  #float(right);
+  margin: -122px 106px;	
+  a {#a;}
+}
+
+.count_kind{margin-top: -45px;}
+table.align_left{
+    td{text-align: left;}
+}
+
+
 
 form.query_data_form{
    margin: 0 0 0px;
@@ -86,7 +88,7 @@ form.query_data_form{
        select{   width: 110px;}	
       .input-prepend{   margin: 6px 20px 6px 4px;  } }
       button[type=button]{
-        float: left;	
+        #float;	
         margin-top: 8px;
       }
     }
@@ -102,26 +104,16 @@ form.query_data_form{
           input, select{	     
 	     font-size: 12px;
 	     padding: 2px 2px;
-	     -webkit-border-radius: 1px 0 0 1px;
-	     -moz-border-radius: 1px 0 0 1px;
-	     border-radius: 1px 0 0 1px;
+	     #border-radius(1px)
  	   }
            margin: 0px 5px 0px 5px;
           .condition{ width: 78px;}
           .btn{
             padding:2px 4px; 
  	    font-size:12px;
-            -webkit-border-radius: 0 1px 1px 0;
-	    -moz-border-radius: 0 1px 1px 0;
-	    border-radius: 0 1px 1px 0;
+   	     #border-radius(1px)
 	   }
-
         }
       }
      } 
 }
-/*
-.total{
- background: #fafafa
-}
-*/

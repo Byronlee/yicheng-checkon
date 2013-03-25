@@ -17,7 +17,7 @@
     - if @stats
       - @stats.map do |stat|
         tr 
-          td = dept_ancestors stat[:staffid]
+          td = ancestors stat[:staffid]
           td = stat[:user_no]
           td = stat[:username]
           - stat[:behaves].map do |_ ,v|

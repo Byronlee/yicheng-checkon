@@ -14,9 +14,9 @@
       - if records
         - records.each do |record|
           tr
-            td = record.dept_ancestors
+            td = ancestors record.staffid
             td = record.user_no
-            td = record.position
+            td = position record.staffid
             td = record.staff_name
             td = record.nick_name
             td = record.record_person_name

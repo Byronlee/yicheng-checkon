@@ -2,15 +2,8 @@
 class Record
   include Mongoid::Document
   include Mongoid::WorkFlow
-<<<<<<< HEAD
-<<<<<<< HEAD
   include Mongoid::Timestamps::Short
-=======
 
->>>>>>> 41a7c3a76c87f4298c27010efa7c9ebf8d1c5c0a
-=======
-  include Mongoid::Timestamps::Short
->>>>>>> b824a6d0ad3ea52839d8e42cf584370ca3c7e643
   field :staffid, type: String # 用户下信息
   field :staff_name , type: String 
   field :user_no, type: String 
@@ -20,19 +13,7 @@ class Record
   field :record_zone , type: String #登记区域信息
   field :record_zone_name , type: String 
   field :attend_date , type: String
-<<<<<<< HEAD
-<<<<<<< HEAD
-  
-  default_scope where(_type: "Record")
-=======
-  field :created_at, type: String,default: Date.today.to_s
 
-# default_scope where(_type: "Record")
->>>>>>> 41a7c3a76c87f4298c27010efa7c9ebf8d1c5c0a
-
-=======
-  
->>>>>>> b824a6d0ad3ea52839d8e42cf584370ca3c7e643
   index({state: 1}) 
 
   embeds_many :checkins

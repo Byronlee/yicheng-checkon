@@ -50,6 +50,17 @@ class User
     Webservice.get_data("/attend/tree/"+staffid)
   end
 
+
+  def ancestors
+    2.times{dept_ancestors.delete_at(0)}
+    dept_ancestors.inject(""){|str,ps| str+ps[1]+"/"}+dept_name
+  end
+
+  def post
+    position.any? ?  position.inject(""){|str,ps| str+ps[1]+"" } : "——"
+  end
+
+
   def initialized_days
     (Date.today - Date.parse(salary_time)).to_i + 1
   end
