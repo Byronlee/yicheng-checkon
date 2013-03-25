@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def empty? str
-     str.empty?  ? nil : str  if str
+  def available? var
+   var.empty?  ? nil : var  if var
   end
 end

@@ -1,5 +1,7 @@
 Attendance::Application.routes.draw do
 
+  mount Feedback::Engine => '/feedback', as: 'feedback_app'
+
   resources :counts do
     collection do
       get :amount

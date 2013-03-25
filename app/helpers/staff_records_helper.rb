@@ -1,31 +1,6 @@
 # -*- coding: utf-8 -*-
 module StaffRecordsHelper
 
-  def current_user
-    @current_user
-  end
-
-  def query_dept_tree
-    {region: [],
-     cell: [],
-     dept: {type: "dept" ,
-            options: current_user.attend_depts["children"].map{|v| [v["name"] , v["id"]]} ,
-            tips: "--全部--" } }
-  end
-
-  def FormatDate time
-    case (Time.now.to_date - time.to_date)
-    when 0
-      t("helper.records.today")
-    when 1
-      t("helper.records.yesterday")
-    when 2
-      t("helper.records.before_yesterday")
-    else
-      time
-    end
-  end
-
 
   def unit_selects user
     user.instance_variable_get(:@cins).inject("") do |html_str,checkin|
@@ -68,8 +43,8 @@ module StaffRecordsHelper
     select("dept","dept_id",depts,options,html_options)
   end
 
-  def btn_name s
-    s == "registered" ? "修改" : "保存"
+  def btn_name state
+    state.eql?("registered") ? "修改" : "保存"
   end
 
 end

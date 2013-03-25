@@ -1,0 +1,32 @@
+//this file put global function and var 
+ 
+@base-padding : 20px ;
+@grey : #999 ;
+@white : #fff ;
+@base-margin : 50 ;
+
+
+
+body{
+  padding-top: @base-padding *3 ;
+  padding-bottom: @base-padding *2 ;
+  .navbar-inner {
+    padding-left: @base-padding !important;
+    padding-right: @base-padding *3  !important;
+  }
+}
+
+#float( @direction : left ) {
+ float :@direction
+}
+
+#a(@color: @white , @i: none){
+ color: @color ;
+ &:hover {text-decoration: @i;}
+}
+
+#border-radius(@radius ){
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}

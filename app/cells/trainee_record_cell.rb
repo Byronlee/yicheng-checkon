@@ -1,5 +1,5 @@
 class TraineeRecordCell < Cell::Rails
-  helper StaffRecordsHelper
+  helper StaffRecordsHelper , ApplicationHelper
 
   def show
     @number = TraineeRecord.state("checking").length
