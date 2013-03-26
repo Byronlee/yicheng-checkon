@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 class StaffRecord
   include Mongoid::Record
-  
-  def self.get_record id,time
-    by_period(time.to_date-1,time.to_date+1).find_by(staffid: id)
-  end
 
   def self.by_period first,last  
     between(created_date: [first,last])
@@ -60,26 +56,6 @@ class StaffRecord
                           user.nickname_display, current_user.username,  current_user.id  ,
                           current_user.dept_id,  current_user.dept_name )
       end
-    end
-  end
-
-# arg[0]: 用户id,arg[1]:用户名字，arg[2]:用户工号， arg[3]:昵称，
-# arg[4]: 记录人名字，arg[5]: 记录人id, arg[6]:记录人区域id ，arg[7]:记录人区域名字， ,arg[8]: 考勤日期
-  def self.new_record *arg
-    create!(staffid: arg[0],
-                      staff_name: arg[1],
-                      user_no: arg[2],
-                      nick_name: arg[3],
-                      record_person_name: arg[4],
-                      record_person: arg[5],
-                      record_zone: arg[6],
-                      record_zone_name: arg[7],
-                     )
-  end
-
-  def self.auto_submit
-    where(attend_date: Date.today).state("registered").each do |record|
-      record.submit
     end
   end
 end

@@ -50,6 +50,7 @@ module Mongoid
         arg[:record].each do | user_id , checks| 
           record = get_record user_id,arg[:time]
           checks.map do |unit_id,behave_id|
+            record.checkins.check_unit.find(unit_id)
             record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
           end
           record.update_attribute(:attend_date,Date.today)

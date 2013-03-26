@@ -13,15 +13,8 @@ class TraineeRecord
   def self.trainee_everyday_records
     users = User.scoped
     users.map do | u |
-      new_record u,Date.today,User.current_user.username,"meili"
+      new_record u.id,u.username,Date.today,u.user_no,"","",User.current_user.username,"","meili"
     end
-  end
-
-  def self.new_record *arg
-    arg[0].trainee_records.create(  created_date: arg[1],
-                                               record_person: arg[2],
-                                               record_zone: arg[3],
-                                               staffid: arg[0].id)
   end
 
   def self.merge o_id,n_id
@@ -35,10 +28,6 @@ class TraineeRecord
 
   def self.trainee_records
     self.or({state: "checking"},{state: "registered",attend_date: Date.today})
-  end
-
-  def self.get_record id,time
-    User.find(id).trainee_records.find_by(created_date: time)
   end
 
   def handle_attrs n_id
