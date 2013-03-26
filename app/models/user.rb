@@ -56,7 +56,6 @@ class User
       dept_name: Department.new(rs["SU_DEPT_ID"]).name ,
       dept_ancestors: rs["DEPT_ANCESTORS"],
       position: rs["POSTS"]
-
     }
     new(attrs)
   end

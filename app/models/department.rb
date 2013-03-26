@@ -3,13 +3,10 @@ class Department
   attr_accessor :number , :name , :id 
 
   def initialize id
-    @number= ws_dept(id)["SD_DEPT_CODE"]
-    @name= ws_dept(id)["SD_DEPT_NAME"]
+    @infor = ws_dept(id)
+    @number= @infor["SD_DEPT_CODE"]
+    @name  = @infor["SD_DEPT_NAME"]
     @id = id
-  end
-
-  def sub_dept
-     
   end
 
   def users
