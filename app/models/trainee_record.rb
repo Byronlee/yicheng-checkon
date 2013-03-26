@@ -42,8 +42,9 @@ class TraineeRecord
   end
 
   def handle_attrs n_id
-    attributes.update("staffid" => n_id).delete("_id")
-    attributes
+    cloned_attrs = attributes.clone
+    cloned_attrs.update("staffid" => n_id).delete("_id")
+    cloned_attrs
   end
 
 end
