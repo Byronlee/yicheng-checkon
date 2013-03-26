@@ -48,12 +48,12 @@ module Mongoid
 
       def register arg
         arg[:record].each do | user_id , checks| 
-        record = get_record user_id,arg[:time]
-        checks.map do |unit_id,behave_id|
-          record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
-        end
-        record.update_attribute(:attend_date,Date.today)
-        record.register
+          record = get_record user_id,arg[:time]
+          checks.map do |unit_id,behave_id|
+            record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
+          end
+          record.update_attribute(:attend_date,Date.today)
+          record.register
         end
       end
 

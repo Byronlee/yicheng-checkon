@@ -12,15 +12,15 @@ module Mongoid
           transition [:registered] => :submitted
         end
 
-        event :apply, :transitions_to => :verifying do
+        event :apply do
           transition [:submitted] => :verifying 
         end
 
-        event :verify, :transitions_to => :submitted do
+        event :verify do
           transition [:verifying] => :submitted
         end
 
-        event :opposed, :transitions_to => :submitted do
+        event :opposed do
           transition [:verifying] => :submitted
         end
       end
