@@ -8,11 +8,8 @@ class ApplicationController < ActionController::Base
   #  @current_user = User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
     attrs = session[:cas_extra_attributes]["attrs"]
     @current_user = User.resource(attrs)
+    User.current_user = @current_user 
   end 
-
-  def logout
-    CASClient::Frameworks::Rails::Filter.logout(self)
-  end
   
   def sort_by_field v,field
     return  if v.empty?

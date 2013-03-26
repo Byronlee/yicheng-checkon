@@ -8,12 +8,12 @@ class TraineeRecord
 
   belongs_to :user
 
-  @current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
+# @current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
 
   def self.trainee_everyday_records
     users = User.scoped
     users.map do | u |
-      new_record u,Date.today,@current_user.username,"meili"
+      new_record u,Date.today,User.current_user.username,"meili"
     end
   end
 
@@ -43,7 +43,7 @@ class TraineeRecord
 
   def handle_attrs n_id
     cloned_attrs = attributes.clone
-    cloned_attrs.update("staffid" => n_id).delete("_id")
+    cloned_attrs.update("staffid" => n_id).delete_if{|k,v|k="_id" || k="is_deleted"}
     cloned_attrs
   end
 

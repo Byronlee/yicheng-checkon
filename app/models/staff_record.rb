@@ -52,7 +52,7 @@ class StaffRecord
   end
 
   def self.staff_everyday_records 
-    current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
+    current_user =  User.current_user
     current_user.attend_depts["children"].map do | dept | 
       Department.new(dept["id"]).users.map do | user |
       # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug

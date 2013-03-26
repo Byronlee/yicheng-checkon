@@ -53,24 +53,3 @@ zh_CN:
       today: 今天
       yesterday: 昨天
       before_yesterday: 前天
-  mongoid:
-    errors:
-      models:
-        user:
-          attributes:
-            username:
-              blank: "用户名不能为空"
-              taken: "用户名已经存在"
-            salary_time:
-              blank: "计薪时间不能为空"
-            dept_id:
-              blank: "部门ID不能为空" 
-        trainee_record:
-          attributes:
-            staffid:
-              taken: "用户id已经存在"
-              blank: "用户id不能为空"
-            record_person:
-              blank: "考勤人不能为空"
-            record_zone:
-              blank: "考勤区域能为空"

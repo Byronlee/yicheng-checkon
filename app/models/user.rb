@@ -19,6 +19,7 @@ class User
   field :dept_ancestors ,type:Array
   field :position , type:Array
 
+  cattr_accessor :current_user
 
   has_many :trainee_records
 
@@ -27,13 +28,13 @@ class User
 
   after_create do |user|
     (0...(user.initialized_days)).map do |t|
-      TraineeRecord.new_record user,Date.today-t,current_user.username,"meili"
+      TraineeRecord.new_record user,Date.today-t,User.current_user.username,"meili"
     end
   end
 
-  def current_user
-    User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
-  end
+# def current_user
+#   User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
+# end
 
   def self.resource sid
     if sid.instance_of?(String)
@@ -74,12 +75,15 @@ class User
     position.any? ?  position.inject(""){|str,ps| str+ps[1]+"" } : "——"
   end
 
-
   def initialized_days
     (Date.today - Date.parse(salary_time)).to_i + 1
   end
 
   def to_staff
     update_attributes(state: "staff")
+  end
+
+  def logout
+    CASClient::Frameworks::Rails::Filter.logout(self)
   end
 end
