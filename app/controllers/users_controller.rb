@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(params[:user])
+    @user = User.create!(params[:user])
     redirect_to users_path
   end
 
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def merge
-    @result = ExceptionRecord.merge(params[:o_id],params[:n_id])
+    @result = TraineeRecord.merge(params[:o_id],params[:n_id])
     redirect_to users_path
   end
 end

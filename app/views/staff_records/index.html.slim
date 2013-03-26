@@ -1,4 +1,4 @@
-- if @tasks.any?
+- if available? @tasks
   .title
     .content
       strong = t("view.records.index.unfinished_tasks") 
@@ -12,7 +12,7 @@
         = render "common/table_tasks_tr" , :resource => {:tasks => @tasks}
       - if @tasks_finished
         = render "common/table_tasks_tr" , :resource => {:tasks => @tasks_finished , :type => "finished" }
-  = render_cell :exception_record,:show
+  = render_cell :trainee_record,:show
 - else
   = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
  

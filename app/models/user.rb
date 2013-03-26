@@ -2,24 +2,38 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps::Short
-  field :salary_time ,type: String 
+
+  default_scope where(state: "trainee")
+
+  field :salary_time ,type: String
   field :user_no ,type: String, default: "000000"
   field :username ,type: String
-  field :is_first ,type: Boolean, default: true
+  field :state ,type: String, default: "trainee"
 
-  field :nickname_code 
-  field :nickname_display 
-  field :phone_num 
-  field :dept_id 
+  field :nickname_code
+  field :nickname_display
+  field :phone_num
+  field :dept_id
   field :staffid
   field :dept_name
   field :dept_ancestors ,type:Array
   field :position , type:Array
 
 
-  has_many :exception_records
+  has_many :trainee_records
+
   validates_presence_of :username , :salary_time , :dept_id
   validates_uniqueness_of :username
+
+  after_create do |user|
+    (0...(user.initialized_days)).map do |t|
+      TraineeRecord.new_record user,Date.today-t,current_user.username,"meili"
+    end
+  end
+
+  def current_user
+    User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
+  end
 
   def self.resource sid
     if sid.instance_of?(String)
@@ -50,11 +64,22 @@ class User
     Webservice.get_data("/attend/tree/"+staffid)
   end
 
+
+  def ancestors
+    2.times{dept_ancestors.delete_at(0)}
+    dept_ancestors.inject(""){|str,ps| str+ps[1]+"/"}+dept_name
+  end
+
+  def post
+    position.any? ?  position.inject(""){|str,ps| str+ps[1]+"" } : "——"
+  end
+
+
   def initialized_days
     (Date.today - Date.parse(salary_time)).to_i + 1
   end
 
-  def not_first
-    update_attribute(:is_first, false)
+  def to_staff
+    update_attributes(state: "staff")
   end
 end

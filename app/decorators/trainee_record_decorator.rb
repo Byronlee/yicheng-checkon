@@ -1,4 +1,4 @@
-class ExceptionRecordDecorator < Draper::Decorator
+class TraineeRecordDecorator < Draper::Decorator
   delegate_all
 
   def user
@@ -8,6 +8,6 @@ class ExceptionRecordDecorator < Draper::Decorator
   end
 
   def date
-    source.created_at.to_date
+    source.created_date
   end
 end

@@ -1,4 +1,13 @@
 Attendance::Application.configure do
+      config.action_mailer.delivery_method = :smtp
+      config.action_mailer.smtp_settings = {
+        :address              => Setting.smtp.address,
+        :port                 => Setting.smtp.port,
+        :user_name            => Setting.smtp.user_name,
+        :password             => Setting.smtp.password,
+        :authentication       => 'plain',
+        :enable_starttls_auto => true
+      }
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
