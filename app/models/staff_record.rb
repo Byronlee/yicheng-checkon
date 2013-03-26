@@ -36,7 +36,7 @@ class StaffRecord
     end
   end
 
-  def self.query_map params, map =""
+  def self.query_map params ,dept_id ,map =""
     if params[:type].eql?("attach")
       if params[:order].eql?("false")  #不排序 有两种查询(是不是考勤项) 暂时不做根据考勤项来查询
         map += ".where(#{params[:field].to_sym}: /#{params[:value]}/)"
@@ -49,6 +49,7 @@ class StaffRecord
       params[:region_id]&&!params[:region_id].empty? ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" :
       params[:cell_id]&&!params[:cell_id].empty?     ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" : map
     end
+    eval("where(record_zone:'#{dept_id}').state('registered')"+map)
   end
 
   def self.staff_everyday_records 
