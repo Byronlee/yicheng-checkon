@@ -11,6 +11,18 @@ module Mongoid
         event :submit do
           transition [:registered] => :submitted
         end
+
+        event :apply, :transitions_to => :verifying do
+          transition [:submitted] => :verifying 
+        end
+
+        event :verify, :transitions_to => :submitted do
+          transition [:verifying] => :submitted
+        end
+
+        event :opposed, :transitions_to => :submitted do
+          transition [:verifying] => :submitted
+        end
       end
     end
   end
