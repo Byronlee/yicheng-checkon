@@ -57,12 +57,6 @@ module Mongoid
           record.register
         end
       end
-
-      def auto_submit
-        where(attend_date: Date.today).state("registered").each do |record|
-          record.submit
-        end
-      end
     end
   end
 end
