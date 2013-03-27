@@ -4,7 +4,6 @@ class StaffRecordsController < ApplicationController
   before_filter  :initialize_tasks , only: [:index]
 #  caches_page :index
 
-
   def show
     @resource ={
       dept_name: params[:dept_name] ,
@@ -20,7 +19,7 @@ class StaffRecordsController < ApplicationController
   end
 
   def operate
-   @records =  StaffRecordDecorator.new(eval(session[:query_map]).paginate(:page => params[:page]))
+    @records = StaffRecordDecorator.new( StaffRecord.query(params,current_user.dept_id ).paginate(:page => params[:page])  )
   end
 
   def query

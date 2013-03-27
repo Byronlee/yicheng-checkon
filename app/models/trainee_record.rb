@@ -10,12 +10,6 @@ class TraineeRecord
 
 # @current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
 
-  def self.trainee_everyday_records
-    users = User.scoped
-    users.map do | u |
-      new_record u,Date.today,User.current_user.username,"meili"
-    end
-  end
 
   def self.new_record *arg
     arg[0].trainee_records.create(  created_date: arg[1],

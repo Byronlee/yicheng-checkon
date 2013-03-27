@@ -36,7 +36,7 @@ class StaffRecord
     end
   end
 
-  def self.query_map params ,dept_id ,map =""
+  def self.query params ,dept_id ,map =""
     if params[:type].eql?("attach")
       if params[:order].eql?("false")  #不排序 有两种查询(是不是考勤项) 暂时不做根据考勤项来查询
         map += ".where(#{params[:field].to_sym}: /#{params[:value]}/)"
@@ -44,25 +44,17 @@ class StaffRecord
          map # 这里是根据 字段的升序 和降序差需代码 由 simlegate 来完成！
       end 
     else
-      map += ".by_period('#{params[:start_time]}','#{params[:end_time]}')" unless params[:start_time].empty?
-      params[:dept_id]&&!params[:dept_id].empty?     ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" :
-      params[:region_id]&&!params[:region_id].empty? ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" :
-      params[:cell_id]&&!params[:cell_id].empty?     ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" : map
+      if params[:start_time]
+        map += ".by_period('#{params[:start_time]}','#{params[:end_time]}')" unless params[:start_time].empty?
+        params[:dept_id]&&!params[:dept_id].empty?     ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" :
+        params[:region_id]&&!params[:region_id].empty? ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" :
+        params[:cell_id]&&!params[:cell_id].empty?     ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" : map
+      end
     end
     eval("where(record_zone:'#{dept_id}').state('registered')"+map)
   end
 
-  def self.staff_everyday_records 
-    current_user =  User.current_user
-    current_user.attend_depts["children"].map do | dept | 
-      Department.new(dept["id"]).users.map do | user |
-      # 如果将考勤权限交给其他文员,将会出现重复初始化数据的bug
-        new_record(user.staffid  ,        user.username,          user.user_no ,
-                          user.nickname_display, current_user.username,  current_user.id  ,
-                          current_user.dept_id,  current_user.dept_name )
-      end
-    end
-  end
+
 
 # arg[0]: 用户id,arg[1]:用户名字，arg[2]:用户工号， arg[3]:昵称，
 # arg[4]: 记录人名字，arg[5]: 记录人id, arg[6]:记录人区域id ，arg[7]:记录人区域名字， ,arg[8]: 考勤日期
