@@ -57,6 +57,23 @@ module Mongoid
           record.register
         end
       end
+
+      def self.new_record *arg
+        create!(staffid: arg[0],
+                staff_name: arg[1],
+                user_no: arg[2],
+                nick_name: arg[3],
+                record_person_name: arg[4],
+                record_person: arg[5],
+                record_zone: arg[6],
+                record_zone_name: arg[7],
+               )
+      end
+
+      def get_record staffid,date
+        where(staffid: staffid,created_date: date)
+      end
+
     end
   end
 end
