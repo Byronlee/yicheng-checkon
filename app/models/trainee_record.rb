@@ -10,12 +10,6 @@ class TraineeRecord
 
 # @current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
 
-  def self.trainee_everyday_records
-    users = User.scoped
-    users.map do | u |
-      new_record u.id,u.username,Date.today,u.user_no,"","",User.current_user.username,"","meili"
-    end
-  end
 
   def self.merge o_id,n_id
      user = User.find(o_id)
