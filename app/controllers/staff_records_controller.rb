@@ -2,7 +2,6 @@
 class StaffRecordsController < ApplicationController
 
   before_filter  :initialize_tasks , only: [:index]
-  before_filter  :initialize_query_records
 #  caches_page :index
 
 
@@ -25,8 +24,8 @@ class StaffRecordsController < ApplicationController
   end
 
   def query
-    map = session[:query_map]+StaffRecord.query_map(params)
-    render "common/_table_show_records",locals:{:records => StaffRecordDecorator.new(eval(map).paginate(:page => params[:page]))},:layout => false
+    results = StaffRecordDecorator.new( StaffRecord.query(params,current_user.dept_id ).paginate(:page => params[:page])  )
+    render "common/_table_show_records",locals:{:records => results },:layout => false
   end
 
   private
@@ -34,8 +33,4 @@ class StaffRecordsController < ApplicationController
       @tasks = sort_by_field(StaffRecord.get_tasks(StaffRecord.state('checking')),:dept_name)
       @tasks_finished = sort_by_field(StaffRecord.get_tasks(StaffRecord.by_period(Date.today-1,Date.today+1).state("registered")),:dept_name)
     end
-
-   def initialize_query_records
-     session[:query_map] ="StaffRecord.where(record_zone: '#{current_user.dept_id}').state('registered')"
-   end
 end
