@@ -16,7 +16,7 @@ class Crontask
   def self.trainee_everyday_records
     users = User.scoped
     users.map do | u |
-      new_record u,Date.today,User.current_user.username,"meili"
+      new_record u.id,u.username,Date.today,u.user_no,"","",User.current_user.username,"","meili"
     end
   end
 
