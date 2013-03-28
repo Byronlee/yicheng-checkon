@@ -4,7 +4,7 @@ require File.expand_path('../application', __FILE__)
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
 # Initialize the rails application
-Attendance::Application.initialize!
+# Attendance::Application.initialize!
 # enable detailed CAS logging
 #cas_logger = CASClient::Logger.new(::Rails.root+'/log/cas.log')
 #cas_logger.level = Logger::DEBUG
@@ -12,7 +12,7 @@ Attendance::Application.initialize!
 #Slim::Engine.set_default_options :shortcut => {'&' => {:tag => 'a', :attr => 'href'}, '#' => {:attr => 'id'}, '.' => {:attr => 'class'}}
 
 CASClient::Frameworks::Rails::Filter.configure(
-  :cas_base_url => "http://iphelper.cdu.edu.cn/sso",
+  :cas_base_url => "http://61.139.87.55:7890/",
 # :cas_base_url => "http://sso.zhiyisoft.com/",
   :username_session_key => :login,
   :extra_attributes_session_key => :cas_extra_attributes,
@@ -20,6 +20,6 @@ CASClient::Frameworks::Rails::Filter.configure(
   :authenticate_on_every_request => false
 )
 
-
+Attendance::Application.initialize!
 
 

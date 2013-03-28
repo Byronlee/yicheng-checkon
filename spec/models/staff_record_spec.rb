@@ -17,9 +17,9 @@ describe "考勤记录" do
       @yesterday.state.should == "registered"
     end
 
-    it "考勤记录被提交后的状态应该为submited" do 
+    it "考勤记录被提交后的状态应该为submitted" do 
       @yesterday.submit == true
-      @yesterday.state.should == "submited"
+      @yesterday.state.should == "submitted"
     end
   end
 end

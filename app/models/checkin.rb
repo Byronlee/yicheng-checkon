@@ -1,7 +1,6 @@
 class Checkin
   include Mongoid::Document
 
- # belongs_to :record
   embedded_in :record
 
   belongs_to :check_unit

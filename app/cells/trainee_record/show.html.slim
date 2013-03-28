@@ -10,7 +10,7 @@
       - @tasks.each do |task|
         tr
           td 
-            - if task.state =="registered"
+            - if task.registered?
               font color="green" = task.user[:dept_name]
             - else
               font color="red" = task.user[:dept_name]
@@ -19,9 +19,9 @@
           td
             = FormatDate task.date
           td
-           form action="/records/update" method="post" id="u_form"
-             input name="time" type="hidden" value=task[:attend_date]
-             input name="register_way" type="hidden" value="no_number_register"
+           form action="/staff_records/update" method="post" id="u_form"
+             input name="time" type="hidden" value=task[:created_date]
+             input name="register_way" type="hidden" value="trainee_register"
               = raw no_number_selects(task)
           td 
             button.btn.btn-primary type="type" onclick="u_submit($(this),'u_form')" = btn_name(task.state)

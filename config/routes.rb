@@ -1,6 +1,13 @@
 Attendance::Application.routes.draw do
 
-  resources :counts , only: [:index]
+  mount Feedback::Engine => '/feedback', as: 'feedback_app'
+
+  resources :counts do
+    collection do
+      get :amount
+    end
+  end
+
   resources :users do
     collection do
       get :ajax_user_select
@@ -8,9 +15,9 @@ Attendance::Application.routes.draw do
     end
   end
  
-  post "records/update" 
+  post "staff_records/update" 
 
-  resources :records do
+  resources :staff_records do
     collection do 
       get  :fast_register
       get  :whether_checkin 
@@ -22,5 +29,5 @@ Attendance::Application.routes.draw do
       get  :tree_dept
     end
   end
-  root :to => "records#index"
+  root :to => "staff_records#index"
 end
