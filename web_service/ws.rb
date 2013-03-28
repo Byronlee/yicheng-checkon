@@ -73,3 +73,6 @@ get '/user/posts/:user_id' do
   JSON.dump $ACCESSOR.user_posts params[:user_id]
 end
 
+get '/checkers/?' do
+  JSON.dump $ACCESSOR.chekers 
+end

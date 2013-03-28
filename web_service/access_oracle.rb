@@ -196,6 +196,7 @@ class OrgStru
     @qd = QueryData.new
     @user_attr_key = ["SU_USER_ID","SU_NICKNAME_CODE","SU_NICKNAME_DISPLAY","SU_PHONE_NUM","SU_USERNAME","SU_USER_NO","SU_DEPT_ID"]
     @dept_attr_key = ["SD_DEPT_CODE","SD_DEPT_NAME"]
+    @checker_post_id  = "402880fb3d66f0c5013d66f6a1c2003d"
   end
 
   def user_attr(user_id)
@@ -312,6 +313,10 @@ class OrgStru
   def post_names(post_list)
     @post_map = post_map if @post_map.nil?
     post_list.map { |post_id| @post_map[post_id] }
+  end
+
+  def checkers
+    @qd.query_field_to_array("SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID = '#{@checker_post_id}'")
   end
 end
 

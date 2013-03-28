@@ -1,5 +1,5 @@
 # coding: utf-8 
-require "#{File.dirname(__FILE__)}/../../lib/access_oracle"
+require "#{File.dirname(__FILE__)}/../../web_service/access_oracle"
 
 
 describe QueryData do
@@ -137,6 +137,12 @@ describe OrgStru do
     users = @orgstru.dept_users_with_subdept @test_data_dept_id
     users.should_not be_empty
     # TODO : More Test
+  end
+
+  it "测试返回所有的考勤者" do 
+    checkers = @orgstru.checkers
+    checkers.should include @test_data_user_id
+    checkers.length.should > 2
   end
  
   # it "pretty_tree显示所有部门树" do
