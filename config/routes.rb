@@ -1,6 +1,8 @@
 Attendance::Application.routes.draw do
 
   mount Feedback::Engine => '/feedback', as: 'feedback_app'
+  
+  match  'logout' => 'application#logout'
 
   resources :counts do
     collection do

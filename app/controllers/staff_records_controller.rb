@@ -29,7 +29,7 @@ class StaffRecordsController < ApplicationController
 
   private
     def initialize_tasks
-      @tasks = sort_by_field(StaffRecord.get_tasks(StaffRecord.state('checking')),:dept_name)
-      @tasks_finished = sort_by_field(StaffRecord.get_tasks(StaffRecord.by_period(Date.today-1,Date.today+1).state("registered")),:dept_name)
+      @tasks = sort_by_field(StaffRecord.get_tasks("unfinish"),:dept_name)
+      @tasks_finished = sort_by_field(StaffRecord.get_tasks("finished"),:dept_name)
     end
 end

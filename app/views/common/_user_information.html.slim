@@ -3,10 +3,10 @@
     tr
       td
         span = t("view.common.user_info.your_place")
-        span 东南区/红河区
+        span = current_user.ancestors
       td 
         span = t("view.common.user_info.position")
-        span  文员
+        span = current_user.post
       td
         span = t("view.common.user_info.name") 
         span = current_user.username

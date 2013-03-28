@@ -19,7 +19,9 @@ class StaffRecord
     TraineeRecord.register arg
   end
 
-  def self.get_tasks  records
+  def self.get_tasks type
+    type.eql?("finished") ? records = by_period(Date.today-1,Date.today+1).state("registered") :
+                            records = where(record_person: User.current_user.staffid).state('checking')
     if records
       tasks = records.map do | record |
         user =  User.resource(record.staffid)

@@ -32,9 +32,6 @@ class User
     end
   end
 
-# def current_user
-#   User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
-# end
 
   def self.resource sid
     if sid.instance_of?(String)
@@ -66,7 +63,7 @@ class User
 
 
   def ancestors
-    2.times{dept_ancestors.delete_at(0)}
+    2.times{ dept_ancestors.delete_at(0)}
     dept_ancestors.inject(""){|str,ps| str+ps[1]+"/"}+dept_name
   end
 
@@ -82,7 +79,4 @@ class User
     update_attributes(state: "staff")
   end
 
-  def logout
-    CASClient::Frameworks::Rails::Filter.logout(self)
-  end
 end
