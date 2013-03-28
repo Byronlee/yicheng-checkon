@@ -55,12 +55,12 @@ end
 class QueryData
 
   def logout
-    exit unless @conn 
+    exit unless @connect 
     if @connect_name=='sqlite' then 
-      @conn.close 
+      @connect.close 
       @log.info("SQLite disconnected")
     else 
-      @conn.logout 
+      @connect.logout 
       @log.info("Oracle disconnected")
     end
   end
@@ -70,17 +70,17 @@ class QueryData
   def initialize(connect_name = 'oracle' )
     ObjectSpace.define_finalizer(self, proc{method(:logout).call} )
 
-    default_logfile = "#{File.dirname(__FILE__)}/../log/ws.log"
+    default_logfile = "#{File.dirname(__FILE__)}/../ws.log"
     config_file = "#{File.dirname(__FILE__)}/../config/ws_config.yaml"
 
     if  File.exist? config_file
-      @conf = YAML.load_file config_file
-      default_logfile = @conf['logger_file'] if @conf['logger_file'] 
+      @config = YAML.load_file config_file
+      default_logfile = @config['logger_file'] if @config['logger_file'] 
     else
-      @conf = {}
+      @config = {}
     end
     @log = Logger.new(default_logfile)
-    @connect_name = @conf['default_connect'] unless @conf['default_connect'].nil?
+    @connect_name = @config['default_connect'] unless @config['default_connect'].nil?
     connect_to_server 
   end
                                  
@@ -93,25 +93,25 @@ class QueryData
   end 
 
   def server_connected?
-    not @conn.nil?
+    not @connect.nil?
   end 
 
   def connect_to_server 
-    @conn = nil
+    @connect = nil
 
     if @connect_name == 'sqlite' then
       require 'sqlite3'
-      db_file = @conf['connect']['sqlite']['db']
+      db_file = @config['connect']['sqlite']['db']
       db_file = 'ref/test_data.db' if db_file.nil?
       db = File.expand_path(db_file,"#{File.dirname(__FILE__)}/../")
       if File.exist? db then
-        @conn = SQLite3::Database.new(db)
+        @connect = SQLite3::Database.new(db)
         @log.info("SQLite '#{db}' is connected")
       else
         @log.error("SQLite db file '#{db}' is not exist")
       end  
     else
-      oracle_connnect_conf = @conf['connect'][@connect_name]
+      oracle_connnect_conf = @config['connect'][@connect_name]
       if oracle_connnect_conf.nil? 
         @log.error("Oracle config '#{@connect_name}' is not exist")
       end
@@ -121,11 +121,11 @@ class QueryData
       tns = "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP) (HOST = #{oracle_connnect_conf['host']})(PORT = #{oracle_connnect_conf['port']}))) (CONNECT_DATA = (SID = #{oracle_connnect_conf['sid']})))"
       
       begin   
-        @conn = OCI8.new(oracle_connnect_conf['useername'],
+        @connect = OCI8.new(oracle_connnect_conf['useername'],
                          oracle_connnect_conf['password'],
                          tns)
       rescue => ex
-        @conn = nil 
+        @connect = nil 
         @log.error("Connect Oracle Server fail :#{ex}")
       end
     end
@@ -133,13 +133,13 @@ class QueryData
   
   
   def query(sql_string,&block)
-    return unless @conn 
+    return unless @connect 
     begin
       @log.info("SQL exec:#{sql_string}")
       if @connect_name == 'sqlite' then
-        @conn.execute(sql_string,&block)
+        @connect.execute(sql_string,&block)
       else
-        @conn.exec(sql_string,&block)
+        @connect.exec(sql_string,&block)
       end
       @log.info("SQL exec success")
     # rescue StandardError => oe 
@@ -147,6 +147,13 @@ class QueryData
     rescue => ex
       @log.error("Query Error: #{sql_string} . #{ex}")
     end
+  end
+  
+  def query_not_empty(string)
+    query(string) do |_|
+      return true 
+    end
+    return false
   end
 
   def query_field_to_array(sql_string)
@@ -158,7 +165,7 @@ class QueryData
   end
 
   def select_table_as_map(table_name,key_field,value_field)
-    require {} unless @conn 
+    require {} unless @connect 
     sql_string = "SELECT #{key_field},#{value_field} FROM #{table_name}"
     result = {}
     query("SELECT #{key_field},#{value_field} FROM #{table_name}" ) do |row|
@@ -169,7 +176,7 @@ class QueryData
 
 
   def select_one_as_map(table_name,fields,key,value)
-    return {} unless @conn
+    return {} unless @connect
     if value.is_a? String then
       value_str = "'#{value}'"
     else
@@ -178,9 +185,9 @@ class QueryData
     sql_string = "SELECT #{fields.join(',')} FROM #{table_name} where #{key}=#{value_str}"
     @log.info("Fetch first :#{sql_string}")
     if @connect_name == 'sqlite' then
-      row = @conn.get_first_row(sql_string) 
+      row = @connect.get_first_row(sql_string) 
     else
-      row = @conn.select_one(sql_string)
+      row = @connect.select_one(sql_string)
     end
     @log.info("Fetch first success")
     return {} if row.nil? 
@@ -196,7 +203,8 @@ class OrgStru
     @qd = QueryData.new
     @user_attr_key = ["SU_USER_ID","SU_NICKNAME_CODE","SU_NICKNAME_DISPLAY","SU_PHONE_NUM","SU_USERNAME","SU_USER_NO","SU_DEPT_ID"]
     @dept_attr_key = ["SD_DEPT_CODE","SD_DEPT_NAME"]
-    @checker_post_id  = "402880fb3d66f0c5013d66f6a1c2003d"
+    @registrar_post_id  = "402880fb3d66f0c5013d66f6a1c2003d"
+    @approval_depa_id = "4028809b3c6fbaa7013c6fbc39900352"
   end
 
   def user_attr(user_id)
@@ -206,10 +214,9 @@ class OrgStru
   def user(user_nickname)
     @qd.select_one_as_map('SYS_USER',@user_attr_key,"SU_NICKNAME_CODE",user_nickname)
   end
-  
-  def user_attr_ext(user_id)
-    user = user_attr(user_id)
-    return user if user.empty?
+
+  def user_attr_ext(user)
+    return user if user.nil? or user.empty?
     dept_ance = dept_ancestors(user["SU_DEPT_ID"])
     dept_ance_names = dept_names(dept_ance)
     user["SD_DEPT_NAME"] = dept_attr(user["SU_DEPT_ID"])["SD_DEPT_NAME"]
@@ -315,8 +322,16 @@ class OrgStru
     post_list.map { |post_id| @post_map[post_id] }
   end
 
-  def checkers
-    @qd.query_field_to_array("SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID = '#{@checker_post_id}'")
+  def registrars
+    @qd.query_field_to_array("SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID = '#{@registrar_post_id}'")
+  end
+
+  def registrar?(user_id)
+    @qd.query_not_empty "SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID = '#{@registrar_post_id}' and SURP_USER_ID='#{user_id}'"
+  end
+
+  def approval?(user_id)
+    @qd.query_not_empty "SELECT SU_USER_ID FROM SYS_USER WHERE SU_DEPT_ID= '#{@approval_depa_id}' and SU_USER_ID='#{user_id}'" 
   end
 end
 

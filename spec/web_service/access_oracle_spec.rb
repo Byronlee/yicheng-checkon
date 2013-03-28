@@ -38,6 +38,7 @@ describe OrgStru do
   before do
     @orgstru = OrgStru.new  
     @test_data_user_id = "4028809b3c6fbaa7013c6fbc3db41bc3"
+    @test_data_user_id_approval = "4028809b3c6fbaa7013c6fbc3da51a13"
     @test_data_dept_id = "4028809b3c6fbaa7013c6fbc39900380"
     @test_dept_ancestor1 = ["4028809b3c60dcc8013c60e107810001",
                             "4028809b3c6fbaa7013c6fbc39510002",
@@ -140,9 +141,16 @@ describe OrgStru do
   end
 
   it "测试返回所有的考勤者" do 
-    checkers = @orgstru.checkers
-    checkers.should include @test_data_user_id
-    checkers.length.should > 2
+    registrars = @orgstru.registrars
+    registrars.should include @test_data_user_id
+    registrars.length.should > 2
+  end
+
+  it "角色测试" do 
+     @orgstru.registrar?(@test_data_user_id).should be_true
+     @orgstru.registrar?(@test_data_user_id_approval).should_not be_true
+     @orgstru.approval?(@test_data_user_id).should_not be_true
+     @orgstru.approval?(@test_data_user_id_approval).should be_true
   end
  
   # it "pretty_tree显示所有部门树" do

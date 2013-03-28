@@ -44,7 +44,9 @@ get '/dept/id/:dept_id' do
 end 
 
 get '/user/id/:user_id' do
-  JSON.dump $ACCESSOR.user_attr_ext params[:user_id]
+  user = $ACCESSOR.user_attr params[:user_id]
+  ext_attrs = $ACCESSOR.user_attr_ext user 
+  JSON.dump (user.merge ext_attrs)
 end 
 
 # get '/user/ext/id/:user_id' do
@@ -73,6 +75,7 @@ get '/user/posts/:user_id' do
   JSON.dump $ACCESSOR.user_posts params[:user_id]
 end
 
-get '/checkers/?' do
-  JSON.dump $ACCESSOR.checkers
+get '/registrars/?' do
+  JSON.dump $ACCESSOR.registrars
 end
+
