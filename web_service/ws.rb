@@ -74,5 +74,5 @@ get '/user/posts/:user_id' do
 end
 
 get '/checkers/?' do
-  JSON.dump $ACCESSOR.chekers 
+  JSON.dump $ACCESSOR.checkers
 end
