@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class ModifyLog 
+class ModifyRecord 
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -14,9 +14,9 @@ class ModifyLog
   field :approval_date , type:String
   field :approval_remark , type:String
 
-  belongs_to :record
-  belongs_to :check_unit
-  belongs_to :behave
+# belongs_to :record
+# belongs_to :check_unit
+# belongs_to :behave
 
 
   after_create do | modify_record |

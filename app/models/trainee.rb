@@ -16,8 +16,16 @@ class Trainee
   has_many :trainee_records
 
   after_create do |trainee|
-    (0...(trainee.initialized_days)).map do |t|
-      record = TraineeRecord.new_record trainee.id,User.current_user.username,"","","","","","meili"
+     user = User.current_user
+    (0...(trainee.initialized_days)).each do |t|
+      record = TraineeRecord.new_record(trainee.id,
+                                        trainee.username,
+                                        trainee.user_no,
+                                        "",
+                                        user.username,
+                                        user.staffid,
+                                        user.dept_id,
+                                        user.dept_name)
       record.update_attributes(created_date: Date.today-t,trainee_id: trainee.id)
     end
   end

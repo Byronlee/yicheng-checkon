@@ -6,8 +6,6 @@ class ApplicationController < ActionController::Base
 
   def current_user
     attrs = session[:cas_extra_attributes]["attrs"]
-    p "++++++++++++++++++++++++++"
-    p attrs
     Permission.assign attrs["role"]
     User.current_user =  @current_user = User.resource(attrs)
   end 
