@@ -6,9 +6,8 @@ class ApplicationController < ActionController::Base
 
   def current_user
     attrs = session[:cas_extra_attributes]["attrs"]
-    @current_user ||= User.resource(attrs)
-    Permission.assign ["RegistrarRole","StatisticianRole"]
-    User.current_user ||= @current_user 
+    Permission.assign attrs["role"]
+    User.current_user =  @current_user = User.resource(attrs)
   end 
   
   def sort_by_field v,field
