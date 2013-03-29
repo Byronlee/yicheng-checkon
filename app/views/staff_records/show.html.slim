@@ -22,6 +22,6 @@ form(action="update" method="post")
               td = user.user_no
               td = user.username
               td
-                = raw(unit_selects(user))
+                = raw(unit_selects(user.instance_variable_get(:@cins)))
   input type="hidden" name="register_way" value="register"         
   input type="hidden" name="time" value=@resource[:time]
