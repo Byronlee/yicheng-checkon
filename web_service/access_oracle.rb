@@ -216,14 +216,15 @@ class OrgStru
   end
 
   def user_attr_ext(user)
-    return user if user.nil? or user.empty?
+    return {} if user.nil? or user.empty?
+    ext_attrs = {}
     dept_ance = dept_ancestors(user["SU_DEPT_ID"])
     dept_ance_names = dept_names(dept_ance)
-    user["SD_DEPT_NAME"] = dept_attr(user["SU_DEPT_ID"])["SD_DEPT_NAME"]
-    user["DEPT_ANCESTORS"] = dept_ance.zip(dept_ance_names)
+    ext_attrs["SD_DEPT_NAME"] = dept_attr(user["SU_DEPT_ID"])["SD_DEPT_NAME"]
+    ext_attrs["DEPT_ANCESTORS"] = dept_ance.zip(dept_ance_names)
     posts = user_posts(user["SU_USER_ID"])
-    user["POSTS"] = posts.zip(post_names(posts))
-    return user 
+    ext_attrs["POSTS"] = posts.zip(post_names(posts))
+    return ext_attrs
   end
 
   def dept_attr(dept_id)
