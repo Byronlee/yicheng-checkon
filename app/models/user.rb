@@ -16,6 +16,9 @@ class User
 
   cattr_accessor :current_user
 
+  validates_presence_of :username , :salary_time , :dept_id
+  validates_uniqueness_of :username
+
   def self.resource sid
     if sid.instance_of?(String)
       init_attr Webservice.get_data("/user/id/"+sid),sid
@@ -41,7 +44,7 @@ class User
   end
 
   def ancestors
-    2.times{dept_ancestors.delete_at(0)}
+    2.times{ dept_ancestors.delete_at(0)}
     dept_ancestors.inject(""){|str,ps| str+ps[1]+"/"}+dept_name
   end
 
