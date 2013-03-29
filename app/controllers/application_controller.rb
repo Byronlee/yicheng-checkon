@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
   before_filter :current_user
 
   def current_user
-  #  @current_user = User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
     attrs = session[:cas_extra_attributes]["attrs"]
-    @current_user = User.resource(attrs)
-    User.current_user = @current_user 
+    @current_user ||= User.resource(attrs)
+    Permission.assign ["RegistrarRole","StatisticianRole"]
+    User.current_user ||= @current_user 
   end 
   
   def sort_by_field v,field
@@ -20,5 +20,9 @@ class ApplicationController < ActionController::Base
 
   def available? var
    var.empty?  ? nil : var  if var
+  end
+
+  def logout
+    CASClient::Frameworks::Rails::Filter.logout(self)
   end
 end

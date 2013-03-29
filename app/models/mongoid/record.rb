@@ -50,7 +50,6 @@ module Mongoid
         arg[:record].each do | user_id , checks| 
           record = get_record user_id,arg[:time]
           checks.map do |unit_id,behave_id|
-            record.checkins.check_unit.find(unit_id)
             record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
           end
           record.update_attribute(:attend_date,Date.today)
@@ -58,7 +57,7 @@ module Mongoid
         end
       end
 
-      def self.new_record *arg
+      def new_record *arg
         create!(staffid: arg[0],
                 staff_name: arg[1],
                 user_no: arg[2],
@@ -71,7 +70,7 @@ module Mongoid
       end
 
       def get_record id,date
-        where(staffid: id,created_date: date)
+        where(staffid: id,created_date: date).first
       end
 
       def auto_submit

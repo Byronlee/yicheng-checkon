@@ -8,7 +8,7 @@ Attendance::Application.routes.draw do
     end
   end
 
-  resources :users do
+  resources :trainees do
     collection do
       get :ajax_user_select
       post :merge

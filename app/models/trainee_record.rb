@@ -6,13 +6,10 @@ class TraineeRecord
 
   default_scope where(is_deleted: false)
 
-  belongs_to :user
-
-# @current_user =  User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
-
+  belongs_to :trainee
 
   def self.merge o_id,n_id
-     user = User.find(o_id)
+     user = Trainee.find(o_id)
      user.trainee_records.map do |r|
        StaffRecord.create!(r.handle_attrs(n_id))
        r.update_attributes(is_deleted: true)
@@ -26,7 +23,7 @@ class TraineeRecord
 
   def handle_attrs n_id
     cloned_attrs = attributes.clone
-    cloned_attrs.update("staffid" => n_id).delete_if{|k,v|k="_id" || k="is_deleted"}
+    cloned_attrs.update("staffid" => n_id).delete_if{|k,v|k=="_id" || k=="is_deleted"}
     cloned_attrs
   end
 
