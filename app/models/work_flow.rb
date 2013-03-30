@@ -6,13 +6,14 @@ class WorkFlow
   field :starter
   field :hander
   field :result
-
+  field :behaves,type: Hash 
+   
   belongs_to :staff_record
   has_many :messages
 
   # 定义流程
   def self.define p
-    workitem = StaffRecord.find(p[:record_id]).work_flows.create(starter: User.current_user.staffid)
+    workitem = StaffRecord.find(p[:record_id]).work_flows.create(starter: User.current_user.staffid,behaves: p[:record].values.first)
     workitem.messages.create(content: Message.message(p))
     workitem
   end

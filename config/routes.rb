@@ -1,5 +1,7 @@
 Attendance::Application.routes.draw do
 
+  resources :tasks
+
   mount Feedback::Engine => '/feedback', as: 'feedback_app'
   
   match  'logout' => 'application#logout'
@@ -24,6 +26,7 @@ Attendance::Application.routes.draw do
       post :approve
     end
   end
+
 
   post "staff_records/update" 
 

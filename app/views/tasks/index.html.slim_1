@@ -1,0 +1,20 @@
+.title
+  .content 
+  strong 未处理请求
+  strong 
+    font color="red" 3
+      strong = t("view.records.index.unit")
+.bs-docs
+  table.table.table-bordered
+    tr
+      th 序号
+      th 详情
+      th 操作
+    tr
+      td 
+        span.badge.badge-error 1
+      td 申请将什么改变诚什么
+      td
+        .btn-group
+      button.btn.btn-primary 同意
+      button.btn.btn-primary拒绝
