@@ -23,7 +23,7 @@
            td = checkin.behave.name
          td = record.attend_date
          td 
-           button.btn.btn-mini.btn-primary 申请修改
+           = render "common/form_apply_modify" ,:record => record
  = will_paginate records, :renderer => BootstrapPagination::Rails
 - else
   = render "common/no_content" , :message => "无数据...."

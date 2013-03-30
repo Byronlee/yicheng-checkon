@@ -20,7 +20,7 @@ module Mongoid
       field :created_date, type: String,default: Date.today.to_s
 
       embeds_many :checkins
-      has_many    :modify_records
+    	
     #validates_presence_of :staffid , :record_person , :record_zone
      # staffid,created_at共同检验唯一约束,防止重复产生记录
    # validates_uniqueness_of :staffid ,:scope => :created_at 

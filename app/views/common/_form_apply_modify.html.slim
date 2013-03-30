@@ -1,0 +1,20 @@
+a href="#myModal" role="button" class="btn btn-mini btn-primary" data-toggle="modal" 申请修改
+#myModal.modal.hide.fade  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+  .modal-header
+    button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
+    h3 id="myModalLabel" 申请修改<font color="red">#{record.staff_name}</font>&nbsp;<font color="green">#{record.created_date}</font>考勤记录
+  .modal-body
+    = raw(unit_selects(record.checkins))
+    form(action="staff_records/apply" method="post")
+      input name="s" value="#{task[:dept_id]}" type="hidden"
+      input name="time" value="#{task[:created_at]}" type="hidden"
+      input type="hidden" name="register_way" value="fast_register" 
+       .input-append
+        = raw(behave_selects nil,{},{:class => "span7",name: "behave_id"})
+        button.btn.btn-primary type="type" 保存 
+
+ 备注：
+  
+  .modal-footer
+    button class="btn" data-dismiss="modal" aria-hidden="true" 关闭
+    button class="btn btn-primary" 确定申请
