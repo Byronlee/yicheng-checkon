@@ -3,42 +3,24 @@ class Message
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :launcher ,tyoe:String
-  field :receiver, type:String
+  belongs_to :work_flow
+
+  field :content
   field :remark, type:String  
 
-  field :record_id , type:String
-  field :is_view , type:Boolean ,default:  false
+  field :is_read, type:Boolean ,default:  false
 
-
-  field :result ,type:String
-
-  
-
-  embeds_many :checkins
-  belongs_to  :staff_record
-
-  after_create do | modify_record |
-  #    modify_record.apply_user = User.resource(modify_record.apply_user) if  modify_record.apply_user.class == "String"
-  #    modify_record.approval_person ||=  User.resource(modify_record.approval__user) if modify_record.approval_user
+  def self.message p
+    record = StaffRecord.find(p[:record_id])
+    str = ""
+    p[:record].each do |uid,checkins|
+      str = "将#{record.staff_name}在#{record.created_date}"
+      checkins.map do |unit_id,behave_id|
+        o_behave = record.checkins.find_by(check_unit_id: unit_id).behave.name
+        str << CheckUnit.find(unit_id).name+"的考勤由#{o_behave}变为"
+        str << Behave.find(behave_id).name
+      end
+    end
+    str
   end
-
-  def self.new_mr params
-     create!(:raw_behave => params[:raw_behave] ,
-             :apply_user =>  User.current_user.staffid , #"4028809b3c6fbaa7013c6fbc3c3e0651" ,
-             :apply_date => Date.today.to_s , 
-             :latest_behave => params[:latest_behave],
-             :apply_reason => params[:apply_reason])
-  end
-
-
-
-  def  self.approval params
-     find_by(id: params[:mid]).update_attributes(approval_user: User.current_user.staffid,
-                                                 approval_date: Date.today.to_s ,
-                                                 approval_remark: params[:remark],
-                                                 state: params[:decide] )
-  end
-
- 
 end

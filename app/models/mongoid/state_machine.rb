@@ -16,11 +16,11 @@ module Mongoid
           transition [:submitted] => :verifying 
         end
 
-        event :verify do
+        event :approve do
           transition [:verifying] => :submitted
         end
 
-        event :opposed do
+        event :refuse do
           transition [:verifying] => :submitted
         end
       end

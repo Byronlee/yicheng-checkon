@@ -17,6 +17,14 @@ Attendance::Application.routes.draw do
     end
   end
  
+  resources :work_flows do
+    collection do
+      post :lanuch
+      post :refuse
+      post :approve
+    end
+  end
+
   post "staff_records/update" 
 
   resources :staff_records do
