@@ -6,11 +6,13 @@ class Ability
     if user.role.include? "Registrar"
       can :manage , Trainee
       can :manage , Count
-      can :lanuch , WorkFlow
       can :manage , StaffRecord
+      can :registrar ,Task
     else
       cannot :manage , Trainee
+      can :manage , Count
       cannot :manage , StaffRecord
+      can  :approval , Task
     end
   end
 end

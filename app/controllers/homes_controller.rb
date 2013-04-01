@@ -6,7 +6,7 @@ class HomesController < ApplicationController
     case  current_user.role.first
     when 'Registrar'
       redirect_to registrar_path
-    when 'Approvar'
+    when 'Approval'
       redirect_to approval_path
     end
   end

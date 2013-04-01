@@ -1,8 +1,6 @@
 Attendance::Application.routes.draw do
 
   resources :tasks
-
-  mount Feedback::Engine => '/feedback', as: 'feedback_app'
   
   match  'logout' => 'application#logout'
 
@@ -19,13 +17,6 @@ Attendance::Application.routes.draw do
     end
   end
  
-  resources :work_flows do
-    collection do
-      post :lanuch
-      post :refuse
-      post :approve
-    end
-  end
 
 
   post "staff_records/update" 
@@ -47,7 +38,8 @@ Attendance::Application.routes.draw do
    
   match 'registrar' => 'tasks#registrar' ,:as => :registrar
   match  'approval' => 'tasks#approval' ,:as => :approval
-
+  match 'apply'     => 'flows#apply'   , :via => :post
+  match 'approve'   => 'flows#approve' , :via => :post
 
 
 

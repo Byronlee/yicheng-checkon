@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 class StaffRecordsController < ApplicationController
 
-  before_filter  :initialize_tasks , only: [:index]
-#  caches_page :index
-
    def show
      @resource ={
        dept_name: params[:dept_name] ,
@@ -29,18 +26,4 @@ class StaffRecordsController < ApplicationController
 
 
 
-   def apply
-#     StaffRecord.apply params
-   end
-
-
-   def approval
- #    StaffRecord.approval params
-   end
-
-   private
-   def initialize_tasks
-     @tasks = sort_by_field(StaffRecord.get_tasks("unfinish"),:dept_name)
-     @tasks_finished = sort_by_field(StaffRecord.get_tasks("finished"),:dept_name)
-   end
  end
