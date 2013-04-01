@@ -14,18 +14,12 @@ module Mongoid
 
         event :apply do |params|
           transition [:submitted] => :applying 
-       #   Message.new_message params
         end
 
         event :approval do |params|
           transition [:applying] => :submitted
-       #   StaffRecord.approval params
-       #   Message.new_message  params
         end
       end
     end
-
-
-
   end
 end

@@ -8,15 +8,15 @@ class Crontask
       if children   # 因为有些 区下面没有children 所以必须判断
         children.map do | dept |      
           Department.new(dept["id"]).users.map do | user |
-            StaffRecord.new_record(user.staffid, 
-                                   user.username,
-                                   user.user_no ,
-                                   user.nickname_display,
-                                   cu.username, 
-                                   cu.staffid ,
-                                   cu.dept_id, 
-                                   cu.dept_name 
-                                   )
+#            StaffRecord.new_record(user.staffid, 
+#                                   user.username,
+#                                   user.user_no ,
+#                                   user.nickname_display,
+#                                   cu.username, 
+#                                   cu.staffid ,
+#                                   cu.dept_id, 
+#                                   cu.dept_name 
+#                                   )
           end
         end
       end
