@@ -22,7 +22,4 @@ class ApplicationController < ActionController::Base
    var.empty?  ? nil : var  if var
   end
 
-  def logout
-    CASClient::Frameworks::Rails::Filter.logout(self)
-  end
 end

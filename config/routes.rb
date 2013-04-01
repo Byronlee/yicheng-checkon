@@ -16,14 +16,13 @@ Attendance::Application.routes.draw do
     collection do
       get :ajax_user_select
       post :merge
+      get :logout
     end
   end
  
   resources :work_flows do
     collection do
       post :lanuch
-      post :refuse
-      post :approve
     end
   end
 
@@ -42,5 +41,5 @@ Attendance::Application.routes.draw do
       get  :tree_dept
     end
   end
-  root :to => "staff_records#index"
+ root :to => 'tasks#index'
 end
