@@ -41,5 +41,9 @@ Attendance::Application.routes.draw do
       get  :tree_dept
     end
   end
- root :to => 'tasks#index'
+   
+  match 'registrar' => 'tasks#registrar' ,:as => :registrar
+  match  'approval' => 'tasks#approval' ,:as => :approval
+
+  root :to => "homes#index"
 end

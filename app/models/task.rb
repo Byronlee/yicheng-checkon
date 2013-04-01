@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
 class Task
-  include Mongoid::Document
+
+
+ def self.staffs
+   StaffRecord.staffs
+ end
+
+
+ def self.trainees
+   TraineeRecord.trainees.decorate
+ end
 end

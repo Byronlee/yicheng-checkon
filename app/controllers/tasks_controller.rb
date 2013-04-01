@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 class TasksController < ApplicationController
-  def index
-     case current_user.role
-           when 'Registrar'
-             # action
-           when 'Approval'
-             # action
-           else
-             # other
-           end
+  def registrar
+    @staffs = Task.staffs
+    @trainees = Task.trainees
   end
+
+
+  def approval
+  end
+
+
 end

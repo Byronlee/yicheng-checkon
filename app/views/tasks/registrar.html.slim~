@@ -1,0 +1,2 @@
+= render_cell :task,:staff
+= render_cell :task,:trainee

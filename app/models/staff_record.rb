@@ -21,20 +21,34 @@ class StaffRecord
     TraineeRecord.register arg
   end
 
-  def self.get_tasks type
-    type.eql?("finished") ? records = by_period(Date.today-1,Date.today+1).state("registered") :
-      records = where(record_person: User.current_user.staffid).state('checking')
+
+  def self.staffs
+    unique by_period(Date.today-1,Date.today+1).where(record_person: User.current_user.staffid).in(state: ["checking","registered"])
+  end
+
+
+  def self.unique records
     if records
       tasks = records.map do | record |
         user =  User.resource(record.staffid)
-      { dept_id: user.dept_id, 
-        created_at: record.created_date,
-        dept_name: user.dept_name
-      }
+        { dept_id: user.dept_id, 
+          created_at: record.created_date,
+          dept_name: user.dept_name ,
+          state: record.state
+        }
       end
-      tasks.uniq
+      tasks.uniq.sort_by! do |item|
+        [item[:state] ,item[:dept_name]]
+      end
     end
   end
+
+
+
+
+
+
+
 
   def self.query params ,dept_id ,map =""
     if params[:type].eql?("attach")

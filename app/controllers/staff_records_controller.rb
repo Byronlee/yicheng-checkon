@@ -27,6 +27,17 @@ class StaffRecordsController < ApplicationController
      render "common/_table_show_records",locals:{:records => results },:layout => false
    end
 
+
+
+   def apply
+#     StaffRecord.apply params
+   end
+
+
+   def approval
+ #    StaffRecord.approval params
+   end
+
    private
    def initialize_tasks
      @tasks = sort_by_field(StaffRecord.get_tasks("unfinish"),:dept_name)
