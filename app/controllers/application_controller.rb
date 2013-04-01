@@ -10,14 +10,9 @@ class ApplicationController < ActionController::Base
     Permission.assign attrs["role"]
     User.current_user =  @current_user = User.resource(attrs)
   end 
-  
-
 
   def available? var
    var.empty?  ? nil : var  if var
   end
 
-  def logout
-    CASClient::Frameworks::Rails::Filter.logout(self)
-  end
 end

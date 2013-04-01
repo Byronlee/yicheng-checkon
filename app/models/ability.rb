@@ -3,6 +3,7 @@ class Ability
 
   def initialize(user)
     user = User.current_user
+
     if user.role.include? "Registrar"
       can :manage , Trainee
       can :manage , Count

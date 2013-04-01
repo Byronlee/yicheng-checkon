@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 class TasksController < ApplicationController
-
   def registrar
     @staffs = Task.staffs
     @trainees = Task.trainees
