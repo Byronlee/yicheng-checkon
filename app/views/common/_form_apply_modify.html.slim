@@ -1,12 +1,12 @@
-a href="#myModal" role="button" class="btn btn-mini btn-primary" data-toggle="modal" 申请修改
-#myModal.modal.hide.fade  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-  .modal-header
-    button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
-    h3 id="myModalLabel" 申请修改<font color="red">#{record.staff_name}</font>&nbsp;<font color="green">#{record.created_date}</font>考勤记录
-  .modal-body
-    = raw(unit_selects(record.checkins))
-
-  
-  .modal-footer
-    button class="btn" data-dismiss="modal" aria-hidden="true" 关闭
-    button class="btn btn-primary" 确定申请
+form(action="/work_flows/lanuch" method="post")
+  a href="##{record.id}" role="button" class="btn btn-mini btn-primary" data-toggle="modal" 申请修改
+  .modal.hide.fade id=record.id tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+    .modal-header
+      button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
+      h3 id="myModalLabel" 申请修改<font color="red">#{record.staff_name}</font>&nbsp;<font color="green">#{record.created_date}</font>考勤记录
+    .modal-body
+        input name="record_id" value="#{record.id}" type="hidden"
+          = raw(unit_selects(record.checkins))
+    .modal-footer
+      button class="btn" data-dismiss="modal" aria-hidden="true" 关闭
+      button class="btn btn-primary" type="submit"  确定申请

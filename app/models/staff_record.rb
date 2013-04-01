@@ -2,7 +2,7 @@
 class StaffRecord
   include Mongoid::Record
 
-   has_many  :messages
+  has_many  :work_flows
 
   def self.by_period first,last  
     between(created_date: [first,last])
@@ -11,9 +11,9 @@ class StaffRecord
   def self.fast_register arg
     Department.new(arg[:dept_id]).users.map do | user |
       record = get_record user.staffid,arg[:time]
-      record.checkins.update_all(behave_id: arg[:behave_id])
-      record.update_attribute(:attend_date,Date.today)
-      record.register
+    record.checkins.update_all(behave_id: arg[:behave_id])
+    record.update_attribute(:attend_date,Date.today)
+    record.register
     end
   end
 
@@ -55,7 +55,7 @@ class StaffRecord
       if params[:order].eql?("false")  #不排序 有两种查询(是不是考勤项) 暂时不做根据考勤项来查询
         map += ".where(#{params[:field].to_sym}: /#{params[:value]}/)"
       else
-         map # 这里是根据 字段的升序 和降序差需代码 由 simlegate 来完成！
+        map # 这里是根据 字段的升序 和降序差需代码 由 simlegate 来完成！
       end 
     else
       if params[:start_time]

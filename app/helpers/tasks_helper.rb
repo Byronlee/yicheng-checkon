@@ -11,4 +11,3 @@ module TasksHelper
     end
   end
 
-end
