@@ -2,9 +2,9 @@
 class Crontask 
 
   def self.produce_everyday_records 
-    checkers = Webservice.get_data "/checkers"
+    checkers = Webservice.get_data "/registrars"
     checkers.each do |checker_id |
-      children =  (cu = User.resource(checker_id)).attend_depts["children"]
+    children =  (cu = User.send(:include,RegistrarRole).resource(checker_id)).attend_depts["children"]     
       if children   # 因为有些 区下面没有children 所以必须判断
         children.map do | dept |      
           Department.new(dept["id"]).users.map do | user |

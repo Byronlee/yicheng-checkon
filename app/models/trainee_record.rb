@@ -17,8 +17,8 @@ class TraineeRecord
      user.to_staff
   end
 
-  def self.trainee_records
-    self.or({state: "checking"},{state: "registered",attend_date: Date.today})
+  def self.trainees
+    self.or({state: "checking"},{state: "registered",attend_date: Date.today}).asc(:state)
   end
 
   def handle_attrs n_id

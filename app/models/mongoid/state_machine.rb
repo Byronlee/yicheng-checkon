@@ -12,16 +12,15 @@ module Mongoid
           transition [:registered] => :submitted
         end
 
-        event :apply do
-          transition [:submitted] => :verifying 
+        event :apply do |params|
+          transition [:submitted] => :applying 
+       #   Message.new_message params
         end
 
-        event :verify do
-          transition [:verifying] => :submitted
-        end
-
-        event :opposed do
-          transition [:verifying] => :submitted
+        event :approval do |params|
+          transition [:applying] => :submitted
+       #   StaffRecord.approval params
+       #   Message.new_message  params
         end
       end
     end

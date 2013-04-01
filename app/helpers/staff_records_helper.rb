@@ -25,8 +25,8 @@ module StaffRecordsHelper
 
 
 
-  def register_or_modify type
-    type=="finished" ? t("view.common.table_tasks_tr.registered") : t("view.common.table_tasks_tr.register")
+  def register_or_modify state
+    state=="registered" ? t("view.common.table_tasks_tr.registered") : t("view.common.table_tasks_tr.register")
   end
 
   def behave_selects checkin,options = {}, html_options = {}

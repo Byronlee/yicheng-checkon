@@ -38,6 +38,7 @@ class User
       dept_id: rs["SU_DEPT_ID"],
       dept_name: Department.new(rs["SU_DEPT_ID"]).name ,
       dept_ancestors: rs["DEPT_ANCESTORS"],
+      role:  rs["role"] ,
       position: rs["POSTS"]
     }
     new(attrs)
