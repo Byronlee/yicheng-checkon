@@ -17,7 +17,7 @@ Attendance::Application.routes.draw do
       get :logout
     end
   end
- 
+
   post "staff_records/update" 
 
   resources :staff_records do
