@@ -1,24 +1,25 @@
 # encoding: utf-8
-class UsersController < ApplicationController
+class TraineesController < ApplicationController
+
   def index
-    @users = User.all.decorate
+    @trainees = Trainee.all.decorate
   end
 
   def create
-    @user = User.create!(params[:user])
-    redirect_to users_path
+    @trainee = Trainee.create!(params[:trainee])
+    redirect_to trainees_path
   end
 
   def ajax_user_select
     users = Department.new(params[:dept_id]).users.map do |u|
       [u.username,u.staffid]
     end
-    select = {type: "users" , options: users, tips: "--请选择用户--"}
+    select = {type: "users" , options: users, tips: "--请选择--"}
     render "common/_organization_select",locals:{ :select => select},:layout => false
   end
 
   def merge
     @result = TraineeRecord.merge(params[:o_id],params[:n_id])
-    redirect_to users_path
+    redirect_to trainees_path
   end
 end

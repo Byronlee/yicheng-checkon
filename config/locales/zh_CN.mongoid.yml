@@ -2,10 +2,11 @@ zh_CN:
   mongoid:
     errors:
       models:
-        user:
+        trainee:
           attributes:
             username:
               blank: "用户名不能为空"
+              taken: "用户名字已经存在"
             taken: "用户名已经存在"
             salary_time:
               blank: "计薪时间不能为空"

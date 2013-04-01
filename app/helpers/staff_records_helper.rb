@@ -12,7 +12,7 @@ module StaffRecordsHelper
   def no_number_selects record
     record.checkins.inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
-      html_str << behave_selects(checkin,{},{name: "record[#{record.user_id}][#{checkin.check_unit_id}]",class:"span3"})
+      html_str << behave_selects(checkin,{},{name: "record[#{record.trainee_id}][#{checkin.check_unit_id}]",class:"span3"})
     end
   end
 

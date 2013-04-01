@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 FactoryGirl.define do
   factory :trainee_record do
-    factory :yesterday_with_employee do
+    factory :yesterday_with_employee ,:class => StaffRecord do
       staffid "4028809b3c6fbaa7013c6fbc3db41bc3"
       record_person "4028809b3c6fbaa7013c6fbc3db41bc3"
       attend_date Date.today -1

@@ -1,6 +1,5 @@
-class UserDecorator < Draper::Decorator
+class TraineeDecorator < Draper::Decorator
   delegate_all
-
 
   def dept_name
     Department.new(source.dept_id).name
@@ -9,5 +8,4 @@ class UserDecorator < Draper::Decorator
   def user_number
      User.resource(source.staffid).user_no
   end
-
 end

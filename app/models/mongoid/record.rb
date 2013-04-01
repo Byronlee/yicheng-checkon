@@ -20,7 +20,7 @@ module Mongoid
       field :created_date, type: String,default: Date.today.to_s
 
       embeds_many :checkins
-
+      has_many    :modify_records
     #validates_presence_of :staffid , :record_person , :record_zone
      # staffid,created_at共同检验唯一约束,防止重复产生记录
    # validates_uniqueness_of :staffid ,:scope => :created_at 
@@ -50,7 +50,6 @@ module Mongoid
         arg[:record].each do | user_id , checks| 
           record = get_record user_id,arg[:time]
           checks.map do |unit_id,behave_id|
-            record.checkins.check_unit.find(unit_id)
             record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
           end
           record.update_attribute(:attend_date,Date.today)
@@ -58,7 +57,7 @@ module Mongoid
         end
       end
 
-      def self.new_record *arg
+      def new_record *arg
         create!(staffid: arg[0],
                 staff_name: arg[1],
                 user_no: arg[2],
@@ -66,18 +65,12 @@ module Mongoid
                 record_person_name: arg[4],
                 record_person: arg[5],
                 record_zone: arg[6],
-                record_zone_name: arg[7],
+                record_zone_name: arg[7]
                )
       end
 
       def get_record id,date
-        where(staffid: id,created_date: date)
-      end
-
-      def auto_submit
-        where(attend_date: Date.today).state("registered").each do |record|
-          record.submit
-        end
+        where(staffid: id,created_date: date).first
       end
     end
   end

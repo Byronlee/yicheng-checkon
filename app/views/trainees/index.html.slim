@@ -1,10 +1,10 @@
 .title
   .content
     strong 添加无工号员工
-= form_for User.new do |f|
+= form_for Trainee.new do |f|
   table.table.table-bordered.table-condensed.align_left
     tr
-      td  = select("dept","dept_id",depts,{prompt: "--选择店组--"},{name: "user[dept_id]",class: "span10"})
+      td  = select("dept","dept_id",depts,{prompt: "--选择店组--"},{name: "trainee[dept_id]",class: "span10"})
       td  = f.text_field :username  ,:placeholder => '请输入用户名'
       td  = f.text_field :salary_time  , :placeholder => '请选择开始记薪时间' , :id => "prependedInput" ,:class => "salary_time"
       td  = f.submit :添加 ,:class => "btn btn-primary" 
@@ -13,7 +13,7 @@
   .content
     strong 无工号员工列表
 table.table.table-bordered.table-condensed
-  - unless @users.nil? || @users.empty?
+  - unless @trainees.nil? || @trainees.empty?
     tr
       th 工号
       th 小区
@@ -21,18 +21,18 @@ table.table.table-bordered.table-condensed
       th 计薪时间
       th 选择匹配用户
       th 操作
-    - @users.each do | u |
+    - @trainees.each do | u |
       tr
         td = u.user_no
         td = u.dept_name
         td = u.username
         td = u.salary_time
         td
-           form action=merge_users_path method="post" id="merge_users"
+           form action=merge_trainees_path method="post" id="merge_users"
             span.input-prepend.m_r
               span.add-on 
                 i.icon-home
-              = select("dept","dept_id",depts,{prompt: "--选择店组--"},{onChange: "ajax_select('dept_id','users/ajax_user_select','user_select',$(this))" , :class => "span10"} )
+              = select("dept","dept_id",depts,{prompt: "--选择店组--"},{onChange: "ajax_select('dept_id','trainees/ajax_user_select','user_select',$(this))" , :class => "span10"} )
             span#user_select.m_r
               = render "common/organization_select" , :select => {type:"user" ,options: [], tips: "请选择用户"}
             input type="hidden" name="o_id" value=u.id

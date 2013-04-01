@@ -1,8 +1,8 @@
 class TraineeRecordDecorator < Draper::Decorator
-  delegate_all
+ delegate_all
 
   def user
-    user = source.user
+    user = source.trainee
     dept = Department.new(user.dept_id)
     {name: user.username,dept_name: dept.name,user_id: user.id}
   end
