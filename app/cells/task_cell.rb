@@ -11,9 +11,4 @@ class TaskCell < Cell::Rails
     @task = args[:task]
     args[:task][:state].eql?("checking") ? (render view: :onekey) : (render view: :registered)
   end
-
-
-
-  
-
 end
