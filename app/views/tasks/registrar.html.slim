@@ -19,7 +19,7 @@
             a href="/staff_records/edit?dept_id=#{task[:dept_id]}&time=#{task[:created_at]}&dept_name=#{task[:dept_name]}"
               = register_or_modify task[:state]
             i class="icon-fast-forward"
-  = render "trainee" ,:tasks => @trainees
+  = render "common/trainee_tasks" ,:tasks => @trainees
 - else
   = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
 

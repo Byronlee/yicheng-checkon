@@ -69,7 +69,6 @@ gem 'will_paginate_mongoid'
 
 gem 'draper', '~> 1.0'
 gem 'cells'
-gem 'feedback',:git => 'git@github.com:YinChangXin/zhiyi-feedback.git'
+
 
 gem 'spreadsheet'
-gem 'settingslogic'
