@@ -31,6 +31,4 @@ module ApplicationHelper
       time
     end
   end
-
-
 end

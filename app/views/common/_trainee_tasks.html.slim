@@ -1,19 +1,16 @@
-- if @tasks.any?
+- if tasks.any?
   .title
     .content
       strong 未完成无工号员工考勤任务共
       strong 
-        font color="red" = @number
+        font color="red" =  count_task tasks
       strong = t("view.records.index.unit")
   .bs-docs
     table.table.table-bordered
-      - @tasks.each do |task|
+      - tasks.each do |task|
         tr
           td 
-            - if task.registered?
-              font color="green" = task.user[:dept_name]
-            - else
-              font color="red" = task.user[:dept_name]
+            = render_cell :task,:color , dept_name: task.user[:dept_name], state: task.state
           td
             = task.user[:name]
           td

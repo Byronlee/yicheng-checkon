@@ -2,6 +2,7 @@ class Checkin
   include Mongoid::Document
 
   embedded_in :staff_record
+  embedded_in :message
 
   belongs_to :check_unit
   belongs_to :behave

@@ -1,6 +1,6 @@
 Attendance::Application.routes.draw do
 
-  mount Feedback::Engine => '/feedback', as: 'feedback_app'
+  resources :tasks
   
   match  'logout' => 'application#logout'
 
@@ -14,9 +14,10 @@ Attendance::Application.routes.draw do
     collection do
       get :ajax_user_select
       post :merge
+      get :logout
     end
   end
- 
+
   post "staff_records/update" 
 
   resources :staff_records do
@@ -31,5 +32,11 @@ Attendance::Application.routes.draw do
       get  :tree_dept
     end
   end
-  root :to => "staff_records#index"
+   
+  match 'registrar' => 'tasks#registrar' ,:as => :registrar
+  match  'approval' => 'tasks#approval' ,:as => :approval
+  match 'apply'     => 'flows#apply'   , :via => :post
+  match 'approve'   => 'flows#approve' , :via => :post
+
+  root :to => "homes#index"
 end

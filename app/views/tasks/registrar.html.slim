@@ -1,0 +1,25 @@
+- unless @staffs.empty?&&@trainees.empty?
+  .title
+    .content
+      strong = t("view.records.index.unfinished_tasks") 
+      strong 
+        font color="red" = count_task @staffs
+      strong = t("view.records.index.unit")
+  .bs-docs
+    table.table.table-bordered
+      - @staffs.each do |task|
+        tr
+          td
+            = render_cell :task,:color , dept_name: task[:dept_name] , state: task[:state]
+          td
+            = FormatDate task[:created_at]
+          td
+            = render_cell :task,:onekey , task: task
+          td
+            a href="/staff_records/edit?dept_id=#{task[:dept_id]}&time=#{task[:created_at]}&dept_name=#{task[:dept_name]}"
+              = register_or_modify task[:state]
+            i class="icon-fast-forward"
+  = render "common/trainee_tasks" ,:tasks => @trainees
+- else
+  = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+

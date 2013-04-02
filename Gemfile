@@ -66,11 +66,9 @@ gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
 gem 'will_paginate_mongoid'
 
-gem 'workflow'
-gem 'workflow_on_mongoid'
+
 gem 'draper', '~> 1.0'
 gem 'cells'
-gem 'feedback',:git => 'git@github.com:YinChangXin/zhiyi-feedback.git'
+
 
 gem 'spreadsheet'
-gem 'settingslogic'

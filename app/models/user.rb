@@ -13,6 +13,7 @@ class User
   field :dept_name
   field :dept_ancestors ,type:Array
   field :position , type:Array
+  field :role , type:Array
 
   cattr_accessor :current_user
 
@@ -38,7 +39,8 @@ class User
       dept_id: rs["SU_DEPT_ID"],
       dept_name: Department.new(rs["SU_DEPT_ID"]).name ,
       dept_ancestors: rs["DEPT_ANCESTORS"],
-      position: rs["POSTS"]
+      position: rs["POSTS"],
+      role: rs["role"]
     }
     new(attrs)
   end

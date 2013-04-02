@@ -2,10 +2,10 @@
 module StaffRecordsHelper
 
 
-  def unit_selects user
-    user.instance_variable_get(:@cins).inject("") do |html_str,checkin|
+  def unit_selects cins
+    cins.inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
-      html_str << behave_selects(checkin,{},{name: "record[#{user.staffid}][#{checkin.check_unit_id}]",class:"span3"})
+      html_str << behave_selects(checkin,{},{name: "record[#{checkin.staff_record.staffid}][#{checkin.check_unit_id}]",class:"span3"})
     end
   end
 
@@ -25,8 +25,8 @@ module StaffRecordsHelper
 
 
 
-  def register_or_modify type
-    type=="finished" ? t("view.common.table_tasks_tr.registered") : t("view.common.table_tasks_tr.register")
+  def register_or_modify state
+    state=="registered" ? t("view.common.table_tasks_tr.registered") : t("view.common.table_tasks_tr.register")
   end
 
   def behave_selects checkin,options = {}, html_options = {}
