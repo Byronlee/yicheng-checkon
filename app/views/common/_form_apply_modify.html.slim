@@ -6,6 +6,7 @@ form(action="/apply" method="post")
       h3 id="myModalLabel" 申请修改<font color="red">#{record.staff_name}</font>&nbsp;<font color="green">#{record.created_date}</font>考勤记录
     .modal-body
         input name="record_id" value="#{record.id}" type="hidden"
+        input name="receiver" value="approval" type="hidden"
           = raw(unit_selects(record.checkins))  
     .modal-footer
       button class="btn" data-dismiss="modal" aria-hidden="true" 关闭

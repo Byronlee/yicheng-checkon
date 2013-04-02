@@ -17,7 +17,9 @@ group :test do
   gem 'guard-bundler'
   gem 'rb-fsevent'
   gem 'simplecov', :require => false
+  gem 'mongoid-rspec'
 end
+
 group :development do
   gem "debugger"
 end

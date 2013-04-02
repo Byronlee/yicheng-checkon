@@ -20,6 +20,7 @@
               = register_or_modify task[:state]
             i class="icon-fast-forward"
   = render "common/trainee_tasks" ,:tasks => @trainees
+  = render "tasks/message" ,:messages => @messages
 - else
   = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
 

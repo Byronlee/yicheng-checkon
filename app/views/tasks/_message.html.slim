@@ -1,0 +1,32 @@
+- if messages.any?
+ .title
+   .content 
+     strong 未处理请求
+     strong 
+       font color="red" =messages.count
+     strong = t("view.records.index.unit")
+ .bs-docs
+   table.table.table-bordered
+     tr
+       th 序号
+       th 内容
+       th 操作
+       th 详情
+     - messages.each_with_index do |message,index|
+       tr
+         td 
+           span.badge.badge-error = index+1
+         td = message.content[:short]
+         td
+	   render_cell :task , :operate
+         td 
+           a data-toggle="collapse" data-target="#collapseOne1" href="#collapseOne1" 图标
+       tr
+         td colspan=4
+           div#collapseOne1.accordion-body.collapse 
+             p 1.详细情况：#{message.content[:long]}	
+             p 2.备注：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+- else
+  = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+
+
