@@ -22,8 +22,4 @@ class TraineesController < ApplicationController
     @result = TraineeRecord.merge(params[:o_id],params[:n_id])
     redirect_to trainees_path
   end
-
-  def logout
-    CASClient::Frameworks::Rails::Filter.logout(self)
-  end
 end

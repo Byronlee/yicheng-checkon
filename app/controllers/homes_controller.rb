@@ -3,15 +3,13 @@ class HomesController < ApplicationController
 
 
   def index
-    case  current_user.role.first
-    when 'Registrar'
+    if current_user.registrar?
       redirect_to registrar_path
-    when 'Approval'
+    end
+    if current_user.approval?
       redirect_to approval_path
     end
   end
-
-
 
   def ajax_attend_tree 
     node = Webservice.get_data "dept_tree/"+params[:dept_id]
@@ -27,7 +25,7 @@ class HomesController < ApplicationController
     end
   end
 
-   def next_node node
-     node.eql?("cell") ? "dept" : ""
-   end
+  def next_node node
+    node.eql?("cell") ? "dept" : ""
+  end
 end

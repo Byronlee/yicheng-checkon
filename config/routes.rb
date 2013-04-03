@@ -2,7 +2,7 @@ Attendance::Application.routes.draw do
 
   resources :tasks
   
-  match  'logout' => 'application#logout'
+  match 'logout' => 'application#logout'
 
   resources :counts do
     collection do
