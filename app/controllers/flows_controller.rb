@@ -12,7 +12,7 @@ class FlowsController < ApplicationController
    end
 
    def approve
-     Message.reply(message,params)
+     Message.reply(params)
      redirect_to root_path 
    end
 end

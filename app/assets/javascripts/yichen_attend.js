@@ -87,9 +87,15 @@ jQuery(function(){
 	
     }
 
-function u_submit(o,update){
-     o.parent().siblings().children('form').submit()
-}
+  function u_submit(o,update){
+       o.parent().siblings().children('form').submit()
+  }
+
+
+  function  config_approval_title(o){
+      o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
+      o.parents("td").find("input[name=decision]").val(o.attr("dec"));
+  }
 
 
 

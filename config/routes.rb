@@ -34,7 +34,7 @@ Attendance::Application.routes.draw do
   end
    
   match 'registrar' => 'tasks#registrar' ,:as => :registrar
-  match  'approval' => 'tasks#approval' ,:as => :approval
+  match 'approval' => 'tasks#approval' ,:as => :approval
   match 'apply'     => 'flows#apply'   , :via => :post
   match 'approve'   => 'flows#approve' , :via => :post
 

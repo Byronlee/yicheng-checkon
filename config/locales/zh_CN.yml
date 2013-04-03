@@ -8,7 +8,7 @@ zh_CN:
   view:
     records:
       index:
-        unfinished_tasks: 未完成考勤任务共
+        unfinished_tasks: 你有未完成考勤任务共
         unit: 个
         more: 更多
       new:

@@ -16,7 +16,7 @@ class Message
   def self.new_message params
      create!(:launcher =>  User.current_user.staffid ,
              :receiver =>  params[:receiver], 
-             :checkins => params[:checkins] || params[:record].values.first ,
+             :checkins => params[:checkins] || params[:record].values.first,
              :record_id => params[:record_id] ,
              :remark   => params[:remark],
              :decision  => params[:decision]
@@ -30,13 +30,24 @@ class Message
 
   def self.reply params
      message = find(params[:message_id])
-     StaffRecord.find(message.record_id]).approval
+     record =  StaffRecord.find(message.record_id)
+     record.approval
      new_message( receiver: message.launcher,
                   checkins: message.checkins,
                   record_id: message.record_id,
                   remark: params[:remark],
                   decision: params[:decision])
+
+     message.update_attribute(:is_view ,true)
+
+    if params[:decision].eql?("agree") 
+      message.checkins.map  do |check_unit_id , behave_id|
+        record.checkins.find_by(check_unit_id: check_unit_id).update_attribute(:behave_id ,behave_id)
+      end
+    end
   end
+
+
 
   def self.registrar
     where(receiver: User.current_user.staffid)

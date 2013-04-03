@@ -1,6 +1,15 @@
-form action='approve' method='post'
-  input type='hidden' name='message_id' value=message.id
-  input type='hidden' name='remark' value='xxxxxxxxxxxxx'
-  input type='hidden' name='decision'
-  input type='submit' attr='agree' value='同意'
-  input type='submit' attr='disagree' alue='拒绝'
+.btn-group
+  a.btn.btn-primary href="##{@message.id}"  role="button"  data-toggle="modal" dec="agree" attr="你确定你要同意此申请?" onclick="config_approval_title($(this))" 同意
+  a.btn.btn-primary href="##{@message.id}"  role="button"  data-toggle="modal" dec="disagree" attr="你确定你要拒绝此申请?" onclick="config_approval_title($(this))" 拒绝
+div.modal.hide.fade id=@message.id tabindex="-1" role="dialog" aria-labelledby=@message.id aria-hidden="true"
+  form action="approve" method="post"
+    .modal-header
+      button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
+      h3.config_approval_title
+    .modal-body
+      input type='hidden' name='message_id' value=@message.id
+      input type='hidden' name='decision' 
+      textarea name="remark" rows="3" style="width: 431px;" placeholder="备注信息...."
+    .modal-footer
+       button.btn data-dismiss="modal" aria-hidden="true" 取消
+       button.btn.btn-primary type="submit"  确定
