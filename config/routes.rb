@@ -37,6 +37,6 @@ Attendance::Application.routes.draw do
   match  'approval' => 'tasks#approval' ,:as => :approval
   match 'apply'     => 'flows#apply'   , :via => :post
   match 'approve'   => 'flows#approve' , :via => :post
-
+  match 'message/view'   => 'flows#view' , :via => :post
   root :to => "homes#index"
 end

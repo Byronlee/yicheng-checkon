@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class FlowsController < ApplicationController
+  
    skip_load_resource
 
    def apply
