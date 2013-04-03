@@ -3,15 +3,11 @@ class HomesController < ApplicationController
 
 
   def index
-    case  current_user.role.first
-    when 'Registrar'
+    if current_user.registrar?
       redirect_to registrar_path
-    when 'Approval'
+    end
+    if current_user.approval?
       redirect_to approval_path
     end
   end
-
-
-
-
  end

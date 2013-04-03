@@ -2,7 +2,7 @@ Attendance::Application.routes.draw do
 
   resources :tasks
   
-  match  'logout' => 'application#logout'
+  match 'logout' => 'application#logout'
 
   resources :counts do
     collection do
@@ -14,7 +14,6 @@ Attendance::Application.routes.draw do
     collection do
       get :ajax_user_select
       post :merge
-      get :logout
     end
   end
 
@@ -38,5 +37,6 @@ Attendance::Application.routes.draw do
   match 'apply'     => 'flows#apply'   , :via => :post
   match 'approve'   => 'flows#approve' , :via => :post
   match 'message/view'   => 'flows#view' , :via => :post
+
   root :to => "homes#index"
 end
