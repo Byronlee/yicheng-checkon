@@ -11,6 +11,7 @@ class Message
   field :remark, type:String  
   field :is_view , type:Boolean ,default:  false
   field :decision , type: String , default: 'agree'
+
   default_scope where(is_view: false) 
 
   def self.new_message params
@@ -38,7 +39,7 @@ class Message
                   remark: params[:remark],
                   decision: params[:decision])
 
-     message.update_attribute(:is_view ,true)
+     message.view
 
     if params[:decision].eql?("agree") 
       message.checkins.map  do |check_unit_id , behave_id|
@@ -46,8 +47,6 @@ class Message
       end
     end
   end
-
-
 
   def self.registrar
     where(receiver: User.current_user.staffid)

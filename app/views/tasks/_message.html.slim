@@ -22,7 +22,3 @@
             .accordion-body.collapse id="#{message.id}"
               p 1.详细情况：#{raw(message.content[:long])}	
               p 2.备注：#{message.remark.eql?("") ? "无" : message.remark }
-- else
-  = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
-
-

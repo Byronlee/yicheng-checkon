@@ -9,7 +9,7 @@ class FlowsController < ApplicationController
    end
    
    def view
-     Message.find(params[:id]).view
+     Message.find(params[:message_id]).view
      redirect_to root_path 
    end
 
