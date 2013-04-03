@@ -4,7 +4,7 @@
 = form_for Trainee.new do |f|
   table.table.table-bordered.table-condensed.align_left
     tr
-      td  = select("dept","dept_id",depts,{prompt: "--选择店组--"},{name: "trainee[dept_id]",class: "span10"})
+      td  = render "common/form_organization_selects"  , :selects => query_dept_tree
       td  = f.text_field :username  ,:placeholder => '请输入用户名'
       td  = f.text_field :salary_time  , :placeholder => '请选择开始记薪时间' , :id => "prependedInput" ,:class => "salary_time"
       td  = f.submit :添加 ,:class => "btn btn-primary" 
@@ -32,9 +32,9 @@ table.table.table-bordered.table-condensed
             span.input-prepend.m_r
               span.add-on 
                 i.icon-home
-              = select("dept","dept_id",depts,{prompt: "--选择店组--"},{onChange: "ajax_select('dept_id','trainees/ajax_user_select','user_select',$(this))" , :class => "span10"} )
+              = select("dept","dept_id",node_depts,{prompt: "--选择店组--"},{onChange: "ajax_dept_users_select($(this))" , :class => "span10"} )
             span#user_select.m_r
-              = render "common/organization_select" , :select => {type:"user" ,options: [], tips: "请选择用户"}
+              = render "common/organization_select" , :select => {type:"user" ,options: [], tips: "--请选择用户--"}
             input type="hidden" name="o_id" value=u.id
         td
           input.btn.btn-primary  type="submit" onclick="u_submit($(this),'merge_users')" value="确认合并"

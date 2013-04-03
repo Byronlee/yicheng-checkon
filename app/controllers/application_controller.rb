@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def current_user
     attrs = session[:cas_extra_attributes]["attrs"]
     Permission.assign attrs["role"]
-    User.current_user =  @current_user = User.resource(attrs)
+    User.current_user = User.resource(attrs)
   end 
 
   def available? var

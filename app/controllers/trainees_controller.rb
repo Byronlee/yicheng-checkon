@@ -10,11 +10,11 @@ class TraineesController < ApplicationController
     redirect_to trainees_path
   end
 
-  def ajax_user_select
+  def ajax_dept_users_select
     users = Department.new(params[:dept_id]).users.map do |u|
       [u.username,u.staffid]
     end
-    select = {type: "users" , options: users, tips: "--请选择--"}
+    select = {type: "users" , options: users, tips: "--请选择用户--"}
     render "common/_organization_select",locals:{ :select => select},:layout => false
   end
 

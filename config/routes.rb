@@ -12,9 +12,8 @@ Attendance::Application.routes.draw do
 
   resources :trainees do
     collection do
-      get :ajax_user_select
+      get  :ajax_dept_users_select
       post :merge
-      get :logout
     end
   end
 
@@ -23,13 +22,9 @@ Attendance::Application.routes.draw do
   resources :staff_records do
     collection do 
       get  :fast_register
-      get  :whether_checkin 
       get  :operate
       post :query
       post :query_attach
-      post :ajax_select
-      get  :permission
-      get  :tree_dept
     end
   end
    
@@ -38,5 +33,6 @@ Attendance::Application.routes.draw do
   match 'apply'     => 'flows#apply'   , :via => :post
   match 'approve'   => 'flows#approve' , :via => :post
   match 'message/view'   => 'flows#view' , :via => :post
+  match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
   root :to => "homes#index"
 end

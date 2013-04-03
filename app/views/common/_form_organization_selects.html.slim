@@ -1,6 +1,6 @@
-.region_select
+.region_select.select
   = render "common/organization_select" , :select => selects[:region]   if  selects[:region].any?
-.cell_select
+.cell_select.select
   = render "common/organization_select" , :select => selects[:cell]     if  selects[:cell].any?
-.dept_select 
+.dept_select.select
   = render "common/organization_select" , :select => selects[:dept]     if selects[:dept].any?
