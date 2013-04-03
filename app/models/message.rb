@@ -30,7 +30,7 @@ class Message
 
   def self.reply params
      message = find(params[:message_id])
-     StaffRecord.find(message.record_id]).approval
+     StaffRecord.find(message.record_id).approval
      new_message( receiver: message.launcher,
                   checkins: message.checkins,
                   record_id: message.record_id,
