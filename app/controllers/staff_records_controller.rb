@@ -9,7 +9,7 @@ class StaffRecordsController < ApplicationController
       }
    end
 
-   
+
    def update
      StaffRecord.send(params[:register_way].to_sym , params)
      redirect_to root_url
@@ -17,10 +17,7 @@ class StaffRecordsController < ApplicationController
 
    def operate
      @records = StaffRecordDecorator.new( StaffRecord.query(params,current_user.dept_id ).paginate(:page => params[:page])  )
-   end
-
-   def query
-     results = StaffRecordDecorator.new( StaffRecord.query(params,current_user.dept_id ).paginate(:page => params[:page])  )
-     render "common/_table_show_records",locals:{:records => results },:layout => false
+     session[:query_map] = Rails.configuration.staff_record_query_map   
+     render "common/_table_show_records",locals:{:records => @records },:layout => false if env["REQUEST_METHOD"].eql?("POST")
    end
  end

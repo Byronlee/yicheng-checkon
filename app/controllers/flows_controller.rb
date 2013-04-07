@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class FlowsController < ApplicationController
-   authorize_resource class: 'Message'
+
+
 
    def apply
      Message.launch params

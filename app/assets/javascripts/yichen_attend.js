@@ -59,7 +59,7 @@ jQuery(function(){
 
 
     function query_records(){
-     $.post("query" ,{start_time: $('input[name=start_time]').val() , 
+     $.post("operate" ,{start_time: $('input[name=start_time]').val() , 
 		      end_time  : $('input[name=end_time]').val() ,
 		      dept_id   : $('#condition_dept').val(),
 		      cell_id   : $('#condition_cell').val(), 
@@ -74,7 +74,7 @@ jQuery(function(){
 
     function query_attach(o){
      if(o.attr("order")=="false"&&o.val()=="") return false
-        $.post("query" ,{value: o.val() , 
+        $.post("operate" ,{value: o.val() , 
 			 field: o.attr("field"),
 			 order: o.attr("order"),
 			 type : "attach"

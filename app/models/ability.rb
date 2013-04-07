@@ -9,17 +9,13 @@ class Ability
       can :manage , Count
       can :manage , StaffRecord
       can :registrar ,Task
-
-      can :apply ,Message
-      can :view ,Message
+      can [ :apply, :view ], Flow
     end
     if user.approval?
-      can :approve ,Message
-
+      can :approve ,Flow
       can :manage , Count
       can :approval , Task
       can :operate , StaffRecord
-      can :query , StaffRecord
     end
   end
 end

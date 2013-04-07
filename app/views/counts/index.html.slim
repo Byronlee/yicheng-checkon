@@ -3,11 +3,11 @@
     .content
       strong 数据统计分析
   .total_infor.count_kind
-    span 时间：2013-04-12至2013-05-07&nbsp;&nbsp;
     .btn-group
-      button.btn.btn-mini.btn-success 详情
+      button.btn.btn-mini.btn-success 
+        = link_to "详情" ,counts_path    
       button.btn.btn-mini.btn-primary 
-        a href="counts/amount" 合计
+        = link_to "合计" ,amount_counts_path 
       button.btn.btn-mini.btn-primary 审核
       button.btn.btn-mini.btn-primary 下载
   table.table.table-condensed.table-bordered

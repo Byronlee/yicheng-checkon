@@ -20,7 +20,7 @@ class StaffRecord
   end
 
 
-  def self.staffs  # 得到一个文员当天的考勤任务(包括已完成的)
+  def self.staffs  # 得到一个文员当天的考勤任务(包括已完成的) 且还没有提交的
     unique by_period(Date.today-1,Date.today+1).where(record_person: User.current_user.staffid).in(state: ["checking","registered"])
   end
 
@@ -43,7 +43,7 @@ class StaffRecord
 
 
 
-  def self.query params ,dept_id ,map ="state('submitted')"
+  def self.query params ,dept_id ,map ="StaffRecord.state('submitted')"
     if params[:type].eql?("attach")
       if params[:order].eql?("false")  #不排序 有两种查询(是不是考勤项) 暂时不做根据考勤项来查询
         map += ".where(#{params[:field].to_sym}: /#{params[:value]}/)"
@@ -59,6 +59,7 @@ class StaffRecord
       end
     end
     User.current_user.approval? ? map : (map += ".where(record_zone:'#{dept_id}')")
+    Rails.configuration.staff_record_query_map = map
     eval(map)
   end
 
