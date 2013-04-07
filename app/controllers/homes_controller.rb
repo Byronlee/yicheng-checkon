@@ -3,6 +3,7 @@ class HomesController < ApplicationController
  # skip_authorization_check 
 #  skip_authorize_resource :only => :index
 
+  skip_authorization_check 
 
   def index
     if current_user.registrar?

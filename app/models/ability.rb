@@ -15,6 +15,8 @@ class Ability
     else  user.approval?
 #       can :approve ,Flow
     #  can :index ,Homes
+      can :access, :Task
+
       can :manage , Count
       can  :approval , Task
       cannot :manage , Trainee   

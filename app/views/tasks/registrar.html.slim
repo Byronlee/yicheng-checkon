@@ -3,7 +3,7 @@
     .content
       strong = t("view.records.index.unfinished_tasks") 
       strong 
-        font color="red" = count_task @staffs.clone
+        font color="red" = @staffs.count
       strong = t("view.records.index.unit")
   .bs-docs
     table.table.table-bordered
