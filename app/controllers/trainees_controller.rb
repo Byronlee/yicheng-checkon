@@ -19,7 +19,7 @@ class TraineesController < ApplicationController
   end
 
   def merge
-    @result = TraineeRecord.merge(params[:o_id],params[:n_id])
+    @result = TraineeRecord.merge(params[:old_id],params[:condition][:user])
     redirect_to trainees_path
   end
 end

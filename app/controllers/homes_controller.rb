@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 class HomesController < ApplicationController
- # skip_authorization_check 
-#  skip_authorize_resource :only => :index
 
+  skip_authorize_resource
 
   def index
     if current_user.registrar?
@@ -27,7 +26,8 @@ class HomesController < ApplicationController
     end
   end
 
-  def next_node node
-    node.eql?("cell") ? "dept" : ""
-  end
+  private 
+    def next_node node
+      node.eql?("cell") ? "dept" : ""
+    end
 end

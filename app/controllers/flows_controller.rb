@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 class FlowsController < ApplicationController
-  
-   skip_load_resource
+  authorize_resource :class => false 
 
    def apply
      Message.launch params

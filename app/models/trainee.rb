@@ -19,8 +19,8 @@ class Trainee
 
   def self.new_trainee params
     create!(dept_id:     params[:condition][:dept],
-            username:    params[:trainee][:username],
-            salary_time: params[:trainee][:salary_time])
+            username:    params[:trainee][:username].strip,
+            salary_time: params[:trainee][:salary_time].strip)
   end
 
   after_create do |trainee|
