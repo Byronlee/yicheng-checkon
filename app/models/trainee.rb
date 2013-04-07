@@ -8,12 +8,20 @@ class Trainee
   field :user_no ,type: String, default: "000000"
   field :username ,type: String
   field :state ,type: String, default: "trainee"
-  field :dept_id
-
+  field :dept_id ,type:String 
+  
   validates_presence_of :username , :salary_time , :dept_id
   validates_uniqueness_of :username
 
   has_many :trainee_records
+
+
+
+  def self.new_trainee params
+    create!(dept_id:     params[:condition][:dept],
+            username:    params[:trainee][:username],
+            salary_time: params[:trainee][:salary_time])
+  end
 
   after_create do |trainee|
      user = User.current_user

@@ -3,12 +3,12 @@ class CountsController < ApplicationController
 
 	
   def index
-    @stats = sort_by_field Count.addup("2013-03-01","2013-05-01","registered") ,:user_no
+    @stats = Count.addup("2013-03-01","2013-05-01","submitted")
   end
 
 
   def amount
-    @stats = sort_by_field Count.amount("2013-03-01","2013-05-01","registered") , :user_no
+    @stats = Count.amount("2013-03-01","2013-05-01","submitted") 
     render "index" , :locals => {:type => BehaveType}
   end
 

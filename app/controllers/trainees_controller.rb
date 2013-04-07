@@ -6,7 +6,7 @@ class TraineesController < ApplicationController
   end
 
   def create
-    @trainee = Trainee.create!(params[:trainee])
+    @trainee = Trainee.new_trainee params
     redirect_to trainees_path
   end
 

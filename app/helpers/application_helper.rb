@@ -35,7 +35,7 @@ module ApplicationHelper
 
  def registrar_attend_tree
    {region: [],
-     cell: [],
+     cell:  [],
      dept: {type: "dept" , 
             options: node_depts ,
             tips: "--全部--" ,
@@ -43,7 +43,15 @@ module ApplicationHelper
  end
 
  def node_depts
-   current_user.attend_depts["children"].map{|v| [v["name"] , v["id"]]}
+   children = current_user.attend_depts["children"]
+   if children then 
+     children.map{|v| [v["name"] , v["id"]]}
+   else
+     []
+  #   p children
+  #   p current_user
+
+   end 
  end
 
 

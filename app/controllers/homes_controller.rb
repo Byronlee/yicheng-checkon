@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 class HomesController < ApplicationController
+ # skip_authorization_check 
+#  skip_authorize_resource :only => :index
 
 
   def index

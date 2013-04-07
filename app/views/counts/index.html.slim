@@ -1,4 +1,4 @@
-- if @stats
+- unless @stats.empty?
   .title
     .content
       strong 数据统计分析
@@ -13,14 +13,13 @@
   table.table.table-condensed.table-bordered
     tr
       - count_table_titles(defined?(type) ? type : Behave).each do | title|
-        th = title 
-    - if @stats
-      - @stats.map do |stat|
-        tr 
-          td = ancestors stat[:staffid]
-          td = stat[:user_no]
-          td = stat[:username]
-          - stat[:behaves].map do |_ ,v|
-            td = format v
+        th = title     
+    - @stats.map do |stat|
+      tr 
+        td = ancestors stat[:staffid]
+        td = stat[:user_no]
+        td = stat[:username]
+        - stat[:behaves].map do |_ ,v|
+          td = format v
 - else
   = render "common/no_content" ,:message =>  t("view.common.no_content.no_count_tip")

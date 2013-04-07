@@ -9,13 +9,15 @@ class Ability
       can :manage , Count
       can :manage , StaffRecord
       can :registrar ,Task
+   #   can :index ,Homes
 #     can :apply ,Flow
 #     can :view ,Flow
-      if user.approval?
+    else  user.approval?
 #       can :approve ,Flow
-        can :manage , Count
-        can  :approval , Task
-      end
+    #  can :index ,Homes
+      can :manage , Count
+      can  :approval , Task
+      cannot :manage , Trainee   
     end
   end
 end

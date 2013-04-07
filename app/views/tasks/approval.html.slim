@@ -1,2 +1,4 @@
-= render 'message' ,:messages => @messages
- 
+- if @approval_messages.empty?
+  = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+- else 
+  = render 'message' ,:messages => @approval_messages

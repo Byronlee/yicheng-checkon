@@ -1,9 +1,21 @@
 # -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
+
   protect_from_forgery
   before_filter CASClient::Frameworks::Rails::Filter
   before_filter :current_user
 #  load_and_authorize_resource
+#  check_authorization 
+ 
+#  authorize!
+#  authorize_resource
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url , :alert => exception.message
+  end
+
+
+
 
   def current_user
     attrs = session[:cas_extra_attributes]["attrs"]
@@ -19,4 +31,8 @@ class ApplicationController < ActionController::Base
     session = nil
     CASClient::Frameworks::Rails::Filter.logout(self)
   end
+
+
+
+
 end

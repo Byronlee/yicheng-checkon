@@ -1,6 +1,6 @@
 .btn-group
-  a.btn.btn-primary href="##{@message.id}_dec"  role="button"  data-toggle="modal" dec="agree" attr="你确定你要同意此申请?" onclick="config_approval_title($(this))" 同意
-  a.btn.btn-primary href="##{@message.id}_dec"  role="button"  data-toggle="modal" dec="disagree" attr="你确定你要拒绝此申请?" onclick="config_approval_title($(this))" 拒绝
+  a.btn.btn-primary href="##{@message.id}_dec"  role="button"  data-toggle="modal" dec="agree" attr="请确定同意此申请" onclick="config_approval_title($(this))" 同意
+  a.btn.btn-primary href="##{@message.id}_dec"  role="button"  data-toggle="modal" dec="disagree" attr="请确定同意此申请" onclick="config_approval_title($(this))" 拒绝
 div.modal.hide.fade id="#{@message.id}_dec" tabindex="-1" role="dialog" aria-labelledby="#{@message.id}_dec" aria-hidden="true"
   form action="approve" method="post"
     .modal-header

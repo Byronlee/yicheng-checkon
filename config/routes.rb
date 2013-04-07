@@ -1,8 +1,6 @@
 Attendance::Application.routes.draw do
 
   resources :tasks
-  
-  match 'logout' => 'application#logout'
 
   resources :counts do
     collection do
@@ -27,12 +25,12 @@ Attendance::Application.routes.draw do
       post :query_attach
     end
   end
-   
-  match 'registrar' => 'tasks#registrar' ,:as => :registrar
-  match 'approval' => 'tasks#approval' ,:as => :approval
-  match 'apply'     => 'flows#apply'   , :via => :post
-  match 'approve'   => 'flows#approve' , :via => :post
-  match 'message/view'   => 'flows#view' , :via => :post
+  match 'logout'     => 'application#logout'
+  match 'registrar'  => 'tasks#registrar' ,:as => :registrar
+  match 'approval'   => 'tasks#approval' ,:as => :approval
+  match 'apply'      => 'flows#apply'   , :via => :post
+  match 'approve'    => 'flows#approve' , :via => :post
+  match 'message/view'     => 'flows#view' , :via => :post
   match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
   root :to => "homes#index"
 end
