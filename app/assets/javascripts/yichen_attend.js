@@ -5,10 +5,20 @@ jQuery(function(){
 
     function farmat(num){return num = num<10 ? "0"+num : num} 
 
+    function to_date(time){
+      return new Date(time.getFullYear(), time.getMonth(), time.getDate(), 0, 0, 0, 0);
+    }
+
     $('.salary_time').datepicker({
                           format: 'yyyy-mm-dd',
                           language: 'zh-CN'
-                          })
+                          }).on('changeDate', function(ev) {
+                            var _create_trainee = $('.create_trainee')
+                            if (to_date(ev.date).valueOf() > to_date(new Date()).valueOf()) {
+                                 _create_trainee.attr('disabled','disabled')
+                            }else{
+                                 _create_trainee.removeAttr('disabled')
+                             }})
 
     $('input[name=range_time]').daterangepicker(
 	{
@@ -84,8 +94,3 @@ jQuery(function(){
       o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
       o.parents("td").find("input[name=decision]").val(o.attr("dec"));
   }
-
-
-
-
-

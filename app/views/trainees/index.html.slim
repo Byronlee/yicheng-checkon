@@ -7,7 +7,7 @@
       td  = render "common/form_organization_selects"  , :selects => query_dept_tree
       td  = f.text_field :username  ,:placeholder => '请输入用户名'
       td  = f.text_field :salary_time  , :placeholder => '请选择开始记薪时间' , :id => "prependedInput" ,:class => "salary_time"
-      td  = f.submit :添加 ,:class => "btn btn-primary" 
+      td  = f.submit :添加 ,:class => "btn btn-primary create_trainee"
 
 - unless @trainees.nil? || @trainees.empty?
   .title
