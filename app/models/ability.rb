@@ -9,17 +9,17 @@ class Ability
       can :manage , Count
       can :manage , StaffRecord
       can :registrar ,Task
-   #   can :index ,Homes
-#     can :apply ,Flow
-#     can :view ,Flow
-    else  user.approval?
-#       can :approve ,Flow
-    #  can :index ,Homes
-      can :access, :Task
+
+      can :apply ,Message
+      can :view ,Message
+    end
+    if user.approval?
+      can :approve ,Message
 
       can :manage , Count
-      can  :approval , Task
-      cannot :manage , Trainee   
+      can :approval , Task
+      can :operate , StaffRecord
+      can :query , StaffRecord
     end
   end
 end

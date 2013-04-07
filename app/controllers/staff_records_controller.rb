@@ -23,7 +23,4 @@ class StaffRecordsController < ApplicationController
      results = StaffRecordDecorator.new( StaffRecord.query(params,current_user.dept_id ).paginate(:page => params[:page])  )
      render "common/_table_show_records",locals:{:records => results },:layout => false
    end
-
-
-
  end
