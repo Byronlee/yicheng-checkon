@@ -3,6 +3,7 @@ class HomesController < ApplicationController
 
   skip_authorize_resource
 
+
   def index
     if current_user.registrar?
       redirect_to registrar_path

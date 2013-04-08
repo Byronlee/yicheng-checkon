@@ -3,13 +3,21 @@ class CountsController < ApplicationController
 
 	
   def index
-    @stats = Count.addup("2013-03-01","2013-05-01","submitted")
+     if session[:query_map] 
+       @stats = Count.addup(session[:query_map])
+     else
+       redirect_to root_url
+     end
   end
 
 
   def amount
-    @stats = Count.amount("2013-03-01","2013-05-01","submitted") 
-    render "index" , :locals => {:type => BehaveType}
+    if session[:query_map] 
+      @stats = Count.amount 
+      render "index" , :locals => {:type => BehaveType}
+    else
+      redirect_to root_url
+    end
   end
 
 end

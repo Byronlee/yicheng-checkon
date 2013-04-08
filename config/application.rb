@@ -11,7 +11,7 @@ if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
   # If you want your assets lazily compiled in production, use this line
-   Bundler.require(:default, :assets, Rails.env)
+  Bundler.require(:default, :assets, Rails.env)
 end
 
 module Attendance
@@ -67,6 +67,10 @@ module Attendance
     # config.action_controller.page_cache_directory = Rails.root + "/public/cache/"  
     config.i18n.fallbacks = true
     # ::I18n.fallbacks["zh_CN"] = [ :en ]
-   config.action_controller.allow_forgery_protection = false
+    config.action_controller.allow_forgery_protection = false
+
+
+    config.staff_record_query_map =""
+
   end
 end
