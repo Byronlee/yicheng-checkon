@@ -63,4 +63,13 @@ class StaffRecord
     eval(map)
   end
 
+   def self.is_change? record, behaves
+     plus = 1
+     behaves[:record].values.first.each do |check_unit_id,behave_id|
+       old_behave = record.checkins.find_by(check_unit_id: check_unit_id).behave.name
+       new_behave = Behave.find(behave_id).name
+       plus +=1  if old_behave.eql?(new_behave)       
+     end
+     plus==3 ? false : true
+   end
 end

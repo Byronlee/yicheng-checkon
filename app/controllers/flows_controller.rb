@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 class FlowsController < ApplicationController
 
-
-
    def apply
-     Message.launch params
+     Message.launch?(params) ? (flash[:success] = t('view.flows.apply.success')) : (flash[:error] = t('view.flows.apply.error'))
      redirect_to operate_staff_records_path
    end
    

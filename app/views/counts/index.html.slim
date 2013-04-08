@@ -4,10 +4,16 @@
       strong 数据统计分析
   .total_infor.count_kind
     .btn-group
-      button.btn.btn-mini.btn-success 
-        = link_to "详情" ,counts_path    
-      button.btn.btn-mini.btn-primary 
-        = link_to "合计" ,amount_counts_path 
+      - if defined?(type)
+        button.btn.btn-mini.btn-primary
+          = link_to "详情" ,counts_path    
+        button.btn.btn-mini.btn-success 
+          = link_to "合计" ,amount_counts_path 
+      - else 
+        button.btn.btn-mini.btn-success 
+          = link_to "详情" ,counts_path    
+        button.btn.btn-mini.btn-primary 
+          = link_to "合计" ,amount_counts_path         
       button.btn.btn-mini.btn-primary 审核
       button.btn.btn-mini.btn-primary 下载
   table.table.table-condensed.table-bordered
