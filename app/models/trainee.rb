@@ -26,6 +26,8 @@ class Trainee
   after_create do |trainee|
      user = User.current_user
     (0...(trainee.initialized_days)).each do |t|
+      p '_________________________________________________'
+      p t
       record = TraineeRecord.new_record(trainee.id,
                                         trainee.username,
                                         trainee.user_no,
@@ -35,6 +37,8 @@ class Trainee
                                         user.dept_id,
                                         user.dept_name)
       record.update_attributes(created_date: Date.today-t,trainee_id: trainee.id)
+      p '__________________________'
+      p record
     end
   end
   
@@ -44,5 +48,9 @@ class Trainee
 
   def to_staff
     update_attributes(state: "staff")
+  end
+
+  def finish?
+    trainee_records.map(&:state).include? 'checking'
   end
 end
