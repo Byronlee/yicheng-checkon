@@ -11,7 +11,7 @@ class TraineeRecord
   def self.merge o_id,n_id
      user = Trainee.find(o_id)
      user.trainee_records.map do |r|
-       StaffRecord.create!(r.handle_attrs(n_id))
+       p StaffRecord.create!(r.handle_attrs(n_id))
        r.update_attributes(is_deleted: true)
      end
      user.to_staff
@@ -26,5 +26,4 @@ class TraineeRecord
     cloned_attrs.update("staffid" => n_id).delete_if{|k,v|k=="_id" || k=="is_deleted"}
     cloned_attrs
   end
-
 end

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 class User
   include Mongoid::Document
-  include Mongoid::Timestamps::Short
 
   field :username
   field :user_no
@@ -16,9 +15,6 @@ class User
   field :role , type:Array
 
   cattr_accessor :current_user
-
-  validates_presence_of :username , :salary_time , :dept_id
-  validates_uniqueness_of :username
 
   def self.resource sid
     if sid.instance_of?(String)

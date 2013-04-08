@@ -17,14 +17,5 @@ describe "用户数据" do
 #    @user.attend_depts.count.should ==  (Webservice.get_data("/attend/tree/"+@user.staffid)).count
 #  end
 #
-#  describe "无工号员工" do 
-#    before :all do 
-#      @no_number_user = create :no_number_employee
-#    end
-#
-#    it "计算需要产生考勤数据的天数" do
-#      @no_number_user.initialized_days.should == 2
-#    end
-#  end
 end
 

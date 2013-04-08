@@ -19,7 +19,12 @@ class TraineesController < ApplicationController
   end
 
   def merge
-    @result = TraineeRecord.merge(params[:old_id],params[:condition][:user])
-    redirect_to trainees_path
+    if Trainee.find(params[:old_id]).finish?
+      flash[:error] = '你还没有完成该员工的考勤任务,请完成后重试!'
+    else
+      @result = TraineeRecord.merge(params[:old_id],params[:condition][:users])
+      flash[:notice] = '成功合并员工考勤数据'
+    end
+      redirect_to trainees_path
   end
 end
