@@ -23,6 +23,12 @@ class Department
     Webservice.get_data("dept/id/"+id)
   end
 
+  def users_select
+    users.map do |u|
+      [u.username,u.staffid]
+    end
+  end
+
   def users_with_priod_checkins time
     users.each do |user|
       record = StaffRecord.get_record user.staffid,time
