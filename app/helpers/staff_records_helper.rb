@@ -9,6 +9,13 @@ module StaffRecordsHelper
     end
   end
 
+  def behave_selects checkin,options = {}, html_options = {}
+    @checkin = checkin
+    behaves = Behave.all.collect{|b|[b.name,b.id]}
+    select("checkin","behave_id",behaves,options,html_options)
+  end
+
+
   def no_number_selects record
     record.checkins.inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
@@ -23,24 +30,8 @@ module StaffRecordsHelper
   end
 
 
-
-
   def register_or_modify state
     state=="registered" ? t("view.common.table_tasks_tr.registered") : t("view.common.table_tasks_tr.register")
-  end
-
-  def behave_selects checkin,options = {}, html_options = {}
-    @checkin = checkin
-    behaves = Behave.all.collect{|b|[b.name,b.id]}
-    select("checkin","behave_id",behaves,options,html_options)
-  end
-
-  def depts
-    depts = current_user.attend_depts["children"].map{|v| [v["name"] , v["id"]]}
-  end
-
-  def organization_selects(depts,options = {}, html_options = {})
-    select("dept","dept_id",depts,options,html_options)
   end
 
   def btn_name state

@@ -3,7 +3,8 @@ module Mongoid
     extend ActiveSupport::Concern
 
     included do
-      state_machine initial: :checking do
+      state_machine :initial => :checking do
+
         event :register do
           transition [:checking] => :registered
         end
@@ -12,20 +13,14 @@ module Mongoid
           transition [:registered] => :submitted
         end
 
-        event :apply do |params|
+        event :apply do
           transition [:submitted] => :applying 
-       #   Message.new_message params
         end
 
-        event :approval do |params|
+        event :approval do
           transition [:applying] => :submitted
-       #   StaffRecord.approval params
-       #   Message.new_message  params
         end
       end
     end
-
-
-
   end
 end

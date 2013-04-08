@@ -10,31 +10,53 @@ class Message
   field :record_id , type:String
   field :remark, type:String  
   field :is_view , type:Boolean ,default:  false
+  field :decision , type: String , default: 'agree'
 
+  default_scope where(is_view: false) 
 
   def self.new_message params
      create!(:launcher =>  User.current_user.staffid ,
-             :receiver =>  params[:launcher], 
-             :checkins => params[:record].values.first ,
+             :receiver =>  params[:receiver], 
+             :checkins => params[:checkins] || params[:record].values.first,
              :record_id => params[:record_id] ,
-             :remark   => params[:remark]
+             :remark   => params[:remark],
+             :decision  => params[:decision]
              )
   end
 
-
-
-  def self.message p
-    record = StaffRecord.find(p[:record_id])
-    str = ""
-    p[:record].each do |uid,checkins|
-      str = "将#{record.staff_name}在#{record.created_date}"
-      checkins.map do |unit_id,behave_id|
-        o_behave = record.checkins.find_by(check_unit_id: unit_id).behave.name
-        str << CheckUnit.find(unit_id).name+"的考勤由#{o_behave}变为"
-        str << Behave.find(behave_id).name
-      end
-    end
-    str
+  def self.launch params
+    StaffRecord.find(params[:record_id]).apply
+    new_message params
   end
 
+  def self.reply params
+     message = find(params[:message_id])
+     record =  StaffRecord.find(message.record_id)
+     record.approval
+     new_message( receiver: message.launcher,
+                  checkins: message.checkins,
+                  record_id: message.record_id,
+                  remark: params[:remark],
+                  decision: params[:decision])
+
+     message.view
+
+    if params[:decision].eql?("agree") 
+      message.checkins.map  do |check_unit_id , behave_id|
+        record.checkins.find_by(check_unit_id: check_unit_id).update_attribute(:behave_id ,behave_id)
+      end
+    end
+  end
+
+  def self.registrar
+    where(receiver: User.current_user.staffid)
+  end
+
+  def self.approval
+    where(receiver: "approval")
+  end
+
+  def view
+    update_attributes(is_view: true)
+  end
 end

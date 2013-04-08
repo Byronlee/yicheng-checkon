@@ -27,7 +27,9 @@ class Crontask
   end
 
   def self.submit_everyday_records
-    [StaffRecord , TraineeRecord].where(attend_date: Date.today).state("registered").each{ |record|  record.submit }
+    [StaffRecord , TraineeRecord].each do |item |
+      item.where(attend_date: Date.today).state("registered").each{ |record|  record.submit }
+    end
   end
 
 end

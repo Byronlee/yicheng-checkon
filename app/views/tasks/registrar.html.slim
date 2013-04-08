@@ -1,9 +1,9 @@
-- unless @staffs.empty?&&@trainees.empty?
+- unless @staffs.empty?
   .title
     .content
       strong = t("view.records.index.unfinished_tasks") 
       strong 
-        font color="red" = count_task @staffs
+        font color="red" = @staffs.count
       strong = t("view.records.index.unit")
   .bs-docs
     table.table.table-bordered
@@ -19,7 +19,11 @@
             a href="/staff_records/edit?dept_id=#{task[:dept_id]}&time=#{task[:created_at]}&dept_name=#{task[:dept_name]}"
               = register_or_modify task[:state]
             i class="icon-fast-forward"
+- unless @trainees.empty?
   = render "common/trainee_tasks" ,:tasks => @trainees
-- else
+- unless @registrar_messages.empty?
+  = render "tasks/message" ,:messages => @registrar_messages
+- if @staffs.empty?&&@trainees.empty?&&@registrar_messages.empty?
   = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
 
+   

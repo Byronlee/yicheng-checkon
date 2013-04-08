@@ -50,6 +50,14 @@ class User
     dept_ancestors.inject(""){|str,ps| str+ps[1]+"/"}+dept_name
   end
 
+  def registrar?
+    role.include? "Registrar"
+  end
+
+  def approval?
+    role.include? "Approval"
+  end
+
   def post
     position.any? ?  position.inject(""){|str,ps| str+ps[1]+"" } : "——"
   end

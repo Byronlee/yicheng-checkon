@@ -22,14 +22,16 @@ class Count
       }
     end
   
-    def addup(start,over,state)
+    def addup(query_map)
       return [] unless StaffRecord.exists?
-      counts =  StaffRecord.by_period(start,over).state(state).map_reduce(map,reduce).out(replace: "mr_results").map do | document |
+      delete_all
+      records = eval(query_map)
+      counts = records.map_reduce(map,reduce).out(replace: "mr_results").map do | document |
         result = document["value"]["ids"].inject(Hash.new(0)) do |h,v|
           h[v.to_s] += 1
           h
-        end
-        find_or_create_by(staffid: document["_id"],result: result) 
+        end    
+        create(staffid: document["_id"],result: result) 
       end
       counts_result(counts,init_arra(Behave))
     end
@@ -39,17 +41,17 @@ class Count
         user = User.resource(count["staffid"])
          behaves = bh_array.clone
          count["result"].map do | behave_id , num |
-           behaves["#{Behave.find(behave_id).name}"] = num         
+           behaves["#{Behave.find(behave_id).name}"] = num
          end
          {user_no: user.user_no ,staffid: user.staffid,  username: user.username , behaves: behaves }
        end
      end
 
 
-      def amount(start,over,state)
+      def amount
         tp_array = init_arra  BehaveType
         tp_rs = Count.all.map {|tp| {staffid: tp.staffid , tps: tp.result.map{|k,v| {Behave.find(k).behave_type.name.to_sym => v} }}}
-       tp_rs.map  do  |tp| 
+        tp_rs.map  do  |tp| 
          user = User.resource(tp[:staffid])
          array = tp_array.clone;
          tp[:tps].each {|k|    k.map{|x, c| array[x.to_s] += c   }   }

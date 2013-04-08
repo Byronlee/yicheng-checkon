@@ -3,13 +3,21 @@ class CountsController < ApplicationController
 
 	
   def index
-    @stats = sort_by_field Count.addup("2013-03-01","2013-05-01","registered") ,:user_no
+     if session[:query_map] 
+       @stats = Count.addup(session[:query_map])
+     else
+       redirect_to root_url
+     end
   end
 
 
   def amount
-    @stats = sort_by_field Count.amount("2013-03-01","2013-05-01","registered") , :user_no
-    render "index" , :locals => {:type => BehaveType}
+    if session[:query_map] 
+      @stats = Count.amount 
+      render "index" , :locals => {:type => BehaveType}
+    else
+      redirect_to root_url
+    end
   end
 
 end

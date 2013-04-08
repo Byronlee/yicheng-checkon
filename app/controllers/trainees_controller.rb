@@ -6,24 +6,20 @@ class TraineesController < ApplicationController
   end
 
   def create
-    @trainee = Trainee.create!(params[:trainee])
+    @trainee = Trainee.new_trainee params
     redirect_to trainees_path
   end
 
-  def ajax_user_select
+  def ajax_dept_users_select
     users = Department.new(params[:dept_id]).users.map do |u|
       [u.username,u.staffid]
     end
-    select = {type: "users" , options: users, tips: "--请选择--"}
+    select = {type: "users" , options: users, tips: "--请选择用户--"}
     render "common/_organization_select",locals:{ :select => select},:layout => false
   end
 
   def merge
-    @result = TraineeRecord.merge(params[:o_id],params[:n_id])
+    @result = TraineeRecord.merge(params[:old_id],params[:condition][:user])
     redirect_to trainees_path
-  end
-
-  def logout
-    CASClient::Frameworks::Rails::Filter.logout(self)
   end
 end

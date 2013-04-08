@@ -22,6 +22,7 @@ Spork.prefork do
 
     config.mock_with :rspec
     config.include FactoryGirl::Syntax::Methods
+    config.include Mongoid::Matchers
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :truncation

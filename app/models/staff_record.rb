@@ -2,8 +2,6 @@
 class StaffRecord
   include Mongoid::Record
 
-  has_many  :work_flows
-
   def self.by_period first,last  
     between(created_date: [first,last])
   end
@@ -22,7 +20,7 @@ class StaffRecord
   end
 
 
-  def self.staffs
+  def self.staffs  # 得到一个文员当天的考勤任务(包括已完成的) 且还没有提交的
     unique by_period(Date.today-1,Date.today+1).where(record_person: User.current_user.staffid).in(state: ["checking","registered"])
   end
 
@@ -45,12 +43,7 @@ class StaffRecord
 
 
 
-
-
-
-
-
-  def self.query params ,dept_id ,map =""
+  def self.query params ,dept_id ,map ="StaffRecord.state('submitted')"
     if params[:type].eql?("attach")
       if params[:order].eql?("false")  #不排序 有两种查询(是不是考勤项) 暂时不做根据考勤项来查询
         map += ".where(#{params[:field].to_sym}: /#{params[:value]}/)"
@@ -65,7 +58,9 @@ class StaffRecord
         params[:cell_id]&&!params[:cell_id].empty?     ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" : map
       end
     end
-    eval("where(record_zone:'#{dept_id}').state('registered')"+map)
+    User.current_user.approval? ? map : (map += ".where(record_zone:'#{dept_id}')")
+    Rails.configuration.staff_record_query_map = map
+    eval(map)
   end
 
 end
