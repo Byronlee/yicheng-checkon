@@ -24,9 +24,15 @@ class Message
              )
   end
 
-  def self.launch params
-    StaffRecord.find(params[:record_id]).apply
-    new_message params
+  def self.launch? params
+    record = StaffRecord.find(params[:record_id])
+    if StaffRecord.is_change?(record ,params)
+      record.apply
+      new_message params
+      true
+    else
+      false
+    end
   end
 
   def self.reply params
