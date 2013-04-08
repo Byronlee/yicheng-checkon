@@ -16,6 +16,8 @@ class User
 
   cattr_accessor :current_user
 
+  attr_accessor :roles
+
   def self.resource sid
     if sid.instance_of?(String)
       init_attr Webservice.get_data("/user/id/"+sid),sid
