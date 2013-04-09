@@ -13,14 +13,6 @@
   .title
     .content
       strong 无工号员工列表
-  - if flash[:notice]
-    .alert.fade.in.alert-info
-       a.close data-dismiss="alert" href="#" ×
-       =  flash[:notice] 
-  - if flash[:error]
-    .alert.fade.in.alert-error
-       a.close data-dismiss="alert" href="#" ×
-       = flash[:error]
   table.table.table-bordered.table-condensed
       tr
         th 工号

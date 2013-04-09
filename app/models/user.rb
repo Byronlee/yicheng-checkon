@@ -16,6 +16,12 @@ class User
 
   cattr_accessor :current_user
 
+  attr_accessor :roles
+
+  after_initialize do |user|
+    user.assign_perssion if user.role
+  end
+
   def self.resource sid
     if sid.instance_of?(String)
       init_attr Webservice.get_data("/user/id/"+sid),sid
@@ -39,6 +45,13 @@ class User
       role: rs["role"]
     }
     new(attrs)
+  end
+
+  def assign_perssion
+    role.each do |r|
+      # 多种角色有bug,roles应该是数组
+      roles = Object.const_get(r+"Role").new(self)
+    end
   end
 
   def ancestors

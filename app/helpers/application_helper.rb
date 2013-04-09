@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 module ApplicationHelper
 
+ # todo refactor
  def available? var
    var.empty?  ? nil : var  if var
  end
@@ -9,8 +10,6 @@ module ApplicationHelper
  def current_user
     User.current_user
  end
-
-
 
 
  def query_dept_tree
@@ -43,18 +42,13 @@ module ApplicationHelper
  end
 
  def node_depts
-   children = current_user.attend_depts["children"]
+   children = current_user.roles.attend_depts["children"]
    if children then 
      children.map{|v| [v["name"] , v["id"]]}
    else
      []
-  #   p children
-  #   p current_user
-
    end 
  end
-
-
 
  def FormatDate time
     case (Time.now.to_date - time.to_date)
