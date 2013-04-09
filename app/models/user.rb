@@ -50,7 +50,7 @@ class User
   def assign_perssion
     role.each do |r|
       # 多种角色有bug,roles应该是数组
-      roles = Object.const_get(r+"Role").new
+      roles = Object.const_get(r+"Role").new(self)
     end
   end
 
