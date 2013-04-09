@@ -221,7 +221,7 @@ class OrgStru
     dept_ance_names = dept_names(dept_ance)
     user["SD_DEPT_NAME"] = dept_attr(user["SU_DEPT_ID"])["SD_DEPT_NAME"]
     user["DEPT_ANCESTORS"] = dept_ance.zip(dept_ance_names)
-    posts = user_posts(user_id)
+    posts = user_posts(user["SU_USER_ID"])
     user["POSTS"] = posts.zip(post_names(posts))
     return user 
   end
