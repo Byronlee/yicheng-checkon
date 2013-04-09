@@ -19,7 +19,7 @@ class User
   attr_accessor :roles
 
   after_initialize do |user|
-    user.assign_perssion
+    user.assign_perssion if user.role
   end
 
   def self.resource sid
