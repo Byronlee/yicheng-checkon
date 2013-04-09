@@ -19,7 +19,12 @@ class User
   attr_accessor :roles
 
   after_initialize do |user|
-    user.assign_perssion if user.role
+    if user.role
+      role.each do |r|
+        # bug array
+        user.roles = Object.const_get(r+"Role").new(user)
+      end
+    end
   end
 
   def self.resource sid
@@ -47,12 +52,12 @@ class User
     new(attrs)
   end
 
-  def assign_perssion
-    role.each do |r|
-      # 多种角色有bug,roles应该是数组
-      roles = Object.const_get(r+"Role").new(self)
-    end
-  end
+#  def assign_perssion
+#    role.each do |r|
+#      # 多种角色有bug,roles应该是数组
+#      roles = Object.const_get(r+"Role").new(self)
+#    end
+#  end
 
   def ancestors
     2.times{ dept_ancestors.delete_at(0)}
