@@ -48,7 +48,10 @@ class User
   end
 
   def assign_perssion
-    roles = Object.const_get(role+"Role").new
+    role.each do |r|
+      # 多种角色有bug,roles应该是数组
+      roles = Object.const_get(r+"Role").new
+    end
   end
 
   def ancestors
