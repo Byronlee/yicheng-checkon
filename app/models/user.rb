@@ -18,6 +18,10 @@ class User
 
   attr_accessor :roles
 
+  after_initialize do |user|
+    user.assign_perssion
+  end
+
   def self.resource sid
     if sid.instance_of?(String)
       init_attr Webservice.get_data("/user/id/"+sid),sid
@@ -41,6 +45,10 @@ class User
       role: rs["role"]
     }
     new(attrs)
+  end
+
+  def assign_perssion
+    roles = Object.const_get(role+"Role").new
   end
 
   def ancestors
