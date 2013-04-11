@@ -1,5 +1,5 @@
 # coding: utf-8 
-require "#{File.dirname(__FILE__)}/../../web_service/access_oracle"
+require "#{File.dirname(__FILE__)}/../access_oracle"
 
 
 describe QueryData do

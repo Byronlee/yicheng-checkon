@@ -3,12 +3,6 @@ source 'http://ruby.taobao.org'
 ruby '1.9.3'
 gem 'rails'
 
-gem "sinatra"
-gem 'json'
-gem 'rubytree'
-gem 'sqlite3'
-
-
 group :test do
   gem 'turn', :require => false
   gem 'rspec-rails'
@@ -23,7 +17,9 @@ group :test do
   gem 'guard-bundler'
   gem 'rb-fsevent'
   gem 'simplecov', :require => false
+  gem 'mongoid-rspec'
 end
+
 group :development do
   gem "debugger"
 end
@@ -60,7 +56,6 @@ end
 gem "patron"
 gem "rubycas-client", "2.3.9"
 gem 'jquery-rails',"2.1.4"
-gem 'slim',"1.3.6"
 gem 'slim-rails',"1.1.0"
 gem 'rocket_pants', '1.6.1'
 gem 'ruote'
@@ -68,22 +63,11 @@ gem 'ruote-mon'
 gem 'state_machine'
 gem 'cancan'
 
-
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
 gem 'will_paginate_mongoid'
 
-gem 'workflow'
-gem 'workflow_on_mongoid'
 gem 'draper', '~> 1.0'
 gem 'cells'
 
-
-## gem 'rack'
-
-## group :test do
-##   gem 'rspec'                               
-##   gem 'rack-test'
-##   gem 'patron'                              
-## end
-## >>>>>>> remotes/ws/master
+gem 'spreadsheet'
