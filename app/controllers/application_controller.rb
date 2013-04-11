@@ -8,12 +8,9 @@ class ApplicationController < ActionController::Base
 
   before_filter :current_user
 
-
   def current_user
     attrs = session[:cas_extra_attributes]["attrs"]
     User.current_user = User.resource(attrs)
-#   Permission.assign attrs['role']
-#   User.current_user 
   end 
 
   def available? var
