@@ -96,12 +96,6 @@ describe OrgStru do
     users_map["cangnan"].should eq "廖玥"
   end
 
-  it "测试通过部门ID数组返回部门名称数组" do 
-    dept_name_list = @orgstru.dept_names @test_dept_ancestor1
-    dept_name_list.length.should eq @test_dept_ancestor1.length
-  end
-
-
   it "根据用户ID返回用户所在部门的组织结构树" do
     stru_tree = @orgstru.user_dept_tree @test_data_user_id
     stru_tree.name.should eq @test_data_dept_id

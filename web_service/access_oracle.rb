@@ -65,8 +65,6 @@ class QueryData
     end
   end
 
-
-
   def initialize(connect_name = 'oracle' )
     ObjectSpace.define_finalizer(self, proc{method(:logout).call} )
 
@@ -135,13 +133,13 @@ class QueryData
   def query(sql_string,&block)
     return unless @connect 
     begin
-      @log.info("SQL exec:#{sql_string}")
+      @log.debug("SQL exec:#{sql_string}")
       if @connect_name == 'sqlite' then
         @connect.execute(sql_string,&block)
       else
         @connect.exec(sql_string,&block)
       end
-      @log.info("SQL exec success")
+      @log.debug("SQL exec success")
     # rescue StandardError => oe 
     #   @log.error("Query Error: #{sql_string} . #{oe}")
     rescue => ex
@@ -158,14 +156,12 @@ class QueryData
 
   def query_field_to_array(sql_string)
     result = []
-    query(sql_string) do |row|
-      result << row[0]
-    end
+    query(sql_string){|row| result << row[0] }
     result 
   end
 
   def select_table_as_map(table_name,key_field,value_field)
-    require {} unless @connect 
+    return {} unless @connect 
     sql_string = "SELECT #{key_field},#{value_field} FROM #{table_name}"
     result = {}
     query("SELECT #{key_field},#{value_field} FROM #{table_name}" ) do |row|
@@ -183,13 +179,13 @@ class QueryData
       value_str = value.to_s
     end
     sql_string = "SELECT #{fields.join(',')} FROM #{table_name} where #{key}=#{value_str}"
-    @log.info("Fetch first :#{sql_string}")
+    @log.debug("Fetch first :#{sql_string}")
     if @connect_name == 'sqlite' then
       row = @connect.get_first_row(sql_string) 
     else
       row = @connect.select_one(sql_string)
     end
-    @log.info("Fetch first success")
+    @log.debug("Fetch first success")
     return {} if row.nil? 
     Hash[fields.zip(row)]
   end
@@ -216,15 +212,17 @@ class OrgStru
   end
 
   def user_attr_ext(user)
-    return user if user.nil? or user.empty?
-    dept_ance = dept_ancestors(user["SU_DEPT_ID"])
-    dept_ance_names = dept_names(dept_ance)
-    user["SD_DEPT_NAME"] = dept_attr(user["SU_DEPT_ID"])["SD_DEPT_NAME"]
-    user["DEPT_ANCESTORS"] = dept_ance.zip(dept_ance_names)
+    return {} if user.nil? or user.empty?
+    ext_attrs = {}
+    ancestors = dept_ancestors(user["SU_DEPT_ID"])
+    ancestors_names = ancestors.map { |dept_id| dept_attr(dept_id) ["SD_DEPT_NAME"] }
+    ext_attrs["SD_DEPT_NAME"] = dept_attr(user["SU_DEPT_ID"])["SD_DEPT_NAME"]
+    ext_attrs["DEPT_ANCESTORS"] = ancestors.zip(ancestors_names)
     posts = user_posts(user["SU_USER_ID"])
-    user["POSTS"] = posts.zip(post_names(posts))
-    return user 
+    ext_attrs["POSTS"] = posts.zip(post_names(posts))
+    return ext_attrs
   end
+
 
   def dept_attr(dept_id)
     @qd.select_one_as_map('SYS_DEPT',@dept_attr_key,"SD_DEPT_ID",dept_id)
@@ -236,10 +234,6 @@ class OrgStru
     node.parentage.map {|node| node.name} .reverse() [1..-1]
   end
   
-  def dept_names(dept_list)
-    dept_list.map { |dept_id| dept_attr(dept_id) ["SD_DEPT_NAME"] }
-  end
-
   def dept_users(dept_id)
     @qd.query_field_to_array("SELECT SU_USER_ID FROM SYS_USER WHERE SU_DEPT_ID = '#{dept_id}'")
   end
@@ -282,7 +276,7 @@ class OrgStru
     if tree_node.has_children? then
       result[:children] = tree_node.children.map {|e| produce_tree_to_map e}
     end
-    @qd.LOG(result.to_s)
+    # @qd.LOG(result.to_s)
     return result
   end
 
