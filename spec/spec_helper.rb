@@ -22,6 +22,7 @@ Spork.prefork do
 
     config.mock_with :rspec
     config.include FactoryGirl::Syntax::Methods
+    config.include Mongoid::Matchers
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :truncation
@@ -42,7 +43,6 @@ end
 Spork.each_run do
   load "#{Rails.root}/config/routes.rb"
   Dir["#{Rails.root}/app/**/*.rb"].each {|f| load f}
-
   FactoryGirl.reload
   SimpleCov.start
 end

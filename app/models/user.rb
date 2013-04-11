@@ -1,24 +1,31 @@
 # -*- coding: utf-8 -*-
 class User
   include Mongoid::Document
-  field :salary_time ,type: String 
-  field :user_no ,type: String, default: "000000"
-  field :username ,type: String
-  field :is_first ,type: Boolean, default: true
 
-  field :nickname_code 
-  field :nickname_display 
-  field :phone_num 
-  field :dept_id 
+  field :username
+  field :user_no
+  field :nickname_code
+  field :nickname_display
+  field :phone_num
+  field :dept_id
   field :staffid
   field :dept_name
   field :dept_ancestors ,type:Array
   field :position , type:Array
+  field :role , type:Array
 
+  cattr_accessor :current_user
 
-  has_many :exception_records
-  validates_presence_of :username , :salary_time , :dept_id
-  validates_uniqueness_of :username
+  attr_accessor :roles
+
+  after_initialize do |user|
+    if user.role
+      role.each do |r|
+        # bug array
+        user.roles = Object.const_get(r+"Role").new(user)
+      end
+    end
+  end
 
   def self.resource sid
     if sid.instance_of?(String)
@@ -39,21 +46,33 @@ class User
       dept_id: rs["SU_DEPT_ID"],
       dept_name: Department.new(rs["SU_DEPT_ID"]).name ,
       dept_ancestors: rs["DEPT_ANCESTORS"],
-      position: rs["POSTS"]
-
+      position: rs["POSTS"],
+      role: rs["role"]
     }
     new(attrs)
   end
 
-  def attend_depts
-    Webservice.get_data("/attend/tree/"+staffid)
+#  def assign_perssion
+#    role.each do |r|
+#      # 多种角色有bug,roles应该是数组
+#      roles = Object.const_get(r+"Role").new(self)
+#    end
+#  end
+
+  def ancestors
+    2.times{ dept_ancestors.delete_at(0)}
+    dept_ancestors.inject(""){|str,ps| str+ps[1]+"/"}+dept_name
   end
 
-  def initialized_days
-    (Date.today - Date.parse(salary_time)).to_i + 1
+  def registrar?
+    role.include? "Registrar"
   end
 
-  def not_first
-    update_attribute(:is_first, false)
+  def approval?
+    role.include? "Approval"
+  end
+
+  def post
+    position.any? ?  position.inject(""){|str,ps| str+ps[1]+"" } : "——"
   end
 end

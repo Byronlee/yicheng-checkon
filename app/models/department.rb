@@ -3,13 +3,10 @@ class Department
   attr_accessor :number , :name , :id 
 
   def initialize id
-    @number= ws_dept(id)["SD_DEPT_CODE"]
-    @name= ws_dept(id)["SD_DEPT_NAME"]
+    @infor = ws_dept(id)
+    @number= @infor["SD_DEPT_CODE"]
+    @name  = @infor["SD_DEPT_NAME"]
     @id = id
-  end
-
-  def sub_dept
-     
   end
 
   def users
@@ -26,9 +23,15 @@ class Department
     Webservice.get_data("dept/id/"+id)
   end
 
+  def users_select
+    users.map do |u|
+      [u.username,u.staffid]
+    end
+  end
+
   def users_with_priod_checkins time
     users.each do |user|
-      record = Record.get_record user.staffid,time
+      record = StaffRecord.get_record user.staffid,time
       user.instance_variable_set(:@cins,record.checkins)
     end
   end

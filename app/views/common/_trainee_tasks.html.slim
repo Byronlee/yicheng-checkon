@@ -1,0 +1,27 @@
+- if tasks.any?
+  .title
+    .content
+      strong 你有未完成无工号员工考勤任务共
+      strong 
+        font color="red" =  count_task tasks
+      strong = t("view.records.index.unit")
+  .bs-docs
+    table.table.table-bordered
+      - tasks.each do |task|
+        tr
+          td 
+            = render_cell :task,:color , dept_name: task.user[:dept_name], state: task.state
+          td
+            = task.user[:name]
+          td
+            = FormatDate task.date
+          td
+           form action="/staff_records/update" method="post" id="u_form"
+             input name="time" type="hidden" value=task[:created_date]
+             input name="register_way" type="hidden" value="trainee_register"
+              = raw no_number_selects(task)
+          td 
+            - if task.state.eql?("checking")
+              button.btn.btn-primary type="type" onclick="u_submit($(this),'u_form')" = btn_name(task.state)
+            - else     
+              button.btn.btn-success type="type" onclick="u_submit($(this),'u_form')" = btn_name(task.state)

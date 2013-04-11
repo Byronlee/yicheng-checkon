@@ -10,10 +10,18 @@ job_type :runner, 'cd /home/simlegate/workspace/yicheng-checkon && rails runner 
 
 
 
-every :day, :at => '11:00pm' do
-    runner " Record.default_everyday_records", :environment => :development 
-    runner " Record.default_everyday_records", :environment => :production 
+every :day, :at => '2:00am' do
+    runner "Crontask.produce_everyday_records", :environment => :development 
+    runner "Crontask.produce_everyday_records", :environment => :production 
 end
+
+
+every :day, :at => '11:00pm' do
+  runner " Crontask.submit_everyday_records", :environment => :development
+  runner " Crontask.submit_everyday_records", :environment => :production 
+end
+
+
 
 
 # every 1.minute  do

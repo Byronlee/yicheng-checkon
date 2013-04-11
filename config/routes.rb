@@ -1,26 +1,36 @@
 Attendance::Application.routes.draw do
 
-  resources :counts , only: [:index]
-  resources :users do
+  resources :tasks
+
+  resources :counts do
     collection do
-      get :ajax_user_select
+      get :amount
+    end
+  end
+
+  resources :trainees do
+    collection do
+      get  :ajax_dept_users_select
       post :merge
     end
   end
- 
-  post "records/update" 
 
-  resources :records do
+  post "staff_records/update" 
+
+  resources :staff_records do
     collection do 
       get  :fast_register
-      get  :whether_checkin 
       get  :operate
-      post :query
+      post :operate
       post :query_attach
-      post :ajax_select
-      get  :permission
-      get  :tree_dept
     end
   end
-  root :to => "records#index"
+  match 'logout'     => 'application#logout'
+  match 'registrar'  => 'tasks#registrar' ,:as => :registrar
+  match 'approval'   => 'tasks#approval' ,:as => :approval
+  match 'apply'      => 'flows#apply'   , :via => :post
+  match 'approve'    => 'flows#approve' , :via => :post
+  match 'message/view'     => 'flows#view' , :via => :post
+  match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
+  root :to => "homes#index"
 end

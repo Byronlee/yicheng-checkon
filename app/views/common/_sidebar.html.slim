@@ -12,19 +12,16 @@
               a href="#"
                 i.icon-chevron-right
                 span
-                  a href=root_url = t("sidebar_task")
+                  a href=root_url 
+                    span = t("sidebar_task")
             li
               a href="#"
                 i.icon-chevron-right
                 span
-                  a href="/records/operate" = t("sidebar_operate")
-            li
-              a href="#"
-                i.icon-chevron-right
-                span
-                  a href="/users" = t("sidebar_users")
-            li
-              a href="#"
-                i.icon-chevron-right
-                span
-                  a href="permission" 权限配置
+                  a href=operate_staff_records_path = t("sidebar_operate")
+            - if can? :index,Trainee
+              li
+                a href="#"
+                  i.icon-chevron-right
+                  span
+                    a href=trainees_path = t("sidebar_users")

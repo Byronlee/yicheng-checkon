@@ -8,10 +8,10 @@ zh_CN:
   view:
     records:
       index:
-        unfinished_tasks: 未完成考勤任务共
+        unfinished_tasks: 你有未完成考勤任务共
         unit: 个
         more: 更多
-      new:
+      new:    
         register: 登记：
         save: 保存
         waiting: 请稍等..
@@ -48,6 +48,10 @@ zh_CN:
         home: 首页
         about: 关于
         contact: 联系
+    flows:
+      apply:
+        success: 你已成功申请修改该条考勤记录！
+        error: 你尚未对该考勤记录做任何修改，请对该条考勤记录做相应的修改后，再提交申请！       
   helper:
     records:
       today: 今天

@@ -1,0 +1,18 @@
+- if can? :apply,Flow
+  form(action="/apply" method="post")
+    a href="##{record.id}" role="button" class="btn btn-mini btn-primary" data-toggle="modal" 申请修改
+    .modal.hide.fade id=record.id tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
+        h3 id="myModalLabel" 申请修改<font color="red">#{record.staff_name}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
+      .modal-body
+          input name="record_id" value="#{record.id}" type="hidden"
+          input name="receiver" value="approval" type="hidden"
+          = raw(unit_selects(record.checkins))  
+          hr
+          textarea name="remark" rows="3" style="width: 431px;" placeholder="备注信息...."
+      .modal-footer
+        button class="btn" data-dismiss="modal" aria-hidden="true" 关闭
+        button class="btn btn-primary" type="submit"  确定申请
+- else
+  a href="#" class="btn btn-mini btn-primary disabled" 申请修改

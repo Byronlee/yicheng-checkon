@@ -1,0 +1,40 @@
+.title
+  .content
+    strong 添加无工号员工
+= form_for Trainee.new do |f|
+  table.table.table-bordered.table-condensed.align_left
+    tr
+      td  = render "common/form_organization_selects"  , :selects => query_dept_tree
+      td  = f.text_field :username  ,:placeholder => '请输入用户名'
+      td  = f.text_field :salary_time  , :placeholder => '请选择开始记薪时间' , :id => "prependedInput" ,:class => "salary_time"
+      td  = f.submit :添加 ,:class => "btn btn-primary create_trainee"
+
+- unless @trainees.nil? || @trainees.empty?
+  .title
+    .content
+      strong 无工号员工列表
+  table.table.table-bordered.table-condensed
+      tr
+        th 工号
+        th 小区
+        th 姓名
+        th 计薪时间
+        th 选择匹配用户
+        th 操作
+      - @trainees.each do | u |
+        tr
+          td = u.user_no
+          td = u.dept_name
+          td = u.username
+          td = u.salary_time
+          td
+             form action=merge_trainees_path method="post" id="merge_users"
+              span.input-prepend.m_r
+                span.add-on 
+                  i.icon-home
+                = select("dept","dept_id",node_depts,{prompt: "--选择店组--"},{onChange: "ajax_dept_users_select($(this))" , :class => "span10"} )
+              span#user_select.m_r
+                = render "common/organization_select" , :select => {type:"users" ,options: [], tips: "--请选择用户--"}
+              input type="hidden" name="old_id" value=u.id
+          td
+            input.btn.btn-primary  type="submit" onclick="u_submit($(this),'merge_users')" value="确认合并"

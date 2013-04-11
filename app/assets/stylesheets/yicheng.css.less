@@ -1,0 +1,136 @@
+
+@import "function.css.less";
+
+table.user_infor{
+ td{ padding-right: @base-padding *2;} 
+ span{padding-right: @base-padding /4;}
+}
+
+p.no_message {
+ font-size: 21px;
+ color: @grey;
+ margin-top: 115px;
+ margin-left: @base-margin;
+}
+
+
+div[class=title]{
+  border-bottom: 2px solid #D9EDF7;
+  margin-bottom: 15px;
+
+  div[class=content]{
+    padding: 0px 5px 0px 5px;
+    width:250px;
+    border-bottom: 8px solid #D9EDF7;
+ }
+  button[name=button]{
+   float: right; 
+   margin: -30px 201px 0 0;
+  }
+}
+
+table.table{
+   th{text-align: center;}
+   td{
+   text-align: center;
+   padding:2px 6px;   
+   line-height: 28px;
+   span[class~=alert]{padding: 4px 18px; }
+   a{padding-right:5px}
+   button  a , button i {  color: #000;  padding-right:0px;}
+   a:hover { text-decoration: none; }
+   form{
+     margin: 0 0 0px  ;
+     .input-append{margin-bottom:0px ;}
+   }  
+   select{
+     margin-bottom: 0px;
+   }
+   }
+}
+
+
+.table-bordered{
+ border: 0px;
+ td .m_r{margin-right:15px;}
+ th:first-child , td:first-child {
+ border-left:0px;
+ }
+}
+
+
+
+.total_infor{
+  #float(right);
+  margin: -122px 106px;	
+  a {#a;}
+}
+
+.count_kind{margin-top: -45px;}
+table.align_left{
+    td{text-align: left;}
+}
+
+
+
+form.query_data_form{
+   margin: 0 0 0px;
+   float: left;
+   width: 100%;
+   .query_data{
+      float: left;
+      width: 100%;
+      background-color: #D9EDF7 ;
+      border-bottom: 10px solid #eee;
+      div[class*=select]{
+       float:left;
+       input[type=text]{   width: 180px;}
+       select{   width: 130px;}	
+      .input-prepend{   margin: 6px 20px 6px 4px;  } }
+      button[type=button]{
+        #float;	
+        margin-top: 8px;
+      }
+    }
+}
+.query_attach_condition{
+      background: #eee;
+      ul.nav{
+        margin-bottom: 0px;	
+        li{
+        a {border: 1px #ddd solid;}
+        .input-append {
+          select{height: 26px;}
+          input, select{	     
+	     font-size: 12px;
+	     padding: 2px 2px;
+	     #border-radius(1px)
+ 	   }
+           margin: 0px 5px 0px 5px;
+          .condition{ width: 78px;}
+          .btn{
+            padding:2px 4px; 
+ 	    font-size:12px;
+   	     #border-radius(1px)
+	   }
+        }
+      }
+     } 
+}
+
+
+
+
+//message 
+table.table{ 
+  td.message_title{
+  text-align:left;
+  padding-left:5px;
+  }
+  td div.accordion-body{
+      text-align:left;
+      padding-left:5px;
+  }
+  
+}
+

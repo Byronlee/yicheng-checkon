@@ -1,0 +1,7 @@
+- if flash[:error]
+  .alert.alert-error
+    button type="button" class="close" data-dismiss="alert" ×
+    i.icon-remove
+    strong 失败！！
+    = flash[:error]
+    

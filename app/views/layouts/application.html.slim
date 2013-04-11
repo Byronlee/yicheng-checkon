@@ -19,6 +19,10 @@ html
             a = t("view.layouts.application.about")
           li
             a = t("view.layouts.application.contact")
+          li
+            = link_to '反馈','/feedback/feedback_infos/new',:id => "add_feedback", :remote => true, "data-type" => "script"
+          li
+            a href=logout_path 退出
         p.navbar-text.pull-right 
           span 当前时间：
           span#time
@@ -27,4 +31,6 @@ html
         = render "common/sidebar"
         .span10
           = render "common/user_information"
+          = render "common/flash_error_message"
+          = render "common/flash_success_message"
           = yield

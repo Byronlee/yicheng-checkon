@@ -2,15 +2,10 @@
 
 FactoryGirl.define do
   factory :user do
-
-    factory :employee do
-      
-    end
-
-    factory :no_number_employee do 
-      dept_id "00000000"
-      username "you"
-      salary_time {2.days.ago.to_date}
-    end
+    staffid '123456'
+    username 'simlegate'
+    user_no '123456'
+    dept_id '0000000'
+    dept_name '美丽2'
   end
 end

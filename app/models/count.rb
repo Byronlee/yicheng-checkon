@@ -1,6 +1,5 @@
 class Count
   include Mongoid::Document
-  
   field :staffid , type: String
   field :result , type: Hash
 
@@ -23,25 +22,46 @@ class Count
       }
     end
   
-    def addup(start,over,state)
-      return [] unless Record.exists?
-      Record.by_period(start,over).state(state).map_reduce(map,reduce).out(replace: "mr_results").map do | document |
+    def addup(query_map)
+      return [] unless StaffRecord.exists?
+      delete_all
+      records = eval(query_map)
+      counts = records.map_reduce(map,reduce).out(replace: "mr_results").map do | document |
         result = document["value"]["ids"].inject(Hash.new(0)) do |h,v|
           h[v.to_s] += 1
           h
-        end
-        Count.find_or_create_by(staffid: document["_id"],result: result) 
+        end    
+        create(staffid: document["_id"],result: result) 
       end
+      counts_result(counts,init_arra(Behave))
     end
 
-    def counts_result counts,init
+    def counts_result counts,bh_array
       counts.map do |count|
         user = User.resource(count["staffid"])
-        behaves = init.clone
-        count["result"].map do | behave_id , num |
-          behaves["#{Behave.find(behave_id).name}"] = num         
-        end
-        {user_no: user.user_no , username: user.username , behaves: behaves }
+         behaves = bh_array.clone
+         count["result"].map do | behave_id , num |
+           behaves["#{Behave.find(behave_id).name}"] = num
+         end
+         {user_no: user.user_no ,staffid: user.staffid,  username: user.username , behaves: behaves }
+       end
+     end
+
+
+      def amount
+        tp_array = init_arra  BehaveType
+        tp_rs = Count.all.map {|tp| {staffid: tp.staffid , tps: tp.result.map{|k,v| {Behave.find(k).behave_type.name.to_sym => v} }}}
+        tp_rs.map  do  |tp| 
+         user = User.resource(tp[:staffid])
+         array = tp_array.clone;
+         tp[:tps].each {|k|    k.map{|x, c| array[x.to_s] += c   }   }
+         {user_no: user.user_no , staffid: tp[:staffid], username: user.username , behaves:  array }
+       end
+     end
+
+    def init_arra model_name
+        model_name.all.inject({}) do |hash ,value|
+        hash.merge({value.name => 0})
       end
     end
   end
