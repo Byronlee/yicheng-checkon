@@ -8,6 +8,7 @@ class Notice
   field :content  ,type:String
   field :state    ,type:Boolean ,default:  false
 
+  field :
 
   default_scope where(state: false) 
   has_one :resource
