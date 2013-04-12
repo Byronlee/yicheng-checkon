@@ -2,11 +2,11 @@
 zh_CN:
   simple_form:
     placeholders:
-      notice:
+      modify:
         data:
           remark: '备注信息...'
       
   helpers:
     submit:
-      notice:
+      modify:
         create: '确定申请'

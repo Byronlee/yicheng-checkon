@@ -1,20 +1,19 @@
-- if can? :apply,Flow
+- if can? :create, Modify
   a href="##{record.id}" role="button" class="btn btn-mini btn-primary" data-toggle="modal" 申请修改
   .modal.hide.fade id=record.id tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
     .modal-header
       button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
       h3 id="myModalLabel" 申请修改<font color="red">#{record.staff_name}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
-    = simple_form_for Notice.new do |f|
+    = simple_form_for Modify.new do |f|
       .modal-body
-         = f.input :launcher,as: :hidden, input_html: {value: current_user.staffid}
-         = f.input :receiver ,as: :hidden, input_html: {value: "approval"}
-         = f.simple_fields_for :data do |data_form|
-           = data_form.input :record_id, as: :hidden, input_html: {value: record.id}
-           = raw(unit_selects(record.checkins,"notice[data][checkins]"))
-           hr
-           = data_form.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 431px;"}
+        = f.simple_fields_for :notice do |n|
+          = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid}
+          = n.input :receiver ,as: :hidden, input_html: {value: "approval"}
+        = f.simple_fields_for :data do |d|
+          = d.input :staff_record_id, as: :hidden, input_html: {value: record.id}
+          = raw(unit_selects(record.checkins,"modify[data][checkins]"))
+          hr
+          = d.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 431px;"}
       .modal-footer
         button class="btn" data-dismiss="modal" aria-hidden="true" 关闭
         = f.button :submit
-- else
-  a href="#" class="btn btn-mini btn-primary disabled" 申请修改
