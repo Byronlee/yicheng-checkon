@@ -7,8 +7,6 @@ class Notice
   field :receiver ,type:String
   field :state    ,type:Boolean ,default:  false
 
-  field :data
-
   default_scope where(state: false) 
 
   def launch?

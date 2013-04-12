@@ -2,6 +2,7 @@
 class NoticesController < ApplicationController
 
   def create
+    record = 
     @notice = Notice.new(params)
     if @notice.launch?
     end
