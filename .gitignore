@@ -12,6 +12,11 @@
 /db/*.sqlite3
 *.swp
 *.swo
+*~
+*#
+/.gitignore
+
+
 /app/models/*_old.rb
 
 

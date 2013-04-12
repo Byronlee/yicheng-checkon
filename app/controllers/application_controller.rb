@@ -13,10 +13,6 @@ class ApplicationController < ActionController::Base
     User.current_user = User.resource(attrs)
   end 
 
-  def available? var
-   var.empty?  ? nil : var  if var
-  end
-
   def logout
     CASClient::Frameworks::Rails::Filter.logout(self)
   end
