@@ -2,6 +2,8 @@
 class StaffRecord
   include Mongoid::Record
 
+  has_many :modifies
+
   def self.by_period first,last  
     between(created_date: [first,last])
   end

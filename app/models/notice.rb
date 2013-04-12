@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 class Notice
   include Mongoid::Document
-  include Mongoid::Timestamps
+  include Mongoid::Timestamps::Created
+  include Mongoid::Content
 
   field :launcher ,type:String
   field :receiver ,type:String
-  field :state    ,type:Boolean ,default:  false
+  field :content,type: String
+  field :state,type: Boolean,default: false
+
+  belongs_to :modify
 
   default_scope where(state: false) 
-
-  def launch?
-    return true if data[:record_id]
-    record = StaffRecord.find(data[:record_id])
-    record.change? data[:checkins]
-  end
 end
 
