@@ -52,13 +52,6 @@ class User
     new(attrs)
   end
 
-#  def assign_perssion
-#    role.each do |r|
-#      # 多种角色有bug,roles应该是数组
-#      roles = Object.const_get(r+"Role").new(self)
-#    end
-#  end
-
   def ancestors
     2.times{ dept_ancestors.delete_at(0)}
     dept_ancestors.inject(""){|str,ps| str+ps[1]+"/"}+dept_name

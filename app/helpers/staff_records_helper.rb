@@ -2,10 +2,10 @@
 module StaffRecordsHelper
 
 
-  def unit_selects cins
+  def unit_selects cins,name
     cins.inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
-      html_str << behave_selects(checkin,{},{name: "record[#{checkin.staff_record.staffid}][#{checkin.check_unit_id}]",class:"span3"})
+      html_str << behave_selects(checkin,{},{name: "#{name}[#{checkin.staff_record.staffid}][#{checkin.check_unit_id}]",class:"span3"})
     end
   end
 

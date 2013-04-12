@@ -9,9 +9,9 @@ class StaffRecord
   def self.fast_register arg
     Department.new(arg[:dept_id]).users.map do | user |
       record = get_record user.staffid,arg[:time]
-    record.checkins.update_all(behave_id: arg[:behave_id])
-    record.update_attribute(:attend_date,Date.today)
-    record.register
+      record.checkins.update_all(behave_id: arg[:behave_id])
+      record.update_attribute(:attend_date,Date.today)
+      record.register
     end
   end
 
@@ -63,13 +63,10 @@ class StaffRecord
     eval(map)
   end
 
-   def self.is_change? record, behaves
-     plus = 1
-     behaves[:record].values.first.each do |check_unit_id,behave_id|
-       old_behave = record.checkins.find_by(check_unit_id: check_unit_id).behave.name
-       new_behave = Behave.find(behave_id).name
-       plus +=1  if old_behave.eql?(new_behave)       
+   def change? cks
+    bool = cks.values.first.map do |check_unit_id,behave_id|
+       checkins.find_by(check_unit_id: check_unit_id).behave_id == behave_id
      end
-     plus==3 ? false : true
+    bool.all? ? false : true
    end
 end

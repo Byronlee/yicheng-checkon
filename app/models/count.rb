@@ -53,7 +53,7 @@ class Count
         tp_rs = Count.all.map {|tp| {staffid: tp.staffid , tps: tp.result.map{|k,v| {Behave.find(k).behave_type.name.to_sym => v} }}}
         tp_rs.map  do  |tp| 
          user = User.resource(tp[:staffid])
-         array = tp_array.clone;
+         array = tp_array.clone
          tp[:tps].each {|k|    k.map{|x, c| array[x.to_s] += c   }   }
          {user_no: user.user_no , staffid: tp[:staffid], username: user.username , behaves:  array }
        end

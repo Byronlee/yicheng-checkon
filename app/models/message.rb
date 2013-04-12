@@ -12,6 +12,7 @@ class Message
   field :is_view , type:Boolean ,default:  false
   field :decision , type: String , default: 'agree'
 
+
   default_scope where(is_view: false) 
 
   def self.new_message params

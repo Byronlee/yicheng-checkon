@@ -25,6 +25,9 @@ Attendance::Application.routes.draw do
       post :query_attach
     end
   end
+
+  resources :notices
+  
   match 'logout'     => 'application#logout'
   match 'registrar'  => 'tasks#registrar' ,:as => :registrar
   match 'approval'   => 'tasks#approval' ,:as => :approval

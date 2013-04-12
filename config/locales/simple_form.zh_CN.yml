@@ -1,0 +1,12 @@
+# encoding: utf-8
+zh_CN:
+  simple_form:
+    placeholders:
+      notice:
+        data:
+          remark: '备注信息...'
+      
+  helpers:
+    submit:
+      notice:
+        create: '确定申请'
