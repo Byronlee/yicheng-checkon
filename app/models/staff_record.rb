@@ -65,10 +65,20 @@ class StaffRecord
     eval(map)
   end
 
-   def change? cks
-    bool = cks.values.first.map do |check_unit_id,behave_id|
-       checkins.find_by(check_unit_id: check_unit_id).behave_id == behave_id
+   def change? checks
+     bool = checks.map do |check_unit_id,behave_id|
+       checkins.find_by(check_unit_id: check_unit_id).behave_id.to_s.eql?(behave_id)
      end
-    bool.all? ? false : true
+     bool.all? ? false : true
    end
+
+   def update_checkins(checks)
+     checks.map  do |check_unit_id , behave_id|
+       checkins.find_by(check_unit_id: check_unit_id).update_attribute(:behave_id ,behave_id)
+     end
+   end
+   
+
+
+
 end

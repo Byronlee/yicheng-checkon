@@ -6,14 +6,14 @@
       h3 id="myModalLabel" 申请修改<font color="red">#{record.staff_name}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
     = simple_form_for Modify.new do |f|
       .modal-body
-        = f.simple_fields_for :notice do |n|
-          = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid}
-          = n.input :receiver ,as: :hidden, input_html: {value: "approval"}
         = f.simple_fields_for :data do |d|
           = d.input :staff_record_id, as: :hidden, input_html: {value: record.id}
           = raw(unit_selects(record.checkins,"modify[data][checkins]"))
+        = f.simple_fields_for :notice do |n|
+          = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid}
+          = n.input :receiver ,as: :hidden, input_html: {value: "approval"}
           hr
-          = d.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 431px;"}
+          = n.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 431px;"}
       .modal-footer
-        button class="btn" data-dismiss="modal" aria-hidden="true" 关闭
+        button.btn data-dismiss="modal" aria-hidden="true" 关闭
         = f.button :submit

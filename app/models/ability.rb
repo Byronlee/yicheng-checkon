@@ -11,11 +11,13 @@ class Ability
     end
     
     if user.registrar?
-      can :create, Modify
+      can [:create,:destroy], Modify
+      
     end
 
     if user.approval?
       can :manage , Count
+      can :update , Modify
       can :approval , Task
       can :operate , StaffRecord
     end

@@ -76,5 +76,5 @@ jQuery(function(){
 
   function  config_approval_title(o){
       o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
-      o.parents("td").find("input[name=decision]").val(o.attr("dec"));
+      o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
   }
