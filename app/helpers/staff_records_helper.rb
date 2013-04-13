@@ -5,22 +5,14 @@ module StaffRecordsHelper
   def unit_selects cins,name
     cins.inject("") do |html_str,checkin|
       html_str << content_tag(:span ,checkin.check_unit.name+" : ")
-      html_str << behave_selects(checkin,{},{name: "#{name}[#{checkin.staff_record.staffid}][#{checkin.check_unit_id}]",class:"span3"})
+      html_str << behaves_select(checkin,{},{name: "#{name}[#{checkin.check_unit_id}]",class:"span3"})
     end
   end
 
-  def behave_selects checkin,options = {}, html_options = {}
-    @checkin = checkin
+  def behaves_select object, options={},html_options={}
+    @checkin  = object
     behaves = Behave.all.collect{|b|[b.name,b.id]}
     select("checkin","behave_id",behaves,options,html_options)
-  end
-
-
-  def no_number_selects record
-    record.checkins.inject("") do |html_str,checkin|
-      html_str << content_tag(:span ,checkin.check_unit.name+" : ")
-      html_str << behave_selects(checkin,{},{name: "record[#{record.trainee_id}][#{checkin.check_unit_id}]",class:"span3"})
-    end
   end
 
 
