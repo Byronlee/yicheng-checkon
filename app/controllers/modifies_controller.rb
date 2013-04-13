@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 class ModifiesController < ApplicationController
-  authorize_resource :class => false
 
    def show
    end
+
+
    def create
-     modify = ModifyData.new(params[:modify][:data])
+     modify = Modify.new(params[:modify][:data])
      if modify.valid?
        modify.save
-       Notice.new(modify, params[:modify])gs
-#       modify.notices.create(params[:modify][:notice]).set_content
+       modify.notices.create(params[:modify][:notice]).modify_notice_content
        flash[:success] = t('view.flows.apply.success')
      else
        flash[:error] = modify.errors.first[1]
