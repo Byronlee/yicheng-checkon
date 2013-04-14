@@ -19,7 +19,7 @@
            form action="/staff_records/update" method="post" id="u_form"
              input name="time" type="hidden" value=task[:created_date]
              input name="register_way" type="hidden" value="trainee_register"
-              = raw no_number_selects(task)
+              = raw unit_selects task.checkins,"record[#{task.staffid}]" 
           td 
             - if task.state.eql?("checking")
               button.btn.btn-primary type="type" onclick="u_submit($(this),'u_form')" = btn_name(task.state)
