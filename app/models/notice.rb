@@ -28,6 +28,5 @@ class Notice
   def read 
     update_attribute(:state, true)
   end
-
 end
 

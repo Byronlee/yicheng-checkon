@@ -11,7 +11,6 @@ class ModifiesController < ApplicationController
      end
      redirect_to operate_staff_records_path
    end
-   
 
    def update
      notice = Notice.create(params[:modify][:notice])
@@ -25,7 +24,4 @@ class ModifiesController < ApplicationController
      Notice.find(params[:modify][:notice_id]).read
      redirect_to root_path 
    end
-
-
-
 end

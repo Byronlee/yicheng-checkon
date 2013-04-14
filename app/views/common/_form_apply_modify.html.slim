@@ -6,7 +6,6 @@
       h3 id="myModalLabel" 申请修改<font color="red">#{record.staff_name}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
     = simple_form_for Modify.new do |f|
       .modal-body
-        = f.input :staff_record_id, as: :hidden, input_html: {value: record.id}
         = f.simple_fields_for :data do |d|
           = d.input :staff_record_id, as: :hidden, input_html: {value: record.id}
           = raw(unit_selects(record.checkins,"modify[data][checkins]"))
