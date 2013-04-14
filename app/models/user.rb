@@ -65,6 +65,10 @@ class User
     role.include? "Approval"
   end
 
+  def depts_node
+   roles.attend_depts["children"].map{|v| [v["name"] , v["id"]]}
+  end
+
   def post
     position.any? ?  position.inject(""){|str,ps| str+ps[1]+"" } : "——"
   end

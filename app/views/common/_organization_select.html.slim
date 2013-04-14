@@ -1,5 +1,2 @@
-.input-prepend
-  span.add-on 
-    i.icon-home
-  =  select("condition", select[:type], select[:options], {:prompt => select[:tips]} ,{class: "span10", onchange: "ajax_attend_tree($(this))" , :next => select[:next_node]})
+= depts_select_instance node
 
