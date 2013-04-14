@@ -19,12 +19,6 @@ class Trainee
 
   has_many :trainee_records
 
-  def self.new_trainee params
-       new( dept_id:     params[:condition][:dept],
-            username:    params[:trainee][:username].strip,
-            salary_time: params[:trainee][:salary_time].strip)
-  end
-
   after_create do |trainee|
      user = User.current_user
     (0...(trainee.initialized_days)).each do |t|
@@ -38,6 +32,10 @@ class Trainee
                                         user.dept_name)
       record.update_attributes(created_date: Date.today-t,trainee_id: trainee.id)
     end
+  end
+
+  def save_with_validate
+    valid? ? save : false
   end
   
   def initialized_days

@@ -5,10 +5,13 @@ zh_CN:
       modify:
         notice:
           remark: '备注信息...'
-      
+      trainee:
+        username: '请输入用户名' 
+        salary_time: '请选择开始记薪时间' 
   helpers:
     submit:
       modify:
         create: '确定申请'
         update: '确定'
- 
+      trainee:
+        create: '添加'

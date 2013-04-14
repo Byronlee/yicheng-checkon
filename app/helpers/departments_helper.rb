@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
 module DepartmentsHelper
 
-
-
-  def unit_depts_selects 
+  def unit_depts_selects object='condition',html_options = {class: "span10", onchange: "ajax_attend_tree($(this))"}
     if current_user.registrar?
-      depts_select_instance current_user.depts_node
+      depts_select_instance object,current_user.depts_node,html_options
     elsif current_user.approval?
-      html_str =  depts_select_instance current_user.depts_node
-      (1..2).inject(html_str){|html_str,_| html_str << depts_select_instance }
+      html_str =  depts_select_instance object,current_user.depts_node,html_options
+      (1..2).inject(html_str){|html_str,_| html_str << depts_select_instance(object,[],html_options)}
     end
   end
 
-  def depts_select_instance node = []
-    depts_select "condition","dept",node, {:prompt =>'--全部--'},{class: "span10", onchange: "ajax_attend_tree($(this))"}
+  def depts_select_instance object,node = [],html_options={}
+    depts_select object,"dept_id",node, {:prompt =>'--全部--'},html_options
   end
 
   def depts_select object,method,choices,options={},html_options={}

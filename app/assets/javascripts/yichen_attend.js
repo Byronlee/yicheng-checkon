@@ -4,7 +4,7 @@ jQuery(function(){
 
     function farmat(num){return num = num<10 ? "0"+num : num} 
 
-    $('.salary_time').datepicker({
+    $('#trainee_salary_time').datepicker({
                           format: 'yyyy-mm-dd',
                           language: 'zh-CN'
                           })
@@ -30,7 +30,7 @@ jQuery(function(){
 
     function ajax_dept_users_select(o){
       $.get("trainees/ajax_dept_users_select",{dept_id : o.val()},function(html){
-      o.parents('form').children("#user_select").html(html);
+      o.parents('.input-prepend').next().replaceWith(html);
       })
     }
 
@@ -71,7 +71,7 @@ jQuery(function(){
 	
     }
 
-  function u_submit(o,update){
+  function merge_submit(o,update){
        o.parent().siblings().children('form').submit()
   }
 
