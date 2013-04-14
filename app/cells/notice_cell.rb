@@ -1,10 +1,12 @@
 class NoticeCell < Cell::Rails
 
+  helper ApplicationHelper	
+
   def operate args
     @notice = args[:notice]
-    if User.current_user.registrar?
+    if args[:current_user].registrar?
       render view: :view
-    elsif User.current_user.approval?
+    elsif args[:urrent_user].approval?
       render view: :form
     end
   end

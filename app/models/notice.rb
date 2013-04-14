@@ -16,8 +16,8 @@ class Notice
 
   class << self
 
-    def registrar
-      where(receiver: User.current_user.staffid)
+    def registrar current_user
+      where(receiver: current_user.staffid)
     end
 
     def approval

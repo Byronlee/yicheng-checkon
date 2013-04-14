@@ -19,23 +19,23 @@ class Trainee
 
   has_many :trainee_records
 
-  after_create do |trainee|
-     user = User.current_user
-    (0...(trainee.initialized_days)).each do |t|
-      record = TraineeRecord.new_record(trainee.id,
-                                        trainee.username,
-                                        trainee.user_no,
+  def  create_defalut_records cu 
+    (0...(initialized_days)).each do |t|
+      record = TraineeRecord.new_record(id,
+                                        username,
+                                        user_no,
                                         "",
-                                        user.username,
-                                        user.staffid,
-                                        user.dept_id,
-                                        user.dept_name)
-      record.update_attributes(created_date: Date.today-t,trainee_id: trainee.id)
+                                        cu.username,
+                                        cu.staffid,
+                                        cu.dept_id,
+                                        cu.dept_name)
+      record.update_attributes(created_date: Date.today-t,trainee_id: id)
     end
+    save
   end
 
-  def save_with_validate
-    valid? ? save : false
+  def save_with_validate current_user
+    valid? ? create_defalut_records(current_user) : false
   end
   
   def initialized_days

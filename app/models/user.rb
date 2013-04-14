@@ -14,8 +14,6 @@ class User
   field :position , type:Array
   field :role , type:Array
 
-  cattr_accessor :current_user
-
   attr_accessor :roles
 
   after_initialize do |user|

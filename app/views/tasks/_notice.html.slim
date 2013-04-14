@@ -16,7 +16,7 @@
               span
                 i.icon-arrow-down 
           td
-            = render_cell :notice , :operate ,:notice => notice       
+            = render_cell :notice , :operate ,:notice => notice,:current_user => current_user       
         tr
           td colspan=3
             .accordion-body.collapse id="#{notice.id}"

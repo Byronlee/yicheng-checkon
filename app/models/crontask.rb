@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class Crontask 
 
+  # TODO should save in memory then insert db
   def self.produce_everyday_records 
     checkers = Webservice.get_data "/registrars"
     checkers.each do |checker_id |

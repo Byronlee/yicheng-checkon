@@ -8,7 +8,7 @@ class TraineesController < ApplicationController
   def create
     # TODO params[:trainee]  strip
     trainee = Trainee.new(params[:trainee])
-    if trainee.save_with_validate
+    if trainee.save_with_validate(current_user)
       flash[:success] = '成功添加员工'
     else
       flash[:error] = trainee.errors.first[1]

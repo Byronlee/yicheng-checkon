@@ -16,7 +16,7 @@ class StaffRecordsController < ApplicationController
    end
 
    def operate
-     @records = StaffRecordDecorator.new( StaffRecord.query(params,current_user.dept_id ).paginate(:page => params[:page])  )
+     @records = StaffRecordDecorator.new( StaffRecord.query(params,current_user).paginate(:page => params[:page])  )
      session[:query_map] = Rails.configuration.staff_record_query_map   
      render "common/_table_show_records",locals:{:records => @records },:layout => false if env["REQUEST_METHOD"].eql?("POST")
    end

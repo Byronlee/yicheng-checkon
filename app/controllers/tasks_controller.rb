@@ -2,9 +2,9 @@
 class TasksController < ApplicationController
 
   def registrar
-    @staffs = Task.staffs
+    @staffs = Task.staffs current_user
     @trainees = Task.trainees
-    @registrar_notices = Notice.registrar
+    @registrar_notices = Notice.registrar current_user
   end
 
   def approval
