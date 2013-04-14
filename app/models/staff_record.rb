@@ -63,7 +63,7 @@ class StaffRecord
     current_user.approval? ? map : (map += ".where(record_zone:'#{current_user.dept_id}')")
     Rails.configuration.staff_record_query_map = map
     eval(map)
-  end
+   end
 
    def change? checks
      bool = checks.map do |check_unit_id,behave_id|
