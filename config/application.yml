@@ -1,4 +1,4 @@
-qq# config/application.yml
+# config/application.yml
 defaults: &defaults
   approval_dept_id: '4028809b3c6fbaa7013c6fbc39510002'
 
