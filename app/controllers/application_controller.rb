@@ -6,11 +6,12 @@ class ApplicationController < ActionController::Base
   authorize_resource
   skip_authorize_resource :only => :logout
 
+
   helper_method :current_user
 
   def current_user
     attrs = session[:cas_extra_attributes]["attrs"]
-    User.resource(attrs)
+    @current_user = User.resource(attrs)
   end 
 
   def logout

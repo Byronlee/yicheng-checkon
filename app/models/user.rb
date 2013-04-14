@@ -12,15 +12,13 @@ class User
   field :dept_name
   field :dept_ancestors ,type:Array
   field :position , type:Array
+  # TODO ws should return roles
   field :role , type:Array
-
-  attr_accessor :roles
 
   after_initialize do |user|
     if user.role
       role.each do |r|
-        # bug array
-        user.roles = Object.const_get(r+"Role").new(user)
+        user.class_eval{ include Object.const_get(r + 'Role')}
       end
     end
   end
@@ -64,7 +62,7 @@ class User
   end
 
   def depts_node
-   roles.attend_depts["children"].map{|v| [v["name"] , v["id"]]}
+   attend_depts["children"].map{|v| [v["name"] , v["id"]]}
   end
 
   def post
