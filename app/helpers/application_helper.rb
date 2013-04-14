@@ -41,14 +41,6 @@ module ApplicationHelper
             next_node: ""} }
  end
 
- def node_depts
-   children = current_user.roles.attend_depts["children"]
-   if children then 
-     children.map{|v| [v["name"] , v["id"]]}
-   else
-     []
-   end 
- end
 
  def FormatDate time
     case (Time.now.to_date - time.to_date)

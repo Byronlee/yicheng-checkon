@@ -18,14 +18,14 @@ class Modify
 
 
   def save_with_change
-    staff_record.change?(checkins.values.first) ? save : false
+    staff_record.change?(checkins) ? save : false
   end
 
 
   def handle data
     update_attributes(decision: data[:decision])
     Notice.find(data[:notice_id]).read
-    staff_record.update_checkins(checkins.values.first) if data[:decision].eql?("agree")
+    staff_record.update_checkins(checkins) if data[:decision].eql?("agree")
   end
 
 end

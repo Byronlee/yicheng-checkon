@@ -35,12 +35,13 @@ jQuery(function(){
     }
 
     function ajax_attend_tree(o){
-	o.parents(".select").nextAll().find("select").html('<option value="">--全部--</option>');
-	$.post("/ajax_attend_tree",{dept_id :o.val(), type: o.attr("next")}, function(html){
-	 if(html){	  
-	  o.parents(".select").next(".select").html(html);
-	 }
-      })
+	o.parents(".input-prepend").nextAll().find("select").html('<option value="">--全部--</option>');
+	$.post("/ajax_attend_tree",{dept_id :o.val()}, function(html){
+	    if(html){	  
+	     o.parents(".input-prepend").next().find("select").html(html);
+	     o.parents(".query_data").find("input[name=dept_id]").val(o.val);
+	    }
+	})
     }
 
 
