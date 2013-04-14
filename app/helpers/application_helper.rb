@@ -1,16 +1,9 @@
 # -*- coding: utf-8 -*-
 module ApplicationHelper
-
- # todo refactor
- def available? var
-   var.empty?  ? nil : var  if var
- end
-
  
  def current_user
     User.current_user
  end
-
 
  def query_dept_tree
    current_user.registrar? ? registrar_attend_tree : approval_attend_tree

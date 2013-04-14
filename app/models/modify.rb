@@ -21,11 +21,9 @@ class Modify
     staff_record.change?(checkins) ? save : false
   end
 
-
   def handle data
     update_attributes(decision: data[:decision])
     Notice.find(data[:notice_id]).read
     staff_record.update_checkins(checkins) if data[:decision].eql?("agree")
   end
-
 end
