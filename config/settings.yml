@@ -7,10 +7,7 @@ defaults: &defaults
     nickname_display: 'SU_NICKNAME_DISPLAY'
     phone_num: 'SU_PHONE_NUM'
     username: 'SU_USERNAME'
-<<<<<<< HEAD
-=======
     user_no: 'SU_USER_NO'
->>>>>>> 19eb06dbddbbca672edbd7d2e9780baf662afefc
     dept_id: 'SU_DEPT_ID'
     dept_ancestors: 'DEPT_ANCESTORS'
     position: 'POSTS'
