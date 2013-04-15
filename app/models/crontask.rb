@@ -24,7 +24,7 @@ class Crontask
         end.flatten
         StaffRecord.collection.insert(staff_records)
       end
-      User.scoped.map do | user |  
+      Trainee.scoped.map do | user |  
         TraineeRecord.new_record user.id, user.name,"","",cu.username,cu.staffid, cu.dept_id,cu.dept_name
       end
     end

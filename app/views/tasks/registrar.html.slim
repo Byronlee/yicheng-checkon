@@ -1,10 +1,10 @@
 - unless @staffs.blank?
   .title
     .content
-      strong = t("view.records.index.unfinished_tasks") 
+      strong = t('.unfinished_tasks') 
       strong 
         font color="red" = @staffs.count
-      strong = t("view.records.index.unit")
+      strong = t('.unit')
   .bs-docs
     table.table.table-bordered
       - @staffs.each do |task|
@@ -24,6 +24,6 @@
 - unless @registrar_notices.blank?
   = render "notice" ,:notices => @registrar_notices
 - if @staffs.blank?&&@trainees.blank?&&@registrar_notices.blank?
-  = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+  = render "common/no_content" , :message =>  t(".no_content.no_task_tip")
 
    
