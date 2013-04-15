@@ -1,31 +1,8 @@
 # -*- coding: utf-8 -*-
-class User
-  include Mongoid::Document
-
-  field :username
-  field :user_no
-  field :nickname_code
-  field :nickname_display
-  field :phone_num
-  field :dept_id
-  field :staffid
-  field :dept_name
-  field :dept_ancestors ,type:Array
-  field :position , type:Array
-  # TODO ws should return roles
-  field :role , type:Array
-
-  after_initialize do |user|
-    if user.role
-      role.each do |r|
-        user.class_eval{ include Object.const_get(r + 'Role')}
-      end
-    end
-  end
-
-  def self.resource sid
-    if sid.instance_of?(String)
-      init_attr Webservice.get_data("/user/id/"+sid),sid
+module WsObject
+    
+  def self.create_obj (hash)
+    hash.each do |k,v|
     else
       init_attr sid
     end
