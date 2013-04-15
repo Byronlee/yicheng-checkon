@@ -13,6 +13,9 @@ class HomesController < ApplicationController
     end
   end
 
+  def browser
+   render layout: false
+  end
 
   def ajax_attend_tree 
     node = Webservice.get_data "dept_tree/"+params[:dept_id]

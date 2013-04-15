@@ -33,7 +33,7 @@ Attendance::Application.routes.draw do
   match 'logout'     => 'application#logout'
   match 'registrar'  => 'tasks#registrar' ,:as => :registrar
   match 'approval'   => 'tasks#approval' ,:as => :approval
-  match 'message/view'     => 'flows#view' , :via => :post
   match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
+  match 'browser'    => 'homes#browser' ,  :via => :get
   root :to => "homes#index"
 end
