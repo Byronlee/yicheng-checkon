@@ -63,7 +63,7 @@ describe OrgStru do
     end
     user["SU_NICKNAME_CODE"].should eq "cangnan"
     user["SU_USERNAME"].should eq "廖玥"
-	user["SU_USER_NO"].should eq "72016350"
+	user["SU_USER_NO"].should eq "072016350"
 
     @orgstru.user_attr("id.err").should be_empty 
   end
@@ -96,13 +96,12 @@ describe OrgStru do
     users_map["cangnan"].should eq "廖玥"
   end
 
-  it "根据用户ID返回用户所在部门的组织结构树" do
-    stru_tree = @orgstru.user_dept_tree @test_data_user_id
-    stru_tree.name.should eq @test_data_dept_id
-    stru_tree.children.should_not be_empty
-    tree_map = @orgstru.produce_tree_to_map stru_tree
+  it "根据文员ID返回考勤树组织结构树" do
+    tree_map = @orgstru.attend_tree @test_data_user_id
+    tree_map[:children].should_not be_empty
     tree_map[:id].should eq @test_data_dept_id
     tree_map[:name].should eq "三圣区" 
+    tree_map[:staffs].should include @test_data_user_id # 应该包含自己
   end
 
   it "返回所有部门的列表" do

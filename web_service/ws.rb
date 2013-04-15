@@ -6,30 +6,40 @@ require "#{File.dirname(__FILE__)}/access_oracle"
 
 $ACCESSOR = OrgStru.new
 
+def check_id :id
+  id =~ /^[0-9a-f]+$/
+end
+
 get '/' do
   'Web Service!'
+end
+
+get '/input_error' do
+  'Input Error!'
 end
 
 
 get '/attend/tree/:user_id' do
   user_id  = params[:user_id]
-  stru_tree = $ACCESSOR.user_dept_tree user_id
-  tree_map = $ACCESSOR.produce_tree_to_map stru_tree
-  JSON.dump tree_map 
+  redirect "/input_error" unless check_id user_id 
+  JSON.dump $ACCESSOR.attend_tree user_id
 end
 
 get '/dept/users/:dept_id' do
   dept_id = params[:dept_id]
+  redirect "/input_error" unless check_id dept_id 
   JSON.dump $ACCESSOR.dept_users dept_id
 end 
 
 get '/dept/users_with_subdept/:dept_id' do
   dept_id = params[:dept_id]
+  redirect "/input_error" unless check_id dept_id 
   JSON.dump $ACCESSOR.dept_users_with_subdept dept_id
 end 
 
 get '/dept/users1/:dept_id' do
   dept_id = params[:dept_id]
+  redirect "/input_error" unless check_id dept_id 
   JSON.dump $ACCESSOR.dept_users_with_attr dept_id
 end 
 
@@ -40,11 +50,15 @@ end
 
 
 get '/dept/id/:dept_id' do
-  JSON.dump $ACCESSOR.dept_attr params[:dept_id]
+  dept_id = params[:dept_id]
+  redirect "/input_error" unless check_id dept_id 
+  JSON.dump $ACCESSOR.dept_attr dept_id
 end 
 
 get '/user/id/:user_id' do
-  user = $ACCESSOR.user_attr params[:user_id]
+  user_id  = params[:user_id]
+  redirect "/input_error" unless check_id user_id   
+  user = $ACCESSOR.user_attr user_id
   ext_attrs = $ACCESSOR.user_attr_ext user 
   JSON.dump (user.merge ext_attrs)
 end 
@@ -59,7 +73,9 @@ get '/dept_tree/?' do
 end
 
 get '/dept_tree/:dept_id' do
-  tree_map = $ACCESSOR.produce_tree_to_map ($ACCESSOR.dept_tree(params[:dept_id])) 
+  dept_id = params[:dept_id]
+  redirect "/input_error" unless check_id dept_id 
+  tree_map = $ACCESSOR.produce_tree_to_map ($ACCESSOR.dept_tree dept_id) 
   JSON.dump tree_map 
 end
 
@@ -72,7 +88,9 @@ get '/post/' do
 end
 
 get '/user/posts/:user_id' do
-  JSON.dump $ACCESSOR.user_posts params[:user_id]
+  user_id  = params[:user_id]
+  redirect "/input_error" unless check_id user_id 
+  JSON.dump $ACCESSOR.user_posts user_id
 end
 
 get '/registrars/?' do

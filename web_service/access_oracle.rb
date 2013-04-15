@@ -241,12 +241,18 @@ class OrgStru
     @approval_depa_id = "4028809b3c6fbaa7013c6fbc39900352"
   end
 
+  def fetch_one_user(field,value)
+    user = @qd.select_one_as_map('SYS_USER',@user_attr_key,field,value)
+    user["SU_USER_NO"] = '0'+user["SU_USER_NO"] if user.has_key? "SU_USER_NO"
+    user 
+  end
+
   def user_attr(user_id)
-    @qd.select_one_as_map('SYS_USER',@user_attr_key,"SU_USER_ID",user_id)
+    fetch_one_user "SU_USER_ID",user_id
   end
   
   def user(user_nickname)
-    @qd.select_one_as_map('SYS_USER',@user_attr_key,"SU_NICKNAME_CODE",user_nickname)
+    fetch_one_user "SU_NICKNAME_CODE",user_nickname
   end
 
   def user_attr_ext(user)
@@ -335,10 +341,13 @@ class OrgStru
     end
   end
   
-
-  def user_dept_tree(user_id)
+  def attend_tree(user_id)
+    ## ....TODO....
     user = user_attr user_id
-    dept_tree user["SU_DEPT_ID"]
+    dept_id = user["SU_DEPT_ID"]
+    tree = produce_tree_to_map (dept_tree dept_id)
+    tree[:staffs] = dept_users(dept_id)
+    tree 
   end
 
   def post_map
