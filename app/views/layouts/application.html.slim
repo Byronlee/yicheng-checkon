@@ -11,14 +11,14 @@ html
   body
     .navbar-inverse.navbar.navbar-fixed-top
       .navbar-inner
-        a.brand = t("view.layouts.application.title")
+        a.brand = t(".title")
         ul.nav
           li.active
-            a = t("view.layouts.application.home")
+            a = t(".home")
           li
-            a = t("view.layouts.application.about")
+            a = t(".about")
           li
-            a = t("view.layouts.application.contact")
+            a = t(".contact")
           li
             = link_to '反馈','/feedback/feedback_infos/new',:id => "add_feedback", :remote => true, "data-type" => "script"
           li

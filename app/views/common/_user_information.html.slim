@@ -2,14 +2,14 @@
   table.user_infor
     tr
       td
-        span = t("view.common.user_info.your_place")
+        span = t('.your_place')
         span = current_user.ancestors
       td 
-        span = t("view.common.user_info.position")
+        span = t('.position')
         span = current_user.post
       td
-        span = t("view.common.user_info.name") 
+        span = t('.name') 
         span = current_user.username
       td
-        span = t("view.common.user_info.nu") 
+        span = t('.nu') 
         span = current_user.user_no
