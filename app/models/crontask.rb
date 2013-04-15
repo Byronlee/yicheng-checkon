@@ -9,19 +9,20 @@ class Crontask
       cu.class_eval {include RegistrarRole}
       children =  cu.attend_depts["children"]
       if children   # 因为有些 区下面没有children 所以必须判断
-        children.map do | dept |      
+        staff_records = children.map do | dept |             
           Department.new(dept["id"]).users.map do | user |
-            StaffRecord.new_record(user.staffid, 
-                                   user.username,
-                                   user.user_no ,
-                                   user.nickname_display,
-                                   cu.username, 
-                                   cu.staffid ,
-                                   cu.dept_id, 
-                                   cu.dept_name 
-                                   )
+            StaffRecord.new(staffid:    user.staffid, 
+                            staff_name:   user.username,
+                            user_no:    user.user_no ,
+                            nickname:  user.nickname_display,
+                            record_person_name:  cu.username, 
+                            record_person:   cu.staffid ,
+                            record_zone:       cu.dept_id, 
+                            record_zone_name:     cu.dept_name 
+                                   ).attributes
           end
-        end
+        end.flatten
+        StaffRecord.collection.insert(staff_records)
       end
       User.scoped.map do | user |  
         TraineeRecord.new_record user.id, user.name,"","",cu.username,cu.staffid, cu.dept_id,cu.dept_name
