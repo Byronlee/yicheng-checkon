@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
   def registrar
     @staffs = Task.staffs current_user
-    @trainees = Task.trainees
+    @trainees = current_user.trainee_tasks
     @registrar_notices = Notice.registrar current_user
   end
 

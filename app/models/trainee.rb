@@ -5,6 +5,8 @@ class Trainee
 
   default_scope where(state: "trainee")
 
+  scope :belong, ->(user){ scoped.in(dept_id: user.dept_ids) }
+
   field :salary_time ,type: String
   field :user_no ,type: String, default: "000000"
   field :username ,type: String
