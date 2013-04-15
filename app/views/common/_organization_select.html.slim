@@ -1,4 +1,2 @@
-.input-prepend
-  span.add-on 
-    i.icon-home
-  =  select("condition", select[:type], select[:options], {:prompt => select[:tips]} ,{class: "span10" , :next => select[:next_node]})
+= depts_select_instance object,node,html_options
+

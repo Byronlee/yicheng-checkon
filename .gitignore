@@ -11,6 +11,12 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 *.swp
+*.swo
+*~
+*#
+/.gitignore
+
+
 /app/models/*_old.rb
 
 

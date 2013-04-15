@@ -17,6 +17,8 @@ Attendance::Application.routes.draw do
 
   post "staff_records/update" 
 
+  resources :modifies
+
   resources :staff_records do
     collection do 
       get  :fast_register
@@ -25,12 +27,13 @@ Attendance::Application.routes.draw do
       post :query_attach
     end
   end
+
+  resources :notices
+
   match 'logout'     => 'application#logout'
   match 'registrar'  => 'tasks#registrar' ,:as => :registrar
   match 'approval'   => 'tasks#approval' ,:as => :approval
-  match 'apply'      => 'flows#apply'   , :via => :post
-  match 'approve'    => 'flows#approve' , :via => :post
-  match 'message/view'     => 'flows#view' , :via => :post
   match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
+  match 'browser'    => 'homes#browser' ,  :via => :get
   root :to => "homes#index"
 end

@@ -2,13 +2,13 @@
 class TasksController < ApplicationController
 
   def registrar
-    @staffs = Task.staffs
+    @staffs = Task.staffs current_user
     @trainees = Task.trainees
-    @registrar_messages = Message.registrar.decorate
+    @registrar_notices = Notice.registrar current_user
   end
 
   def approval
-    @approval_messages = Message.approval.decorate
+    @approval_notices = Notice.approval
   end
 
 end

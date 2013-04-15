@@ -5,8 +5,8 @@ class BehaveType
   field :name, type: String
   has_many :behaves, class_name: 'Behave'
   behaves = {:上班 => ["全勤","公出","培训"],
-             :请假 => ["事假","病假","产假"],
-             :缺席 =>   ["旷工"],
+             :请假 => ["事假","病假","产假","丧假"],
+             :旷工 =>   ["旷工"],
              :迟到 =>  ["迟到"],
              :调休 =>  ["调休"],
              :离职 => ["离职"]}

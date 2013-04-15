@@ -11,7 +11,7 @@ class TraineeRecord
   def self.merge o_id,n_id
      user = Trainee.find(o_id)
      user.trainee_records.map do |r|
-       p StaffRecord.create!(r.handle_attrs(n_id))
+       StaffRecord.create!(r.handle_attrs(n_id))
        r.update_attributes(is_deleted: true)
      end
      user.to_staff
