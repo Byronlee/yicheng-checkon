@@ -21,7 +21,7 @@ class HomesController < ApplicationController
     node = Webservice.get_data "dept_tree/"+params[:dept_id]
     if node["children"]
       choices =  node["children"].map{|v| [v["name"] , v["id"]]}
-      render "common/_organization_select",locals: {object:"condition",ayout => false}
+      render "common/_organization_select",locals: {object:"condition",node: choices,html_options: {}},:layout => false
     else
       render :json => false
     end
