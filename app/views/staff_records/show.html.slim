@@ -1,19 +1,19 @@
 form(action="update" method="post")
   .title
     .content
-      strong = t("view.records.new.register")
+      strong = t('.register')
       strong 
         font color="red" = @resource[:dept_name]
       strong &nbsp , &nbsp
       strong = FormatDate @resource[:time]
-    = button_tag t("view.records.new.save"), :disable_with => "#{t('view.records.new.waiting')}" ,:class =>"title_pull_right btn btn-primary"
+    = button_tag t('.save'), :disable_with => "#{t('.waiting')}" ,:class =>"title_pull_right btn btn-primary"
   table.table.table-bordered
       thead
         tr
-          th = t("view.records.new.table_header.number")
-          th = t("view.records.new.table_header.user_number")
-          th = t("view.records.new.table_header.name")
-          th = t("view.records.new.table_header.register_attend")
+          th = t('.table_header.number')
+          th = t('.table_header.user_number')
+          th = t('.table_header.name')
+          th = t('.table_header.register_attend')
         - if @resource[:users]
           - @resource[:users].each_with_index  do |user,index|
             tr

@@ -28,7 +28,7 @@ module Mongoid
         ',<strong>'+CheckUnit.find(unit_id).name+'的考勤'
       end
 
-      def opt_str
+      def opt_str current_user
         return '' unless current_user.approval?
         modify.decision.eql?('agree') ? '同意你' : '拒绝你' 
       end

@@ -14,6 +14,7 @@ class StaffRecord
         record = get_record user.staffid,arg[:time]
       record.checkins.update_all(behave_id: arg[:behave_id])
       record.update_attribute(:attend_date,Date.today)
+        # to _do  根新 登记人把
       record.register
       end
     end
