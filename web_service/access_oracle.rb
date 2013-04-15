@@ -4,6 +4,22 @@ require 'tree'
 require 'json'
 require 'yaml'
 
+def GetLogLevel (level_str)
+  log_level_table = {
+    'FATAL'=>Logger::FATAL,
+    'ERROR'=>Logger::ERROR ,
+    'WARN'=>Logger::WARN ,
+    'INFO'=>Logger::INFO ,
+    'DEBUG'=>Logger::DEBUG ,
+  }
+  level_str.upcase!
+  if log_level_table.has_key? level_str 
+    return log_level_table[level_str]
+  else
+    return Logger::WARN
+  end
+end
+
 module Tree
   class TreeNode
     def search(id)
@@ -65,20 +81,31 @@ class QueryData
     end
   end
 
-  def initialize(connect_name = 'oracle' )
+  def self.load_config_file
+    dir_list = ["#{File.dirname(__FILE__)}/../config/",
+                "/etc/yicheng/",
+                "/etc/"]
+    file_name = "ws_config.yaml"
+    dir_list.each do |dir|
+      config_file = dir+file_name
+      if  File.exist? config_file
+        return YAML.load_file config_file
+      end
+    end
+    raise "Can't found the config file #{file_name} in the following directory:\n"+dir_list.join("\n")
+  end
+
+  def initialize(connect_name = 'oracle')
     ObjectSpace.define_finalizer(self, proc{method(:logout).call} )
 
-    default_logfile = "#{File.dirname(__FILE__)}/../ws.log"
-    config_file = "#{File.dirname(__FILE__)}/../config/ws_config.yaml"
+    @config = QueryData.load_config_file
 
-    if  File.exist? config_file
-      @config = YAML.load_file config_file
-      default_logfile = @config['logger_file'] if @config['logger_file'] 
-    else
-      @config = {}
-    end
+    default_logfile = @config.fetch('logger_file',"#{File.dirname(__FILE__)}/../ws.log")
     @log = Logger.new(default_logfile)
+    @log.level = GetLogLevel(@config['logger_level'])
+
     @connect_name = @config['default_connect'] unless @config['default_connect'].nil?
+
     connect_to_server 
   end
                                  
@@ -95,6 +122,7 @@ class QueryData
   end 
 
   def connect_to_server 
+    logout if server_connected?
     @connect = nil
 
     if @connect_name == 'sqlite' then
@@ -102,26 +130,38 @@ class QueryData
       db_file = @config['connect']['sqlite']['db']
       db_file = 'ref/test_data.db' if db_file.nil?
       db = File.expand_path(db_file,"#{File.dirname(__FILE__)}/../")
-      if File.exist? db then
+      unless File.exist? db then
+        @log.error("SQLite db file '#{db}' is not exist")
+        return 
+      end
+
+      begin 
         @connect = SQLite3::Database.new(db)
         @log.info("SQLite '#{db}' is connected")
-      else
-        @log.error("SQLite db file '#{db}' is not exist")
+      rescue => ex
+        @connect = nil 
+        @log.error("Open SQLite3 file #{db} Error:#{ex}")
       end  
     else
       oracle_connnect_conf = @config['connect'][@connect_name]
       if oracle_connnect_conf.nil? 
         @log.error("Oracle config '#{@connect_name}' is not exist")
+        return 
       end
 
       require 'oci8'
 
-      tns = "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP) (HOST = #{oracle_connnect_conf['host']})(PORT = #{oracle_connnect_conf['port']}))) (CONNECT_DATA = (SID = #{oracle_connnect_conf['sid']})))"
+      tns = %Q/(DESCRIPTION = 
+                   (ADDRESS_LIST = 
+                               (ADDRESS = (PROTOCOL = TCP) 
+                                          (HOST = #{oracle_connnect_conf['host']})
+                                          (PORT = #{oracle_connnect_conf['port']}))) 
+                   (CONNECT_DATA = (SID = #{oracle_connnect_conf['sid']})))/
       
       begin   
         @connect = OCI8.new(oracle_connnect_conf['useername'],
-                         oracle_connnect_conf['password'],
-                         tns)
+                            oracle_connnect_conf['password'],
+                            tns)
       rescue => ex
         @connect = nil 
         @log.error("Connect Oracle Server fail :#{ex}")
@@ -140,8 +180,6 @@ class QueryData
         @connect.exec(sql_string,&block)
       end
       @log.debug("SQL exec success")
-    # rescue StandardError => oe 
-    #   @log.error("Query Error: #{sql_string} . #{oe}")
     rescue => ex
       @log.error("Query Error: #{sql_string} . #{ex}")
     end

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-$YICHENG_WS_PATH="#{File.dirname(__FILE__)}"
-require "#{$YICHENG_WS_PATH}/../web_service/access_oracle"
+$YICHENG_WS_PATH="/data/projects/yicheng-checkon"
+require "#{$YICHENG_WS_PATH}/web_service/access_oracle"
 
 
 class CASServer::Authenticators::YiCheng < CASServer::Authenticators::Base
@@ -9,17 +9,14 @@ class CASServer::Authenticators::YiCheng < CASServer::Authenticators::Base
     read_standard_credentials(credentials)
     orgstru = OrgStru.new 
     user = orgstru.user(@username)  
-
     raise CASServer::AuthenticatorError, "Username is not exist!" if user.nil? or user.empty?
+
     user_id = user["SU_USER_ID"]
-    ext_attrs = orgstru.user_attr_ext (user)
-    
-    role = []
-    role << "Registrar" if orgstru.registrar? user_id
-    role << "Approval" if orgstru.approval? user_id
-    
-    user["role"] = role 
-    user.merge! ext_attrs
+    roles = []
+    roles << "Registrar" if orgstru.registrar? user_id
+    roles << "Approval" if orgstru.approval? user_id
+    user["roles"] = roles 
+
     @extra_attributes[:attrs] = user 
     
     return @password == @username
