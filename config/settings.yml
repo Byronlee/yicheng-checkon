@@ -1,6 +1,15 @@
-# config/application.yml
+# encoding: utf-8
 defaults: &defaults
   approval_dept_id: '4028809b3c6fbaa7013c6fbc39510002'
+  user_attrs:
+    staffid:  'SU_USER_ID'
+    nickname_code: 'SU_NICKNAME_CODE'
+    nickname_display: 'SU_NICKNAME_DISPLAY'
+    phone_num: 'SU_PHONE_NUM'
+    username: 'SU_USERNAME'
+    dept_id: 'SU_DEPT_ID'
+    dept_ancestors: 'DEPT_ANCESTORS'
+    position: 'POSTS'
 
 development:
   <<: *defaults
