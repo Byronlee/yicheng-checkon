@@ -1,36 +1,43 @@
-.title
-  .content
-    strong 添加无工号员工
-= simple_form_for Trainee.new,defaults: {label: false} do |f|
-  table.table.table-bordered.table-condensed.align_left
-    tr
-      td  = raw(unit_depts_selects 'trainee')
-      td  = f.input :username 
-      td  = f.input :salary_time 
-      td  = f.button :submit
+.tabbable 
+  ul.nav.nav-tabs
+    li.active
+      a(href="#1" data-toggle="tab")
+        strong 员工列表
+    li
+      a href="#2" data-toggle="tab"
+        strong 添加员工
+  div.tab-content
+    .tab-pane.active id="1"
+      - if @trainees.blank?
+        = render "common/no_content" , :message =>  "还没有添加任何无工号员工...."
+      - else     
+        table.table.table-bordered.table-condensed
+          tr
+            th 工号
+            th 小区
+            th 姓名
+            th 计薪时间
+            th 选择匹配用户
+            th 操作
+          - @trainees.each do | u |
+            tr
+              td = u.user_no
+              td = u.dept_name
+              td = u.username
+              td = u.salary_time
+              td.m_r
+                 form action=merge_trainees_path method="post" id="merge_users"
+                   = raw(unit_depts_selects 'dept',{onChange: "ajax_dept_users_select($(this))" , :class => "span10"})
+                   = depts_select_instance 'condition',[],{class: 'span10'}
+                   input type="hidden" name="old_trainee_id" value=u.id
+              td
+                input.btn.btn-primary  type="submit" onclick="merge_submit($(this),'merge_users')" value="确认合并"
 
-- unless @trainees.empty?
-  .title
-    .content
-      strong 无工号员工列表
-  table.table.table-bordered.table-condensed
-      tr
-        th 工号
-        th 小区
-        th 姓名
-        th 计薪时间
-        th 选择匹配用户
-        th 操作
-      - @trainees.each do | u |
-        tr
-          td = u.user_no
-          td = u.dept_name
-          td = u.username
-          td = u.salary_time
-          td
-             form action=merge_trainees_path method="post" id="merge_users"
-               = raw(unit_depts_selects 'dept',{onChange: "ajax_dept_users_select($(this))" , :class => "span10"})
-               = depts_select_instance 'condition',[],{class: 'span10'}
-               input type="hidden" name="old_trainee_id" value=u.id
-          td
-            input.btn.btn-primary  type="submit" onclick="merge_submit($(this),'merge_users')" value="确认合并"
+    .tab-pane id="2"
+      = simple_form_for Trainee.new,defaults: {label: false} do |f|
+        table.table.table-bordered.table-condensed.align_left
+          tr
+            td  = raw(unit_depts_selects 'trainee')
+            td  = f.input :username 
+            td  = f.input :salary_time 
+            td  = f.button :submit

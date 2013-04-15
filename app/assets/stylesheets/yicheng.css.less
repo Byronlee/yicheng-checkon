@@ -31,6 +31,7 @@ div[class=title]{
 
 table.table{
    th{text-align: center;}
+   td.notice_title{border-top-style:none;}
    td{
    text-align: center;
    padding:2px 6px;   
@@ -51,24 +52,27 @@ table.table{
 
 
 .table-bordered{
- border: 0px;
- td .m_r{margin-right:15px;}
- th:first-child , td:first-child {
- border-left:0px;
- }
+
+    td.m_r{width: 26%;
+	   form div:first-child{float:left;}
+	  }
+    th:first-child , td:first-child {
+	border-left:0px;
+    }
 }
 
 
 
 .total_infor{
   #float(right);
-  margin: -122px 106px;	
+  margin: -149px 106px;	
   a {#a;}
 }
 
 .count_kind{margin-top: -45px;}
 table.align_left{
-    td{text-align: left;}
+    td{text-align: left;
+      border-style:none;}
 }
 
 
@@ -80,8 +84,6 @@ form.query_data_form{
    .query_data{
       float: left;
       width: 100%;
-      background-color: #D9EDF7 ;
-      border-bottom: 10px solid #eee;
       > div { 
        float:left;
        input[type=text]{   width: 180px;}
@@ -95,7 +97,8 @@ form.query_data_form{
     }
 }
 .query_attach_condition{
-      background: #eee;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 25px;
       ul.nav{
         margin-bottom: 0px;	
         li{
