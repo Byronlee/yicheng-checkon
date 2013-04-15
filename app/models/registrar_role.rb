@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
-class RegistrarRole
-
-  def initialize user
-    @user = user
-  end
-
+module RegistrarRole
   def attend_depts  #返回一个文员的考勤树
-    Webservice.get_data("attend/tree/"+@user.staffid)
+    Webservice.get_data("attend/tree/"+staffid)
   end
 end

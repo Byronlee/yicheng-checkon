@@ -13,22 +13,18 @@ class HomesController < ApplicationController
     end
   end
 
+  def browser
+   render layout: false
+  end
+
   def ajax_attend_tree 
     node = Webservice.get_data "dept_tree/"+params[:dept_id]
-    node_type =["region" ,""]
     if node["children"]
-      select = { type: params[:type] ,
-                 options: node["children"].map{|v| [v["name"] , v["id"]]} ,
-                 tips: "--全部--",
-                 next_node: next_node(params[:type])}
-      render "common/_organization_select",locals: {select: select },:layout => false
+      choices =  node["children"].map{|v| [v["name"] , v["id"]]}
+      render "common/_organization_select",locals: {object:"condition",node: choices,html_options: {}},:layout => false
     else
       render :json => false
     end
   end
 
-  private 
-    def next_node node
-      node.eql?("cell") ? "dept" : ""
-    end
 end

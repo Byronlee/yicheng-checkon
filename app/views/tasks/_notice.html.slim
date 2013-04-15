@@ -1,0 +1,24 @@
+- if notices.any?
+  .title
+    .content 
+      strong 你有未处理请求
+      strong 
+        font color="red" =notices.count
+      strong = t("view.records.index.unit")
+  .bs-docs
+    table.table.table-bordered
+      - notices.each do |notice|
+        tr
+          td.message_title 
+            a data-toggle="collapse" data-target="##{notice.id}" href="##{notice.id}" 
+              span = raw(notice.content.truncate(60 ,:omission => '...'))
+              span &nbsp;
+              span
+                i.icon-arrow-down 
+          td
+            = render_cell :notice , :operate ,:notice => notice,:current_user => current_user       
+        tr
+          td colspan=3
+            .accordion-body.collapse id="#{notice.id}"
+              p 1.详细情况：#{raw(notice.content)}	
+              p 2.备注：#{notice.remark.eql?("") ? "无" : notice.remark }

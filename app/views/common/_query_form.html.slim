@@ -7,6 +7,7 @@ form( class="query_data_form")
         input#prependedInput type="text"  name="range_time"  placeholder="--截时间至上次考勤--"
         input type="hidden" name="start_time" value=""
         input type="hidden" name="end_time"   value=""
-    = render "common/form_organization_selects"  , :selects => query_dept_tree
+        input type="hidden" name="dept_id"    value=""
+    = raw(unit_depts_selects)
     button.btn.btn-small.btn-primary type="button" onclick="query_records()"  查询
 

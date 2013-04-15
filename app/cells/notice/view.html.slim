@@ -1,0 +1,4 @@
+# encoding: utf-8
+= simple_form_for @notice.modify ,:method => :delete do |f|
+  = f.input :notice_id  ,as: :hidden, input_html: {value:@notice.id }
+  = f.button :submit
