@@ -2,7 +2,7 @@
 # Simple Web Service using access_oracle 
 require 'sinatra'
 require 'json'
-require "#{File.dirname(__FILE__)}/access_oracle"
+require "#{File.dirname(__FILE__)}/org_stru"
 
 $ACCESSOR = OrgStru.new
 
