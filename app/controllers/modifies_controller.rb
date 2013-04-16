@@ -5,9 +5,9 @@ class ModifiesController < ApplicationController
      modify = Modify.new(params[:modify][:data])
      if modify.save_with_change
        modify.notices.create(params[:modify][:notice]).modify_notice_content current_user
-       flash[:success] = t('view.flows.apply.success')
+       flash[:success] = t('controller.modifies.success')
      else
-       flash[:error] =  t('view.flows.apply.error')
+       flash[:error] =  t('controller.modifies.error')
      end
      redirect_to operate_staff_records_path
    end

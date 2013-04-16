@@ -6,28 +6,28 @@ class Crontask
     checkers = Webservice.get_data "/registrars"
     checkers.each do |checker_id |
       cu = User.resource(checker_id)
-      cu.class_eval {include RegistrarRole}
-      children =  cu.attend_depts["children"]
-      if children   # 因为有些 区下面没有children 所以必须判断
-        staff_records = children.map do | dept |             
-          Department.new(dept["id"]).users.map do | user |
-            StaffRecord.new(staffid:    user.staffid, 
-                            staff_name:   user.username,
-                            user_no:    user.user_no ,
-                            nickname:  user.nickname_display,
-                            record_person_name:  cu.username, 
-                            record_person:   cu.staffid ,
-                            record_zone:       cu.dept_id, 
-                            record_zone_name:     cu.dept_name 
-                                   ).attributes
-          end
-        end.flatten
-        StaffRecord.collection.insert(staff_records)
+      cu.extend RegistrarRole
+      users = cu.users_with_subdept
+      unless users.blank?   # 因为有些 区下面没有children 所以必须判断
+        users_hash = users.map do |user_id|
+          user = User.resource(user_id)
+          { staffid:            user.staffid, 
+            staff_name:         user.username,
+            user_no:            user.user_no ,
+            nickname:           user.nickname_display,
+            record_person_name: cu.username, 
+            record_person:      cu.staffid ,
+            record_zone:        cu.dept_id, 
+            record_zone_name:   cu.dept_name 
+           }
+        end
+        StaffRecord.collection.insert(users_hash)
       end
-      User.scoped.map do | user |  
-        TraineeRecord.new_record user.id, user.name,"","",cu.username,cu.staffid, cu.dept_id,cu.dept_name
+
+      Trainee.scoped.map do | user |  
+        TraineeRecord.new_record user.id, user.username,"","",cu.username,cu.staffid, cu.dept_id,cu.dept_name
       end
-    end
+    end  # checkers end
   end
 
   def self.submit_everyday_records

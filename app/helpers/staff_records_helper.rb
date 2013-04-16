@@ -23,7 +23,7 @@ module StaffRecordsHelper
 
 
   def register_or_modify state
-    state=="registered" ? t("view.common.table_tasks_tr.registered") : t("view.common.table_tasks_tr.register")
+    state=="registered" ? t('.registered') : t('.register')
   end
 
   def btn_name state

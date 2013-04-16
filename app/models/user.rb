@@ -7,7 +7,7 @@ class User
   def perssion roles_array
     self.roles = roles_array
     roles_array.each do |r|
-      class_eval{ include Object.const_get(r + 'Role')}
+      extend Object.const_get(r + 'Role')
     end
     # roles = roles_array why?    
     self
@@ -19,10 +19,6 @@ class User
 
   def self.resource sid
     new(sid) 
-  end
-
-  def dept_name
-     Department.new(dept_id).name 
   end
 
   def ancestors

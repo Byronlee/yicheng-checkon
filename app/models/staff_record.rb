@@ -12,21 +12,25 @@ class StaffRecord
     def fast_register arg
       Department.new(arg[:dept_id]).users.map do | user |
         record = get_record user.staffid,arg[:time]
-      record.checkins.update_all(behave_id: arg[:behave_id])
-      record.update_attribute(:attend_date,Date.today)
-      record.register
+        record.checkins.update_all(behave_id: arg[:behave_id])
+        record.update_attribute(:attend_date,Date.today)
+        # to _do  根新 登记人把
+        record.register
       end
     end
 
+    def direct_update args
+      find(args[:staff_record_id]).update_checkins(args[:checkins])
+    end
+  
     def trainee_register arg
       TraineeRecord.register arg
     end
 
-
-    def staffs current_user # 得到一个文员当天的考勤任务(包括已完成的) 且还没有提交的
-      unique by_period(Date.today-1,Date.today+1).where(record_person: current_user.staffid).in(state: ["checking","registered"])
+    def staffs record_user_id
+      # 得到一个文员当天的考勤任务(包括已完成的) 且还没有提交的
+      unique where(record_person: record_user_id).in(state: ["checking","registered"])
     end
-
 
     def unique records
       if records
@@ -43,8 +47,6 @@ class StaffRecord
         end
       end
     end
-
-
 
     def query params ,current_user ,map ="StaffRecord.state('submitted')"
       if params[:type].eql?("attach")
@@ -72,11 +74,5 @@ class StaffRecord
        checkins.find_by(check_unit_id: check_unit_id).behave_id.to_s.eql?(behave_id)
      end
      bool.all? ? false : true
-   end
-
-   def update_checkins(checks)
-     checks.map  do |check_unit_id , behave_id|
-       checkins.find_by(check_unit_id: check_unit_id).update_attribute(:behave_id ,behave_id)
-     end
    end
 end

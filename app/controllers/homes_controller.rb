@@ -11,6 +11,7 @@ class HomesController < ApplicationController
     if current_user.approval?
       redirect_to approval_path
     end
+    # 当我不是已这两个角色登录 没有处理
   end
 
   def browser
@@ -27,4 +28,15 @@ class HomesController < ApplicationController
     end
   end
 
+  def hook
+   path = Rails.root
+   p "================> github is sending POST method to you!"
+   p "================> cd #{path}"
+   p "================> git pull origin master"
+   if system("cd #{path} & git pull origin master")
+     render :json => "git pull origin master successfully"
+   else
+     render :json => "git pull origin master unsuccessfully"
+   end
+  end
 end

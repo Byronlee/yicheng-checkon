@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :browser_filter unless Rails.env.test?
-  before_filter CASClient::Frameworks::Rails::Filter
+# before_filter :browser_filter unless Rails.env.test?
+# before_filter CASClient::Frameworks::Rails::Filter
 
   authorize_resource
   skip_authorize_resource :only => :logout
@@ -14,11 +14,9 @@ class ApplicationController < ActionController::Base
     User.resource(attrs["SU_USER_ID"]).perssion(attrs["roles"])
   end 
 
-
   def logout
     CASClient::Frameworks::Rails::Filter.logout(self)
   end
-
 
   def browser_filter
     user_agent =  request.env['HTTP_USER_AGENT']
@@ -59,7 +57,6 @@ class ApplicationController < ActionController::Base
       redirect_to browser_path
     end
   end
-
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url , :alert => exception.message

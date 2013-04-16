@@ -4,7 +4,7 @@ class TraineeRecordDecorator < Draper::Decorator
   def user
     user = source.trainee
     dept = Department.new(user.dept_id)
-    {name: user.username,dept_name: dept.name,user_id: user.id}
+    {username: user.username,dept_name: dept.name,user_id: user.id}
   end
 
   def date
