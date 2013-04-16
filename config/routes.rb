@@ -38,5 +38,5 @@ Attendance::Application.routes.draw do
   root :to => "homes#index"
 
   # github webhooks
-  match 'hook' => 'application#hook', :via => :post
+  match 'hook' => 'homes#hook', :via => :post
 end

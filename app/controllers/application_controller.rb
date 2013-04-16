@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :browser_filter unless Rails.env.test?
-  before_filter CASClient::Frameworks::Rails::Filter
+# before_filter :browser_filter unless Rails.env.test?
+# before_filter CASClient::Frameworks::Rails::Filter
 
   authorize_resource
   skip_authorize_resource :only => :logout
@@ -56,13 +56,6 @@ class ApplicationController < ActionController::Base
     unless ['chrome', 'gecko', 'safari'].include?(@users_browser)  then
       redirect_to browser_path
     end
-  end
-
-  def hook
-    push = JSON.parse(params[:payload])
-    p "____________________I got some JSON: #{push.inspect}________________________"
-    path = Rails.root
-    system "cd #{path} & git pull origin master"
   end
 
   rescue_from CanCan::AccessDenied do |exception|

@@ -28,4 +28,10 @@ class HomesController < ApplicationController
     end
   end
 
+  def hook
+#   push = JSON.parse(params[:payload])
+   p "____________________I got some JSON:________________________"
+  # path = Rails.root
+  # system "cd #{path} & git pull origin master"
+  end
 end
