@@ -21,10 +21,6 @@ class User
     new(sid) 
   end
 
-  def dept_name
-     Department.new(dept_id).name 
-  end
-
   def ancestors
     2.times{ dept_ancestors.delete_at(0)}
     dept_ancestors.inject(""){|str,ps| str+ps[1]+"/"}+dept_name
