@@ -31,6 +31,10 @@ zh_CN:
       position: 职位：
       name: 姓名：
       nu: 工号：
+  counts:
+    index:
+      no_content:
+        no_count_tip: 目前没有数据可以统计
   staff_records:
     show:
       register: 登记：
