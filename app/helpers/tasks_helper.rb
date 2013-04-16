@@ -6,5 +6,4 @@ module TasksHelper
       count += 1 if item[:state].eql?("checking")
     end
   end
-
 end
