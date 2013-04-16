@@ -1,4 +1,12 @@
-- if @approval_notices.blank?
-  = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
-- else 
-  = render 'notice' ,:notices => @approval_notices
+.tabbable 
+  ul.nav.nav-tabs
+    li.active
+      a(href="#1" data-toggle="tab")
+        strong 修改审批
+        span.badge.badge-error = @approval_notices.count
+  .tab-content
+    .tab-pane.active id="1"       
+      - if @approval_notices.blank?
+        = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+      - else
+        = render 'notice' ,:notices => @approval_notices

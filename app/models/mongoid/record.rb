@@ -38,6 +38,11 @@ module Mongoid
       def c_at
         _id.generation_time
       end
+      def update_checkins(checks)
+        checks.map  do |check_unit_id , behave_id|
+          checkins.find_by(check_unit_id: check_unit_id).update_attribute(:behave_id ,behave_id)
+        end
+      end
     end
 
     module  ClassMethods 
@@ -48,9 +53,7 @@ module Mongoid
       def register arg
         arg[:record].each do | user_id , checks| 
           record = get_record user_id,arg[:time]
-          checks.map do |unit_id,behave_id|
-            record.checkins.find_by(check_unit_id: unit_id).update_attribute(:behave_id , behave_id)
-          end
+          record.update_checkins(checks)
           record.update_attribute(:attend_date,Date.today)
           record.register
         end
