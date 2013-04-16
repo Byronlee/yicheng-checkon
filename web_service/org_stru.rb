@@ -11,6 +11,10 @@ class OrgStru
 
     @user_attr_key = ["SU_USER_ID","SU_NICKNAME_CODE","SU_NICKNAME_DISPLAY","SU_PHONE_NUM","SU_USERNAME","SU_USER_NO","SU_DEPT_ID"]
     @dept_attr_key = ["SD_DEPT_CODE","SD_DEPT_NAME"]
+
+    @registrar_role_posts = @config["attend"]["role_posts"]
+    @attend_scope = @config["attend"]["scope"]
+
     @registrar_post_id  = "402880fb3d66f0c5013d66f6a1c2003d"
     @approval_depa_id = "4028809b3c6fbaa7013c6fbc39900352"
   end
@@ -40,8 +44,7 @@ class OrgStru
     ext_attrs["POSTS"] = posts.zip(post_names(posts))
     return ext_attrs
   end
-
-
+  
   def dept_attr(dept_id)
     @qd.select_one_as_map('SYS_DEPT',@dept_attr_key,"SD_DEPT_ID",dept_id)
   end
@@ -116,11 +119,10 @@ class OrgStru
   end
   
   def attend_tree(user_id)
-    ## ....TODO....
-    user = user_attr user_id
-    dept_id = user["SU_DEPT_ID"]
-    tree = produce_tree_to_map (dept_tree dept_id)
-    tree[:staffs] = dept_users(dept_id)
+    scope_dept_id = registrar_attend_scope user_id
+    return nil if scope_dept_id.nil?
+    tree = produce_tree_to_map (dept_tree scope_dept_id)
+    tree[:staffs] = dept_users(scope_dept_id)
     tree 
   end
 
@@ -142,7 +144,26 @@ class OrgStru
   end
 
   def registrar?(user_id)
-    @qd.query_not_empty "SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID = '#{@registrar_post_id}' and SURP_USER_ID='#{user_id}'"
+    not (user_posts(user_id) & @registrar_role_posts).empty?
+  end
+
+  def registrar_attend_scope(registrar_id)
+    return nil unless registrar? registrar_id
+
+    registrar = user_attr registrar_id
+    registrar_ancestors = dept_ancestors(registrar["SU_DEPT_ID"])
+
+    up_scope = registrar_ancestors & @attend_scope
+    return nil if up_scope.empty?
+    
+    scope_id =  registrar_ancestors.index(up_scope[0])+1
+    # registrar department_id is no including ancestors
+    # So if scope_id out of ancestors,return registrar's department id 
+    if scope_id == registrar_ancestors.length 
+      return registrar["SU_DEPT_ID"]
+    else 
+      return registrar_ancestors[scope_id]
+    end
   end
 
   def approval?(user_id)

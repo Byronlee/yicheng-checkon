@@ -106,6 +106,10 @@ describe OrgStru do
     registrars.length.should > 2
   end
 
+  it "测试店文员考勤范围" do 
+    ##TODO...
+  end
+
   it "角色测试" do 
      @orgstru.registrar?(@test_data_user_id).should be_true
      @orgstru.registrar?(@test_data_user_id_approval).should_not be_true
