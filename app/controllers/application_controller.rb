@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 
   def hook
     push = JSON.parse(params[:payload])
-    p  "I got some JSON: #{push.inspect}"
+    p "____________________I got some JSON: #{push.inspect}________________________"
     path = Rails.root
     system "cd #{path} & git pull origin master"
   end
