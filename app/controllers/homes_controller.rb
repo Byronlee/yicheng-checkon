@@ -28,4 +28,15 @@ class HomesController < ApplicationController
     end
   end
 
+  def hook
+   path = Rails.root
+   p "================> github is sending POST method to you!"
+   p "================> cd #{path}"
+   p "================> git pull origin master"
+   if system("cd #{path} & git pull origin master")
+     render :json => "git pull origin master successfully"
+   else
+     render :json => "git pull origin master unsuccessfully"
+   end
+  end
 end

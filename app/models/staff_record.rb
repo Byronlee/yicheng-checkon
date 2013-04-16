@@ -27,11 +27,10 @@ class StaffRecord
       TraineeRecord.register arg
     end
 
-    def staffs current_user
+    def staffs record_user_id
       # 得到一个文员当天的考勤任务(包括已完成的) 且还没有提交的
-      unique where(record_person: current_user.staffid).in(state: ["checking","registered"])
+      unique where(record_person: record_user_id).in(state: ["checking","registered"])
     end
-
 
     def unique records
       if records

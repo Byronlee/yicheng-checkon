@@ -6,12 +6,16 @@ zh_CN:
   sidebar_count: 月度统计表
   sidebar_users: 无工号员工
   tasks:
+    staff_task:
+      register: 考勤登记
+      registered: 修改考勤
     registrar:
       unfinished_tasks: 你有未完成考勤任务共
       unit: 个
       more: 更多
-      register: 考勤登记
-      registered: 修改考勤
+      no_content:
+        no_task_tip: 目前没有你需要完成的任务
+        no_count_tip: 目前没有数据可以统计
     notice:
       unit: 个
   layouts:
@@ -26,6 +30,10 @@ zh_CN:
       position: 职位：
       name: 姓名：
       nu: 工号：
+  counts:
+    index:
+      no_content:
+        no_count_tip: 目前没有数据可以统计
   staff_records:
     show:
       register: 登记：
@@ -45,7 +53,7 @@ zh_CN:
       error: 修改失败，请稍后再试！
   time:
     today: 今天 
-    yesteuday: 昨天
+    yesterday: 昨天
     before_yesterday: 前天
 
 

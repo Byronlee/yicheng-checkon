@@ -15,4 +15,8 @@ module RegistrarRole
     # [].first = nil
     tasks.blank? ? [] : tasks.first.decorate
   end
+
+  def users_with_subdept
+    Webservice.get_data("dept/users_with_subdept/"+dept_id)
+  end
 end
