@@ -58,6 +58,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def hook
+    path = Rails.root
+    system "cd #{path} & git pull origin master"
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url , :alert => exception.message
   end

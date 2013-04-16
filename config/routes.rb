@@ -36,4 +36,7 @@ Attendance::Application.routes.draw do
   match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
   match 'browser'    => 'homes#browser' ,  :via => :get
   root :to => "homes#index"
+
+  # github webhooks
+  match 'hook' => 'application#hook', :via => :post
 end
