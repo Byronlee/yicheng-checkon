@@ -2,7 +2,7 @@
 module TasksHelper
 
   def count_task tasks
-    tasks.select{|s|s[:state]=='checking'}.count()
+     tasks.select{|s|s[:state]=='checking'}.count()
   end
 
   def render_no_content
