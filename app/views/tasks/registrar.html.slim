@@ -18,25 +18,22 @@
         span.badge.badge-error = @registrar_notices.count
   .tab-content
     .tab-pane.active id="1" 
-      - if @staffs.blank?
-        = render "common/no_content" , :message =>  t('.no_content.no_task_tip')
-      - else
+      - unless @staffs.blank?
         = render "staff_task" ,:staffs => @staffs
+      - else
+        = render_no_content
     .tab-pane id="2"
-      - if @trainees.blank?
-        = render "common/no_content" , :message =>  t(".no_content.no_task_tip")
-      - else
+      - unless @trainees.blank?
         = render "trainee_tasks" ,:tasks => @trainees
+      - else
+        = render_no_content
     .tab-pane id="3"
-      - if @registrar_notices.blank?
-        = render "common/no_content" , :message =>  t(".no_content.no_notice_tip")
-      - else
+      - unless @registrar_notices.blank?
         = render "notice" ,:notices => @registrar_notices
-    .tab-pane id="4"
-      - if @local_users.blank?
-        = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
       - else
+        = render_no_content
+    .tab-pane id="4"
+      - unless @local_users.blank?
         = render "local_users" ,:local_user => @local_users
-       
-
-   
+      - else
+        = render_no_content

@@ -21,7 +21,7 @@ class Crontask
             record_zone_name:   cu.dept_name 
            }
         end
-        StaffRecord.create!(users_hash)
+        StaffRecord.collection.insert(users_hash)
       end
 
       Trainee.scoped.map do | user |  
