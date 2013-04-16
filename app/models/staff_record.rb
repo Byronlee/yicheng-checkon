@@ -25,7 +25,7 @@ class StaffRecord
 
 
     def staffs current_user # 得到一个文员当天的考勤任务(包括已完成的) 且还没有提交的
-      unique by_period(Date.today-1,Date.today+1).where(record_person: current_user.staffid).in(state: ["checking","registered"])
+      unique where(record_person: current_user.staffid).in(state: ["checking","registered"])
     end
 
 

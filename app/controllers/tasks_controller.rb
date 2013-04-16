@@ -10,5 +10,4 @@ class TasksController < ApplicationController
   def approval
     @approval_notices = Notice.approval
   end
-
 end
