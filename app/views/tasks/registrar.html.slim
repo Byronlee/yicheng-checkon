@@ -5,10 +5,6 @@
         strong 有号任务
         span.badge.badge-error = count_task @staffs
     li
-      a href="#4" data-toggle="tab"
-        strong 本区考勤
-        span.badge.badge-error 0
-    li
       a href="#2" data-toggle="tab"
         strong 无号任务
         span.badge.badge-error = count_task @trainees
@@ -32,11 +28,4 @@
         = render "common/no_content" , :message =>  t(".no_content.no_notice_tip")
       - else
         = render "notice" ,:notices => @registrar_notices
-    .tab-pane id="4"
-      - if @local_users.blank?
-        = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
-      - else
-        = render "local_users" ,:local_user => @local_users
-       
-
-   
+ 

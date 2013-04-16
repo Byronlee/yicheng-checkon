@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 class TasksController < ApplicationController
 
-  def registrar
-    @staffs = Task.staffs current_user
+  # TODO 要声明 没有model cancan
+
+  def registrar 
+    @staffs = StaffRecord.staffs current_user.staffid     
     @trainees = current_user.trainee_tasks
     @registrar_notices = Notice.registrar current_user
   end
