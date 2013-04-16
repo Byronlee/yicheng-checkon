@@ -14,9 +14,7 @@ zh_CN:
       registered: 修改考勤
       no_content:
         no_task_tip: 目前没有你需要完成的任务
-        no_notice_tip: 目前没有你需要读的消息
         no_count_tip: 目前没有数据可以统计
-
     notice:
       unit: 个
   layouts:
