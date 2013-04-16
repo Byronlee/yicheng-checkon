@@ -6,7 +6,7 @@ class Crontask
     checkers = Webservice.get_data "/registrars"
     checkers.each do |checker_id |
       cu = User.resource(checker_id)
-      cu.class_eval {include RegistrarRole}
+      cu.extend RegistrarRole
       children =  cu.attend_depts["children"]
       if children   # 因为有些 区下面没有children 所以必须判断
         staff_records = children.map do | dept |             

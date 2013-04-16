@@ -2,8 +2,6 @@
 module TasksHelper
 
   def count_task tasks
-    tasks.inject(0) do |count ,item| 
-      count += 1 if item[:state].eql?("checking")
-    end
+    tasks.select{|s|s[:state]=='checking'}.count()
   end
 end

@@ -27,7 +27,6 @@ class StaffRecord
       TraineeRecord.register arg
     end
 
-
     def staffs current_user
       # 得到一个文员当天的考勤任务(包括已完成的) 且还没有提交的
       unique where(record_person: current_user.staffid).in(state: ["checking","registered"])
@@ -49,8 +48,6 @@ class StaffRecord
         end
       end
     end
-
-
 
     def query params ,current_user ,map ="StaffRecord.state('submitted')"
       if params[:type].eql?("attach")

@@ -2,7 +2,7 @@
 class TraineesController < ApplicationController
 
   def index
-    @trainees = Trainee.all.decorate
+    @trainees = Trainee.belong(current_user).decorate
   end
 
   def create
