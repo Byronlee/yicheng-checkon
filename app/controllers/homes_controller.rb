@@ -29,9 +29,7 @@ class HomesController < ApplicationController
   end
 
   def hook
-   # push = JSON.parse(params[:payload])
-   p "____________________push to github________________________"
-
+   p "================> github is sending POST method to you!"
    path = Rails.root
    if system("cd #{path} & git pull origin master")
      render :json => "git pull origin master successfully"
