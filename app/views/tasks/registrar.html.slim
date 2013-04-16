@@ -5,6 +5,10 @@
         strong 有号任务
         span.badge.badge-error = count_task @staffs
     li
+      a href="#4" data-toggle="tab"
+        strong 本区考勤
+        span.badge.badge-error 0
+    li
       a href="#2" data-toggle="tab"
         strong 无号任务
         span.badge.badge-error = count_task @trainees
@@ -17,31 +21,22 @@
       - if @staffs.blank?
         = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
       - else
-        .bs-docs
-          table.table.table-bordered
-            - @staffs.each do |task|
-              tr
-                td
-                  = render_cell :task,:color , dept_name: task[:dept_name] , state: task[:state]
-                td
-                  = FormatDate task[:created_at]
-                td
-                  = render_cell :task,:onekey , task: task
-                td
-                  a href="/staff_records/edit?dept_id=#{task[:dept_id]}&time=#{task[:created_at]}&dept_name=#{task[:dept_name]}"
-                    = register_or_modify task[:state]
-                  i class="icon-fast-forward"
+        = render "staff_task" ,:staffs => @staffs
     .tab-pane id="2"
       - if @trainees.blank?
         = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
       - else
-        = render "common/trainee_tasks" ,:tasks => @trainees
+        = render "trainee_tasks" ,:tasks => @trainees
     .tab-pane id="3"
       - if @registrar_notices.blank?
         = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
       - else
         = render "notice" ,:notices => @registrar_notices
-
+    .tab-pane id="4"
+      - if @local_users.blank?
+        = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+      - else
+        = render "local_users" ,:local_user => @local_users
        
 
    

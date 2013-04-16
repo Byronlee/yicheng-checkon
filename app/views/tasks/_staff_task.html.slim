@@ -1,0 +1,14 @@
+.bs-docs
+  table.table.table-bordered
+    - staffs.each do |task|
+      tr
+        td
+          = render_cell :task,:color , dept_name: task[:dept_name] , state: task[:state]
+        td
+          = FormatDate task[:created_at]
+        td
+          = render_cell :task,:onekey , task: task
+        td
+          a href="/staff_records/edit?dept_id=#{task[:dept_id]}&time=#{task[:created_at]}&dept_name=#{task[:dept_name]}"
+            = register_or_modify task[:state]
+          i class="icon-fast-forward"
