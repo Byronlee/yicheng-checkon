@@ -19,17 +19,17 @@
   .tab-content
     .tab-pane.active id="1" 
       - if @staffs.blank?
-        = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+        = render "common/no_content" , :message =>  t('.no_content.no_task_tip')
       - else
         = render "staff_task" ,:staffs => @staffs
     .tab-pane id="2"
       - if @trainees.blank?
-        = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+        = render "common/no_content" , :message =>  t(".no_content.no_task_tip")
       - else
         = render "trainee_tasks" ,:tasks => @trainees
     .tab-pane id="3"
       - if @registrar_notices.blank?
-        = render "common/no_content" , :message =>  t("view.common.no_content.no_task_tip")
+        = render "common/no_content" , :message =>  t(".no_content.no_notice_tip")
       - else
         = render "notice" ,:notices => @registrar_notices
     .tab-pane id="4"
