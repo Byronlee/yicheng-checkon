@@ -5,6 +5,7 @@ describe OrgStru do
   before do
     @orgstru = OrgStru.new  
     @test_data_user_id = "4028809b3c6fbaa7013c6fbc3db41bc3"
+    @test_data_user_id_registrar = "4028809b3c6fbaa7013c6fbc3da51b48"
     @test_data_user_id_approval = "4028809b3c6fbaa7013c6fbc3da51a13"
     @test_data_dept_id = "4028809b3c6fbaa7013c6fbc39900380"
     @test_dept_ancestor1 = ["4028809b3c60dcc8013c60e107810001",
@@ -69,7 +70,6 @@ describe OrgStru do
     tree_map[:children].should_not be_empty
     tree_map[:id].should eq @test_data_dept_id
     tree_map[:name].should eq "三圣区" 
-    tree_map[:staffs].should include @test_data_user_id # 应该包含自己
   end
 
   it "返回所有部门的列表" do
@@ -105,12 +105,26 @@ describe OrgStru do
     registrars = @orgstru.all_users_with_role(:registrar)
     registrars.should include @test_data_user_id
     registrars.length.should > 2
-    registrars = @orgstru.users_with_role(:registrar,@test_data_dept_id)
-    registrars.should include @test_data_user_id
   end
 
-  it "测试店文员考勤范围" do 
-    ##TODO...
+  it "测试返回某一个部门的考勤者" do 
+    registrars = @orgstru.users_with_role(:registrar,@test_data_dept_id)
+    registrars.should include @test_data_user_id
+    registrars.should include @test_data_user_id_registrar
+  end
+
+  it "测试店文员的考勤范围" do
+    reg_dept_id = @orgstru.user_attr(@test_data_user_id_registrar)["SU_DEPT_ID"]
+    reg_dept_id.should eq "4028809b3c6fbaa7013c6fbc39900383"
+    scope_dept_id = @orgstru.registrar_attend_scope (@test_data_user_id_registrar)
+    scope_dept_id.should eq @test_data_dept_id
+  end
+
+  it "测试可考勤者[经理]" do 
+    # {"SU_USER_ID":"4028809b3c6fbaa7013c6fbc3da51b47","SU_NICKNAME_CODE":"shuijing.ssq","SU_NICKNAME_DISPLAY":"水镜","SU_PHONE_NUM":"18908208532","SU_USERNAME":"余跃","SU_USER_NO":"010023110","SU_DEPT_ID":"4028809b3c6fbaa7013c6fbc39900382","SD_DEPT_NAME":"海棠2","DEPT_ANCESTORS":[["4028809b3c60dcc8013c60e107810001","伊诚地产"],["4028809b3c6fbaa7013c6fbc39510002","成都伊诚"],["4028809b3c6fbaa7013c6fbc39900359","【东南区】"],["4028809b3c6fbaa7013c6fbc39900380","三圣区"]],"POSTS":[["402880fb3d66f0c5013d66f6a1c20006","店经理"]]}                         
+    tr = @orgstru.temp_registrars(@test_data_user_id)
+    tr.should_not be_empty
+    tr.should include "4028809b3c6fbaa7013c6fbc3da51b47"
   end
 
   it "角色测试" do 
@@ -120,10 +134,4 @@ describe OrgStru do
      @orgstru.approval?(@test_data_user_id_approval).should be_true
   end
  
-  # it "pretty_tree显示所有部门树" do
-  #   tree_str  = @orgstru.dept_tree.pretty_tree
-  #   tree_str.should_not be_empty
-  #   print tree_str
-  # end
-
 end

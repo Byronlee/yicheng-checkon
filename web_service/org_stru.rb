@@ -119,9 +119,7 @@ class OrgStru
   def attend_tree(user_id)
     scope_dept_id = registrar_attend_scope user_id
     return nil if scope_dept_id.nil?
-    tree = produce_tree_to_map (dept_tree scope_dept_id)
-    tree[:staffs] = dept_users(scope_dept_id)
-    tree 
+    produce_tree_to_map (dept_tree scope_dept_id)
   end
 
   def post_map
@@ -143,7 +141,6 @@ class OrgStru
 
   def have_roles?(role,user_id)
     return approval? user_id if role==:approval 
-
     posts = role_posts(role)
     return false if posts.nil?
     not (user_posts(user_id) & posts).empty?
@@ -161,6 +158,7 @@ class OrgStru
   
   def temp_registrars(user_id)
     return [] unless have_roles? :registrarsman,user_id
+    
     scope_id = registrar_attend_scope user_id
     return [] if scope_id.nil?
     users_with_role(:tempregistrar,scope_id)
@@ -169,8 +167,8 @@ class OrgStru
   def registrar_attend_scope(registrar_id)
     return nil unless have_roles?(:registrar,registrar_id)
 
-    registrar = user_attr registrar_id
-    registrar_ancestors = dept_ancestors(registrar["SU_DEPT_ID"])
+    registrar_dept_id = user_attr(registrar_id)["SU_DEPT_ID"]
+    registrar_ancestors = dept_ancestors(registrar_dept_id)
 
     up_scope = registrar_ancestors & @attend_scope
     return nil if up_scope.empty?
@@ -179,7 +177,7 @@ class OrgStru
     # registrar department_id is no including ancestors
     # So if scope_id out of ancestors,return registrar's department id 
     if scope_id == registrar_ancestors.length 
-      return registrar["SU_DEPT_ID"]
+      return registrar_dept_id
     else 
       return registrar_ancestors[scope_id]
     end
