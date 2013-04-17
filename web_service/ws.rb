@@ -103,7 +103,7 @@ get '/registrars/:dept_id' do
   JSON.dump $ACCESSOR.users_with_role :registrar,dept_id
 end
 
-get /tempregistrars/:user_id do
+get '/tempregistrars/:user_id' do
   user_id  = params[:user_id]
   redirect "/input_error" unless check_id user_id 
   JSON.dump $ACCESSOR.temp_registrars user_id

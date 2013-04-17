@@ -161,7 +161,7 @@ class OrgStru
   
   def temp_registrars(user_id)
     return [] unless have_roles? :registrarsman,user_id
-    scope_id = registrar_attend_scope
+    scope_id = registrar_attend_scope user_id
     return [] if scope_id.nil?
     users_with_role(:tempregistrar,scope_id)
   end
