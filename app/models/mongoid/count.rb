@@ -6,7 +6,7 @@ module Mongoid
     included do
     end
 
-    module InstanceMethods
+    module  ClassMethods 
       def map
         map = %Q{
         function() {
@@ -24,9 +24,6 @@ module Mongoid
         }
         }
       end
-    end
-
-    module  ClassMethods 
     end
   end
 end
