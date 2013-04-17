@@ -64,6 +64,7 @@ describe OrgStru do
   end
 
   it "根据文员ID返回考勤树组织结构树" do
+    @orgstru.have_roles?(:registrar,@test_data_user_id).should be_true
     tree_map = @orgstru.attend_tree @test_data_user_id
     tree_map[:children].should_not be_empty
     tree_map[:id].should eq @test_data_dept_id
@@ -101,9 +102,11 @@ describe OrgStru do
   end
 
   it "测试返回所有的考勤者" do 
-    registrars = @orgstru.registrars
+    registrars = @orgstru.all_users_with_role(:registrar)
     registrars.should include @test_data_user_id
     registrars.length.should > 2
+    registrars = @orgstru.users_with_role(:registrar,@test_data_dept_id)
+    registrars.should include @test_data_user_id
   end
 
   it "测试店文员考勤范围" do 
@@ -111,8 +114,8 @@ describe OrgStru do
   end
 
   it "角色测试" do 
-     @orgstru.registrar?(@test_data_user_id).should be_true
-     @orgstru.registrar?(@test_data_user_id_approval).should_not be_true
+     @orgstru.have_roles?(:registrar,@test_data_user_id).should be_true
+     @orgstru.have_roles?(:registrar,@test_data_user_id_approval).should_not be_true
      @orgstru.approval?(@test_data_user_id).should_not be_true
      @orgstru.approval?(@test_data_user_id_approval).should be_true
   end

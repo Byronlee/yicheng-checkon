@@ -94,13 +94,20 @@ get '/user/posts/:user_id' do
 end
 
 get '/registrars/?' do
-  JSON.dump $ACCESSOR.registrars
+  JSON.dump $ACCESSOR.all_users_with_role :registrar
 end
 
 get '/registrars/:dept_id' do
   dept_id  = params[:dep_id]
   redirect "/input_error" unless check_id dept_id 
-  JSON.dump $ACCESSOR.registrars dept_id
+  JSON.dump $ACCESSOR.users_with_role :registrar,dept_id
+end
+
+get /tempregistrars/:user_id do
+  user_id  = params[:user_id]
+  redirect "/input_error" unless check_id user_id 
+  JSON.dump $ACCESSOR.temp_registrars user_id
+  
 end
 
 

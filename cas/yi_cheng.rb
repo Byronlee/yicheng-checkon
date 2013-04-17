@@ -12,10 +12,10 @@ class CASServer::Authenticators::YiCheng < CASServer::Authenticators::Base
     raise CASServer::AuthenticatorError, "Username is not exist!" if user.nil? or user.empty?
 
     user_id = user["SU_USER_ID"]
-    roles = []
-    roles << "Registrar" if orgstru.registrar? user_id
-    roles << "Approval" if orgstru.approval? user_id
-    user["roles"] = roles 
+    
+    roles = ["Registrar","Rightsman","Approval"]
+
+    user["roles"] = roles.select {|r| orgstru.have_roles?(r.downcase.to_sym,user_id) }
 
     @extra_attributes[:attrs] = user 
     

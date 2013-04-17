@@ -9,13 +9,11 @@ class OrgStru
     @qd = QueryData.new
     @config = LoadConfigFile() 
 
-    @user_attr_key = ["SU_USER_ID","SU_NICKNAME_CODE","SU_NICKNAME_DISPLAY","SU_PHONE_NUM","SU_USERNAME","SU_USER_NO","SU_DEPT_ID"]
-    @dept_attr_key = ["SD_DEPT_CODE","SD_DEPT_NAME"]
+    @user_attr_key = @config["table"]["user"] 
+    @dept_attr_key = @config["table"]["dept"] 
 
-    @registrar_role_posts = @config["attend"]["role_posts"]
     @attend_scope = @config["attend"]["scope"]
 
-    @registrar_post_id  = "402880fb3d66f0c5013d66f6a1c2003d"
     @approval_depa_id = "4028809b3c6fbaa7013c6fbc39900352"
   end
 
@@ -139,17 +137,37 @@ class OrgStru
     post_list.map { |post_id| @post_map[post_id] }
   end
 
-  def registrars(dept_id=nil)
-    @qd.query_field_to_array("SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID = '#{@registrar_post_id}'") if dept_id.nil?
-    dept_users_with_subdept(dept_id).select{|user| registrar? user }
+  def role_posts(role)
+    @config["attend"]["role_#{role.to_s}_posts"]
+  end 
+
+  def have_roles?(role,user_id)
+    return approval? user_id if role==:approval 
+
+    posts = role_posts(role)
+    return false if posts.nil?
+    not (user_posts(user_id) & posts).empty?
   end
 
-  def registrar?(user_id)
-    not (user_posts(user_id) & @registrar_role_posts).empty?
+  def users_with_role(role,dept_id)
+    dept_users_with_subdept(dept_id).select{|user| have_roles?(role, user) }
+  end
+
+  def all_users_with_role(role)
+    posts = role_posts(role).join("','")
+    return [] if posts.empty?
+    @qd.query_field_to_array("SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID in ('#{posts}')") 
+  end
+  
+  def temp_registrars(user_id)
+    return [] unless have_roles? :registrarsman,user_id
+    scope_id = registrar_attend_scope
+    return [] if scope_id.nil?
+    users_with_role(:tempregistrar,scope_id)
   end
 
   def registrar_attend_scope(registrar_id)
-    return nil unless registrar? registrar_id
+    return nil unless have_roles?(:registrar,registrar_id)
 
     registrar = user_attr registrar_id
     registrar_ancestors = dept_ancestors(registrar["SU_DEPT_ID"])
