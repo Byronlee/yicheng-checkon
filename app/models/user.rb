@@ -34,6 +34,10 @@ class User
     roles.include? "Approval"
   end
 
+  def rightsman?
+    roles.include? "Approval"
+  end
+
   def depts_node
    attend_depts["children"].map{|v| [v["name"] , v["id"]]}
   end

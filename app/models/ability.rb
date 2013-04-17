@@ -8,10 +8,10 @@ class Ability
       can :manage , Count
       can :manage , StaffRecord
       can :registrar ,Task
+      can [:create,:destroy], Modify
     end
     
-    if user.registrar?
-      can [:create,:destroy], Modify
+    if user.rightsman?
       
     end
 
