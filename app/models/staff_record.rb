@@ -9,6 +9,10 @@ class StaffRecord
       between(created_date: [first,last])
     end
 
+    def by_day time
+      between(created_date: [time.end_of_day,time.beginning_of_day])
+    end
+
     def fast_register arg
       Department.new(arg[:dept_id]).users.map do | user |
         record = get_record user.staffid,arg[:time]
