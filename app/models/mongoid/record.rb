@@ -8,14 +8,15 @@ module Mongoid
       include Mongoid::Timestamps::Updated::Short
       include Mongoid::StateMachine
 
-      field :staffid, type: String 
       field :staff_name , type: String 
       field :user_no, type: String 
       field :nick_name, type: String 
-      field :record_person , type: String 
+      field :record_zone_name , type: String 
       field :record_person_name , type: String
       field :record_zone , type: String 
-      field :record_zone_name , type: String 
+
+      field :staffid, type: String 
+      field :record_person , type: String 
       field :attend_date , type: String
       field :created_date, type: String,default: Date.today.to_s
 

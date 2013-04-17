@@ -11,8 +11,11 @@ module StaffRecordsHelper
 
   def behaves_select object, options={},html_options={}
     @checkin  = object
-    behaves = Behave.all.collect{|b|[b.name,b.id]}
     select("checkin","behave_id",behaves,options,html_options)
+  end
+
+  def behaves
+    Behave.all.collect{|b|[b.name,b.id]}
   end
 
 

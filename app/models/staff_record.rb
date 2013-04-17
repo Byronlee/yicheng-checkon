@@ -3,7 +3,7 @@ class StaffRecord
   include Mongoid::Record
 
   has_many :modifies
-
+  
   class << self
     def by_period first,last  
       between(created_date: [first,last])

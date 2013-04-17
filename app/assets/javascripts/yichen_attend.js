@@ -45,18 +45,6 @@ jQuery(function(){
     }
 
 
-    function query_records(){
-     $.post("operate" ,{start_time: $('input[name=start_time]').val() , 
-		      end_time  : $('input[name=end_time]').val() ,
-		      dept_id   : $('#condition_dept').val(),
-		      cell_id   : $('#condition_cell').val(), 
-	              region    : $('#condition_region').val(),
-                      type      : "direct"
-		     },
-             function(html){
-		 $(".show_query_result").html(html);
-	     });
-    }
 
     function query_attach(o){
      if(o.attr("order")=="false"&&o.val()=="") return false
