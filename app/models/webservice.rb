@@ -2,7 +2,7 @@
 class Webservice
 
  @sess = Patron::Session.new
- @sess.base_url = "http://proj.cdu.edu.cn:4567/"
+ @sess.base_url = Settings.ws_url
 
  def self.get_data str
     response = @sess.get str
