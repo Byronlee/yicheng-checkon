@@ -1,26 +1,11 @@
 class Count
   include Mongoid::Document
+  include Mongoid::Count
+
   field :staffid , type: String
   field :result , type: Hash
 
   class << self
-    def map
-      map = %Q{
-        function() {
-          for (var checkin in this.checkins){
-            emit(this.staffid,this.checkins[checkin].behave_id);
-          }
-        }
-      }
-    end
-  
-    def reduce
-      reduce = %Q{
-        function(key, values) {
-          return {ids:values};
-        }
-      }
-    end
   
     def addup(query_map)
       return [] unless StaffRecord.exists?

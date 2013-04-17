@@ -4,7 +4,7 @@ class StaffRecord
 
   has_many :modifies
 
-  index({ staffid: 1 }
+  index({ staffid: 1 })
 
   class << self
     def by_period first,last  

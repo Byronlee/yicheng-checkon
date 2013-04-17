@@ -23,7 +23,7 @@ Attendance::Application.routes.draw do
     collection do 
       get  :fast_register
       get  :operate
-      post :operate
+      post :search
       post :query_attach
     end
   end
