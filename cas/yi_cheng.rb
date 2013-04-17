@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 $YICHENG_WS_PATH="/data/projects/yicheng-checkon"
-require "#{$YICHENG_WS_PATH}/web_service/access_oracle"
+require "#{$YICHENG_WS_PATH}/web_service/org_stru"
 
 
 class CASServer::Authenticators::YiCheng < CASServer::Authenticators::Base

@@ -139,8 +139,9 @@ class OrgStru
     post_list.map { |post_id| @post_map[post_id] }
   end
 
-  def registrars
-    @qd.query_field_to_array("SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID = '#{@registrar_post_id}'")
+  def registrars(dept_id=nil)
+    @qd.query_field_to_array("SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID = '#{@registrar_post_id}'") if dept_id.nil?
+    dept_users_with_subdept(dept_id).select{|user| registrar? user }
   end
 
   def registrar?(user_id)

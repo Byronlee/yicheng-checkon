@@ -6,7 +6,7 @@ require "#{File.dirname(__FILE__)}/org_stru"
 
 $ACCESSOR = OrgStru.new
 
-def check_id :id
+def check_id id
   id =~ /^[0-9a-f]+$/
 end
 
@@ -96,4 +96,11 @@ end
 get '/registrars/?' do
   JSON.dump $ACCESSOR.registrars
 end
+
+get '/registrars/:dept_id' do
+  dept_id  = params[:dep_id]
+  redirect "/input_error" unless check_id dept_id 
+  JSON.dump $ACCESSOR.registrars dept_id
+end
+
 
