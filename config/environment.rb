@@ -20,5 +20,3 @@ CASClient::Frameworks::Rails::Filter.configure(
 )
 
 Attendance::Application.initialize!
-
-
