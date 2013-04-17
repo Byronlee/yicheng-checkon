@@ -1,13 +1,25 @@
-form( class="query_data_form")
+form.query_data_form action=search_staff_records_path method='post'
   .query_data
     .time_range_select
       .input-prepend
         span.add-on 
           i.icon-calendar
         input#prependedInput type="text"  name="range_time"  placeholder="--截时间至上次考勤--"
-        input type="hidden" name="start_time" value=""
-        input type="hidden" name="end_time"   value=""
-        input type="hidden" name="dept_id"    value=""
-    = raw(unit_depts_selects)
-    button.btn.btn-small.btn-primary type="button" onclick="query_records()"  查询
+        input type="hidden" name="search[start_time]" value=""
+        input type="hidden" name="search[end_time]"   value=""
+    = raw(unit_depts_selects 'search')
+    = select('search','behave_id',behaves)
+    .query_attach_condition
+        ul.nav.nav-pills
+          li 
+            .input-append
+              input#appendedPrependedInput.condition.staffid type="text" placeholder="工号" name='search[user_no]'
+          li
+            .input-append
+              input#appendedPrependedInput.condition.username type="text" placeholder="姓名" name='search[username]'
+          li
+            .input-append
+              input#appendedPrependedInput.condition.nickname type="text" placeholder="昵称" name='search[nick_name]'
+
+    button.btn.btn-small.btn-primary type="submit" 查询
 

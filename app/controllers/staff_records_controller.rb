@@ -19,6 +19,9 @@ class StaffRecordsController < ApplicationController
      # todo 如果是人事部直接修改，没有添加修改日志，当人事部修改选择没有变时，也能提交修改！没有判断
    end
 
+   def search
+         
+   end
 
    def operate
      @records = StaffRecordDecorator.new( StaffRecord.query(params,current_user).paginate(:page => params[:page])  )

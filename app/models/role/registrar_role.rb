@@ -10,7 +10,7 @@ module RegistrarRole
 
   def trainee_tasks
     tasks = Trainee.belong(self).map do |trainee|
-       trainee.trainee_records.trainees
+      trainee.trainee_records.trainees
     end
     # [].first = nil
     tasks.blank? ? [] : tasks.first.decorate
