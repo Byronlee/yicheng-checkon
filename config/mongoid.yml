@@ -34,7 +34,7 @@ development:
     allow_dynamic_fields: true
 
     # Enable the identity map, needed for eager loading. (default: false)
-     identity_map_enabled: true
+    identity_map_enabled: false
 
     # Includes the root model name in json serialization. (default: false)
     # include_root_in_json: false
@@ -89,6 +89,5 @@ production:
         - localhost:27017
       options:
         consistency: :strong
-	identity_map_enabled: true		
         max_retries: 1
         retry_interval: 0
