@@ -4,6 +4,9 @@ class StaffRecord
 
   has_many :modifies
 
+  index({ staffid: 1 }, { database: "staff_records", unique: true, background: true })
+
+
   class << self
     def by_period first,last  
       between(created_date: [first,last])
