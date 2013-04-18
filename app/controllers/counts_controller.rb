@@ -9,6 +9,10 @@ class CountsController < ApplicationController
   def update
   end
 
+  def count
+    types = BehaveType.find(params[:id]).behaves.map(&:_id)
+    @stats = StaffRecord.state('submitted').by_day(Date.today).in("checkins.behave_id" => type)
+  end
 
   def amount
     if session[:query_map] 

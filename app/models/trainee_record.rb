@@ -26,4 +26,9 @@ class TraineeRecord
     cloned_attrs.update("staffid" => n_id).delete_if{|k,v|k=="_id" || k=="is_deleted"}
     cloned_attrs
   end
+ 
+  def user
+    dept = Department.new(trainee.dept_id)
+    {name: trainee.username,dept_name: dept.name,user_id: trainee.id}
+  end
 end
