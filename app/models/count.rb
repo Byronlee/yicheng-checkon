@@ -1,7 +1,7 @@
 class Count
   include Mongoid::Document
   include Mongoid::Count
-  
+
   class << self
     def create 
       types = BehaveType.find("517029571229bc9afb000005").behaves.map(&:_id)
