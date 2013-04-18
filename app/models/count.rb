@@ -7,10 +7,8 @@ class Count
 
   class << self
   
-    def addup(query_map)
+    def addup records
       return [] unless StaffRecord.exists?
-      delete_all
-      records = eval(query_map)
       counts = records.map_reduce(map,reduce).out(replace: "mr_results").map do | document |
         result = document["value"]["ids"].inject(Hash.new(0)) do |h,v|
           h[v.to_s] += 1

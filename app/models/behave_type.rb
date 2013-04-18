@@ -24,6 +24,9 @@ class BehaveType
     end
   end
 
+  def behave_ids
+    behaves.map(&:_id)
+  end
 
 
 # validates_presence_of :name
