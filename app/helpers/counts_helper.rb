@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 module CountsHelper
 
-  def count_table_titles type
-    ["所在位置","工号","姓名"] + type.all.map {|bh| bh.name}
+  def count_table_titles 
+    ["所在位置","工号","姓名","日期","上午","下午"]
   end
 
   def format v

@@ -1,33 +1,31 @@
-.title
-  .content
-    strong 数据统计分析
-.time_range_select
-  .input-prepend
-    span.add-on 
-      i.icon-calendar
-    input#prependedInput type="text"  name="range_time"  placeholder="--time--"
-      input type="hidden" name="search[start_time]" value=""
-      input type="hidden" name="search[end_time]"   value=""
-  button type="button" 确定
+form(action="/counts" method="post")
+  .input-append
+    input#appendedPrependedInput type="text" name="range_time"  placeholder="--请选择时间段--"
+    button class="btn" type="button" onclick="submit_count($(this))" 统计
+  input type="hidden" name="count[start_time]" value=""
+  input type="hidden" name="count[end_time]"   value=""
 
-.btn-group data-toggle="buttons-radio"
+.btn-group.kinds_count data-toggle="buttons-radio"
   = select('counts','behave_type_id',behave_types,{:prompt =>'--选择统计项--'},{:class => "btn btn-primary span4"})
   button.btn.btn-primary 长假
   button.btn.btn-primary 总表
   button.btn.btn-primary 审核
   button.btn.btn-primary 下载
+hr
+.count_resut
 
-- unless @stats.empty?
+- unless @stats.blank?
   table.table.table-condensed.table-bordered
     tr
-      - count_table_titles(defined?(type) ? type : Behave).each do | title|
+      - count_table_titles.each do | title|
         th = title     
     - @stats.map do |stat|
       tr 
         td = ancestors stat[:staffid]
         td = stat[:user_no]
-        td = stat[:username]
-        - stat[:behaves].map do |_ ,v|
-          td = format v
+        td = stat[:staff_name]
+        td = stat[:created_date]
+        - stat.checkins.each do |checkin|
+          td = checkin.behave.name   
 - else
   = render "common/no_content" ,:message =>  t(".no_content.no_count_tip")

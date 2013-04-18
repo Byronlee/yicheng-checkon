@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 class CountsController < ApplicationController
 
-	
   def index
-     if session[:query_map] 
-       @stats = Count.addup(session[:query_map]).sort_by{|x|x[:user_no]}
-     else
-       redirect_to root_url
-     end
+    types = BehaveType.find("515d55871229bc1410000005").behaves.map(&:_id)
+    @stats = StaffRecord.state('submitted').by_period("2013-04-01","2013-04-19").in("checkins.behave_id"=> types).asc(:attend_date)
+  end
+
+  def update
   end
 
 

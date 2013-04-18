@@ -29,6 +29,7 @@ Attendance::Application.routes.draw do
   end
 
   resources :notices
+  resources :counts
 
   match 'logout'     => 'application#logout'
   match 'registrar'  => 'tasks#registrar' ,:as => :registrar

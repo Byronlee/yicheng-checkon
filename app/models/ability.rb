@@ -8,6 +8,7 @@ class Ability
       can :manage , Count
       can :manage , StaffRecord
       can :registrar ,Task
+      can :manage , Count
       can [:create,:destroy], Modify
     end
     

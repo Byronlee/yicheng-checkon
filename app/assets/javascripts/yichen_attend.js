@@ -67,3 +67,11 @@ jQuery(function(){
       o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
       o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
   }
+
+  function submit_count(o){
+      start_time = o.parents('form').find("input[name=count[start_time]]").val();
+      end_time = o.parents('form').find("input[name=count[end_time]]").val();
+      $.post("/count",{start_time: start_time,end_time:end_time},function(html){
+      
+      })
+  }
