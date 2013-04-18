@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-["上班","请假","缺席","迟到","调休","离职"].each do |type|
+["请假","旷工","迟到","调休","离职","上班"].each do |type|
   BehaveType.create(name: type)
 end
 
