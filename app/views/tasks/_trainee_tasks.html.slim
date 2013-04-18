@@ -7,7 +7,7 @@
         td
           = task.user[:name]
         td
-          = FormatDate task.date
+          = FormatDate task.created_date
         td
          form action="/staff_records/update" method="post" id="u_form"
            input name="time" type="hidden" value=task[:created_date]
