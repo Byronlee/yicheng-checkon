@@ -2,7 +2,7 @@
 module CountsHelper
 
   def count_table_titles 
-    ["所在位置","工号","姓名","日期","上午","下午"]
+    ["所在位置","工号","姓名","请假类型","天数","详情"]
   end
 
   def format v

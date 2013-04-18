@@ -1,0 +1,15 @@
+- unless @stats.blank?
+  table.table.table-condensed.table-bordered
+    tr
+      - count_table_titles.each do | title|
+        th = title     
+    - @stats.map do |stat|
+      tr 
+        td = ancestors stat[:staffid]
+        td = stat[:user_no]
+        td = stat[:staff_name]
+        td = stat[:created_date]
+        - stat.checkins.each do |checkin|
+          td = checkin.behave.name   
+- else
+  = render "common/no_content" ,:message =>  t(".no_content.no_count_tip")

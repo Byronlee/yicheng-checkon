@@ -6,11 +6,20 @@ form(action="/counts" method="post")
   input type="hidden" name="count[end_time]"   value=""
 
 .btn-group.kinds_count data-toggle="buttons-radio"
-  = select('counts','behave_type_id',behave_types,{:prompt =>'--选择统计项--'},{:class => "btn btn-primary span4"})
-  button.btn.btn-primary 长假
-  button.btn.btn-primary 总表
-  button.btn.btn-primary 审核
-  button.btn.btn-primary 下载
+  button.btn.btn-primary.btn-mini.active 总表
+  button.btn.btn-primary.btn-mini 事假
+  button.btn.btn-primary.btn-mini 病假
+  button.btn.btn-primary.btn-mini 产假
+  button.btn.btn-primary.btn-mini 丧假
+  button.btn.btn-primary.btn-mini 婚假
+  button.btn.btn-primary.btn-mini 旷工
+  button.btn.btn-primary.btn-mini 审核
+  button.btn.btn-primary.btn-mini 下载
+
+
+
+
+
 hr
 .count_resut
 
@@ -21,11 +30,11 @@ hr
         th = title     
     - @stats.map do |stat|
       tr 
-        td = ancestors stat[:staffid]
-        td = stat[:user_no]
-        td = stat[:staff_name]
-        td = stat[:created_date]
-        - stat.checkins.each do |checkin|
-          td = checkin.behave.name   
+        td = stat.user.ancestors
+        td = stat.user.user_no
+        td = stat.user.username
+        td = stat.behave_name
+        td = stat["value"]["count"]
+        td = render "infor" ,:records => stat.records
 - else
   = render "common/no_content" ,:message =>  t(".no_content.no_count_tip")

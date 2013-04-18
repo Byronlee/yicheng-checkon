@@ -11,7 +11,7 @@ module Mongoid
         map = %Q{
         function() {
           for (var checkin in this.checkins){
-            emit(this.staffid,this.checkins[checkin].behave_id);
+            emit({"behave_id": this.checkins[checkin].behave_id,"user_id": this.staffid}, this._id);
           }
         }
         }
@@ -20,7 +20,7 @@ module Mongoid
       def reduce
         reduce = %Q{
         function(key, values) {
-          return {ids:values};
+          return {count: values.length , record_ids: values};
         }
         }
       end

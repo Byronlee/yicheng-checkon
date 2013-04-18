@@ -1,53 +1,26 @@
 class Count
   include Mongoid::Document
   include Mongoid::Count
-
-  field :staffid , type: String
-  field :result , type: Hash
-
-  class << self
   
-    def addup(query_map)
-      return [] unless StaffRecord.exists?
-      delete_all
-      records = eval(query_map)
-      counts = records.map_reduce(map,reduce).out(replace: "mr_results").map do | document |
-        result = document["value"]["ids"].inject(Hash.new(0)) do |h,v|
-          h[v.to_s] += 1
-          h
-        end    
-        create(staffid: document["_id"],result: result) 
-      end
-      counts_result(counts,init_arra(Behave))
+  class << self
+    def create 
+      types = BehaveType.find("517029571229bc9afb000005").behaves.map(&:_id)
+      records = StaffRecord.state('submitted').by_period("2013-04-01","2013-04-19").in("checkins.behave_id"=> types)
+      records.map_reduce(map,reduce).out(replace: "counts")
     end
+  end
 
-    def counts_result counts,bh_array
-      counts.map do |count|
-        user = User.resource(count["staffid"])
-         behaves = bh_array.clone
-         count["result"].map do | behave_id , num |
-           behaves["#{Behave.find(behave_id).name}"] = num
-         end
-         {user_no: user.user_no ,staffid: user.staffid,  username: user.username , behaves: behaves }
-       end
-     end
+  def behave_name
+    Behave.find(id["behave_id"]).name
+  end
 
+  def user
+    User.resource(id["user_id"])
+  end
 
-      def amount
-        tp_array = init_arra  BehaveType
-        tp_rs = Count.all.map {|tp| {staffid: tp.staffid , tps: tp.result.map{|k,v| {Behave.find(k).behave_type.name.to_sym => v} }}}
-        tp_rs.map  do  |tp| 
-         user = User.resource(tp[:staffid])
-         array = tp_array.clone
-         tp[:tps].each {|k|    k.map{|x, c| array[x.to_s] += c   }   }
-         {user_no: user.user_no , staffid: tp[:staffid], username: user.username , behaves:  array }
-       end
-     end
-
-    def init_arra model_name
-        model_name.all.inject({}) do |hash ,value|
-        hash.merge({value.name => 0})
-      end
-    end
+  def records
+    value["record_ids"].uniq.map do |record_id|
+      StaffRecord.find(record_id)
+    end.flatten
   end
 end

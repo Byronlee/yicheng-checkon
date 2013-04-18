@@ -73,5 +73,5 @@ jQuery(function(){
       end_time = o.parents('form').find("input[name=count[end_time]]").val();
       $.post("/count",{start_time: start_time,end_time:end_time},function(html){
       
-      })
+      });
   }
