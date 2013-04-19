@@ -1,12 +1,14 @@
+# -*- coding: utf-8 -*-
 class Count
   include Mongoid::Document
   include Mongoid::Count
 
   class << self
-    def create 
-      types = BehaveType.find("517029571229bc9afb000005").behaves.map(&:_id)
-      records = StaffRecord.state('submitted').by_period("2013-04-01","2013-04-19").in("checkins.behave_id"=> types)
-      records.map_reduce(map,reduce).out(replace: "counts")
+    def create params      
+      behave_ids =  BehaveType.find("517029571229bc9afb000005").behaves.map(&:_id)                  
+      @total_records  = StaffRecord.state('submitted').by_period(params[:start_time],params[:end_time])                 
+      @count_records = @total_records.in("checkins.behave_id" => behave_ids)
+      hh=  @count_records.map_reduce(map,reduce).out(replace: "counts")
     end
   end
 

@@ -5,9 +5,16 @@ class CountsController < ApplicationController
     @stats = Count.all
   end
 
+  def create 
+    Count.create params
+    redirect_to counts_path
+  end
+  
+  
   def update
-    types = BehaveType.find(params[:id]).behaves.map(&:_id)
-    @stats = StaffRecord.state('submitted').by_day(Date.today).in("checkins.behave_id" => type)
+    @stats = Count.where("id.behave_id" => "517029571229bc9afb000006") 
+    return render "common/_no_content" ,:locals =>{:message => "目前没有数据可以统计" } ,:layout => false if  @stats.blank?
+    render "_count_result" ,:locals =>{:stats => @stats} ,:layout => false
   end
 
 end

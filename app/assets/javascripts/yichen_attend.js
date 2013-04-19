@@ -24,7 +24,14 @@ jQuery(function(){
 	    $('input[name=end_time]').val(end.getFullYear()+"-"+farmat((end.getMonth()+1))+"-"+farmat(end.getDate()));
             $('input[name=start_time]').val(start.getFullYear()+"-"+farmat((start.getMonth()+1))+"-"+farmat(start.getDate()));
 	}
-    );   
+    );
+    
+    $(".count_head .btn-mini").live("click", function(){
+	$.post('counts/update', {behave_id : [$(this).attr("id")]} ,function(html){
+	    $(".count_result").html(html)
+	})
+    })
+    
 
 });
 
@@ -68,10 +75,3 @@ jQuery(function(){
       o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
   }
 
-  function submit_count(o){
-      start_time = o.parents('form').find("input[name=count[start_time]]").val();
-      end_time = o.parents('form').find("input[name=count[end_time]]").val();
-      $.post("/count",{start_time: start_time,end_time:end_time},function(html){
-      
-      });
-  }
