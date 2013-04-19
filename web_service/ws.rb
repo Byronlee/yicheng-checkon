@@ -116,7 +116,7 @@ post '/perssion/authorize/?' do
 # expect : true or false
   begin 
     JSON.parse(params[:users]).each do |user|
-      next unless  ("user_id","begin","end").reduce(true){|r,key| r and (user.has_key? key)}
+      next unless ["user_id","begin","end"].reduce(true){|r,key| r and (user.has_key? key)}
       next unless check_id user["user_id"] 
       $ACCESSOR.temp_registrar_rights_peroid(user["user_id"],
                                              :begin => Date.parse(user["begin"]),
