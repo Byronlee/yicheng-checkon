@@ -103,11 +103,29 @@ get '/registrars/:dept_id' do
   JSON.dump $ACCESSOR.users_with_role :registrar,dept_id
 end
 
-get '/tempregistrars/:user_id' do
+get '/perssion/users/:user_id' do
   user_id  = params[:user_id]
   redirect "/input_error" unless check_id user_id 
   JSON.dump $ACCESSOR.temp_registrars user_id
-  
 end
 
+
+post '/perssion/authorize/?' do
+# method: post
+# params:  {curent_user_id: id, users: [{user_id: xxxx, begin: xxx, end: xxxx}...]
+# expect : true or false
+  begin 
+    JSON.parse(params[:users]).each do |user|
+      next unless  ("user_id","begin","end").reduce(true){|r,key| r and (user.has_key? key)}
+      next unless check_id user["user_id"] 
+      $ACCESSOR.temp_registrar_rights_peroid(user["user_id"],
+                                             :begin => Date.parse(user["begin"]),
+                                             :end => Date.parse(user["user_id"]))
+    end
+    JSON.dump true
+
+  rescue
+    JSON.dump false
+  end
+end
 

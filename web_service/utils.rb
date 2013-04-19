@@ -1,5 +1,6 @@
 require 'yaml'
 require 'tree'
+require 'date'
 
 def GetLogLevel (level_str)
   log_level_table = {
@@ -29,6 +30,10 @@ def LoadConfigFile
     end
   end
   raise "Can't found the config file #{file_name} in the following directory:\n"+dir_list.join("\n")
+end
+
+def Date2UTC (date)
+  Time.utc(date.year, date.month, date.day)
 end
 
 module Tree

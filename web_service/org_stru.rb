@@ -2,7 +2,7 @@ require "#{File.dirname(__FILE__)}/utils"
 require "#{File.dirname(__FILE__)}/access_oracle"
 require "#{File.dirname(__FILE__)}/access_mongo"
 
-require "Date"
+require "date"
 
 class OrgStru
 
@@ -13,6 +13,9 @@ class OrgStru
     @mcache = MongoCache.new
 
     @config = LoadConfigFile() 
+
+    @log = Logger.new(@config.fetch('logger_file',"#{File.dirname(__FILE__)}/../ws.log"))
+    @log.level = GetLogLevel(@config.fetch('logger_level','warn'))
 
     @user_attr_key = @config["table"]["user"] 
     @dept_attr_key = @config["table"]["dept"] 
@@ -87,7 +90,6 @@ class OrgStru
       tree_table << {:id=>row[0],:pid=>row[1],:data=>row}
     end
     @org_tree = Tree::TreeNode.produce_tree(tree_table)    
-    # @qd.LOG(@org_tree.to_json)
   end 
 
   def produce_tree_to_map(tree_node)
@@ -100,7 +102,6 @@ class OrgStru
     if tree_node.has_children? then
       result[:children] = tree_node.children.map {|e| produce_tree_to_map e}
     end
-    # @qd.LOG(result.to_s)
     return result
   end
 
@@ -197,25 +198,25 @@ class OrgStru
   end
 
   def temp_registrar_rights_peroid(user_id,peroid=nil)
-    temp_reg = tempreg_peroid user_id
+    saved_tempreg = tempreg_peroid user_id
     if peroid.nil? 
-      return nil if temp_reg.nil?
-
-      begin
-        {
-          :begin => Date.parse(temp_reg["begin"]),
-          :end => Date.parse(temp_reg["end"]) 
-        }
-      rescue
-        return nil
-      end
+      return nil if saved_tempreg.nil?
+      {
+        :begin => saved_tempreg["begin"].to_date,
+        :end => saved_tempreg["end"].to_date 
+      }
     else
       if peroid.has_key? :begin and peroid.has_key? :end
-        doc = peroid.merge({:user_id => user_id})
-        if temp_reg.nil? 
+        doc = {
+          :user_id => user_id,
+          :begin => Date2UTC(peroid[:begin]),
+          :end => Date2UTC(peroid[:end])
+        } 
+
+        if saved_tempreg.nil? 
           tempreg_mongo_collection.insert(doc)
         else
-          tempreg_mongo_collection.update({"_id" => temp_reg["_id"]},doc)
+          tempreg_mongo_collection.update({"_id" => saved_tempreg["_id"]},doc)
         end
       ##else ??
       end

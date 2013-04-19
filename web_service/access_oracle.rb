@@ -22,10 +22,9 @@ class QueryData
     ObjectSpace.define_finalizer(self, proc{method(:logout).call} )
 
     @config = LoadConfigFile() 
-    
-    default_logfile = @config.fetch('logger_file',"#{File.dirname(__FILE__)}/../ws.log")
-    @log = Logger.new(default_logfile)
-    @log.level = GetLogLevel(@config['logger_level'])
+
+    @log = Logger.new(@config.fetch('logger_file',"#{File.dirname(__FILE__)}/../ws.log"))
+    @log.level = GetLogLevel(@config.fetch('logger_level','warn'))
 
     @connect_name = @config['default_connect'] unless @config['default_connect'].nil?
 
@@ -36,10 +35,6 @@ class QueryData
     @connect_name
   end
                                    
-  def LOG(s)
-    @log.info(s)
-  end 
-
   def connected?
     not @connect.nil?
   end 

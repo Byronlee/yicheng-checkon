@@ -128,15 +128,18 @@ describe OrgStru do
     tr.map{|tr|tr[:user_id]}.should include "4028809b3c6fbaa7013c6fbc3da51b47" 
 
     find_a_manager = tr.select {|tr| not tr[:state] }.first
-    unless find_a_manager
-      @orgstru.temp_registrar_rights_peroid(find_a_manager,:begin => Date.today,:end => Date.today+1)
-      read_back = @orgstru.temp_registrar_rights_peroid(find_a_manager)
+    find_a_manager.should_not be_nil
+
+    if find_a_manager
+      @orgstru.temp_registrar_rights_peroid(find_a_manager[:user_id],:begin => Date.today,:end => Date.today+1)
+      read_back = @orgstru.temp_registrar_rights_peroid(find_a_manager[:user_id])
       read_back[:begin].should eq Date.today
       read_back[:end].should eq Date.today + 1
 
       tr = @orgstru.temp_registrars(@test_data_user_id)
       
-      tr.select {|tr|  tr[:state] }.should include find_a_manager
+      tr.select {|tr|  tr[:state] }.map{|u| u[:user_id]}.should include find_a_manager[:user_id]
+      
       @orgstru.tempreg_peroid_remove(find_a_manager)
     end
     
