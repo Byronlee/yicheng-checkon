@@ -1,5 +1,8 @@
 require "#{File.dirname(__FILE__)}/utils"
 require "#{File.dirname(__FILE__)}/access_oracle"
+require "#{File.dirname(__FILE__)}/access_mongo"
+
+require "Date"
 
 class OrgStru
 
@@ -7,6 +10,8 @@ class OrgStru
 
   def initialize
     @qd = QueryData.new
+    @mcache = MongoCache.new
+
     @config = LoadConfigFile() 
 
     @user_attr_key = @config["table"]["user"] 
@@ -156,14 +161,6 @@ class OrgStru
     @qd.query_field_to_array("SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID in ('#{posts}')") 
   end
   
-  def temp_registrars(user_id)
-    return [] unless have_roles? :registrarsman,user_id
-    
-    scope_id = registrar_attend_scope user_id
-    return [] if scope_id.nil?
-    users_with_role(:tempregistrar,scope_id)
-  end
-
   def registrar_attend_scope(registrar_id)
     return nil unless have_roles?(:registrar,registrar_id)
 
@@ -173,7 +170,7 @@ class OrgStru
     up_scope = registrar_ancestors & @attend_scope
     return nil if up_scope.empty?
     
-    scope_id =  registrar_ancestors.index(up_scope[0])+1
+    scope_id =  registrar_ancestors.index(up_scope.first)+1
     # registrar department_id is no including ancestors
     # So if scope_id out of ancestors,return registrar's department id 
     if scope_id == registrar_ancestors.length 
@@ -186,5 +183,65 @@ class OrgStru
   def approval?(user_id)
     @qd.query_not_empty "SELECT SU_USER_ID FROM SYS_USER WHERE SU_DEPT_ID= '#{@approval_depa_id}' and SU_USER_ID='#{user_id}'" 
   end
-end
 
+  def tempreg_mongo_collection
+    @mcache.collection_tempreg
+  end
+
+  def tempreg_peroid(user_id)
+    tempreg_mongo_collection.find("user_id" => user_id).to_a.first
+  end
+
+  def tempreg_peroid_remove(user_id)
+    tempreg_mongo_collection.remove("user_id" => user_id)
+  end
+
+  def temp_registrar_rights_peroid(user_id,peroid=nil)
+    temp_reg = tempreg_peroid user_id
+    if peroid.nil? 
+      return nil if temp_reg.nil?
+
+      begin
+        {
+          :begin => Date.parse(temp_reg["begin"]),
+          :end => Date.parse(temp_reg["end"]) 
+        }
+      rescue
+        return nil
+      end
+    else
+      if peroid.has_key? :begin and peroid.has_key? :end
+        doc = peroid.merge({:user_id => user_id})
+        if temp_reg.nil? 
+          tempreg_mongo_collection.insert(doc)
+        else
+          tempreg_mongo_collection.update({"_id" => temp_reg["_id"]},doc)
+        end
+      ##else ??
+      end
+    end
+  end
+  
+ 
+  def temp_registrars(user_id)
+    return [] unless have_roles? :registrarsman,user_id
+    
+    scope_id = registrar_attend_scope user_id
+    return [] if scope_id.nil?
+    temp_regs = users_with_role(:tempregistrar,scope_id)
+    temp_regs.map do |temp_reg_id|
+      peroid = temp_registrar_rights_peroid(temp_reg_id)
+      today = Date.today
+      peroid ? 
+      {
+        :user_id => temp_reg_id,
+        :state => (peroid[:begin]<=today and today <= peroid[:end]),
+        :peroid => peroid 
+      }:{
+        :user_id => temp_reg_id,
+        :state => false
+      }
+    end
+  end
+
+end

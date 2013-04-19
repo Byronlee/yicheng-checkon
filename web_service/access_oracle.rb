@@ -7,7 +7,7 @@ require "#{File.dirname(__FILE__)}/utils"
 class QueryData
 
   def logout
-    exit unless @connect 
+    return unless connected?
     if @connect_name=='sqlite' then 
       @connect.close 
       @log.info("SQLite disconnected")
@@ -40,12 +40,12 @@ class QueryData
     @log.info(s)
   end 
 
-  def server_connected?
+  def connected?
     not @connect.nil?
   end 
 
   def connect_to_server 
-    logout if server_connected?
+    logout 
     @connect = nil
 
     if @connect_name == 'sqlite' then

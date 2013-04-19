@@ -124,7 +124,22 @@ describe OrgStru do
     # {"SU_USER_ID":"4028809b3c6fbaa7013c6fbc3da51b47","SU_NICKNAME_CODE":"shuijing.ssq","SU_NICKNAME_DISPLAY":"水镜","SU_PHONE_NUM":"18908208532","SU_USERNAME":"余跃","SU_USER_NO":"010023110","SU_DEPT_ID":"4028809b3c6fbaa7013c6fbc39900382","SD_DEPT_NAME":"海棠2","DEPT_ANCESTORS":[["4028809b3c60dcc8013c60e107810001","伊诚地产"],["4028809b3c6fbaa7013c6fbc39510002","成都伊诚"],["4028809b3c6fbaa7013c6fbc39900359","【东南区】"],["4028809b3c6fbaa7013c6fbc39900380","三圣区"]],"POSTS":[["402880fb3d66f0c5013d66f6a1c20006","店经理"]]}                         
     tr = @orgstru.temp_registrars(@test_data_user_id)
     tr.should_not be_empty
-    tr.should include "4028809b3c6fbaa7013c6fbc3da51b47"
+
+    tr.map{|tr|tr[:user_id]}.should include "4028809b3c6fbaa7013c6fbc3da51b47" 
+
+    find_a_manager = tr.select {|tr| not tr[:state] }.first
+    unless find_a_manager
+      @orgstru.temp_registrar_rights_peroid(find_a_manager,:begin => Date.today,:end => Date.today+1)
+      read_back = @orgstru.temp_registrar_rights_peroid(find_a_manager)
+      read_back[:begin].should eq Date.today
+      read_back[:end].should eq Date.today + 1
+
+      tr = @orgstru.temp_registrars(@test_data_user_id)
+      
+      tr.select {|tr|  tr[:state] }.should include find_a_manager
+      @orgstru.tempreg_peroid_remove(find_a_manager)
+    end
+    
   end
 
   it "角色测试" do 

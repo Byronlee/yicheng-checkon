@@ -6,6 +6,8 @@ gem "sinatra"
 gem 'json'
 gem 'rubytree'
 gem 'sqlite3'
+gem 'mongo'
+gem 'bson_ext'
 
 group :test do
   gem "rspec"

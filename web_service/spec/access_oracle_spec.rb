@@ -14,7 +14,7 @@ describe QueryData do
   end
 
   it "测试数据库连接" do
-    @qd.server_connected?.should be_true
+    @qd.connected?.should be_true
   end
   
   it "测试数据库访问" do

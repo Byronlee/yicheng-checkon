@@ -16,6 +16,12 @@ default_connect : sqlite
 logger_file : /var/log/yicheng/ws.log
 logger_level : warn
 
+mongo :
+  host : localhost
+  port : 27017
+  db : web_service
+
+
 table :
   user :
     - "SU_USER_ID"
