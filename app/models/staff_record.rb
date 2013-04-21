@@ -4,9 +4,14 @@ class StaffRecord
 
   has_many :modifies
 
+  index({ staffid: 1})
   class << self
     def by_period first,last  
       between(created_date: [first,last])
+    end
+
+    def by_day time
+      between(created_date: [time.end_of_day,time.beginning_of_day])
     end
 
     def fast_register arg

@@ -1,0 +1,16 @@
+table.table.table-condensed.table-bordered
+  tr
+    - count_table_titles.each do | title|
+      th = title     
+  - stats.each_with_index do |stat,index|
+    tr
+      td 
+        span.badge = index+1
+      td = stat.user.ancestors
+      td = stat.user.user_no
+      td = stat.user.username
+      td = stat.behave_name
+      td = stat["value"]["count"]*count_radix
+      td = render "exception_detail" ,:stat => stat
+
+button.btn.btn-primary type="submit" 下载

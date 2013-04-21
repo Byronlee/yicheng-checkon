@@ -1,68 +1,46 @@
+# -*- coding: utf-8 -*-
 class Count
   include Mongoid::Document
-  field :staffid , type: String
-  field :result , type: Hash
+  include Mongoid::Count
+ 
 
   class << self
-    def map
-      map = %Q{
-        function() {
-          for (var checkin in this.checkins){
-            emit(this.staffid,this.checkins[checkin].behave_id);
-          }
-        }
-      }
-    end
-  
-    def reduce
-      reduce = %Q{
-        function(key, values) {
-          return {ids:values};
-        }
-      }
-    end
-  
-    def addup(query_map)
-      return [] unless StaffRecord.exists?
-      delete_all
-      records = eval(query_map)
-      counts = records.map_reduce(map,reduce).out(replace: "mr_results").map do | document |
-        result = document["value"]["ids"].inject(Hash.new(0)) do |h,v|
-          h[v.to_s] += 1
-          h
-        end    
-        create(staffid: document["_id"],result: result) 
-      end
-      counts_result(counts,init_arra(Behave))
+    def create params      
+        @total_records = StaffRecord.by_period(params[:start_time],params[:end_time]).state('submitted')                 
+        @count_records = @total_records.in("checkins.behave_id" => default_count_behave_types )      
+        @count_records.map_reduce(map,reduce).out(replace: "counts").count
     end
 
-    def counts_result counts,bh_array
-      counts.map do |count|
-        user = User.resource(count["staffid"])
-         behaves = bh_array.clone
-         count["result"].map do | behave_id , num |
-           behaves["#{Behave.find(behave_id).name}"] = num
-         end
-         {user_no: user.user_no ,staffid: user.staffid,  username: user.username , behaves: behaves }
-       end
-     end
 
+    def default_count_behave_types
+      Settings.default_count_behave_types.inject([]) do |types,type_name |
+        types << BehaveType.find_by(name: type_name).behaves.map(&:_id)
+      end.flatten
+    end
 
-      def amount
-        tp_array = init_arra  BehaveType
-        tp_rs = Count.all.map {|tp| {staffid: tp.staffid , tps: tp.result.map{|k,v| {Behave.find(k).behave_type.name.to_sym => v} }}}
-        tp_rs.map  do  |tp| 
-         user = User.resource(tp[:staffid])
-         array = tp_array.clone
-         tp[:tps].each {|k|    k.map{|x, c| array[x.to_s] += c   }   }
-         {user_no: user.user_no , staffid: tp[:staffid], username: user.username , behaves:  array }
-       end
-     end
-
-    def init_arra model_name
-        model_name.all.inject({}) do |hash ,value|
-        hash.merge({value.name => 0})
-      end
+    def count
+      {leave:        self.in("_id.behave_id"  => convert_object(Settings.leave_behave_ids)),
+       absent:       count_result(Settings.behave_absent_id) ,
+       late:         count_result(Settings.behave_late_id) ,
+       away:         count_result(Settings.behave_away_id) ,
+       leave_die:    count_result(Settings.behave_leave_die_id) ,
+       leave_sick:   count_result(Settings.behave_leave_sick_id),
+       leave_marry:  count_result(Settings.behave_leave_marry_id),
+       leave_thing:  count_result(Settings.behave_leave_thing_id),
+       leave_preg:   count_result(Settings.behave_leave_preg_id)}
     end
   end
+
+  def behave_name
+    Behave.find(id["behave_id"]).name
+  end
+
+  def user
+    User.resource(id["user_id"])
+  end
+
+  def records
+    value["record_ids"].uniq.map{ |record_id| StaffRecord.find(record_id)}.flatten
+  end
+
 end

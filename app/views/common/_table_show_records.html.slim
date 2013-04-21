@@ -1,12 +1,9 @@
 -if records.blank?
   = render "common/no_content" , :message => "无数据...."
 - else
-  .total_infor
+  .query_total_infor
     p 
-      span 共计:#{records.total_entries}条&nbsp;&nbsp;
-      span  
-        button.btn.btn-mini.btn-primary 
-          a href="/counts" 数据统计分析
+      span 共计:#{records.total_entries}条记录
   table.table.table-bordered
     thead
       tr     

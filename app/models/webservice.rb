@@ -2,7 +2,7 @@
 class Webservice
 
  @sess = Patron::Session.new
- @sess.base_url = "http://proj.cdu.edu.cn:4567/"
+ @sess.base_url = Settings.ws_url
 
  def self.get_data str
     response = @sess.get str
@@ -17,6 +17,10 @@ class Webservice
 
  def self.users_with_subdept dept_id    # 用户组[]
   Webservice.get_data("dept/users_with_subdept/#{dept_id}")
+ end
+
+ def self.get_registrars
+    Webservice.get_data "/registrars"
  end
 
 end

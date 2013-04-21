@@ -58,8 +58,6 @@ gem "rubycas-client", "2.3.9"
 gem 'jquery-rails',"2.1.4"
 gem 'slim-rails',"1.1.0"
 gem 'rocket_pants', '1.6.1'
-gem 'ruote'
-gem 'ruote-mon'
 gem 'state_machine'
 gem 'cancan'
 
@@ -73,4 +71,3 @@ gem 'cells'
 gem 'spreadsheet'
 gem 'simple_form'
 gem "settingslogic", "~> 2.0.9"
-

@@ -9,8 +9,7 @@ jQuery(function(){
                           language: 'zh-CN'
                           })
 
-    $('input[name=range_time]').daterangepicker(
-	{
+    var datapicker_option ={
             ranges: {
 		'今天': ['today', 'today'],
 		'昨天': ['yesterday', 'yesterday'],
@@ -18,13 +17,32 @@ jQuery(function(){
 		'最近30天': [Date.today().add({ days: -29 }), 'today'],
 		'本月': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
 		'上月': [Date.today().moveToFirstDayOfMonth().add({ months: -1 }), Date.today().moveToFirstDayOfMonth().add({ days: -1 })]
-            }
-	},
-	function(start, end) {
+            }	}
+
+    var datapicker_callback = function(start, end) {
 	    $('input[name=end_time]').val(end.getFullYear()+"-"+farmat((end.getMonth()+1))+"-"+farmat(end.getDate()));
             $('input[name=start_time]').val(start.getFullYear()+"-"+farmat((start.getMonth()+1))+"-"+farmat(start.getDate()));
-	}
-    );   
+    }
+    $('input[name=range_time]').daterangepicker(datapicker_option,datapicker_callback)
+
+
+
+
+
+   count_reslut("#new_examine","创建失败！，请查看上次的考勤审核任务是否完成！")
+   count_reslut("#new_count","统计失败！请稍后再试！")
+
+    //  看看 提交之前的 表单 是否 填好！ TODO  
+    function  count_reslut(object_name,message){	
+	$(object_name).live('ajax:success', function(event,data,status, xhr) {
+	    $("body").find(".waiting").remove();
+	    data ? $(".count_page").html(data) : alert(message);
+	    $('input[name=range_time]').daterangepicker(datapicker_option,datapicker_callback)
+	}).live('ajax:beforeSend', function(event,data,status, xhr) {
+	    $("body").prepend("<div class='waiting'><img src='/assets/waiting_mini.gif'</div>")
+	});
+    }
+
 
 });
 
@@ -45,18 +63,6 @@ jQuery(function(){
     }
 
 
-    function query_records(){
-     $.post("operate" ,{start_time: $('input[name=start_time]').val() , 
-		      end_time  : $('input[name=end_time]').val() ,
-		      dept_id   : $('#condition_dept').val(),
-		      cell_id   : $('#condition_cell').val(), 
-	              region    : $('#condition_region').val(),
-                      type      : "direct"
-		     },
-             function(html){
-		 $(".show_query_result").html(html);
-	     });
-    }
 
     function query_attach(o){
      if(o.attr("order")=="false"&&o.val()=="") return false
@@ -78,4 +84,9 @@ jQuery(function(){
   function  config_approval_title(o){
       o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
       o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
+  }
+
+  function before_launch_examine(){
+      $('.examine_data_start_time').val($('#start_time'))
+      $('.examine_data_end_time').val($('#end_time'))
   }

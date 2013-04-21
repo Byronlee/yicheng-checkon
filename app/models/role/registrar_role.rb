@@ -9,11 +9,7 @@ module RegistrarRole
   end
 
   def trainee_tasks
-    tasks = Trainee.belong(self).map do |trainee|
-       trainee.trainee_records.trainees
-    end
-    # [].first = nil
-    tasks.blank? ? [] : tasks.first.decorate
+    Trainee.belong(self).map{|trainee|trainee.trainee_records.trainees}.flatten
   end
 
   def users_with_subdept

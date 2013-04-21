@@ -1,23 +1,16 @@
 # -*- coding: utf-8 -*-
 class CountsController < ApplicationController
 
-	
   def index
-     if session[:query_map] 
-       @stats = Count.addup(session[:query_map]).sort_by{|x|x[:user_no]}
-     else
-       redirect_to root_url
-     end
+   @counts = Count.count
   end
 
-
-  def amount
-    if session[:query_map] 
-      @stats = Count.amount.sort_by{|x|x[:user_no]}
-      render "index" , :locals => {:type => BehaveType}
-    else
-      redirect_to root_url
-    end
+  def create 
+    Count.create params
+    range_time ={:start_time: params[:start_time],
+                 :end_time: params[:end_time]}
+    render "_count_page" ,:locals => {:counts => Count.count,
+                                      :range_time => range_time } ,:layout => false
   end
 
 end

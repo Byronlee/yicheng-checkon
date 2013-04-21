@@ -1,0 +1,77 @@
+.count_head
+  - if can_count?
+    = render "form_create_count"
+    = render = render "launch_examine" ,:counts => counts ,:range_time => range_time
+  - else
+    = render "count_process" 
+ul.nav.nav-tabs#tab
+  li.active
+    a href="#leave" data-toggle="tab" 请假
+  li
+    a href="#absent" data-toggle="tab" 旷工
+  li
+    a href="#late" data-toggle="tab" 迟到
+  li
+    a href="#away" data-toggle="tab" 离职
+  li.dropdown
+    a href="#" class="dropdown-toggle" data-toggle="dropdown"
+      span 考勤项
+      b.caret
+    ul.dropdown-menu
+      li
+        a href="#leave_sick" data-toggle="tab" 病假
+      li 
+        a href="#leave_marry" data-toggle="tab" 婚假
+      li 
+        a href="#leave_preg" data-toggle="tab" 产假
+      li 
+        a href="#leave_die" data-toggle="tab" 丧假
+      li 
+        a href="#leave_thing" data-toggle="tab" 事假
+
+#myTabContent.tab-content
+  .tab-pane.fade.in.active#leave
+    - unless counts[:leave].blank?
+      = render "count_result" ,:stats => counts[:leave]
+    - else
+      = render_no_content
+  .tab-pane.fade#absent
+    - unless counts[:absent].blank?
+      = render "count_result" ,:stats => counts[:absent]
+    - else
+      = render_no_content
+  .tab-pane.fade#late
+    - unless counts[:late].blank?
+      = render "count_result" ,:stats => counts[:late]
+    - else
+      = render_no_content
+  .tab-pane.fade#away
+    - unless counts[:away].blank?
+      = render "count_result" ,:stats => counts[:away]
+    - else
+      = render_no_content
+  .tab-pane.fade#leave_sick
+    - unless counts[:leave_sick].blank?
+      = render "count_result" ,:stats => counts[:leave_sick]
+    - else
+      = render_no_content
+  .tab-pane.fade#leave_preg
+    - unless counts[:leave_preg].blank?
+      = render "count_result" ,:stats => counts[:leave_preg]
+    - else
+      = render_no_content
+  .tab-pane.fade#leave_marry
+    - unless counts[:leave_marry].blank?
+      = render "count_result" ,:stats => counts[:leave_marry]
+    - else
+      = render_no_content
+  .tab-pane.fade#leave_die
+    - unless counts[:leave_die].blank?
+      = render "count_result" ,:stats => counts[:leave_die]
+    - else
+      = render_no_content
+  .tab-pane.fade#leave_thing
+    - unless counts[:leave_thing].blank?
+      = render "count_result" ,:stats => counts[:leave_thing]
+    - else
+      = render_no_content

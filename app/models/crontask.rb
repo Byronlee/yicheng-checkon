@@ -3,7 +3,7 @@ class Crontask
 
   # TODO should save in memory then insert db
   def self.produce_everyday_records 
-    checkers = Webservice.get_data "/registrars"
+    checkers = Webservice.get_registrars
     checkers.each do |checker_id |
       cu = User.resource(checker_id)
       cu.extend RegistrarRole
@@ -21,7 +21,7 @@ class Crontask
             record_zone_name:   cu.dept_name 
            }
         end
-        StaffRecord.collection.insert(users_hash)
+        StaffRecord.create!(users_hash)
       end
 
       Trainee.scoped.map do | user |  

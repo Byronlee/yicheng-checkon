@@ -13,7 +13,7 @@ class User
     self
   end
 
-  def initialize id  # todo 何老师 在user_no 前加0
+  def initialize id 
     @data = Webservice.get_data("/user/id/"+id)
   end
 
@@ -32,6 +32,10 @@ class User
 
   def approval?
     roles.include? "Approval"
+  end
+
+  def rightsman?
+    roles.include? "Rightsman"
   end
 
   def depts_node
