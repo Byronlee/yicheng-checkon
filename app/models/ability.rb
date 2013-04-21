@@ -8,7 +8,7 @@ class Ability
       can :manage , Count
       can :manage , StaffRecord
       can :registrar ,Task
-      can :manage , Count
+      can :index, Count
       can [:create,:destroy], Modify
     end
     
@@ -18,6 +18,7 @@ class Ability
 
     if user.approval?
       can :manage , Count
+      can :manage , Examine
       can :update , Modify
       can :approval , Task
       can [:operate,:update] , StaffRecord

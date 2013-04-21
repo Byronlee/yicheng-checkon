@@ -11,6 +11,7 @@ class Notice
   field :remark, type:String  
 
   belongs_to :modify
+  belongs_to :examine
 
   default_scope where(state: false) 
 

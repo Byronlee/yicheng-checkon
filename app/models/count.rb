@@ -2,13 +2,32 @@
 class Count
   include Mongoid::Document
   include Mongoid::Count
+ 
 
   class << self
     def create params      
-      behave_ids =  BehaveType.find_by(name: '请假').behaves.map(&:_id)                  
-      @total_records  = StaffRecord.state('submitted').by_period(params[:start_time],params[:end_time])                 
-      @count_records = @total_records.in("checkins.behave_id" => behave_ids)
-      hh=  @count_records.map_reduce(map,reduce).out(replace: "counts")
+        @total_records = StaffRecord.by_period(params[:start_time],params[:end_time]).state('submitted')                 
+        @count_records = @total_records.in("checkins.behave_id" => default_count_behave_types )      
+        @count_records.map_reduce(map,reduce).out(replace: "counts").count
+    end
+
+
+    def default_count_behave_types
+      Settings.default_count_behave_types.inject([]) do |types,type_name |
+        types << BehaveType.find_by(name: type_name).behaves.map(&:_id)
+      end.flatten
+    end
+
+    def counts      
+       {leave:        self.in("_id.behave_id"  => convert_object(Settings.leave_behave_ids)),
+        absent:       count_result(Settings.behave_absent_id) ,
+        late:         count_result(Settings.behave_late_id) ,
+        away:         count_result(Settings.behave_away_id) ,
+        leave_die:    count_result(Settings.behave_leave_die_id) ,
+        leave_sick:   count_result(Settings.behave_leave_sick_id),
+        leave_marry:  count_result(Settings.behave_leave_marry_id),
+        leave_thing:  count_result(Settings.behave_leave_thing_id),
+        leave_preg:   count_result(Settings.behave_leave_preg_id)}
     end
   end
 
@@ -21,8 +40,7 @@ class Count
   end
 
   def records
-    value["record_ids"].uniq.map do |record_id|
-      StaffRecord.find(record_id)
-    end.flatten
+    value["record_ids"].uniq.map{ |record_id| StaffRecord.find(record_id)}.flatten
   end
+
 end

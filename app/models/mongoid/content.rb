@@ -5,7 +5,13 @@ module Mongoid
 
 
     module InstanceMethods
-      def modify_notice_content current_user
+
+      def examine_notice_content
+        launcher = User.resource(self.launcher)   
+        launcher.username+'('+launcher.ancestors+')需要你审核'+examine.start_time+'日至'+examine.end_time+'日之间的考勤数据'
+      end
+
+      def modify_notice_content current_user 
         record = modify.staff_record.decorate
         launcher = User.resource(self.launcher)    
         content = launcher.username+'('+launcher.ancestors+')'+opt_str(current_user)+'申请将'\
