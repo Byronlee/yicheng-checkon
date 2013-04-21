@@ -4,13 +4,21 @@ class Examine
 
    field :start_time ,type: String
    field :end_time ,  type: String
-
+   field :state , type: Boolean, default: true
+  
    has_many :proces
    has_many :notices
 
-   
+  def self.unfinish_examine
+    where(state: true).first
+  end
+  
   def save_with_no_old_examine 
-    Proce.where(state: false).blank? ? save : false
+    Examine.unfinish_examine.blank? ? save : false
+  end
+
+  def percent
+    "#{(proces.where(state: true).count.to_f/proces.count.to_f*100)}"+"%"
   end
 
 end

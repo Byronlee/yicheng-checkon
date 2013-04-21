@@ -11,6 +11,13 @@ class ExaminesController < ApplicationController
       params[:examine][:notice][:receiver] = checker_id
       examine.notices.create(params[:examine][:notice]).examine_notice_content
     end
-    render "_count_page" ,:locals => {:counts => Count.count, :layout => false
+    render "counts/_count_page" ,:locals => {:counts => Count.counts }, :layout => false
+  end
+
+  def destroy
+    examine = Examine.find(params[:examine_id])
+    examine.notices.update_all(state: true)
+    examine.update_attributes(state: false)
+    render "counts/_count_page" ,:locals => {:counts => Count.counts }, :layout => false
   end
 end

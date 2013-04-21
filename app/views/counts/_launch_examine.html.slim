@@ -1,16 +1,16 @@
-a.btn.btn-primary href="#launch_examine" role="button" data-toggle="modal" onclick="before_launch_examine()" 发起申请
+a.btn.btn-primary href="#launch_examine" role="button" data-toggle="modal"  发起审核
 .modal.hide.fade#launch_examine  aria-hidden="true"
   .modal-header
     button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
-    h3.launch_title  新建考勤审核记录任务
+    h3 确定新建<font color="red">#{range_time[:start_time]}至#{range_time[:end_time]}</font>考勤审核？
   = simple_form_for Examine.new ,:remote => true do |f|
     .modal-body
       = f.simple_fields_for :data do |d|
-        = d.input :start_time, as: :hidden
-        = d.input :end_time, as: :hidden
+        = d.input :start_time, as: :hidden , input_html: {value: range_time[:start_time]}
+        = d.input :end_time, as: :hidden , input_html: {value: range_time[:end_time]}
       = f.simple_fields_for :notice do |n|
-        = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid}
-        = n.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 430px;"}
+        = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid }
+        = n.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 513px;"}
     .modal-footer
       button.btn data-dismiss="modal" aria-hidden="true" 关闭
       = f.button :submit
