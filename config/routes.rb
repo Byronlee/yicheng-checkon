@@ -10,7 +10,6 @@ Attendance::Application.routes.draw do
 
   resources :trainees do
     collection do
-      get  :ajax_dept_users_select
       post :merge
     end
   end
@@ -36,6 +35,8 @@ Attendance::Application.routes.draw do
   match 'registrar'  => 'tasks#registrar' ,:as => :registrar
   match 'approval'   => 'tasks#approval' ,:as => :approval
   match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
-  match 'browser'    => 'homes#browser' ,  :via => :get
+  match 'ajax_dept_users' => 'homes#ajax_dept_users'
+  match 'autocomplete/search_users' => 'homes#search_users'
+  match 'browser'    => 'homes#browser'
   root :to => "homes#index"
 end

@@ -27,4 +27,17 @@ class HomesController < ApplicationController
       render :json => false
     end
   end
+
+  def ajax_dept_users
+    users = !params[:dept_id].empty? ? Department.new(params[:dept_id]).users_select : []
+    render "common/_user_select",locals:{choices: users},:layout => false
+  end
+
+  def search_users
+    ws_users = Webservice.search_users(params[:query])
+    suggestions = ws_users.map do |u|
+      {value: u['SU_USERNAME'], data: u["SU_USER_ID"]}
+    end
+    render :json => {query: params[:query],suggestions: suggestions}
+  end
 end

@@ -1,7 +1,7 @@
 # encoding: utf-8
 defaults: &defaults
   approval_dept_id: '4028809b3c6fbaa7013c6fbc39510002'
-  ws_url: 'http://proj.cdu.edu.cn:4567/'
+  ws_url: 'http://project.zhiyisoft.com:4567/'
   cas_url: 'http://61.139.87.55:7890/'
   defult_count_behave_types: ["请假","旷工"]
 

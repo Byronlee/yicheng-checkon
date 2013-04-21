@@ -31,12 +31,22 @@ jQuery(function(){
 	    $(".count_result").html(html)
 	})
     })
-    
+
+$('#autocomplete').autocomplete({
+    serviceUrl: '/autocomplete/search_users',
+    onSelect: function (suggestion) {
+        $(this).parents('form').find('#input_search_user_id').val(suggestion.data)
+    }
+});
+
+$('#choice_user').carousel({
+  interval: 0
+})
 
 });
 
     function ajax_dept_users_select(o){
-      $.get("trainees/ajax_dept_users_select",{dept_id : o.val()},function(html){
+      $.get("/ajax_dept_users",{dept_id : o.val()},function(html){
       o.parents('.input-prepend').next().replaceWith(html);
       })
     }
@@ -50,7 +60,6 @@ jQuery(function(){
 	    }
 	})
     }
-
 
 
     function query_attach(o){
@@ -74,4 +83,9 @@ jQuery(function(){
       o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
       o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
   }
+
+  $('.query_data_form').live('ajax:success',function(evt, data, status, xhr){
+    alert(data)
+   $('.show_query_result').html(data)
+  })
 

@@ -25,6 +25,14 @@ class StaffRecord
       end
     end
 
+    def by_behave_id behave_id
+      where('checkins.behave_id' => Moped::BSON::ObjectId.from_string(behave_id))
+    end
+
+    def by_staffid staffid
+      where(staffid: staffid)
+    end
+
     def direct_update args
       find(args[:staff_record_id]).update_checkins(args[:checkins])
     end
@@ -53,27 +61,7 @@ class StaffRecord
         end
       end
     end
-
-    def query params ,current_user ,map ="StaffRecord.state('submitted')"
-      if params[:type].eql?("attach")
-        if params[:order].eql?("false")  #不排序 有两种查询(是不是考勤项) 暂时不做根据考勤项来查询
-          map += ".where(#{params[:field].to_sym}: /#{params[:value]}/)"
-        else
-          map # 这里是根据 字段的升序 和降序差需代码 由 simlegate 来完成！
-        end 
-      else
-        if params[:start_time]
-          map += ".by_period('#{params[:start_time]}','#{params[:end_time]}')" unless params[:start_time].empty?
-          params[:dept_id]&&!params[:dept_id].empty?     ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" :
-          params[:region_id]&&!params[:region_id].empty? ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" :
-          params[:cell_id]&&!params[:cell_id].empty?     ? map += ".in(staffid: #{Webservice.users_with_subdept(params[:dept_id])})" : map
-        end
-      end
-      current_user.approval? ? map : (map += ".where(record_zone:'#{current_user.dept_id}')")
-      Rails.configuration.staff_record_query_map = map
-      eval(map)
-    end
-  end
+  end  # class << self
 
    def change? checks
      bool = checks.map do |check_unit_id,behave_id|
