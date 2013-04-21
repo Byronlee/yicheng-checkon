@@ -13,9 +13,12 @@ p.no_message {
  margin-left: @base-margin;
 }
 
-div[class=waiting]{
+div[class~=waiting] strong{
     position: fixed;
-    left: 48%;
+    left: 38%;
+    top: 28%;
+    font-size: 20px;
+    color: #FF1;
 }
 
 div[class=title]{
@@ -121,8 +124,17 @@ div.count_head {
     margin-right: 134px;
     min-width: 358px;
     .input-append{margin-bottom: 0px;}
-    form {margin: 0 0 0px ; float: left;}
-    a[role=button]{float: right;}
+    #new_count {margin: 0 0 0px ; float: left;}
+    .btn-group{
+	float: right;
+        a{color: #fff;}
+	a:hover {text-decoration: none;}}
+    .progress_detail{
+	float: right;
+	margin-top: -22px;
+	> span {line-height: 28px;}
+    }
+    .progress-striped{width: 55%;}
 }
 
 .count_kind{margin-top: -45px;}

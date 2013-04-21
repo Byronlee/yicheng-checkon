@@ -17,6 +17,18 @@ module CountsHelper
     BehaveType.all.map{ |type| [type.name,type.id]}
   end
 
-  def can_count?
-    #  实现看count!!!!!!
+  def unfinish_examine
+    Examine.unfinish_examine
+  end
+
+  def can_count? counts
+    unfinish_examine.blank? ? true : false
+  end
+
+  def examine_unfinish_registrar 
+    unfinish_examine.proces.clone.keep_if{|i|!i.state}
+  end
+
+
+
 end

@@ -31,7 +31,7 @@ jQuery(function(){
 
    count_reslut("#new_examine","创建失败！，请查看上次的考勤审核任务是否完成！")
    count_reslut("#new_count","统计失败！请稍后再试！")
-
+   count_reslut("#delete_examine","取消失败！请稍后再试！")
     //  看看 提交之前的 表单 是否 填好！ TODO  
     function  count_reslut(object_name,message){	
 	$(object_name).live('ajax:success', function(event,data,status, xhr) {
@@ -39,7 +39,8 @@ jQuery(function(){
 	    data ? $(".count_page").html(data) : alert(message);
 	    $('input[name=range_time]').daterangepicker(datapicker_option,datapicker_callback)
 	}).live('ajax:beforeSend', function(event,data,status, xhr) {
-	    $("body").prepend("<div class='waiting'><img src='/assets/waiting_mini.gif'</div>")
+	    $('.modal').modal('hide')
+	    $("body").prepend('<div class="modal-backdrop waiting fade in"><strong>请稍等，正在处理中,可能会几分钟.....<strong></div>')
 	});
     }
 
@@ -84,9 +85,4 @@ jQuery(function(){
   function  config_approval_title(o){
       o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
       o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
-  }
-
-  function before_launch_examine(){
-      $('.examine_data_start_time').val($('#start_time'))
-      $('.examine_data_end_time').val($('#end_time'))
   }
