@@ -53,7 +53,6 @@ class OrgStru
   end
 
   def search_user(keyword)
-    # 汗
     if keyword =~ /\d+/
       keyword = keyword[1..-1] if  keyword[0] = "0"
       sql_string = "SELECT SU_USER_ID FROM SYS_USER where SU_USER_NO = '#{keyword}'"

@@ -44,7 +44,7 @@ get '/dept/users1/:dept_id' do
 end 
 
 get '/search/users/:keyword' do
-  JSON.dump $ACCESSOR.search_user params[:keyword]
+  JSON.dump $ACCESSOR.search_user(params[:keyword]).map{|id| $ACCESSOR.user_attr id}
 end
 
 get '/dept/' do
