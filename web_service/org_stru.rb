@@ -93,6 +93,12 @@ class OrgStru
     dept_users(dept_id).map { |user_id| user_attr user_id }
   end
 
+  def dept_users?(dept_id,user_id)
+    user_dept = user_attr(user_id)["SU_DEPT_ID"]
+    return false if user_dept.nil? 
+    (user_dept == dept_id) or (dept_ancestors(user_dept).include? dept_id)
+  end
+
   def dept_list
     @qd.query_field_to_array("SELECT SD_DEPT_ID FROM SYS_DEPT")
   end
@@ -168,7 +174,8 @@ class OrgStru
   end
 
   def users_with_role(role,dept_id)
-    dept_users_with_subdept(dept_id).select{|user| have_roles?(role, user) }
+    # dept_users_with_subdept(dept_id).select{|user| have_roles?(role, user) }
+    all_users_with_role(role).select{|user| dept_users?(dept_id,user)}
   end
 
   def all_users_with_role(role)
