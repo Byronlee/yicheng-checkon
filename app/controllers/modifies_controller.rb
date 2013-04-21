@@ -9,7 +9,8 @@ class ModifiesController < ApplicationController
      else
        flash[:error] =  t('controller.modifies.error')
      end
-     redirect_to operate_staff_records_path
+     redirect_to(:back)
+     # redirect_to operate_staff_records_path
    end
 
    def update

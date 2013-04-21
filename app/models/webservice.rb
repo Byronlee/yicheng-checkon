@@ -20,7 +20,13 @@ class Webservice
   Webservice.get_data("dept/users_with_subdept/#{dept_id}")
  end
 
+ def self.get_registrars
+    Webservice.get_data "/registrars"
+ end
+
+
  def self.search_users keyword
    get_data(URI.escape("search/users/"+ keyword))
  end
+
 end

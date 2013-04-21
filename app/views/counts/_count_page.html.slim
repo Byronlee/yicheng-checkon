@@ -1,0 +1,91 @@
+.count_head
+  - if can? :create ,Examine
+    - if can_count?(counts)
+      = render "counts/form_create_count"
+      - if defined?(range_time)&&!counts.map{|_,v| v.blank?}.all?
+        = render "counts/launch_examine" ,:range_time => range_time
+    - else
+      .btn-group
+        button.btn.btn-primary.btn-mini type="button"
+          a href="#progress_detail"  data-toggle="modal" 查看
+        button.btn.btn-primary.btn-mini type="button"
+          a href="#cancel_examine"  data-toggle="modal"  取消
+      .progress.progress-striped.active
+        .bar style="width:#{unfinish_examine.percent};"
+      .progress_detail
+        span 已完成#{unfinish_examine.percent}
+      = render "counts/progress_detail" 
+      = render "counts/cancel_examine"
+  - else
+    p 2012.12.12 2012.12.21
+ul.nav.nav-tabs#tab
+  li.active
+    a href="#leave" data-toggle="tab" 请假
+  li
+    a href="#absent" data-toggle="tab" 旷工
+  li
+    a href="#late" data-toggle="tab" 迟到
+  li
+    a href="#away" data-toggle="tab" 离职
+  li.dropdown
+    a href="#" class="dropdown-toggle" data-toggle="dropdown"
+      span 考勤项
+      b.caret
+    ul.dropdown-menu
+      li
+        a href="#leave_sick" data-toggle="tab" 病假
+      li 
+        a href="#leave_marry" data-toggle="tab" 婚假
+      li 
+        a href="#leave_preg" data-toggle="tab" 产假
+      li 
+        a href="#leave_die" data-toggle="tab" 丧假
+      li 
+        a href="#leave_thing" data-toggle="tab" 事假
+
+#myTabContent.tab-content
+  .tab-pane.fade.in.active#leave
+    - unless counts[:leave].blank?
+      = render "counts/count_result" ,:stats => counts[:leave]
+    - else
+      = render_no_content
+  .tab-pane.fade#absent
+    - unless counts[:absent].blank?
+      = render "counts/count_result" ,:stats => counts[:absent]
+    - else
+      = render_no_content
+  .tab-pane.fade#late
+    - unless counts[:late].blank?
+      = render "counts/count_result" ,:stats => counts[:late]
+    - else
+      = render_no_content
+  .tab-pane.fade#away
+    - unless counts[:away].blank?
+      = render "counts/count_result" ,:stats => counts[:away]
+    - else
+      = render_no_content
+  .tab-pane.fade#leave_sick
+    - unless counts[:leave_sick].blank?
+      = render "counts/count_result" ,:stats => counts[:leave_sick]
+    - else
+      = render_no_content
+  .tab-pane.fade#leave_preg
+    - unless counts[:leave_preg].blank?
+      = render "counts/count_result" ,:stats => counts[:leave_preg]
+    - else
+      = render_no_content
+  .tab-pane.fade#leave_marry
+    - unless counts[:leave_marry].blank?
+      = render "counts/count_result" ,:stats => counts[:leave_marry]
+    - else
+      = render_no_content
+  .tab-pane.fade#leave_die
+    - unless counts[:leave_die].blank?
+      = render "counts/count_result" ,:stats => counts[:leave_die]
+    - else
+      = render_no_content
+  .tab-pane.fade#leave_thing
+    - unless counts[:leave_thing].blank?
+      = render "counts/count_result" ,:stats => counts[:leave_thing]
+    - else
+      = render_no_content

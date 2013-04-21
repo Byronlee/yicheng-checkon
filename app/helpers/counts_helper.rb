@@ -5,20 +5,30 @@ module CountsHelper
     ["序号","所在位置","工号","姓名","请假类型","天数","详情"]
   end
 
-
-  def count_types
-    Settings.defult_count_behave_types.inject([]) do |types,type_name |
-      types + BehaveType.where(name: type_name).first.behaves.map do |behave|
-        [behave.name,behave.id]
-      end
-    end
-  end
-
   def format v
     v.eql?(0) ? "" : v
+  end
+
+  def count_radix
+    Settings.count_radix
   end
 
   def behave_types
     BehaveType.all.map{ |type| [type.name,type.id]}
   end
+
+  def unfinish_examine
+    Examine.unfinish_examine
+  end
+
+  def can_count? counts
+    unfinish_examine.blank? ? true : false
+  end
+
+  def examine_unfinish_registrar 
+    unfinish_examine.proces.clone.keep_if{|i|!i.state}
+  end
+
+
+
 end

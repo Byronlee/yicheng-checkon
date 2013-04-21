@@ -10,5 +10,7 @@ table.table.table-condensed.table-bordered
       td = stat.user.user_no
       td = stat.user.username
       td = stat.behave_name
-      td = stat["value"]["count"]
-      td = render "infor" ,:records => stat.records
+      td = stat["value"]["count"]*count_radix
+      td = render "counts/exception_detail" ,:stat => stat
+
+button.btn.btn-primary type="submit" 下载

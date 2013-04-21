@@ -6,7 +6,7 @@ class BehaveType
   has_many :behaves, class_name: 'Behave'
   behaves = {
              :请假 => ["事假","病假","产假","婚假","丧假"],
-             :旷工 =>   ["旷工"],
+             :旷工 =>  ["旷工"],
              :迟到 =>  ["迟到"],
              :调休 =>  ["调休"],
              :离职 => ["离职"],
