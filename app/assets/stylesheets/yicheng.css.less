@@ -13,6 +13,10 @@ p.no_message {
  margin-left: @base-margin;
 }
 
+div[class=waiting]{
+    position: fixed;
+    left: 48%;
+}
 
 div[class=title]{
   border-bottom: 2px solid #D9EDF7;
@@ -113,18 +117,12 @@ form.query_data_form{
 
 // 统计less 
 div.count_head {
-    float: left;
-    width: 100%;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
-    form{
-	float:left;
-	margin: 0 0 0px;
-    }
-    .btn-group{
-	margin: 5px 55px;
-	float: right;
-    }
+    float: right;
+    margin-right: 134px;
+    min-width: 358px;
+    .input-append{margin-bottom: 0px;}
+    form {margin: 0 0 0px ; float: left;}
+    a[role=button]{float: right;}
 }
 
 .count_kind{margin-top: -45px;}

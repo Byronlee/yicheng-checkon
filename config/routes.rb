@@ -18,6 +18,7 @@ Attendance::Application.routes.draw do
   post "staff_records/update" 
 
   resources :modifies
+  resources :examines
 
   resources :staff_records do
     collection do 

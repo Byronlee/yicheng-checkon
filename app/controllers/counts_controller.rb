@@ -2,19 +2,15 @@
 class CountsController < ApplicationController
 
   def index
-    @stats = Count.all
+   @counts = Count.count
   end
 
   def create 
     Count.create params
-    redirect_to counts_path
-  end
-  
-  
-  def update
-    @stats = Count.where("id.behave_id" => "517029571229bc9afb000006") 
-    return render "common/_no_content" ,:locals =>{:message => "目前没有数据可以统计" } ,:layout => false if  @stats.blank?
-    render "_count_result" ,:locals =>{:stats => @stats} ,:layout => false
+    range_time ={:start_time: params[:start_time],
+                 :end_time: params[:end_time]}
+    render "_count_page" ,:locals => {:counts => Count.count,
+                                      :range_time => range_time } ,:layout => false
   end
 
 end

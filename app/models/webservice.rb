@@ -19,4 +19,8 @@ class Webservice
   Webservice.get_data("dept/users_with_subdept/#{dept_id}")
  end
 
+ def self.get_registrars
+    Webservice.get_data "/registrars"
+ end
+
 end

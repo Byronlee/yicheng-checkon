@@ -1,20 +1,3 @@
-.count_head
-  form(action="/counts" method="post")
-    .input-append
-      input#appendedPrependedInput type="text" name="range_time"  placeholder="--请选择时间段--"
-      button.btn.btn-primary type="submit" 统计
-    = hidden_field_tag 'start_time'
-    = hidden_field_tag 'end_time'
-
-  .btn-group data-toggle="buttons-radio"
-    button.btn.btn-primary.btn-mini.active 总表
-    - count_types.each do |type|
-      button.btn.btn-primary.btn-mini id="#{type[1]}" = type[0]
-    button.btn.btn-primary.btn-mini 审核
-    button.btn.btn-primary.btn-mini 下载
-hr
-.count_result
-  - unless @stats.blank?
-    = render "count_result" , :stats => @stats
-  - else
-    = render "common/no_content" ,:message =>  t(".no_content.no_count_tip")
+.count_page
+  = render "count_page" ,:counts => @counts
+  
