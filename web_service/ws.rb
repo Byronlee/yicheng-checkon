@@ -43,6 +43,9 @@ get '/dept/users1/:dept_id' do
   JSON.dump $ACCESSOR.dept_users_with_attr dept_id
 end 
 
+get '/search/users/:keyword' do
+  JSON.dump $ACCESSOR.search_user params[:keyword]
+end
 
 get '/dept/' do
   JSON.dump $ACCESSOR.dept_list

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "#{File.dirname(__FILE__)}/utils"
 require "#{File.dirname(__FILE__)}/access_oracle"
 require "#{File.dirname(__FILE__)}/access_mongo"
@@ -49,6 +50,21 @@ class OrgStru
     posts = user_posts(user["SU_USER_ID"])
     ext_attrs["POSTS"] = posts.zip(post_names(posts))
     return ext_attrs
+  end
+
+  def search_user(keyword)
+    # 汗
+    if keyword =~ /\d+/
+      keyword = keyword[1..-1] if  keyword[0] = "0"
+      sql_string = "SELECT SU_USER_ID FROM SYS_USER where SU_USER_NO = '#{keyword}'"
+    elsif keyword =~ /^[-\w.]+$/
+      sql_string = "SELECT SU_USER_ID FROM SYS_USER where SU_NICKNAME_CODE like '#{keyword}%'"
+    elsif keyword =~ /^\p{Han}+\w*$/
+      sql_string = "SELECT SU_USER_ID FROM SYS_USER where SU_NICKNAME_DISPLAY like '#{keyword}%' or SU_USERNAME like '#{keyword}%'"
+    else
+      return []
+    end
+    @qd.query_field_to_array(sql_string)
   end
   
   def dept_attr(dept_id)
