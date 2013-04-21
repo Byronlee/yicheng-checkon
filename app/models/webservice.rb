@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class Webservice
 
+ # refactor OOP
  @sess = Patron::Session.new
  @sess.base_url = Settings.ws_url
 
@@ -21,6 +22,11 @@ class Webservice
 
  def self.get_registrars
     Webservice.get_data "/registrars"
+ end
+
+
+ def self.search_users keyword
+   get_data(URI.escape("search/users/"+ keyword))
  end
 
 end

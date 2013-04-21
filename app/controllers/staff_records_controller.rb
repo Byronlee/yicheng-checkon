@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 class StaffRecordsController < ApplicationController
 
+   def index
+    @records =  StaffRecord.state('submitted').limit(20)
+   end
+
    def show
      @resource ={
        dept_name: params[:dept_name] ,
@@ -8,7 +12,6 @@ class StaffRecordsController < ApplicationController
        users: Department.new(params[:dept_id]).users_with_priod_checkins(params[:time])
       }
    end
-
 
    def update
      bool = StaffRecord.send(params[:register_way].to_sym , params)   
@@ -20,13 +23,13 @@ class StaffRecordsController < ApplicationController
    end
 
    def search
-         
+     @records = StaffRecord.state('submitted').by_period(params[:start_time],params[:end_time]).by_staffid(params[:dept][:user_id])
+     unless params[:search][:behave_id].blank?
+       @records = @records.by_behave_id params[:search][:behave_id]
+     end
+     render "common/_table_show_records",locals:{:records => @records },:layout => false
    end
 
    def operate
-     @records = StaffRecordDecorator.new( StaffRecord.query(params,current_user).paginate(:page => params[:page])  )
-     session[:query_map] = Rails.configuration.staff_record_query_map   
-     render "common/_table_show_records",locals:{:records => @records },:layout => false if env["REQUEST_METHOD"].eql?("POST")
    end
-
 end

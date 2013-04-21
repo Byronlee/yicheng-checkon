@@ -30,3 +30,10 @@ body{
     -moz-border-radius: @radius;
     -webkit-border-radius: @radius;
 }
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 8px; white-space: nowrap; overflow: hidden; border: solid rgba(0,0,0,0.05); border-width: 1px 0;}
+.autocomplete-suggestion:hover{ background-color: #eff7fd; z-index: 2;border-color: rgba(0,0,0,0.1);
+}
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }

@@ -23,12 +23,7 @@ jQuery(function(){
 	    $('input[name=end_time]').val(end.getFullYear()+"-"+farmat((end.getMonth()+1))+"-"+farmat(end.getDate()));
             $('input[name=start_time]').val(start.getFullYear()+"-"+farmat((start.getMonth()+1))+"-"+farmat(start.getDate()));
     }
-    $('input[name=range_time]').daterangepicker(datapicker_option,datapicker_callback)
-
-
-
-
-
+   $('input[name=range_time]').daterangepicker(datapicker_option,datapicker_callback)
    count_reslut("#new_examine","创建失败！，请查看上次的考勤审核任务是否完成！")
    count_reslut("#new_count","统计失败！请稍后再试！")
    count_reslut("#delete_examine","取消失败！请稍后再试！")
@@ -44,11 +39,18 @@ jQuery(function(){
 	});
     }
 
+    $('#autocomplete').autocomplete({
+	serviceUrl: '/autocomplete/search_users',
+	onSelect: function (suggestion) {
+            $(this).parents('form').find('#input_search_user_id').val(suggestion.data)
+	}
+    });
+
 
 });
 
     function ajax_dept_users_select(o){
-      $.get("trainees/ajax_dept_users_select",{dept_id : o.val()},function(html){
+      $.get("/ajax_dept_users",{dept_id : o.val()},function(html){
       o.parents('.input-prepend').next().replaceWith(html);
       })
     }
@@ -62,7 +64,6 @@ jQuery(function(){
 	    }
 	})
     }
-
 
 
     function query_attach(o){
@@ -86,3 +87,8 @@ jQuery(function(){
       o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
       o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
   }
+
+$('.query_data_form').live('ajax:success',function(evt, data, status, xhr){
+    alert(data)
+    $('.show_query_result').html(data)
+  })

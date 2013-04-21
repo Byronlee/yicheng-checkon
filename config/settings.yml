@@ -16,9 +16,6 @@ defaults: &defaults
   behave_leave_thing_id: '517180761229bcfc56000002'  #事假
   behave_leave_preg_id:  '517180761229bcfc56000004'  #产假
 
-
-
-
   user_attrs:
     staffid:  'SU_USER_ID'
     nickname_code: 'SU_NICKNAME_CODE'
