@@ -13,7 +13,7 @@ class Ability
     end
     
     if user.rightsman?
-      
+      can :manage , Perssion
     end
 
     if user.approval?

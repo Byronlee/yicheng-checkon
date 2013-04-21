@@ -35,7 +35,6 @@ module Mongoid
       end
     end
 
-    module InstanceMethods
       def c_at
         _id.generation_time
       end
@@ -44,7 +43,6 @@ module Mongoid
           checkins.find_by(check_unit_id: check_unit_id).update_attribute(:behave_id ,behave_id)
         end
       end
-    end
 
     module  ClassMethods 
       def state state
