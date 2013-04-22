@@ -11,6 +11,7 @@ form.query_data_form action=search_staff_records_path method='post' data-remote=
     = depts_select('dept','user_id',[],{prompt: '--全部--'},{class: 'span10'})
     input type="text" id="autocomplete" placeholder="关键字"
     = depts_select('search','behave_id',behaves,{prompt: '请选择考勤项'})
+    = select('','',behaves,{},{ class: 'chzn-select' })
     input type="hidden" id='input_search_user_id' name='1_dept[user_id]'
     input.btn.btn-primary type="submit" value='查询' data-disable-with="正在查询中....."
 

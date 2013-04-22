@@ -11,23 +11,23 @@ class Count
         @count_records.map_reduce(map,reduce).out(replace: "counts").count
     end
 
-
     def default_count_behave_types
       Settings.default_count_behave_types.inject([]) do |types,type_name |
-        types << BehaveType.find_by(name: type_name).behaves.map(&:_id)
+        types << BehaveType.behave_ids_by_name(type_name)
       end.flatten
     end
 
     def counts      
-       {leave:        self.in("_id.behave_id"  => convert_object(Settings.leave_behave_ids)),
-        absent:       count_result(Settings.behave_absent_id) ,
-        late:         count_result(Settings.behave_late_id) ,
-        away:         count_result(Settings.behave_away_id) ,
-        leave_die:    count_result(Settings.behave_leave_die_id) ,
-        leave_sick:   count_result(Settings.behave_leave_sick_id),
-        leave_marry:  count_result(Settings.behave_leave_marry_id),
-        leave_thing:  count_result(Settings.behave_leave_thing_id),
-        leave_preg:   count_result(Settings.behave_leave_preg_id)}
+       {leave:        self.in("_id.behave_id"  => convert_object(BehaveType.behave_ids_by_name('请假'))),
+        absent:       count_result(Behave.find_by(name: '旷工').id),
+        late:         count_result(Behave.find_by(name: '迟到').id),
+        away:         count_result(Behave.find_by(name: '离职').id),
+        leave_die:    count_result(Behave.find_by(name: '丧假').id),
+        leave_sick:   count_result(Behave.find_by(name: '病假').id),
+        leave_marry:  count_result(Behave.find_by(name: '婚假').id),
+        leave_thing:  count_result(Behave.find_by(name: '事假').id),
+        leave_preg:   count_result(Behave.find_by(name: '产假').id),
+       }
     end
   end
 

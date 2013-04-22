@@ -2,7 +2,10 @@
 class CountsController < ApplicationController
 
   def index
+  
    @counts = Count.counts
+   p '_________________________________'
+   p @counts = Count.counts
   end
 
   def create 

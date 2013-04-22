@@ -28,8 +28,11 @@ module Mongoid
 
 
       def convert_object ids    
-        return Moped::BSON::ObjectId.from_string(ids) if ids.instance_of? String 
-        ids.map{|id|Moped::BSON::ObjectId.from_string(id)}
+        if ids.instance_of? Array
+          ids.map{|id|Moped::BSON::ObjectId.from_string(id)}
+        else
+          Moped::BSON::ObjectId.from_string(ids)
+        end
       end
 
       def count_result id

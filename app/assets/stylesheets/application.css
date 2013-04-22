@@ -2,5 +2,6 @@
  *= require daterangepicker
  *= require bootstrap-datepicker
  *= require yicheng
+ *= require chosen
  *= require_tree .
  */ 

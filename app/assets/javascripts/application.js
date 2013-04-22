@@ -18,7 +18,6 @@
 //= require date
 //= require daterangepicker
 //= require bootstrap-datepicker
-//
-//= require rails_autocomplete
-
+//= require chosen-jquery
+//= require scaffold
 //= require_tree .

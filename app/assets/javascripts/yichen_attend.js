@@ -39,7 +39,7 @@ jQuery(function(){
 	});
     }
 
-    $('#autocomplete').autocomplete({
+  $('#autocomplete').autocomplete({
 	serviceUrl: '/autocomplete/search_users',
 	onSelect: function (suggestion) {
             $(this).parents('form').find('#input_search_user_id').val(suggestion.data)
