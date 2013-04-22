@@ -27,7 +27,8 @@ jQuery(function(){
    count_reslut("#new_examine","创建失败！，请查看上次的考勤审核任务是否完成！")
    count_reslut("#new_count","统计失败！请稍后再试！")
    count_reslut("#delete_examine","取消失败！请稍后再试！")
-    //  看看 提交之前的 表单 是否 填好！ TODO  
+   count_reslut(".update_examine","处理失败！请稍后再试！")
+
     function  count_reslut(object_name,message){	
 	$(object_name).live('ajax:success', function(event,data,status, xhr) {
 	    $("body").find(".waiting").remove();

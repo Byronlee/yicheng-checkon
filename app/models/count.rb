@@ -18,16 +18,16 @@ class Count
       end.flatten
     end
 
-    def counts      
-       {leave:        self.in("_id.behave_id"  => convert_object(Settings.leave_behave_ids)),
-        absent:       count_result(Settings.behave_absent_id) ,
-        late:         count_result(Settings.behave_late_id) ,
-        away:         count_result(Settings.behave_away_id) ,
-        leave_die:    count_result(Settings.behave_leave_die_id) ,
-        leave_sick:   count_result(Settings.behave_leave_sick_id),
-        leave_marry:  count_result(Settings.behave_leave_marry_id),
-        leave_thing:  count_result(Settings.behave_leave_thing_id),
-        leave_preg:   count_result(Settings.behave_leave_preg_id)}
+    def counts current_user     
+       {leave:        count_result(current_user,Settings.leave_behave_ids),
+        absent:       count_result(current_user,Settings.behave_absent_id) ,
+        late:         count_result(current_user,Settings.behave_late_id) ,
+        away:         count_result(current_user,Settings.behave_away_id) ,
+        leave_die:    count_result(current_user,Settings.behave_leave_die_id) ,
+        leave_sick:   count_result(current_user,Settings.behave_leave_sick_id),
+        leave_marry:  count_result(current_user,Settings.behave_leave_marry_id),
+        leave_thing:  count_result(current_user,Settings.behave_leave_thing_id),
+        leave_preg:   count_result(current_user,Settings.behave_leave_preg_id)}
     end
   end
 

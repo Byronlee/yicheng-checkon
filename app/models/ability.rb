@@ -5,10 +5,10 @@ class Ability
 
     if user.registrar?
       can :manage , Trainee
-      can :manage , Count
       can :manage , StaffRecord
       can :registrar ,Task
       can :index, Count
+      can :update ,Examine
       can [:create,:destroy], Modify
     end
     
@@ -18,7 +18,7 @@ class Ability
 
     if user.approval?
       can :manage , Count
-      can :manage , Examine
+      can [:create,:destroy] , Examine
       can :update , Modify
       can :approval , Task
       can [:operate,:update] , StaffRecord

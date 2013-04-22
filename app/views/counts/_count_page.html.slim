@@ -13,11 +13,13 @@
       .progress.progress-striped.active
         .bar style="width:#{unfinish_examine.percent};"
       .progress_detail
-        span 已完成#{unfinish_examine.percent}
+        span 已完成#{unfinish_examine.marker}
       = render "counts/progress_detail" 
       = render "counts/cancel_examine"
   - else
-    p 2012.12.12 2012.12.21
+    - unless unfinish_examine.blank?
+      span #{unfinish_examine.start_time}至#{unfinish_examine.end_time}&nbsp;&nbsp;
+      = render_cell :count , :update_examine ,:state => current_user_examine_state
 ul.nav.nav-tabs#tab
   li.active
     a href="#leave" data-toggle="tab" 请假

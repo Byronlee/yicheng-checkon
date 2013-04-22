@@ -17,8 +17,12 @@ class Examine
     Examine.unfinish_examine.blank? ? save : false
   end
 
+  def marker
+    "#{proces.where(state: true).count}/#{proces.count}"
+  end  
+
   def percent
-    "#{(proces.where(state: true).count.to_f/proces.count.to_f*100)}"+"%"
+    "#{(proces.where(state: true).count.to_f/proces.count.to_f*100).round(1)}"+"%"
   end
 
 end

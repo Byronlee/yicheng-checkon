@@ -16,25 +16,31 @@ module Mongoid
           }
         }
         }
-      end
+     end
 
-      def reduce
-        reduce = %Q{
+     def reduce
+       reduce = %Q{
         function(key, values) {
           return {count: values.length , record_ids: values};
         }
         }
-      end
+     end
 
 
-      def convert_object ids    
-        return Moped::BSON::ObjectId.from_string(ids) if ids.instance_of? String 
-        ids.map{|id|Moped::BSON::ObjectId.from_string(id)}
-      end
+     def convert_object ids    
+       return Moped::BSON::ObjectId.from_string(ids) if ids.instance_of? String 
+       ids.map{|id|Moped::BSON::ObjectId.from_string(id)}
+     end
 
-      def count_result id
-        self.where("_id.behave_id"  => convert_object(id))
-      end
-    end
-  end
+     def count_result current_user ,id
+       if id.instance_of? String           
+         return  self.where("_id.behave_id"  => convert_object(id)) if current_user.approval?
+         self.in("_id.user_id" => current_user.users_with_subdept ).where("_id.behave_id"  => convert_object(id)) 
+       else
+         return self.in("_id.behave_id"  => convert_object(Settings.leave_behave_ids)) if current_user.approval?
+         self.in("_id.user_id" => current_user.users_with_subdept).in("_id.behave_id"  => convert_object(Settings.leave_behave_ids))
+       end
+     end
+   end
+ end
 end
