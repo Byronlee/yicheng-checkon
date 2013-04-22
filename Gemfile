@@ -71,3 +71,5 @@ gem 'cells'
 gem 'spreadsheet'
 gem 'simple_form'
 gem "settingslogic", "~> 2.0.9"
+gem 'chosen-rails'
+

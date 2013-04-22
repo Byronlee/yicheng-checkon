@@ -67,7 +67,7 @@ table.table{
 // 查询 less 
 .query_total_infor{
   #float(right);
-  margin: -89px 106px;	
+  margin:-47px 49px;
   a {#a;}
 }
 
@@ -79,11 +79,16 @@ form.query_data_form{
    .query_data{
       float: left;
       width: 100%;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 20px;
+      padding-bottom: 7px;
       > div { 
+       > div{margin-right: 10px;}
+       > input[type=submit]{float:right}
        float:left;
-       input[type=text]{   width: 180px;}
-       select{   width: 130px;}	
-       margin: 6px 20px 6px 4px;
+       input[type=text]{   width: 168px;}
+       select{ width: 125px;}	
+       margin: 6px 0px -8px 0px;
       }
       > button{
         #float;	
@@ -91,31 +96,7 @@ form.query_data_form{
       }	
     }
 }
-.query_attach_condition{
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 25px;
-      ul.nav{
-        margin-bottom: 0px;	
-        li{
-        a {border: 1px #ddd solid;}
-        .input-append {
-          select{height: 26px;}
-          input, select{	     
-	     font-size: 12px;
-	     padding: 2px 2px;
-	     #border-radius(1px)
- 	   }
-           margin: 0px 5px 0px 5px;
-          .condition{ width: 78px;}
-          .btn{
-            padding:2px 4px; 
- 	    font-size:12px;
-   	     #border-radius(1px)
-	   }
-        }
-      }
-     } 
-}
+
 
 
 // 统计less 

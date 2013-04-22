@@ -27,8 +27,8 @@
               td = u.salary_time
               td.m_r
                  form action=merge_trainees_path method="post" id="merge_users"
-                   = raw(unit_depts_selects 'dept',{onChange: "ajax_dept_users_select($(this))" , :class => "span10"})
-                   = depts_select_instance 'condition',[],{class: 'span10'}
+                   = raw(unit_depts_selects 'dept',{onChange: "ajax_dept_users_select($(this))" , :class => "span9"})
+                   = depts_select_instance 'condition',[],{class: 'span10 staff_select'}
                    input type="hidden" name="old_trainee_id" value=u.id
               td
                 input.btn.btn-primary  type="submit" onclick="merge_submit($(this),'merge_users')" value="确认合并"
