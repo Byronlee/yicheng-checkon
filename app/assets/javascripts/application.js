@@ -18,5 +18,7 @@
 //= require date
 //= require daterangepicker
 //= require bootstrap-datepicker
+//= require chosen-jquery
+//= require chosen
 
 //= require_tree .

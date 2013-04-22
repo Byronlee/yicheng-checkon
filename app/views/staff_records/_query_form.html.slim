@@ -4,13 +4,17 @@ form.query_data_form action=search_staff_records_path method='post' data-remote=
       .input-prepend
         span.add-on 
           i.icon-calendar
-        input#prependedInput type="text"  name="range_time"  placeholder="--截时间至上次考勤--" required="required"
+        input#prependedInput type="text"  name="range_time"  placeholder="--请选择时间段--" required="required"
         input type="hidden" name="start_time" required="required"
         input type="hidden" name="end_time" required="required"
-    = raw(unit_depts_selects 'search',{onchange: "ajax_dept_users_select($(this))"})
-    = depts_select('dept','user_id',[],{prompt: '--全部--'},{class: 'span10'})
+    = raw(unit_depts_selects 'search')
+
+
+    = depts_select('dept','user_id',[],{prompt: '员工'},{style: "width: 75px;", class: 'staff_select' })
+  
+
     input type="text" id="autocomplete" placeholder="关键字"
-    = depts_select('search','behave_id',behaves,{prompt: '请选择考勤项'})
+    = depts_select('search','behave_id',behaves,{prompt: '考勤项'})
     input type="hidden" id='input_search_user_id' name='1_dept[user_id]'
     input.btn.btn-primary type="submit" value='查询' data-disable-with="正在查询中....."
 
