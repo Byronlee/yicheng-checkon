@@ -21,7 +21,7 @@ class HomesController < ApplicationController
   def ajax_attend_tree 
     node = Webservice.get_data "dept_tree/"+params[:dept_id]
     if node["children"]
-      choices =  node["children"].map{|v| [v["name"] , v["id"]]}
+      choices =  node["children"].map{|v|[v["name"].strip , v["id"]]}
       render "common/_organization_select",locals: {object:"condition",node: choices,html_options: {}},:layout => false
     else
       render :json => false
@@ -34,10 +34,10 @@ class HomesController < ApplicationController
   end
 
   def search_users
-    ws_users = Webservice.search_users(params[:query])
+    ws_users = Webservice.search_users(params[:term])
     suggestions = ws_users.map do |u|
-      {value: u['SU_USERNAME'], data: u["SU_USER_ID"]}
+      {value: u["SU_USER_ID"],text: u['SU_USERNAME']}
     end
-    render :json => {query: params[:query],suggestions: suggestions}
+    render :json => suggestions.to_json
   end
 end
