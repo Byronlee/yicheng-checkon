@@ -13,5 +13,10 @@ class CountsController < ApplicationController
                                       :range_time => range_time } ,:layout => false
   end
 
+  def export
+    Count.export
+    render :json => "success"
+  end
+
 end
 
