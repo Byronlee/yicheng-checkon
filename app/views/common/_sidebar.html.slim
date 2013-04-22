@@ -18,12 +18,13 @@
               a href="#"
                 i.icon-chevron-right
                 span
-                  a href=operate_staff_records_path 考勤查询
-            li
-              a href="#"
-                i.icon-chevron-right
-                span
-                  a href="/counts" 统计审核
+                  a href=staff_records_path 考勤查询
+            - if can? :create,Count
+              li
+                a href="#"
+                  i.icon-chevron-right
+                  span
+                    a href="/counts" 统计审核
                     
             - if can? :index,Trainee
               li

@@ -8,7 +8,8 @@ module Mongoid
 
       def examine_notice_content
         launcher = User.resource(self.launcher)   
-        launcher.username+'('+launcher.ancestors+')需要你审核'+examine.start_time+'日至'+examine.end_time+'日之间的考勤数据'
+        content = launcher.username+'('+launcher.ancestors+')需要你审核'+examine.start_time+'日至'+examine.end_time+'日之间的考勤数据'
+        update_attribute(:content, content)  
       end
 
       def modify_notice_content current_user 

@@ -20,5 +20,4 @@ module DepartmentsHelper
       select(object,method ,choices, options,html_options) 
     end
   end
-
 end

@@ -16,11 +16,6 @@ class TraineesController < ApplicationController
     redirect_to trainees_path
   end
 
-  def ajax_dept_users_select
-    users = !params[:dept_id].empty? ? Department.new(params[:dept_id]).users_select : []
-    render "common/_organization_select",locals:{ :object=> 'condition',:node => users,html_options: {class: 'span10'}},:layout => false
-  end
-
   def merge
     # params[:condition][:dept_id] stand for 'staff_id'
     if (new_id = params[:condition][:dept_id]).blank?
