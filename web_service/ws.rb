@@ -19,11 +19,11 @@ get '/input_error' do
 end
 
 
-# get '/attend/tree/:user_id' do
-#   user_id  = params[:user_id]
-#   redirect "/input_error" unless check_id user_id 
-#   JSON.dump $ACCESSOR.attend_tree user_id
-# end
+get '/attend/tree/:user_id' do
+  user_id  = params[:user_id]
+  redirect "/input_error" unless check_id user_id 
+  JSON.dump $ACCESSOR.attend_tree user_id
+end
 
 get '/dept/users/:dept_id' do
   dept_id = params[:dept_id]
