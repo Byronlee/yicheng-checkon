@@ -17,6 +17,5 @@ class CountsController < ApplicationController
     Count.export
     render :json => "success"
   end
-
 end
 
