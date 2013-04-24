@@ -4,3 +4,5 @@ form#new_count(action="/counts" method="post" data-remote="true")
     button.btn.btn-primary type="submit" data-disable-with="正在统计中..."  统计
   = hidden_field_tag 'start_time'
   = hidden_field_tag 'end_time'
+form action='/export' id='export_form' method='post' data-remote="true"
+  button.btn.btn-primary  type="submit" data-disable-with="正在导出中..." 导出
