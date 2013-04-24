@@ -16,6 +16,7 @@ class Count
       end.flatten
     end
 
+<<<<<<< HEAD
     def counts      
        {leave:        self.in("_id.behave_id"  => convert_object(BehaveType.behave_ids_by_name('请假'))),
         absent:       count_result(Behave.find_by(name: '旷工').id),
@@ -36,7 +37,37 @@ class Count
         new_book.worksheet(0).insert_row(index+1,[x.user.ancestors,x.user.user_no,x.user.username,x.behave_name,x.value["count"]])
       end 
       new_book.write(Rails.root + 'export/count.xls')
+=======
+    def counts current_user     
+       {leave:        count_result(current_user,Settings.leave_behave_ids),
+        absent:       count_result(current_user,Settings.behave_absent_id) ,
+        late:         count_result(current_user,Settings.behave_late_id) ,
+        away:         count_result(current_user,Settings.behave_away_id) ,
+        leave_die:    count_result(current_user,Settings.behave_leave_die_id) ,
+        leave_sick:   count_result(current_user,Settings.behave_leave_sick_id),
+        leave_marry:  count_result(current_user,Settings.behave_leave_marry_id),
+        leave_thing:  count_result(current_user,Settings.behave_leave_thing_id),
+        leave_preg:   count_result(current_user,Settings.behave_leave_preg_id)}
+>>>>>>> remotes/zy/master
     end
+
+
+    def export 
+      new_book = Spreadsheet::Workbook.new 
+      new_book.create_worksheet :name => '伊诚考勤统计表'
+      new_book.worksheet(0).insert_row(0, Settings.exel_header)
+      Count.all.each_with_index do |x,index|
+        if x.value.class.eql? Moped::BSON::ObjectId
+          new_book.worksheet(0).insert_row(index+1,[x.user.ancestors,x.user.user_no,x.user.username,x.behave_name,0.5])
+        else
+          new_book.worksheet(0).insert_row(index+1,[x.user.ancestors,x.user.user_no,x.user.username,x.behave_name,x.value["count"]*0.5])
+        end
+      end 
+      new_book.write(Rails.root + 'public/exels/count.xls')
+    end
+
+
+
   end
 
   def behave_name
@@ -48,6 +79,15 @@ class Count
   end
 
   def records
+    return [StaffRecord.find(value)] if value.class.eql? Moped::BSON::ObjectId
     value["record_ids"].uniq.map{ |record_id| StaffRecord.find(record_id)}.flatten
   end
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> remotes/zy/master
 end
