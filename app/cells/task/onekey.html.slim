@@ -3,5 +3,5 @@ form(action="staff_records/update" method="post")
   input name="time" value=@task[:created_at] type="hidden"
   input type="hidden" name="register_way" value="fast_register"
   .input-append
-    = raw(behaves_select nil,{},{:class => "span7",name: "behave_id"})
+    = raw(behaves_select Checkin.new(behave_id: Behave.default.id),{},{:class => "span7",name: "behave_id"})
     button.btn.btn-primary type="type" 保存

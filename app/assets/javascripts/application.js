@@ -18,6 +18,5 @@
 //= require date
 //= require daterangepicker
 //= require bootstrap-datepicker
-//= require scaffold
 //= require chosen-jquery
 //= require_tree .
