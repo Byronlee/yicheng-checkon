@@ -5,6 +5,7 @@ defaults: &defaults
   ws_url:                'http://proj.cdu.edu.cn:4567/'
   cas_url:               'http://61.139.87.55:7890/'
   count_radix:           0.5
+  export_path:           <%= Rails.root + 'public/exels/'%>
 
   behaves:
     请假: ["事假","病假","产假","婚假","丧假"]
@@ -15,7 +16,7 @@ defaults: &defaults
     上班: ["全勤","公出","培训"]
 
   exel_header: ['所在位置','工号','姓名','请假类型','天数']		
-
+  exel_worksheet_name: '伊诚公司考勤表'
   count_types:
     leave:          # 请假类型
       leave_die:     '丧假'

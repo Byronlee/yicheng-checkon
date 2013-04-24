@@ -12,5 +12,3 @@ table.table.table-condensed.table-bordered
       td = stat.behave_name
       td = stat["value"]["count"]*count_radix
       td = render "counts/exception_detail" ,:stat => stat
-= link_to "导出|",'export',remote: true
-= link_to "下载",'/exels/count.xls'

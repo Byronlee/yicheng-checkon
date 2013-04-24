@@ -19,8 +19,8 @@
 
 /app/models/*_old.rb
 
+/public/exels/*
 
-/export/*.xls
 # Ignore all logfiles and tempfiles.
 /log/*.log
 Gemfile.lock
