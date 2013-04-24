@@ -4,8 +4,6 @@ Attendance::Application.configure do
     Rack::Lock, Rack::LiveReload,
     :min_delay => 500,
     :max_delay => 10000,
-    :port => 3000,
-    :host => 'localhost',
     :ignore => [ %r{dont/modify\.html$} ]
   )
   # Settings specified here will take precedence over those in config/application.rb

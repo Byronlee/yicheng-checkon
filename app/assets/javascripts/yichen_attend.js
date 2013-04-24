@@ -27,7 +27,8 @@ jQuery(function(){
    count_reslut("#new_examine","创建失败！，请查看上次的考勤审核任务是否完成！")
    count_reslut("#new_count","统计失败！请稍后再试！")
    count_reslut("#delete_examine","取消失败！请稍后再试！")
-    //  看看 提交之前的 表单 是否 填好！ TODO  
+   count_reslut(".update_examine","处理失败！请稍后再试！")
+
     function  count_reslut(object_name,message){	
 	$(object_name).live('ajax:success', function(event,data,status, xhr) {
 	    $("body").find(".waiting").remove();
@@ -39,32 +40,35 @@ jQuery(function(){
 	});
     }
 
-  $('#autocomplete').autocomplete({
-	serviceUrl: '/autocomplete/search_users',
-	onSelect: function (suggestion) {
-            $(this).parents('form').find('#input_search_user_id').val(suggestion.data)
-	}
+    $(".staff_select").ajaxChosen({
+	type: 'GET',
+	url: '/autocomplete/search_users',
+	dataType: 'json'
+    }, function (data) {
+	var results = [];	
+	$.each(data, function (i, val) {
+            results.push({ value: val.value, text: val.text });
+	});
+	return results;
     });
-
 
 });
 
     function ajax_dept_users_select(o){
       $.get("/ajax_dept_users",{dept_id : o.val()},function(html){
-      o.parents('.input-prepend').next().replaceWith(html);
+      o.parents("form").find(".staff_select").parents('.input-prepend').replaceWith(html);
       })
     }
 
     function ajax_attend_tree(o){
-	o.parents(".input-prepend").nextAll().find("select").html('<option value="">--全部--</option>');
+	o.parents(".selects_group").nextAll().find("#search_dept_id").parents(".input-prepend").html('<option value="">--全部--</option>');
 	$.post("/ajax_attend_tree",{dept_id :o.val()}, function(html){
 	    if(html){	  
 	     o.parents(".input-prepend").next().find("select").html(html);
-	     o.parents(".query_data").find("input[name=dept_id]").val(o.val);
 	    }
-	})
+	})     
+        ajax_dept_users_select(o)
     }
-
 
     function query_attach(o){
      if(o.attr("order")=="false"&&o.val()=="") return false
@@ -88,7 +92,12 @@ jQuery(function(){
       o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
   }
 
-$('.query_data_form').live('ajax:success',function(evt, data, status, xhr){
-    alert(data)
+$('.query_data_form').live('ajax:before', function(event,data,status, xhr) {
+    var user_id = $("#dept_user_id").val() ;
+    if (user_id==""){
+	alert("请根据关键字或者部门选择相关的员工在进行查询！")
+	return false;
+    }
+}).live('ajax:success',function(evt, data, status, xhr){
     $('.show_query_result').html(data)
-  })
+});
