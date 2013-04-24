@@ -20,6 +20,7 @@
 /app/models/*_old.rb
 
 
+/export/*.xls
 # Ignore all logfiles and tempfiles.
 /log/*.log
 Gemfile.lock

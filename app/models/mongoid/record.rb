@@ -8,13 +8,6 @@ module Mongoid
       include Mongoid::Timestamps::Updated::Short
       include Mongoid::StateMachine
 
-      field :staff_name , type: String 
-      field :user_no, type: String 
-      field :nick_name, type: String 
-      field :record_zone_name , type: String 
-      field :record_person_name , type: String
-      field :record_zone , type: String 
-
       field :staffid, type: String 
       field :record_person , type: String 
       field :attend_date , type: String
@@ -35,7 +28,6 @@ module Mongoid
       end
     end
 
-    module InstanceMethods
       def c_at
         _id.generation_time
       end
@@ -44,7 +36,6 @@ module Mongoid
           checkins.find_by(check_unit_id: check_unit_id).update_attribute(:behave_id ,behave_id)
         end
       end
-    end
 
     module  ClassMethods 
       def state state

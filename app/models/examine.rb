@@ -24,5 +24,4 @@ class Examine
   def percent
     "#{(proces.where(state: true).count.to_f/proces.count.to_f*100).round(1)}"+"%"
   end
-
 end

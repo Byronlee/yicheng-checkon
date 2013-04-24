@@ -29,7 +29,4 @@ class StaffRecordsController < ApplicationController
      end
      render "common/_table_show_records",locals:{:records => @records },:layout => false
    end
-
-   def operate
-   end
 end

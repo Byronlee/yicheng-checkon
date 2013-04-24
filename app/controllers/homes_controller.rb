@@ -36,6 +36,7 @@ class HomesController < ApplicationController
   def search_users
     ws_users = Webservice.search_users(params[:term])
     suggestions = ws_users.map do |u|
+       # TODO 搜索当前用户管辖的用户
       {value: u["SU_USER_ID"],text: u['SU_USERNAME']}
     end
     render :json => suggestions.to_json

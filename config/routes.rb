@@ -28,6 +28,8 @@ Attendance::Application.routes.draw do
     end
   end
 
+  resources :perssions
+
   resources :notices
   resources :counts
   post 'counts/update'

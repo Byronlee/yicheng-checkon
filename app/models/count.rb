@@ -3,7 +3,6 @@ class Count
   include Mongoid::Document
   include Mongoid::Count
  
-
   class << self
     def create params      
         @total_records = StaffRecord.by_period(params[:start_time],params[:end_time]).state('submitted')                 
@@ -11,25 +10,25 @@ class Count
         @count_records.map_reduce(map,reduce).out(replace: "counts").finalize(finalize).count
     end
 
-
     def default_count_behave_types
-      Settings.default_count_behave_types.inject([]) do |types,type_name |
-        types << BehaveType.find_by(name: type_name).behaves.map(&:_id)
+      Settings.count_types.map do |type,behaves|
+        behaves.map do |behave,name|
+          Behave.find_by(name: name).id
+        end
       end.flatten
     end
 
-    def counts current_user     
-       {leave:        count_result(current_user,Settings.leave_behave_ids),
-        absent:       count_result(current_user,Settings.behave_absent_id) ,
-        late:         count_result(current_user,Settings.behave_late_id) ,
-        away:         count_result(current_user,Settings.behave_away_id) ,
-        leave_die:    count_result(current_user,Settings.behave_leave_die_id) ,
-        leave_sick:   count_result(current_user,Settings.behave_leave_sick_id),
-        leave_marry:  count_result(current_user,Settings.behave_leave_marry_id),
-        leave_thing:  count_result(current_user,Settings.behave_leave_thing_id),
-        leave_preg:   count_result(current_user,Settings.behave_leave_preg_id)}
+    def counts  current_user,result={},tmp = {}
+      Settings.count_types.map do |type,behaves|
+        behaves.map do |behave,name|
+          behave_id = Behave.find_by(name: name).id
+          tmp[behave] = current_user.counts_result(behave_id)
+        end
+        result[type] = tmp
+        tmp = {}
+      end
+      result
     end
-
 
     def export 
       new_book = Spreadsheet::Workbook.new 
@@ -41,9 +40,11 @@ class Count
       new_book.write(Rails.root + 'public/exels/count.xls')
     end
 
+    def by_behave_id behave_id
+      where("_id.behave_id"  => behave_id)
+    end
 
-
-  end
+  end  # class << self
 
   def behave_name
     Behave.find(id["behave_id"]).name
@@ -56,9 +57,4 @@ class Count
   def records
     value["record_ids"].uniq.map{ |record_id| StaffRecord.find(record_id)}.flatten
   end
-
-
-
-
-
 end
