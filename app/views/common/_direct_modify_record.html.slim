@@ -3,7 +3,7 @@ a href="##{record.id}" role="button" class="btn btn-mini btn-primary" data-toggl
   .modal-header
     button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
     h3 id="myModalLabel" 修改<font color="red">#{record.staff_name}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
-  form(action="update" method="post")
+  form(action="/staff_records/update" method="put")
     .modal-body
       input type="hidden" name="staff_record_id" value="#{record.id}"
       input name="register_way" type="hidden" value="direct_update"
