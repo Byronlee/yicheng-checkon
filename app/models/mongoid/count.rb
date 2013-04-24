@@ -18,22 +18,31 @@ module Mongoid
         }
      end
 
-     def reduce
+     def finalize
+        %Q{
+        function(key, values) {
+          if(!values.count){
+            return  {count: 1 , record_ids: [values]}
+            }
+          return  values;
+          }
+        }
+     end
+
+    def reduce
        reduce = %Q{
         function(key, values) {
-          return {count: values.length , record_ids: values};
+           return {count: values.length , record_ids: values};
         }
         }
      end
 
 
-      def convert_object ids    
-        if ids.instance_of? Array
-          ids.map{|id|Moped::BSON::ObjectId.from_string(id)}
-        else
-          Moped::BSON::ObjectId.from_string(ids)
-        end
-      end
+
+     def convert_object ids    
+       return Moped::BSON::ObjectId.from_string(ids) if ids.instance_of? String 
+       ids.map{|id|Moped::BSON::ObjectId.from_string(id)}
+     end
 
      def count_result current_user ,id
        if id.instance_of? String           
