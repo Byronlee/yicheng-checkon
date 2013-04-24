@@ -18,13 +18,25 @@ module Mongoid
         }
      end
 
-     def reduce
+     def finalize
+        %Q{
+        function(key, values) {
+          if(!values.count){
+            return  {count: 1 , record_ids: [values]}
+            }
+          return  values;
+          }
+        }
+     end
+
+    def reduce
        reduce = %Q{
         function(key, values) {
-          return {count: values.length , record_ids: values};
+           return {count: values.length , record_ids: values};
         }
         }
      end
+
 
 
      def convert_object ids    

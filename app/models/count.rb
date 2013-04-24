@@ -8,7 +8,7 @@ class Count
     def create params      
         @total_records = StaffRecord.by_period(params[:start_time],params[:end_time]).state('submitted')                 
         @count_records = @total_records.in("checkins.behave_id" => default_count_behave_types )      
-        @count_records.map_reduce(map,reduce).out(replace: "counts").count
+        @count_records.map_reduce(map,reduce).out(replace: "counts").finalize(finalize).count
     end
 
 
@@ -36,12 +36,8 @@ class Count
       new_book.create_worksheet :name => '伊诚考勤统计表'
       new_book.worksheet(0).insert_row(0, Settings.exel_header)
       Count.all.each_with_index do |x,index|
-        if x.value.class.eql? Moped::BSON::ObjectId
-          new_book.worksheet(0).insert_row(index+1,[x.user.ancestors,x.user.user_no,x.user.username,x.behave_name,0.5])
-        else
-          new_book.worksheet(0).insert_row(index+1,[x.user.ancestors,x.user.user_no,x.user.username,x.behave_name,x.value["count"]*0.5])
-        end
-      end 
+        new_book.worksheet(0).insert_row(index+1,[x.user.ancestors,x.user.user_no,x.user.username,x.behave_name,x.value["count"]*0.5])
+      end
       new_book.write(Rails.root + 'public/exels/count.xls')
     end
 
@@ -58,7 +54,6 @@ class Count
   end
 
   def records
-    return [StaffRecord.find(value)] if value.class.eql? Moped::BSON::ObjectId
     value["record_ids"].uniq.map{ |record_id| StaffRecord.find(record_id)}.flatten
   end
 

@@ -3,7 +3,6 @@ class Behave
 
   field :name, type: String
   field :default, type: Boolean, default: false
-  field :proper, type: Boolean
   belongs_to :behave_type
 
 #  has_many :checkins
