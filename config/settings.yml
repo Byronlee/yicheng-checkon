@@ -4,7 +4,6 @@ defaults: &defaults
 #  ws_url:                'http://project.zhiyisoft.com:4567/'
   ws_url:                'http://proj.cdu.edu.cn:4567/'
   cas_url:               'http://61.139.87.55:7890/'
-  default_count_behave_types: ["请假","旷工","离职","迟到"]
   count_radix:           0.5
 
   behaves:
@@ -16,17 +15,20 @@ defaults: &defaults
     上班: ["全勤","公出","培训"]
 
   exel_header: ['所在位置','工号','姓名','请假类型','天数']		
-  leave_behave_ids:      ["517180761229bcfc56000006","517180761229bcfc56000003","517180761229bcfc56000005","517180761229bcfc56000002","517180761229bcfc56000004"]            #请假
-  behave_absent_id:      '517180761229bcfc56000008'  #旷工
-  behave_late_id:        '517180761229bcfc5600000a'  #迟到
-  behave_away_id:        '517180761229bcfc5600000e'  #离职
-  behave_leave_die_id:   '517180761229bcfc56000006'  #丧假
-  behave_leave_sick_id:  '517180761229bcfc56000003'  #病假
-  behave_leave_marry_id: '517180761229bcfc56000005'  #婚假
-  behave_leave_thing_id: '517180761229bcfc56000002'  #事假
-  behave_leave_preg_id:  '517180761229bcfc56000004'  #产假
 
-  exel_header: ['所在位置','工号','姓名','请假类型','天数']	
+  count_types:
+    leave:          # 请假类型
+      leave_die:     '丧假'
+      leave_sick:    '病假'
+      leave_marry:   '婚假'
+      leave_thing:   '事假'
+      leave_preg:    '产假'
+    absent:         # 矿工类型
+      absent:        '旷工'
+    late:           # 迟到类型 
+      late:          '迟到'
+    away:           # 离职类型
+      away:          '离职'
 
   user_attrs:
     staffid:  'SU_USER_ID'

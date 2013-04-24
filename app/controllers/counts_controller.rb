@@ -2,6 +2,8 @@
 class CountsController < ApplicationController
 
   def index
+   p '____________'
+   p @counts
    @counts = Count.counts current_user
   end
 

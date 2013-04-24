@@ -11,46 +11,24 @@ class Count
     end
 
     def default_count_behave_types
-      Settings.default_count_behave_types.inject([]) do |types,type_name |
-        types << BehaveType.behave_ids_by_name(type_name)
+      Settings.count_types.map do |type,behaves|
+        behaves.map do |behave,name|
+          Behave.find_by(name: name).id
+        end
       end.flatten
     end
 
-<<<<<<< HEAD
-    def counts      
-       {leave:        self.in("_id.behave_id"  => convert_object(BehaveType.behave_ids_by_name('请假'))),
-        absent:       count_result(Behave.find_by(name: '旷工').id),
-        late:         count_result(Behave.find_by(name: '迟到').id),
-        away:         count_result(Behave.find_by(name: '离职').id),
-        leave_die:    count_result(Behave.find_by(name: '丧假').id),
-        leave_sick:   count_result(Behave.find_by(name: '病假').id),
-        leave_marry:  count_result(Behave.find_by(name: '婚假').id),
-        leave_thing:  count_result(Behave.find_by(name: '事假').id),
-        leave_preg:   count_result(Behave.find_by(name: '产假').id),
-       }
+    def counts  current_user,result={},tmp = {}
+      Settings.count_types.map do |type,behaves|
+        behaves.map do |behave,name|
+          behave_id = Behave.find_by(name: name).id
+          tmp[behave] = current_user.counts_result(behave_id)
+        end
+        result[type] = tmp
+        tmp = {}
+      end
+      result
     end
-    def export 
-      new_book = Spreadsheet::Workbook.new 
-      new_book.create_worksheet :name => '伊诚考勤统计表'
-      new_book.worksheet(0).insert_row(0, Settings.exel_header)
-      Count.all.each_with_index do |x,index| 
-        new_book.worksheet(0).insert_row(index+1,[x.user.ancestors,x.user.user_no,x.user.username,x.behave_name,x.value["count"]])
-      end 
-      new_book.write(Rails.root + 'export/count.xls')
-=======
-    def counts current_user     
-       {leave:        count_result(current_user,Settings.leave_behave_ids),
-        absent:       count_result(current_user,Settings.behave_absent_id) ,
-        late:         count_result(current_user,Settings.behave_late_id) ,
-        away:         count_result(current_user,Settings.behave_away_id) ,
-        leave_die:    count_result(current_user,Settings.behave_leave_die_id) ,
-        leave_sick:   count_result(current_user,Settings.behave_leave_sick_id),
-        leave_marry:  count_result(current_user,Settings.behave_leave_marry_id),
-        leave_thing:  count_result(current_user,Settings.behave_leave_thing_id),
-        leave_preg:   count_result(current_user,Settings.behave_leave_preg_id)}
->>>>>>> remotes/zy/master
-    end
-
 
     def export 
       new_book = Spreadsheet::Workbook.new 
@@ -62,9 +40,11 @@ class Count
       new_book.write(Rails.root + 'public/exels/count.xls')
     end
 
+    def by_behave_id behave_id
+      where("_id.behave_id"  => behave_id)
+    end
 
-
-  end
+  end  # class << self
 
   def behave_name
     Behave.find(id["behave_id"]).name
@@ -77,12 +57,4 @@ class Count
   def records
     value["record_ids"].uniq.map{ |record_id| StaffRecord.find(record_id)}.flatten
   end
-<<<<<<< HEAD
-=======
-
-
-
-
-
->>>>>>> remotes/zy/master
 end
