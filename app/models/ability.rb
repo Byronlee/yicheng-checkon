@@ -20,7 +20,7 @@ class Ability
       can :manage , Count
       can [:create,:destroy] , Examine
       can :update , Modify
-      can :index , StaffRecord
+      can [:index,:search] , StaffRecord
       can :approval , Task
       can [:operate,:update] , StaffRecord
     end

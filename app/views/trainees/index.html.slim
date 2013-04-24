@@ -31,7 +31,7 @@
                    = depts_select_instance 'condition',[],{class: 'span10 staff_select'}
                    input type="hidden" name="old_trainee_id" value=u.id
               td
-                input.btn.btn-primary  type="submit" onclick="merge_submit($(this),'merge_users')" value="确认合并"
+                input.btn.btn-primary  disabled='disabled' type="submit" onclick="merge_submit($(this),'merge_users')" value="确认合并"
 
     .tab-pane id="2"
       = simple_form_for Trainee.new,defaults: {label: false} do |f|

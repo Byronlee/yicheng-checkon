@@ -35,10 +35,14 @@ class Count
       new_book = Spreadsheet::Workbook.new 
       new_book.create_worksheet :name => '伊诚考勤统计表'
       new_book.worksheet(0).insert_row(0, Settings.exel_header)
-      Count.all.each_with_index do |x,index| 
-        new_book.worksheet(0).insert_row(index+1,[x.user.ancestors,x.user.user_no,x.user.username,x.behave_name,x.value["count"]])
+      Count.all.each_with_index do |x,index|
+        if x.value.class.eql? Moped::BSON::ObjectId
+          new_book.worksheet(0).insert_row(index+1,[x.user.ancestors,x.user.user_no,x.user.username,x.behave_name,0.5])
+        else
+          new_book.worksheet(0).insert_row(index+1,[x.user.ancestors,x.user.user_no,x.user.username,x.behave_name,x.value["count"]*0.5])
+        end
       end 
-      new_book.write(Rails.root + 'export/count.xls')
+      new_book.write(Rails.root + 'public/exels/count.xls')
     end
 
 
@@ -54,6 +58,7 @@ class Count
   end
 
   def records
+    return [StaffRecord.find(value)] if value.class.eql? Moped::BSON::ObjectId
     value["record_ids"].uniq.map{ |record_id| StaffRecord.find(record_id)}.flatten
   end
 
