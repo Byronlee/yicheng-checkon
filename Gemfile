@@ -21,6 +21,8 @@ group :test do
 end
 
 group :development do
+  gem 'guard-livereload'
+  gem 'rack-livereload'
   gem "debugger"
 end
 
@@ -71,6 +73,4 @@ gem 'cells'
 gem 'spreadsheet'
 gem 'simple_form'
 gem "settingslogic", "~> 2.0.9"
-gem 'rails_autocomplete'
-gem 'spreadsheet'
-
+gem 'chosen-rails'

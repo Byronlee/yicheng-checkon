@@ -10,7 +10,6 @@ table.table.table-condensed.table-bordered
       td = stat.user.user_no
       td = stat.user.username
       td = stat.behave_name
-      td = stat["value"]["count"]*count_radix
-      td = render "counts/exception_detail" ,:stat => stat
+      td = stat.value['count']
 
-button.btn.btn-primary type="submit" 下载
+button.btn.btn-primary data-disable-with="正在导出..." = link_to "下载",'export',remote: true
