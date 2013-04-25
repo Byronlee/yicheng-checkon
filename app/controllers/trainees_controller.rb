@@ -17,14 +17,13 @@ class TraineesController < ApplicationController
   end
 
   def merge
-    # 当给无工号员工分配工号的
     new_id = params[:dept][:user_id]
     if (new_id = new_id).blank?
       flash[:error] = '请选择你需要合并的员工'
     elsif Trainee.find(params[:old_trainee_id]).finish?
       flash[:error] = '你还没有完成该无工号员工的考勤任务,请完成后重试!'
-    elsif StaffRecord.by_staffid_and_date(new_id,Date.today).first.checking?
-      flash[:error] = '该员工今天的考勤任务还没有完成，请先完成考勤任务后在合并!'
+    elsif StaffRecord.where(staffid: new_id).map(&:checking?).any?
+      flash[:error] = '被选择的员工还有未完成的考勤任务,请先完成考勤任务后在合并!'
     else
       @result = TraineeRecord.merge(params[:old_trainee_id],new_id)
       flash[:success] = '成功合并员工考勤数据'
