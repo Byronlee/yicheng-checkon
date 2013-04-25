@@ -16,8 +16,14 @@ module RegistrarRole
     Webservice.get_data("dept/users_with_subdept/"+dept_id)
   end
 
-  def counts_result behave_id
-    Count.by_behave_id(behave_id).in("_id.user_id" => users_with_subdept)
+  def counts_result behave_id, page
+    Count.by_behave_id(behave_id).in("_id.user_id" => users_with_subdept).paginate(:page => page, :per_page => Settings.per_page)
   end
 
 end
+
+
+
+
+
+

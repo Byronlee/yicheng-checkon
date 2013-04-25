@@ -50,7 +50,7 @@ module Mongoid
           if new_book.write(Settings.export_path + suffix_path)
             message[:state] = 1
             message[:notice] = '成功导出，请点击下载'
-            message[:url] = "/exels/"<<suffix_path
+            message[:url] = "/exels/" <<suffix_path
           else
             message[:state] = 0
             message[:notice] = '导出失败，请稍后在试'

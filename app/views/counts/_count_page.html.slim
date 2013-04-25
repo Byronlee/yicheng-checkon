@@ -10,10 +10,12 @@
           a href="#progress_detail"  data-toggle="modal" 查看
         button.btn.btn-primary.btn-mini type="button"
           a href="#cancel_examine"  data-toggle="modal"  取消
+        button.btn.btn-primary.btn-mini type="button"
+          a#export href="/export" data-remote="true" data-disable-with="处理.." 下载
       .progress.progress-striped.active
         .bar style="width:#{unfinish_examine.percent};"
       .progress_detail
-        span 已完成#{unfinish_examine.marker}
+        span #{unfinish_examine.marker}
       = render "counts/progress_detail" 
       = render "counts/cancel_examine"
   - else
@@ -42,12 +44,12 @@ ul.nav.nav-tabs#tab
     - active=type.eql?("leave") ? 'active': ''
     .tab-pane.fade.in class=active id=type
       - unless counts[type].map{|k,v|v.blank?}.all?
-        = render "counts/count_result" ,:stats => counts[type].map {|k,v|v}.flatten
+        = render "counts/count_result" ,:stats => counts[type].map {|k,v|v}.flatten ,:type => type
       - else
         = render_no_content
   - counts["leave"].map do |behave,value|
     .tab-pane.fade id=behave
       - unless value.blank?
-        = render "counts/count_result" ,:stats =>value
+        = render "counts/count_result" ,:stats =>value ,:type => behave
       - else
         = render_no_content
