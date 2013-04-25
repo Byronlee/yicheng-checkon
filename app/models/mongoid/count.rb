@@ -33,7 +33,7 @@ module Mongoid
         }
       end
 
-      def export
+      def export 
         new_book = Spreadsheet::Workbook.new 
         new_book.create_worksheet :name => Settings.exel_worksheet_name
         new_book.worksheet(0).insert_row(0, Settings.exel_header)
