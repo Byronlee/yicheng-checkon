@@ -40,7 +40,7 @@ Attendance::Application.routes.draw do
   match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
   match 'ajax_dept_users' => 'homes#ajax_dept_users'
   match 'autocomplete/search_users' => 'homes#search_users'
-  match 'browser'    => 'homes#browser'
+  match 'browser'    => 'exceptions#browser'
   match 'export' => 'counts#export'
   root :to => "homes#index"
 end

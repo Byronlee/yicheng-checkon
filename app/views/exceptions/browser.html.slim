@@ -1,0 +1,22 @@
+doctype 5
+html
+  head
+    meta charset="UTF-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    title = t("system_name") 
+    meta name="author" content="Byronlee and simlegate"
+    = stylesheet_link_tag  :application , :recursive => true
+
+  body
+   .container
+     .inner style="text-align: center;"
+       h1 伊诚考勤系统,浏览器新能要求温馨提示：
+       .inner
+         p 伊诚考勤系统需要您采用支持HTML5标准的浏览器，IE由于对HTML规范符合度不佳未被采</br>   用，请使用<span class="label label-important">Google Chrome</span>、<span class="label label-important">Firefox</span>等浏览器。
+         p  如果您的系统中没有标准浏览器，可在以下地址下载安装：
+
+     .well style="max-width: 400px; margin: 0 auto 10px;"
+       button.btn.btn-large.btn-block.btn-primary
+         a style="color: #000" href="http://www.google.cn/intl/zh-CN/chrome/browser/" Google浏览器（推荐)
+       button.btn.btn-large.btn-block
+         a style="color: #000" href="http://firefox.com.cn/download/" Firefox浏览器

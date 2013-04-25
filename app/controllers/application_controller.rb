@@ -53,7 +53,8 @@ class ApplicationController < ActionController::Base
                            'unknown'
                          end
                        end
-    unless ['chrome', 'gecko', 'safari'].include?(@users_browser)  then
+    # ['chrome', 'gecko', 'safari']  只能chrome 浏览器使用！
+    unless ['chrome'].include?(@users_browser)  then
       redirect_to browser_path
     end
   end
