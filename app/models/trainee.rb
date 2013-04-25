@@ -52,4 +52,8 @@ class Trainee
       errors.add(:salary_time, '计薪时间不能超过今天')
     end
   end
+
+  def dept_name
+    Department.new(dept_id).name
+  end
 end

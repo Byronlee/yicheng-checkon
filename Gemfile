@@ -21,7 +21,6 @@ group :test do
 end
 
 group :development do
-  gem 'guard-livereload'
   gem "debugger"
 end
 
@@ -66,7 +65,6 @@ gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
 gem 'will_paginate_mongoid'
 
-gem 'draper', '~> 1.0'
 gem 'cells'
 
 gem 'spreadsheet'

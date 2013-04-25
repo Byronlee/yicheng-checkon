@@ -14,8 +14,7 @@ class CountsController < ApplicationController
   end
 
   def export
-    Count.export
-    render :json => "success"
+    render :json => Count.export.to_json
   end
 end
 
