@@ -38,7 +38,11 @@ class StaffRecord
     end
   
     def trainee_register arg ,current_user
-      TraineeRecord.register arg
+      TraineeRecord.register arg,current_user
+    end
+    
+    def by_staffid_and_date staffid,date
+      where(staffid: staffid,created_date: date)
     end
 
     def staffs current_user
