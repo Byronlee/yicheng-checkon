@@ -22,7 +22,6 @@ end
 
 group :development do
   gem 'guard-livereload'
-  gem 'rack-livereload'
   gem "debugger"
 end
 

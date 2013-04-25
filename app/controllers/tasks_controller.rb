@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   # TODO 要声明 没有model cancan
 
   def registrar 
-    @staffs = StaffRecord.staffs current_user.staffid     
+    @staffs = StaffRecord.staffs current_user    
     @trainees = current_user.trainee_tasks
     @registrar_notices = Notice.registrar current_user
   end

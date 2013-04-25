@@ -14,7 +14,7 @@ class StaffRecordsController < ApplicationController
    end
 
    def update
-     bool = StaffRecord.send(params[:register_way].to_sym , params)   
+     bool = StaffRecord.send(params[:register_way].to_sym , params ,current_user)   
      return redirect_to root_url if !params[:register_way].eql?("direct_update")
      bool.all? ? (flash[:success] = t('controller.staff_records.success')) 
                : (flash[:error] = t('controller.staff_records.error'))
