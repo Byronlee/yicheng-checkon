@@ -10,15 +10,16 @@
         - show_query_recors_reulst_table_titles.each do |title|
           th = title     
       - records.each do |record|
+        - staff = record.user
         tr
-          td = ancestors record.staffid
-          td = record.user_no
-          td = position record.staffid
-          td = record.staff_name
-          td = record.nick_name
-          td = record.record_person_name
+          td = staff.ancestors
+          td = staff.user_no
+          td = staff.post
+          td = staff.username
+          td = staff.nickname_display
+          td = record.record_person_name.username
           - record.checkins.map do |checkin|
             td = checkin.behave.name
           td = record.attend_date
           td 
-            = render "common/form_apply_modify" ,:record => record
+            = render "common/form_apply_modify" ,:record => record ,:staff => staff

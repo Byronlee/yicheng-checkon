@@ -14,10 +14,6 @@ module Mongoid
       field :created_date, type: String,default: Date.today.to_s
 
       embeds_many :checkins
-    	
-    #validates_presence_of :staffid , :record_person , :record_zone
-     # staffid,created_at共同检验唯一约束,防止重复产生记录
-   # validates_uniqueness_of :staffid ,:scope => :created_at 
 
       after_create do |record|
         if checkins.count == 0
@@ -37,32 +33,29 @@ module Mongoid
         end
       end
 
+      def user
+        User.resource(staffid)
+      end
+      
+      def record_person_name
+        User.resource(record_person)
+      end
+
     module  ClassMethods 
       def state state
         where(state: state)
       end
 
-      def register arg
+      def register arg ,current_user
         arg[:record].each do | user_id , checks| 
           record = get_record user_id,arg[:time]
           record.update_checkins(checks)
           record.update_attribute(:attend_date,Date.today)
+          record.update_attribute(:record_person,current_user.staffid)
           record.register
         end
       end
-
-      def new_record *arg
-        create!(staffid: arg[0],
-                staff_name: arg[1],
-                user_no: arg[2],
-                nick_name: arg[3],
-                record_person_name: arg[4],
-                record_person: arg[5],
-                record_zone: arg[6],
-                record_zone_name: arg[7]
-               )
-      end
-
+ 
       def get_record id,date
         where(staffid: id,created_date: date).first
       end

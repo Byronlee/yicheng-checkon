@@ -14,12 +14,12 @@ class StaffRecord
       between(created_date: [time.end_of_day,time.beginning_of_day])
     end
 
-    def fast_register arg
+    def fast_register arg ,current_user
       Department.new(arg[:dept_id]).users.map do | user |
         record = get_record user.staffid,arg[:time]
         record.checkins.update_all(behave_id: arg[:behave_id])
         record.update_attribute(:attend_date,Date.today)
-        # to _do  根新 登记人把
+        record.update_attribute(:record_person,current_user.staffid)
         record.register
       end
     end
@@ -32,17 +32,18 @@ class StaffRecord
       where(staffid: staffid)
     end
 
-    def direct_update args
-      find(args[:staff_record_id]).update_checkins(args[:checkins])
+    def direct_update args ,current_user
+      record = find(args[:staff_record_id])
+      record.update_checkins(args[:checkins])
     end
   
-    def trainee_register arg
+    def trainee_register arg ,current_user
       TraineeRecord.register arg
     end
 
-    def staffs record_user_id
+    def staffs current_user
       # 得到一个文员当天的考勤任务(包括已完成的) 且还没有提交的
-      unique where(record_person: record_user_id).in(state: ["checking","registered"])
+      unique self.in(staffid: current_user.users_with_subdept).in(state: ["checking","registered"])
     end
 
     def unique records

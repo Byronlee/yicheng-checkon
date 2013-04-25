@@ -3,7 +3,7 @@
   .modal.hide.fade id=record.id tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
     .modal-header
       button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
-      h3 id="myModalLabel" 申请修改<font color="red">#{record.staff_name}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
+      h3 id="myModalLabel" 申请修改<font color="red">#{staff.username}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
     = simple_form_for Modify.new do |f|
       .modal-body
         = f.simple_fields_for :data do |d|
@@ -18,4 +18,4 @@
         button.btn data-dismiss="modal" aria-hidden="true" 关闭
         = f.button :submit
 - else
-  = render "common/direct_modify_record" ,:record => record
+  = render "common/direct_modify_record" ,:record => record ,:staff => staff

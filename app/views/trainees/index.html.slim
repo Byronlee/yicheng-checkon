@@ -37,7 +37,7 @@
       = simple_form_for Trainee.new,defaults: {label: false} do |f|
         table.table.table-bordered.table-condensed.align_left
           tr
-            td  = raw(unit_depts_selects 'trainee')
-            td  = f.input :username 
-            td  = f.input :salary_time 
+            td  = f.select :dept_id,current_user.depts_node,prompt: "-请选择部门-",required: "required"
+            td  = f.input :username
+            td  = f.input :salary_time,input_html: {required: "required"}
             td  = f.button :submit
