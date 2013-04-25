@@ -2,8 +2,6 @@
 class CountsController < ApplicationController
 
   def index
-   p '____________'
-   p @counts
    @counts = Count.counts current_user
   end
 
@@ -16,8 +14,7 @@ class CountsController < ApplicationController
   end
 
   def export
-    Count.export
-    render :json => "success"
+    render :json => Count.export.to_json
   end
 end
 

@@ -13,10 +13,10 @@ module Mongoid
       end
 
       def modify_notice_content current_user 
-        record = modify.staff_record.decorate
+        record = modify.staff_record
         launcher = User.resource(self.launcher)    
         content = launcher.username+'('+launcher.ancestors+')'+opt_str(current_user)+'申请将'\
-                  +record.staff_name+'('+record.staff.ancestors+')'+record.created_date+'日'      
+                  +record.user.username+'('+record.user.ancestors+')'+record.created_date+'日'      
         modify.checkins.each do |check_unit_id,behave_id|
           old_behave = record.checkins.find_by(check_unit_id: check_unit_id).behave.name
           new_behave = Behave.find(behave_id).name         

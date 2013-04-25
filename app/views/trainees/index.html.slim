@@ -38,6 +38,6 @@
         table.table.table-bordered.table-condensed.align_left
           tr
             td  = raw(unit_depts_selects 'trainee')
-            td  = f.input :username 
-            td  = f.input :salary_time 
+            td  = f.input :username
+            td  = f.input :salary_time,:required => true
             td  = f.button :submit

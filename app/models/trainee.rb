@@ -23,14 +23,7 @@ class Trainee
 
   def  create_defalut_records cu 
     (0...(initialized_days)).each do |t|
-      record = TraineeRecord.new_record(id,
-                                        username,
-                                        user_no,
-                                        "",
-                                        cu.username,
-                                        cu.staffid,
-                                        cu.dept_id,
-                                        cu.dept_name)
+      record = TraineeRecord.create!(staffid: id, record_person: cu.staffid)
       record.update_attributes(created_date: Date.today-t,trainee_id: id)
     end
     save
@@ -58,5 +51,9 @@ class Trainee
     elsif Date.parse(salary_time) > Date.today
       errors.add(:salary_time, '计薪时间不能超过今天')
     end
+  end
+
+  def dept_name
+    Department.new(dept_id).name
   end
 end
