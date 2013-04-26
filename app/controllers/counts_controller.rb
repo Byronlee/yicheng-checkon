@@ -2,7 +2,7 @@
 class CountsController < ApplicationController
 
   def index
-   @counts = Count.counts current_user,params[:page]
+   @counts = Count.counts current_user
   end
 
   def create 
