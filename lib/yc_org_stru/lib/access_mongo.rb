@@ -5,9 +5,7 @@ require "#{File.dirname(__FILE__)}/utils"
 class MongoCache
   include Mongo
 
-  def initialize
-    @config = LoadConfigFile()
-    mongo_config = @config['mongo']
+  def initialize(mongo_config)
     @db = MongoClient.new(mongo_config["server"], mongo_config["port"]).db(mongo_config["db"])
   end
 

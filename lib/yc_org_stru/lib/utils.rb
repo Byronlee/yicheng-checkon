@@ -19,16 +19,8 @@ def GetLogLevel (level_str)
 end
 
 def LoadConfigFile
-  dir_list = ["#{File.dirname(__FILE__)}/../config/",
-              "/etc/yicheng/",
-              "/etc/"]
-  file_name = "ws_config.yaml"
-  dir_list.each do |dir|
-    config_file = dir+file_name
-    if  File.exist? config_file
-      return YAML.load_file config_file
-    end
-  end
+  config_file = "#{File.dirname(__FILE__)}/../config.yaml"
+  return YAML.load_file config_file if  File.exist? config_file
   raise "Can't found the config file #{file_name} in the following directory:\n"+dir_list.join("\n")
 end
 

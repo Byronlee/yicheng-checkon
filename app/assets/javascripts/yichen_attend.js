@@ -84,7 +84,9 @@ jQuery(function(){
     }
 
   function merge_submit(o,update){
-       o.parent().siblings().children('form').submit()
+       if(confirm("学员的考勤记录将会覆盖此员工的所有考勤记录,是否继续")){
+         o.parent().siblings().children('form').submit()
+       }
   }
 
   function  config_approval_title(o){
