@@ -40,7 +40,7 @@ jQuery(function(){
 	});
     }
 
-    $(".staff_select").ajaxChosen({
+    $(".chzn-select").ajaxChosen({
 	type: 'GET',
 	url: '/autocomplete/search_users',
 	dataType: 'json'

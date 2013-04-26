@@ -9,7 +9,8 @@ module RegistrarRole
   end
 
   def trainee_tasks
-    Trainee.belong(self).map{|trainee|trainee.trainee_records.trainees}.flatten
+    trainee_ids = Trainee.belong(self).map(&:_id)
+    TraineeRecord.trainees.in(trainee_id: trainee_ids).asc(:state)
   end
 
   def users_with_subdept
@@ -21,9 +22,3 @@ module RegistrarRole
   end
 
 end
-
-
-
-
-
-
