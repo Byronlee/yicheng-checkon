@@ -6,6 +6,14 @@ Gem::Specification.new do |s|
   s.description = ""  
   s.authors     = ["zhiyi soft"]  
   s.email       = 'heyuan@zhiyisoft.com'  
-  s.files       = Dir.glob("lib/*")     
+  s.files         = `git ls-files`.split($/)
+  s.require_paths = ["lib"]
   s.homepage    = 'https://github.com/zhiyisoft/yicheng-checkon'  
+
+  s.add_dependency 'json'
+  s.add_dependency 'rubytree'
+  s.add_dependency 'sqlite3'
+  s.add_dependency 'mongo'
+  s.add_dependency 'bson_ext'
+ 
 end  
