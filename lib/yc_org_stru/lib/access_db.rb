@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-require 'logger'
-require 'yaml'
-require "#{File.dirname(__FILE__)}/utils"
-
 
 class QueryData
 
@@ -18,13 +13,17 @@ class QueryData
   end
 
 
-  def initialize(connect_name = 'oracle')
+  def initialize(config,logger=nil)
     ObjectSpace.define_finalizer(self, proc{method(:logout).call} )
 
-    @config = LoadConfigFile() 
+    @config = config 
 
-    @log = Logger.new(@config.fetch('logger_file',"#{File.dirname(__FILE__)}/../ws.log"))
-    @log.level = GetLogLevel(@config.fetch('logger_level','warn'))
+    if logger.nil?
+      @log = Logger.new(STDOUT)
+      @log.level = Logger::WARN
+    else
+      @log = logger
+    end
 
     @connect_name = @config['default_connect'] unless @config['default_connect'].nil?
 

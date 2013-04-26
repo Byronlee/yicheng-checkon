@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+require "#{File.dirname(__FILE__)}/../lib/utils"
 require "#{File.dirname(__FILE__)}/../lib/access_mongo"
 
 
 describe MongoCache do
   before do
-    @mcache = MongoCache.new
+    @mcache = MongoCache.new(LoadConfigFile()['mongo'])
   end
 
   it "测试Mongo连接" do

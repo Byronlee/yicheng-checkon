@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-require "#{File.dirname(__FILE__)}/utils"
-require "#{File.dirname(__FILE__)}/access_db"
-require "#{File.dirname(__FILE__)}/access_mongo"
+require "utils"
+require "access_db"
+require "access_mongo"
 
 require "date"
 
@@ -10,13 +10,14 @@ class OrgStru
   attr_reader :user_attr_key,:dept_attr_key
 
   def initialize
-    @qd = QueryData.new
-    @mcache = MongoCache.new
-
     @config = LoadConfigFile() 
 
     @log = Logger.new(@config.fetch('logger_file',"#{File.dirname(__FILE__)}/../ws.log"))
     @log.level = GetLogLevel(@config.fetch('logger_level','warn'))
+
+    @qd = QueryData.new(@config,@log)
+
+    @mcache = MongoCache.new(@config['mongo'])
 
     @user_attr_key = @config["table"]["user"] 
     @dept_attr_key = @config["table"]["dept"] 
