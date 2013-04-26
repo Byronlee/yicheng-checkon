@@ -1,10 +1,16 @@
 # coding: utf-8 
-require "#{File.dirname(__FILE__)}/../access_oracle"
+
+require 'logger'
+require "#{File.dirname(__FILE__)}/../lib/utils"
+require "#{File.dirname(__FILE__)}/../lib/access_db"
 
 
 describe QueryData do
   before do
-    @qd = QueryData.new
+    config  = LoadConfigFile()
+    log = Logger.new(config.fetch('logger_file',"#{File.dirname(__FILE__)}/../ws.log"))
+    log.level = GetLogLevel(config.fetch('logger_level','warn'))
+    @qd = QueryData.new(config,log)
   end
 
   it "即便错误的配置也不能抛出异常,只能写日志" do

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require "#{File.dirname(__FILE__)}/../org_stru"
+require "#{File.dirname(__FILE__)}/../lib/org_stru"
 
 describe OrgStru do
   before do

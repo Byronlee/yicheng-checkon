@@ -14,7 +14,7 @@ class User
   end
 
   def initialize id 
-    @data = Webservice.get_data("/user/id/"+id)
+    @data = Webservice.user_by_id id
   end
 
   def self.resource sid

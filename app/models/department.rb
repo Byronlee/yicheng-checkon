@@ -16,11 +16,11 @@ class Department
   end
 
   def ws_users
-    Webservice.get_data("dept/users1/"+id)
+    Webservice.dept_users_by_id id
   end
 
   def ws_dept id
-    Webservice.get_data("dept/id/"+id)
+    Webservice.dept_by_id id
   end
 
   def users_select
