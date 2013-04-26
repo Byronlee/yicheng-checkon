@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require "#{File.dirname(__FILE__)}/utils"
-require "#{File.dirname(__FILE__)}/access_oracle"
+require "#{File.dirname(__FILE__)}/access_db"
 require "#{File.dirname(__FILE__)}/access_mongo"
 
 require "date"

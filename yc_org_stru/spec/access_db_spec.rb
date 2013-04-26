@@ -1,5 +1,5 @@
 # coding: utf-8 
-require "#{File.dirname(__FILE__)}/../access_oracle"
+require "#{File.dirname(__FILE__)}/../lib/access_db"
 
 
 describe QueryData do

@@ -9,7 +9,7 @@ connect :
     username : ecen_kq
     password : 123456
   sqlite :
-    db : ref/test_data.db 
+    db : ../ref/test_data.db 
 
 default_connect : sqlite
 
