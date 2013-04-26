@@ -18,11 +18,11 @@ class Count
       end.flatten
     end
 
-    def counts  current_user,result={},tmp = {}
+    def counts  current_user,page, result={},tmp = {}
       Settings.count_types.map do |type,behaves|
         behaves.map do |behave,name|
           behave_id = Behave.find_by(name: name).id
-          tmp[behave] = current_user.counts_result(behave_id)
+          tmp[behave] = current_user.counts_result(behave_id,page)
         end
         result[type] = tmp
         tmp = {}

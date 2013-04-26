@@ -55,14 +55,6 @@ zh_CN:
     today: 今天 
     yesterday: 昨天
     before_yesterday: 前天
-
-
-   
-
-
-    counts:
-      index:
-        header: 伊诚公司2013年3月考勤统计表
-        count_header:
-          nu: 工号
-          name: 姓名
+  will_paginate:
+    next_label: 下一页
+    previous_label: 上一页

@@ -28,7 +28,7 @@
               td.m_r
                  form action=merge_trainees_path method="post" id="merge_users"
                    = depts_select 'merge','dept_id',current_user.depts_node,{:prompt => '-请选择部门-'},{onChange: "ajax_dept_users_select($(this))" , :class => "span10"}
-                   = depts_select 'dept','user_id',[],{:prompt => '-请选择用户-'},{class: 'span9 staff_select'}
+                   = depts_select 'dept','user_id',[],{:prompt => '--全部--'},{class: 'span9 staff_select'}
                    input type="hidden" name="old_trainee_id" value=u.id
               td
                 input.btn.btn-primary type="submit" onclick="merge_submit($(this),'merge_users')" value="确认合并"

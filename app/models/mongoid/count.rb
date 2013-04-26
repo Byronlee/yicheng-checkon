@@ -45,21 +45,17 @@ module Mongoid
 
       def write_file new_book
         message = {}
-        if File.directory?(Settings.export_path)
-          suffix_path = Time.now.strftime("%FT%R")+"_count.xls"
-          if new_book.write(Settings.export_path + suffix_path)
-            message[:state] = 1
-            message[:notice] = '成功导出，请点击下载'
-            message[:url] = "/exels/"<<suffix_path
-          else
-            message[:state] = 0
-            message[:notice] = '导出失败，请稍后在试'
-          end
+        Dir.mkdir(Settings.export_path) unless File.exist?(Settings.export_path)
+        file_name = Time.now.strftime("%FT%R")+"_count.xls"
+        if new_book.write(Settings.export_path + file_name)
+          message[:state] = 1
+          message[:notice] = '成功导出，请点击下载'
+          message[:url] = "/exels/"<< file_name
         else
           message[:state] = 0
-          message[:notice] = Settings.export_path + '目录不存在'
+          message[:notice] = '导出失败，请稍后在试'
         end
-      message
+        message
       end
 
     end

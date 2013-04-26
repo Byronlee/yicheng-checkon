@@ -11,4 +11,5 @@ table.table.table-condensed.table-bordered
       td = stat.user.username
       td = stat.behave_name
       td = stat["value"]["count"]*count_radix
-      td = render "counts/exception_detail" ,:stat => stat
+      td = render "counts/exception_detail" ,:stat => stat ,type: type
+/!= will_paginate stats, :renderer => BootstrapPagination::Rails

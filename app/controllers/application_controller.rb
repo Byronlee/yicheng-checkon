@@ -9,6 +9,21 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+
+  rescue_from ActionController::UnknownController , :with => :render_404
+  rescue_from AbstractController::ActionNotFound, :with => :render_404
+  rescue_from Mongoid::Errors::DocumentNotFound, :with => :render_404
+  rescue_from Mongoid::Errors::Validations, :with => :render_404
+
+  def render_404
+    redirect_to render_404_path
+  end
+
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to cancan_error_path , :alert => exception.message
+  end
+
   def current_user
     attrs = session[:cas_extra_attributes]["attrs"]
     User.resource(attrs["SU_USER_ID"]).perssion(attrs["roles"])
@@ -53,13 +68,10 @@ class ApplicationController < ActionController::Base
                            'unknown'
                          end
                        end
-    unless ['chrome', 'gecko', 'safari'].include?(@users_browser)  then
+    # ['chrome', 'gecko', 'safari']  只能chrome 浏览器使用！
+    unless ['chrome'].include?(@users_browser)  then
       redirect_to browser_path
     end
-  end
-
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url , :alert => exception.message
   end
 end
 

@@ -1,0 +1,29 @@
+doctype 5
+html
+  head
+    meta charset="UTF-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    link rel="shortcut icon" href="/assets/favicon.ico" 
+    link href="/error.css" media="screen" rel="stylesheet" type="text/css" 
+    title = t("system_name") 
+    meta name="author" content="Byronlee and simlegate"
+    meta http-equiv="refresh" content="5;url=#{root_path}"
+
+  body
+   .container
+      h2
+        span  = flash[:error]
+        span ：( 
+      p 对不起,页面出问题了，可能是以下原因：
+      ul
+        li 是不是地址错误了?
+        li 或者这个页面被删除了?!
+        li 你所访问的资源本系统不存在?
+        li 你的某些操作不是合法的?
+        li 你没有权限访问此页面?
+        li 你所操作的某些数据没有通过验证?
+        li ......        
+      .links
+        a href="/" 回到首页
+        span &nbsp;&nbsp;&nbsp;5秒后自动跳转.....
+          

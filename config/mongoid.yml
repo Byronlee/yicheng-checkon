@@ -84,7 +84,7 @@ test:
 production:
   sessions:
     default:
-      database: attendance_production
+      database: yicheng-checkon
       hosts:
         - localhost:27017
       options:

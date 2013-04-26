@@ -1,52 +1,41 @@
-checkon 考勤系统 安装使用:
+## 伊诚考勤系统
+  该系统能为伊诚公司所有员工进行每日考勤以及统计考勤数据
 
-环境要求：
+## 环境要求：
 
-mongodb 
-linux 
-ruby
-       两个帐号 ： 人事部： yaye  ,  文员： cangnan
-1. 先clone 代码 ： https://github.com/zhiyisoft/yicheng-checkon.git 
-   （在数据库开启的情况下，进入项目根目录下，rails s , 就可以正常的运行项目了，但是没有数据）
-2. 初始化系统数据  :
-      项目根目录/$ rails r db/test.rb
-3. 到此步，虽然系统初始数据有了，但是还是没有考勤任务，建考勤任务有两种方式：     
-    3.1  系统自动生成考勤任务： 
-               项目根目录/$  whenever -iw    //  这样就把每天定时生成考勤任务 和定时提交 当天所考勤的任务写在了系统的
-                                                               定时任务中（可用crontab -l 查看）默认时间是早上2点自动生成当天考勤数 
-                                                                据，晚上11点自动提交当天所完成的考勤任务，这样等第二天就有考勤数据
-                                                                 了，（确保系统cron 服务已开）
-     3.2 手动生成当天的考勤任务：
-             自动生成考勤任务只能生成从第二天（包括第二天）起至以后的考勤任务，要初始化当天（并立即生成）考勤任
-            务，可以手动的执行一次 初始化任务  
-            项目根目录/$   rails runner -e development "Crontask.produce_everyday_records"
-4. 如果手动生成考勤，现在用文员登进系统，就看得见自己的考勤任务了，可以进行各种考勤， 当天的考勤可以直接修改
-   
-5. 要执行数据操作，必须等系统提交 当天的考勤任务后， 才能对数据进行查询等操作， 默认是晚上11点提交，可以手动提交  只需要手动执行一次提交考勤任务 即可：
-           项目根目录/$ rails runner -e development " Crontask.submit_everyday_records"
-6. 若手动提交后，就可以执行数据操作的各种功能了
+* mongodb & mongoid 3.x
+* linux 
+* ruby 1.9.3 & rails 3.2.13
 
+## 安装
+克隆代码到本地：
 
+       git clone https://github.com/zhiyisoft/yicheng-checkon.git
+进入项目根目录：
 
+       cd yicheng-checkon
+       
+安装依赖包：
 
+       bundle install
+       
+初始化数据库：
 
+       # 初始化考勤项
+       rails r db/test.rb
+       # 在开发环境中初始化考勤数据
+       rails runner -e development "Crontask.produce_everyday_records"
+       # 在产品环境中初始化考勤数据
+       rails runner -e production "Crontask.produce_everyday_records"
+       # 详情请看path/to/config/schedule.rb
+运行项目：
 
+       rails s
+模拟用户：
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        # 用户名和密码相同
+       人事部： yaye  ,  文员： cangnan
+       
 h1. 项目背景及意义
 
 h2. 背景
@@ -58,8 +47,8 @@ h2. 背景
 
 h2. 愿景
 
-# 能够建立快速开发模式，为后续模块迁出作一个重要参照
-# 将人力资源月底出勤考核统计时间由6-10天降为1天
+能够建立快速开发模式，为后续模块迁出作一个重要参照
+将人力资源月底出勤考核统计时间由6-10天降为1天
 
 h2. 业务关注点
 
@@ -75,7 +64,7 @@ h2. 业务关注点
 * 让系统导致考勤出错率降低
 * 提高系统性能
 
-针对以上目标的功能分解，可查阅"用例分析":http://task.zhiyisoft.com:3000/attachments/download/13/%E4%BC%8A%E8%AF%9Aattendance.png。
+针对以上目标的功能分解，可查阅"用例分析"
 
 h1. 项目干系人
 
@@ -96,7 +85,6 @@ h2. 成都大学开发团队
 * 何源：13320963363
 * 张强： 18782943147
 * 李江华：13880156590  
-
 
 h1. 项目现状
 
