@@ -14,10 +14,7 @@ class HomesController < ApplicationController
     # 当我不是已这两个角色登录 没有处理
   end
 
-  def browser
-   render layout: false
-  end
-
+  
   def ajax_attend_tree 
     node = Webservice.get_data "dept_tree/"+params[:dept_id]
     if node["children"]

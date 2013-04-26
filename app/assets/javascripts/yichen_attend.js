@@ -104,7 +104,7 @@ $('.query_data_form').live('ajax:before', function(event,data,status, xhr) {
     $('.show_query_result').html(data)
 });
 
-$('#export_form').live('ajax:success',function(evt, data, status, xhr){
+$('#export').live('ajax:success',function(evt, data, status, xhr){
     if(data.state == 1){
       window.location.href = data.url
     }else{

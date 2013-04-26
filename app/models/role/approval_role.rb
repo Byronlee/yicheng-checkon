@@ -5,7 +5,7 @@ module ApprovalRole
     Webservice.get_data('dept_tree/' << Settings.approval_dept_id)
   end
 
-  def counts_result behave_id
-    Count.by_behave_id(behave_id)
+  def counts_result behave_id , page
+    Count.by_behave_id(behave_id).paginate(:page => page, :per_page => Settings.per_page)
   end
 end

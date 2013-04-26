@@ -6,7 +6,7 @@ defaults: &defaults
   cas_url:               'http://61.139.87.55:7890/'
   count_radix:           0.5
   export_path:           <%= Rails.root + 'public/exels/'%>
-
+  per_page:               10
   behaves:
     请假: ["事假","病假","产假","婚假","丧假"]
     旷工: ["旷工"]
