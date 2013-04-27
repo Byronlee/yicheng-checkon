@@ -4,37 +4,32 @@ class Count
   include Mongoid::Count
  
   class << self
-    def create params      
-        @total_records = StaffRecord.by_period(params[:start_time],params[:end_time]).state('submitted')                 
-        @count_records = @total_records.in("checkins.behave_id" => default_count_behave_types )      
-        @count_records.map_reduce(map,reduce).out(replace: "counts").finalize(finalize).count
+
+    def select_records start,over,user_ids
+      @records = StaffRecord.by_period(start,over).state('submitted') 
+      @records = @records.in(staffid: user_ids) unless user_ids.blank?
+      @records.in("checkins.behave_id" => default_count_behave_types ) 
     end
 
-    def default_count_behave_types
-      Settings.count_types.map do |type,behaves|
-        behaves.map do |behave,name|
-          Behave.find_by(name: name).id
-        end
-      end.flatten
-    end
 
-      def counts  current_user,page=nil, result={},tmp = {}
-      Settings.count_types.map do |type,behaves|
+   def excute_counts records
+     Count.new(records.map_reduce(map,reduce).out(inline: 1).finalize(finalize).raw)
+   end
+
+
+  
+
+   def package_counts counts, result={},tmp = {}
+     Settings.count_types.map do |type,behaves|
         behaves.map do |behave,name|
-          behave_id = Behave.find_by(name: name).id
-          tmp[behave] = current_user.counts_result(behave_id,page)
-        end
-        result[type] = tmp
-        tmp = {}
-      end
+         behave_id = Behave.find_by(name: name).id
+         tmp[behave] = counts.where("_id" =>  1)
+       end
+       result[type] = tmp
+       tmp = {}
+     end
       result
-    end
-
-
-    def by_behave_id behave_id
-      where("_id.behave_id"  => behave_id)
-    end
-
+   end
   end  # class << self
 
   def behave_name

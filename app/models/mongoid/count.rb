@@ -33,6 +33,15 @@ module Mongoid
         }
       end
 
+
+      def default_count_behave_types
+        Settings.count_types.map do |type,behaves|
+          behaves.map do |behave,name|
+            Behave.find_by(name: name).id
+          end
+        end.flatten
+      end
+      
       def export 
         new_book = Spreadsheet::Workbook.new 
         new_book.create_worksheet :name => Settings.exel_worksheet_name

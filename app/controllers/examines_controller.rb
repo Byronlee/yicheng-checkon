@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 class ExaminesController < ApplicationController
 
+  def index
+    
+  end
+
 
   def create
     examine = Examine.new(params[:examine][:data])

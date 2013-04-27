@@ -2,19 +2,20 @@
 class CountsController < ApplicationController
 
   def index
-   @counts = Count.counts(current_user.dept_users_with_subdept)
+    @counts = Count.package_counts Count.where(id: nil)
   end
 
   def create 
-    Count.create params
-    range_time ={start_time: params[:start_time],
-                 end_time: params[:end_time]}
-    render "_count_page" ,:locals => {:counts => Count.counts(current_user),
-                                      :range_time => range_time } ,:layout => false
+    records = Count.select_records params[:start_time],params[:end_time],current_user.users_with_subdept
+    counts  = Count.excute_counts records
+    @counts = Count.package_counts counts
+    render "_count_page" ,:locals => {:counts => @counts,:range_time => params } ,:layout => false
   end
 
   def export
     render :json => Count.export.to_json
   end
 end
+
+
 
