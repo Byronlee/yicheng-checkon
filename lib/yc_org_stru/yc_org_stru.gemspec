@@ -1,3 +1,7 @@
+# -*- encoding: utf-8 -*-
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
 Gem::Specification.new do |s|  
   s.name        = 'yc_org_stru'  
   s.version     = '1.0.0'  
@@ -6,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = ""  
   s.authors     = ["zhiyi soft"]  
   s.email       = 'heyuan@zhiyisoft.com'  
-  s.files         = `git ls-files`.split($/)
+  s.files         = ["lib/org_stru.rb"]
   s.require_paths = ["lib"]
   s.homepage    = 'https://github.com/zhiyisoft/yicheng-checkon'  
 

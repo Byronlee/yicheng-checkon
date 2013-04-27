@@ -1,4 +1,7 @@
-require "#{File.dirname(__FILE__)}/org_stru"
+require "org_stru/org_stru"
+require "org_stru/access_db"
+require "org_stru/access_mongo.rb"
+require "org_stru/utils"
 
 $ACCESSOR = OrgStru.new
 

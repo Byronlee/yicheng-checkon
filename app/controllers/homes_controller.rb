@@ -16,7 +16,8 @@ class HomesController < ApplicationController
 
   
   def ajax_attend_tree 
-    node = Webservice.get_data "dept_tree/"+params[:dept_id]
+    tree = $ACCESSOR.dept_tree(params[:dept_id])
+    node=  $ACCESSOR.produce_tree_to_map tree
     if node["children"]
       choices =  node["children"].map{|v|[v["name"].strip , v["id"]]}
       render "common/_organization_select",locals: {object:"condition",node: choices,html_options: {}},:layout => false
@@ -31,7 +32,7 @@ class HomesController < ApplicationController
   end
 
   def search_users
-    ws_users = Webservice.search_users(params[:term])
+    ws_users =  $ACCESSOR.search_users(params[:term])
     suggestions = ws_users.map do |u|
        # TODO 搜索当前用户管辖的用户
       {value: u["SU_USER_ID"],text: u['SU_USERNAME']}

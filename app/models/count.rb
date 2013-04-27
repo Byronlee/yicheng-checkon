@@ -18,7 +18,7 @@ class Count
       end.flatten
     end
 
-    def counts  current_user,page=nil, result={},tmp = {}
+      def counts  current_user,page=nil, result={},tmp = {}
       Settings.count_types.map do |type,behaves|
         behaves.map do |behave,name|
           behave_id = Behave.find_by(name: name).id
@@ -42,10 +42,10 @@ class Count
   end
 
   def user
-    User.resource(id["user_id"])
+    records.first.user
   end
 
   def records
-    value["record_ids"].uniq.map{ |record_id| StaffRecord.find(record_id)}.flatten
+    value["records"].uniq.map{ |record| StaffRecord.new(record)}.flatten
   end
 end

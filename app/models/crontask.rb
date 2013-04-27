@@ -3,7 +3,7 @@ class Crontask
 
   # TODO should save in memory then insert db
   def self.produce_everyday_records 
-    checkers = Webservice.get_registrars
+    checkers = $ACCESSOR.all_users_with_role :registrar
     checkers.each do |checker_id |     
       cu = User.resource(checker_id)
       cu.extend RegistrarRole

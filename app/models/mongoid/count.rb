@@ -8,7 +8,7 @@ module Mongoid
         map = %Q{
         function() {
           for (var checkin in this.checkins){
-            emit({"behave_id": this.checkins[checkin].behave_id,"user_id": this.staffid}, this._id);
+            emit({"behave_id": this.checkins[checkin].behave_id,"user_id": this.staffid}, this);
           }
         }
         }
@@ -18,7 +18,7 @@ module Mongoid
         %Q{
         function(key, values) {
           if(!values.count){
-            return  {count: 1 , record_ids: [values]}
+            return  {count: 1 , records: [values]}
             }
           return  values;
           }
@@ -28,7 +28,7 @@ module Mongoid
       def reduce
         reduce = %Q{
         function(key, values) {
-           return {count: values.length , record_ids: values};
+           return {count: values.length , records: values};
         }
         }
       end

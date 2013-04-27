@@ -1,0 +1,27 @@
+该目录下是从伊城数据库导出的数据
+
+test_data.db 是将来自Oracle的数据导入到sqlite 生成的文件
+其中包含表
+1. SYS_DEPT
+CREATE TABLE "SYS_DEPT" (
+    "SD_DEPT_ID" text primary key, 
+    "SD_DEPT_CODE" text , 
+    "SD_DEPT_NAME" text, 
+    "SD_PARENT_DEPT_ID" text );
+只保留了原表中[0,9,10,19]字段
+
+2. SYS_USER
+
+CREATE TABLE "SYS_USER" (
+"SU_USER_ID" text primary key,
+"SU_MAIL" text,
+"SU_NICKNAME_CODE" text,
+"SU_NICKNAME_DISPLAY" text,
+"SU_PASSWORD" text,
+"SU_PHONE_NUM" text,
+"SU_USERNAME" text,
+"SU_USER_NO" text,
+"SU_DEPT_ID" text );
+只保留了原表中[0,10,11,12,13,14,15,16,19]字段
+
+

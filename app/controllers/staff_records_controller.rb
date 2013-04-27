@@ -28,6 +28,7 @@ class StaffRecordsController < ApplicationController
      unless params[:search][:behave_id].blank?
        @records = @records.by_behave_id params[:search][:behave_id]
      end
+     @records = @records.paginate(:page => params[:page], :per_page => Settings.per_page)
      render "common/_table_show_records",locals:{:records => @records },:layout => false
    end
 end

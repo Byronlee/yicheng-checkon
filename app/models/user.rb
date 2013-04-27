@@ -13,8 +13,10 @@ class User
     self
   end
 
-  def initialize id 
-    @data = Webservice.user_by_id id
+  def initialize uid 
+    user  = $ACCESSOR.user_attr uid
+    user_ext = $ACCESSOR.user_attr_ext user
+    @data = user.merge(user_ext)
   end
 
   def self.resource sid
@@ -39,7 +41,7 @@ class User
   end
 
   def depts_node
-   attend_depts["children"].map{|v| [v["name"] , v["id"]]}
+   attend_depts[:children].map{|v| [v[:name] , v[:id]]}
   end
 
   def post

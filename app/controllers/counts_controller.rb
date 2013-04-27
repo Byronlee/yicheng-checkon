@@ -2,7 +2,7 @@
 class CountsController < ApplicationController
 
   def index
-   @counts = Count.counts current_user
+   @counts = Count.counts(current_user.dept_users_with_subdept)
   end
 
   def create 

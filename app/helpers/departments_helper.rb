@@ -3,7 +3,7 @@ module DepartmentsHelper
 
   def unit_depts_selects object='condition',html_options = {class: "span9", onchange: "ajax_attend_tree($(this))"}
     if current_user.registrar?
-      depts_select_instance object,current_user.depts_node,      html_options
+      depts_select_instance object,current_user.depts_node,html_options
     elsif current_user.approval?
       html_str =  depts_select_instance object,current_user.depts_node,html_options
       (1..2).inject(html_str){|html_str,_| html_str << depts_select_instance(object,[],html_options)}

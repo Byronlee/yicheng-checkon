@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-require "utils"
-require "access_db"
-require "access_mongo"
+require "org_stru/utils"
+require "org_stru/access_db"
+require "org_stru/access_mongo"
 
+require "logger"
 require "date"
 
 class OrgStru
-
   attr_reader :user_attr_key,:dept_attr_key
 
   def initialize
-    @config = LoadConfigFile() 
-
+    @config = LoadConfigFile()
     @log = Logger.new(@config.fetch('logger_file',"#{File.dirname(__FILE__)}/../ws.log"))
     @log.level = GetLogLevel(@config.fetch('logger_level','warn'))
 
@@ -65,6 +64,10 @@ class OrgStru
       return []
     end
     @qd.query_field_to_array(sql_string)
+  end
+
+  def search_users keyword
+    search_user(keyword).map{|id| user_attr id}
   end
   
   def dept_attr(dept_id)

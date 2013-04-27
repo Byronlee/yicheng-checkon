@@ -5,7 +5,7 @@ class ExaminesController < ApplicationController
   def create
     examine = Examine.new(params[:examine][:data])
     return  render :json => false  unless examine.save_with_no_old_examine
-    checkers = Webservice.get_registrars
+    checkers = $ACCESSOR.all_users_with_role :registrar
     checkers.each do |checker_id |
       examine.proces.create(registrar: checker_id)
       params[:examine][:notice][:receiver] = checker_id
