@@ -1,11 +1,11 @@
-.modal.hide.fade#cancel_examine  aria-hidden="true"
+.modal.hide.fade id="#{examine.id}cancel_examine" aria-hidden="true"
   .modal-header
     button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
     h3  取消本次考勤审核
   .modal-body
-    p 你确认要取消#{unfinish_examine.start_time}至#{unfinish_examine.start_time}的考勤审核吗？
+    p 你确认要取消#{examine.start_time}至#{examine.start_time}的考勤审核吗？
     form#delete_examine(action="/examines/destroy" method="delete" data-remote="true")
-      input type="hidden" value="#{unfinish_examine.id}" name="examine_id"
+      input type="hidden" value="#{examine.id}" name="examine_id"
       .modal-footer
         button.btn data-dismiss="modal" aria-hidden="true" 取消
         button.btn.btn-primary type="submit" 确定

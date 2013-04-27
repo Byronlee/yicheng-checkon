@@ -4,24 +4,22 @@ class Examine
 
    field :start_time ,type: String
    field :end_time ,  type: String
-   field :state , type: Boolean, default: true
+   field :state , type: Boolean, default: false
   
    has_many :proces
    has_many :notices
 
-  def self.unfinish_examine
-    where(state: true).first
+ 
+  def unfinish_registrar 
+    proces.clone.keep_if{|i|!i.state}
   end
-  
-  def save_with_no_old_examine 
-    Examine.unfinish_examine.blank? ? save : false
+ 
+  def save_with_have_records
+    StaffRecord.by_period(start_time,end_time).state('submitted').blank? ? false : save 
   end
 
-  def marker
+  def percent
     "#{proces.where(state: true).count}/#{proces.count}"
   end  
 
-  def percent
-    "#{(proces.where(state: true).count.to_f/proces.count.to_f*100).round(1)}"+"%"
-  end
 end

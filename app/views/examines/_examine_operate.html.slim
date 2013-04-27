@@ -1,0 +1,10 @@
+.btn-group
+  button.btn.btn-primary.btn-mini type="button"
+    a href="#progress_detail"  data-toggle="modal" 查看
+  - unless examine.state
+    button.btn.btn-primary.btn-mini type="button"
+      a href="##{examine.id}cancel_examine"  data-toggle="modal"  取消      
+  button.btn.btn-primary.btn-mini type="button"
+    a#export href="/export" data-remote="true" data-disable-with="处理.." 下载
+- unless examine.state
+  = render "cancel_examine" ,:examine => examine

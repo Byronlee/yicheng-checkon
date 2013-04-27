@@ -25,10 +25,7 @@ module CountsHelper
     unfinish_examine.blank? ? true : false
   end
 
-  def examine_unfinish_registrar 
-    return [] if unfinish_examine.blank?
-    unfinish_examine.proces.clone.keep_if{|i|!i.state}
-  end
+
 
   def current_user_examine_state
    return [] if unfinish_examine.blank?

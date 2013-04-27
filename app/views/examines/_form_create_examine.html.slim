@@ -1,0 +1,12 @@
+= simple_form_for Examine.new  do |f|
+    = f.simple_fields_for :data do |d|
+      = d.input :start_time, as: :hidden
+      = d.input :end_time, as: :hidden 
+      = d.input :launcher, as: :hidden, input_html: {value: current_user.staffid } 
+    = f.simple_fields_for :notice do |n|
+      = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid }
+      = n.input :remark ,label: false , input_html:{class: "input-xlarge" , placeholder: "备注.."} 
+    .input-append
+      input#appendedPrependedInput type="text" name="range_time"  placeholder="--请选择时间段--" required="required"
+      button.btn.btn-primary type="submit" data-disable-with="处理中..."  发起审核
+   
