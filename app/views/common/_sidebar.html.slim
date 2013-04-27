@@ -23,14 +23,18 @@
               a href="#"
                 i.icon-chevron-right
                 span
-                  a href="/perssions" 权限管理
+                  a href=perssions_path 权限管理
             - if can? :create,Count
               li
                 a href="#"
                   i.icon-chevron-right
                   span
-                    a href="/counts" 统计审核
-                    
+                    a href=counts_path 考勤统计
+              li href="#"
+                  i.icon-chevron-right
+                  span
+                    a href=examines_path 考勤审核
+              
             - if can? :index,Trainee
               li
                 a href="#"

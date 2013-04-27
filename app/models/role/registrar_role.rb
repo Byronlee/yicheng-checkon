@@ -18,8 +18,4 @@ module RegistrarRole
     $ACCESSOR.dept_users_with_subdept(dept_id)
   end
 
-  def counts_result behave_id, page
-    users = users_with_subdept
-    Count.by_behave_id(behave_id).in("_id.user_id" => users).paginate(:page => page, :per_page => Settings.per_page)
-  end
 end

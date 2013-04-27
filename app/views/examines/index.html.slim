@@ -1,0 +1,24 @@
+.count_head
+  - if can? :create ,Examine
+    - if can_count?(counts)
+      = render "counts/form_create_count"
+      - if defined?(range_time)&&!counts.map{|_,v| v.blank?}.all?
+        = render "counts/launch_examine" ,:range_time => range_time
+    - else
+      .btn-group
+        button.btn.btn-primary.btn-mini type="button"
+          a href="#progress_detail"  data-toggle="modal" 查看
+        button.btn.btn-primary.btn-mini type="button"
+          a href="#cancel_examine"  data-toggle="modal"  取消
+        button.btn.btn-primary.btn-mini type="button"
+          a#export href="/export" data-remote="true" data-disable-with="处理.." 下载
+      .progress.progress-striped.active
+        .bar style="width:#{unfinish_examine.percent};"
+      .progress_detail
+        span #{unfinish_examine.marker}
+      = render "counts/progress_detail" 
+      = render "counts/cancel_examine"
+  - else
+    - unless unfinish_examine.blank?
+      span #{unfinish_examine.start_time}至#{unfinish_examine.end_time}&nbsp;&nbsp;
+      = render_cell :count , :update_examine ,:state => current_user_examine_state
