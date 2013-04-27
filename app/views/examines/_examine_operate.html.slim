@@ -1,6 +1,6 @@
 .btn-group
   button.btn.btn-primary.btn-mini type="button"
-    a href="#progress_detail"  data-toggle="modal" 查看
+    a href=examine_path(examine)  data-toggle="modal" 查看
   - unless examine.state
     button.btn.btn-primary.btn-mini type="button"
       a href="##{examine.id}cancel_examine"  data-toggle="modal"  取消      

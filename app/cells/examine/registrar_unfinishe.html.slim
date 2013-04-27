@@ -1,12 +1,12 @@
-a.btn.btn-primary.btn-mini href="#update_examine" role="button" data-toggle="modal"  确认审核
-.modal.hide.fade#update_examine  aria-hidden="true"
+a.btn.btn-primary.btn-mini href="##{@examine.id}" role="button" data-toggle="modal"  确认审核
+.modal.hide.fade id="#{@examine.id}"  aria-hidden="true"
   .modal-header
     button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
     h3  确认本次考勤审核
   .modal-body
-    p 你确认#{unfinish_examine.start_time}至#{unfinish_examine.start_time}的考勤记录全部准确吗？
+    p 你确认#{@examine.start_time}至#{@examine.start_time}的考勤记录全部准确吗？
     form.update_examine(action="/examines/update" method="put" data-remote="true")
-      input type="hidden" value="#{unfinish_examine.id}" name="examine_id"
+      input type="hidden" value="#{@examine.id}" name="examine_id"
       .modal-footer
         button.btn data-dismiss="modal" aria-hidden="true" 取消
         button.btn.btn-primary type="submit" 确定

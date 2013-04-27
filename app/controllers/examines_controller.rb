@@ -22,6 +22,15 @@ class ExaminesController < ApplicationController
     redirect_to :action => 'index' 
   end
 
+
+  def show
+    @examine = Examine.find(params[:id]) 
+    @counts = Count.create @examine.start_time,@examine.end_time,current_user.users_with_subdept
+  end
+
+
+
+
   def update
     examine = Examine.find(params[:examine_id])
     examine.proces.where(registrar: current_user.staffid).first.update_attributes(state: true)

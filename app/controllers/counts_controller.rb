@@ -6,9 +6,7 @@ class CountsController < ApplicationController
   end
 
   def create 
-    records = Count.select_records params[:start_time],params[:end_time],current_user.users_with_subdept
-    counts  = Count.excute_counts records
-    @counts = Count.package_counts counts
+    count = Count.create params[:start_time],params[:end_time],current_user.users_with_subdept
     render "_count_page" ,:locals => {:counts => @counts,:range_time => params } ,:layout => false
   end
 

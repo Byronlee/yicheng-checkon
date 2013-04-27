@@ -18,7 +18,7 @@ class Ability
 
     if user.approval?
       can :manage , Count
-      can [:index,:create,:destroy] , Examine
+      can [:index,:show,:create,:destroy] , Examine
       can :update , Modify
    #   can [:index,:search] , StaffRecord
       can :approval , Task

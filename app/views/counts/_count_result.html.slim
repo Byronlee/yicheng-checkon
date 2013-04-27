@@ -1,16 +1,31 @@
-table.table.table-condensed.table-bordered
-  tr
-    - count_table_titles.each do | title|
-      th = title     
-  - stats.each_with_index do |stat,index|
-    tr
-      td 
-        span.badge = index+1
-      - user = User.resource(stat["_id"]["user_id"])
-      td = user.ancestors
-      td = user.user_no
-      td = user.username
-      td = Behave.find(stat["_id"]["behave_id"]).name
-      td = stat["value"]["count"]*count_radix
-      td = render "counts/exception_detail" ,:stat => stat ,type: type,username: user.username
-/!= will_paginate stats, :renderer => BootstrapPagination::Rails
+ul.nav.nav-tabs#tab
+  li.active
+    a href="#leave" data-toggle="tab" 请假
+  li
+    a href="#absent" data-toggle="tab" 旷工
+  li
+    a href="#late" data-toggle="tab" 迟到
+  li
+    a href="#away" data-toggle="tab" 离职
+  li.dropdown
+    a href="#" class="dropdown-toggle" data-toggle="dropdown"
+      span 考勤项
+      b.caret
+    ul.dropdown-menu
+      - Settings.count_types.leave.map do |behave,name|
+        li
+          a href="##{behave}" data-toggle="tab" =name
+#myTabContent.tab-content
+  - Settings.count_types.map do |type,behaves|
+    - active=type.eql?("leave") ? 'active': ''
+    .tab-pane.fade.in class=active id=type
+      - unless counts[type].map{|k,v|v.blank?}.all?
+        = render "counts/item_count_result" ,:stats => counts[type].map {|k,v|v}.flatten ,:type => type
+      - else
+        = render_no_content
+  - counts["leave"].map do |behave,value|
+    .tab-pane.fade id=behave
+      - unless value.blank?
+        = render "counts/item_count_result" ,:stats =>value ,:type => behave
+      - else
+        = render_no_content

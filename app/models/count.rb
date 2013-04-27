@@ -5,6 +5,13 @@ class Count
 
   class << self
 
+    def create start,over,user_ids
+      records = select_records start,over,user_ids
+      counts  = excute_counts(records)
+      package_counts(counts)    
+    end
+
+
     def select_records start,over,user_ids
       @records = StaffRecord.by_period(start,over).state('submitted') 
       @records = @records.in(staffid: user_ids) unless user_ids.blank?
