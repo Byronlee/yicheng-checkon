@@ -6,10 +6,11 @@ table.table.table-condensed.table-bordered
     tr
       td 
         span.badge = index+1
-      td = stat.user.ancestors
-      td = stat.user.user_no
-      td = stat.user.username
-      td = stat.behave_name
+      - user = User.resource(stat["_id"]["user_id"])
+      td = user.ancestors
+      td = user.user_no
+      td = user.username
+      td = Behave.find(stat["_id"]["behave_id"]).name
       td = stat["value"]["count"]*count_radix
-      td = render "counts/exception_detail" ,:stat => stat ,type: type
+      td = render "counts/exception_detail" ,:stat => stat ,type: type,username: user.username
 /!= will_paginate stats, :renderer => BootstrapPagination::Rails
