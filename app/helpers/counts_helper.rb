@@ -16,24 +16,5 @@ module CountsHelper
   def behave_types
     BehaveType.all.map{ |type| [type.name,type.id]}
   end
-
-  def unfinish_examine
-    Examine.unfinish_examine
-  end
-
-  def can_count? counts
-    unfinish_examine.blank? ? true : false
-  end
-
-  def examine_unfinish_registrar 
-    return [] if unfinish_examine.blank?
-    unfinish_examine.proces.clone.keep_if{|i|!i.state}
-  end
-
-  def current_user_examine_state
-   return [] if unfinish_examine.blank?
-   proce = unfinish_examine.proces.where(registrar: current_user.staffid).first
-   proce.blank? ? false : proce.state
-  end
-
+ 
 end

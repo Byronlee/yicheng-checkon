@@ -1,0 +1,8 @@
+table.table.table-condensed.table-bordered
+  - examine.unfinish_registrar.map do |proce|
+    tr 
+      td = proce.user.ancestors
+      td = proce.user.user_no
+      td = proce.user.username
+      td 
+        span.label.label-important 未完成！ 

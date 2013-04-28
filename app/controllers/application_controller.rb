@@ -9,11 +9,12 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-
   rescue_from ActionController::UnknownController , :with => :render_404
   rescue_from AbstractController::ActionNotFound, :with => :render_404
   rescue_from Mongoid::Errors::DocumentNotFound, :with => :render_404
   rescue_from Mongoid::Errors::Validations, :with => :render_404
+  rescue_from NoMethodError ,  :with => :render_404
+  rescue_from Moped::Errors::OperationFailure , :with => :render_404
 
   def render_404
     redirect_to render_404_path
@@ -26,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     attrs = session[:cas_extra_attributes]["attrs"]
-    User.resource(attrs["SU_USER_ID"]).perssion(attrs["roles"])
+    @user ||= User.resource(attrs["SU_USER_ID"]).perssion(attrs["roles"])
   end 
 
   def logout

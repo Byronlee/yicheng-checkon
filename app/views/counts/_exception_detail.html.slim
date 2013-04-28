@@ -1,8 +1,8 @@
-a href="##{stat.user.staffid}_#{type}" role="button" class="btn btn-mini btn-primary" data-toggle="modal" 查看详情
-.modal.hide.fade id="#{stat.user.staffid}_#{type}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+a href="##{stat['_id']['user_id']}_#{tag}" role="button" class="btn btn-mini btn-primary" data-toggle="modal" 查看详情
+.modal.hide.fade id="#{stat['_id']['user_id']}_#{tag}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
   .modal-header
     button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
-    h3 id="myModalLabel" <font color="red">#{stat.user.username}</font>出勤详细情况
+    h3 id="myModalLabel" <font color="red">#{username}</font>出勤详细情况
     .modal-body
       table.table.table-condensed.table-bordered
         tr
@@ -10,17 +10,14 @@ a href="##{stat.user.staffid}_#{type}" role="button" class="btn btn-mini btn-pri
           th 上午
           th 下午
           th 操作
-        - stat.records.map do |record|
+        - stat["value"]["records"].uniq.map do |r|
+          - record = StaffRecord.new(r)
           tr 
             td = record.created_date
             - record.checkins.each do |checkin|
               td = checkin.behave.name         
             td 
-              - if current_user_examine_state.blank?
-                = render "common/form_apply_modify" ,:record => record ,:staff =>record.user 
-              - else
-                span.label.label-success 已核实
+              = render "common/form_apply_modify" ,:record => record ,:record_id => r["_id"]
+              
     .modal-footer
       button.btn data-dismiss="modal" aria-hidden="true" 确定
-
-        

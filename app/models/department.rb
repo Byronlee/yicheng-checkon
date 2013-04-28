@@ -3,24 +3,16 @@ class Department
   attr_accessor :number , :name , :id 
 
   def initialize id
-    infor = ws_dept(id)
+    infor = $ACCESSOR.dept_attr(id)
     @number= infor["SD_DEPT_CODE"]
     @name  = infor["SD_DEPT_NAME"]
     @id = id
   end
 
   def users
-    ws_users.map do |user|
-      User.resource(user["SU_USER_ID"])
+   @users ||=  $ACCESSOR.dept_users(id).map do |user_id|
+      User.resource(user_id)
     end
-  end
-
-  def ws_users
-    Webservice.get_data("dept/users1/"+id)
-  end
-
-  def ws_dept id
-    Webservice.get_data("dept/id/"+id)
   end
 
   def users_select

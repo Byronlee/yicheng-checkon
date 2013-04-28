@@ -1,0 +1,4 @@
+.count_head
+  span #{@examine.start_time}至#{@examine.end_time}&nbsp;&nbsp;
+  = render_cell :examine , :update_examine ,:examine => @examine,:current_user => current_user
+= render "counts/count_result" ,:counts => @counts

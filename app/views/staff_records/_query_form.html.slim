@@ -5,8 +5,8 @@ form.query_data_form action=search_staff_records_path method='post' data-remote=
         span.add-on 
           i.icon-calendar
         input#prependedInput type="text"  name="range_time"  placeholder="--请选择时间段--" required="required"
-        input type="hidden" name="start_time" required="required"
-        input type="hidden" name="end_time" required="required"        
+        input type="hidden" name="start_time" required="required" id="start_time"
+        input type="hidden" name="end_time" required="required"  id="end_time"      
     div.selects_group      
       = raw(unit_depts_selects 'search')
       = depts_select('dept','user_id',[],{prompt: '--员工--'},{class: 'span9 staff_select chzn-select'})

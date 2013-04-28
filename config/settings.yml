@@ -1,8 +1,6 @@
 # encoding: utf-8
 defaults: &defaults
   approval_dept_id:      '4028809b3c6fbaa7013c6fbc39510002'
-#  ws_url:                'http://project.zhiyisoft.com:4567/'
-  ws_url:                'http://proj.cdu.edu.cn:4567/'
   cas_url:               'http://61.139.87.55:7890/'
   count_radix:           0.5
   export_path:           <%= Rails.root + 'public/exels/'%>
@@ -42,6 +40,14 @@ defaults: &defaults
     dept_name: 'SD_DEPT_NAME'
     dept_ancestors: 'DEPT_ANCESTORS'
     position: 'POSTS'
+  scope :
+    - "4028809b3c6fbaa7013c6fbc39610081"
+    - "4028809b3c6fbaa7013c6fbc3951000f"
+    - "4028809b3c6fbaa7013c6fbc39700129"
+    - "4028809b3c6fbaa7013c6fbc398002be"
+    - "4028809b3c6fbaa7013c6fbc39800239"
+    - "4028809b3c6fbaa7013c6fbc39900359"
+
 
 development:
   <<: *defaults

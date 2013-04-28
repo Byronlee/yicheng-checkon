@@ -1,0 +1,14 @@
+- if can? :create ,Examine
+  .examine_head
+    = render "form_create_examine"
+- unless @examines.blank?
+  table.table.table-condensed.table-bordered
+    tr
+      - examine_table_titles.each do | title|
+        th = title     
+    -if current_user.registrar?
+      = render "examines/registrar_examine"
+    -if current_user.approval?
+      = render "examines/approval_examine",examines: @examines
+- else
+  = render "common/no_content" , :message => "无过往数据..."

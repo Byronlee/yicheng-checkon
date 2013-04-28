@@ -3,25 +3,41 @@ class Examine
   include Mongoid::Document
 
    field :start_time ,type: String
+   field :launcher ,type: String
    field :end_time ,  type: String
-   field :state , type: Boolean, default: true
+   # state: underway , canceled , finished
+   field :state , type: String, default: 'underway' 
+   
+   default_scope self.in(state: ['underway','finished'])
   
    has_many :proces
    has_many :notices
-
-  def self.unfinish_examine
-    where(state: true).first
+ 
+  def unfinish_registrar 
+    proces.clone.keep_if{|i|!i.state}
   end
-  
-  def save_with_no_old_examine 
-    Examine.unfinish_examine.blank? ? save : false
+ 
+  def save_with_have_records
+    StaffRecord.by_period(start_time,end_time).state('submitted').blank? ? false : save 
   end
 
-  def marker
+  def percent
     "#{proces.where(state: true).count}/#{proces.count}"
   end  
 
-  def percent
-    "#{(proces.where(state: true).count.to_f/proces.count.to_f*100).round(1)}"+"%"
+  def user
+   @user ||= User.resource(launcher)
+  end
+
+  def underway?
+    state.eql?('underway') || false
+  end
+
+  def canceled?
+    state.eql?('canceled') || false
+  end
+
+  def finished?
+    state.eql?('finished') || false
   end
 end

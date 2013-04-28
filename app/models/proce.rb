@@ -8,7 +8,7 @@ class Proce
   belongs_to :examine
 
   def user
-    User.resource(registrar)
+   @user ||=  User.resource(registrar)
   end
 
 end

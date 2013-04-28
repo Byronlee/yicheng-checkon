@@ -2,7 +2,7 @@
 class StaffRecordsController < ApplicationController
 
    def index
-    @records =  StaffRecord.state('submitted').limit(50)
+    @records =  StaffRecord.state('submitted').limit(20)
     @records =  @records.paginate(:page => params[:page], :per_page => Settings.per_page)
    end
 
@@ -15,11 +15,11 @@ class StaffRecordsController < ApplicationController
    end
 
    def update
-     bool = StaffRecord.send(params[:register_way].to_sym , params ,current_user)   
+     bool = StaffRecord.send(params[:register_way].to_sym , params ,current_user)
      return redirect_to root_url if !params[:register_way].eql?("direct_update")
      bool.all? ? (flash[:success] = t('controller.staff_records.success')) 
                : (flash[:error] = t('controller.staff_records.error'))
-     redirect_to operate_staff_records_path
+     redirect_to staff_records_path
      # todo 如果是人事部直接修改，没有添加修改日志，当人事部修改选择没有变时，也能提交修改！没有判断
    end
 
@@ -28,6 +28,7 @@ class StaffRecordsController < ApplicationController
      unless params[:search][:behave_id].blank?
        @records = @records.by_behave_id params[:search][:behave_id]
      end
+     @records = @records.paginate(:page => params[:page], :per_page => Settings.per_page)
      render "common/_table_show_records",locals:{:records => @records },:layout => false
    end
 end

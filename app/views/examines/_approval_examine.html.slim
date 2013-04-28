@@ -1,0 +1,20 @@
+- examines.each_with_index do |examine ,index|
+  tr
+    td 
+      span.badge = index+1
+    td = examine.end_time
+    td = examine.start_time
+    td = examine.user.username
+    - if examine.finished?
+      td
+        span.alert.alert-success
+          i.icon-ok &nbsp;
+          span 完成
+    - else
+       td 
+         a href="##{examine.id}" data-toggle="modal" onclick="examine_proce($(this))"
+           span.alert.alert-important
+             i.icon-remove &nbsp;
+             span  = examine.percent
+         = render "progress_detail" ,:examine => examine
+       td = render "examine_operate" , :examine => examine

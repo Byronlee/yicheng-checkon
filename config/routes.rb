@@ -41,12 +41,12 @@ Attendance::Application.routes.draw do
   match 'ajax_dept_users' => 'homes#ajax_dept_users'
   match 'autocomplete/search_users' => 'homes#search_users'
   match 'export' => 'counts#export'
-  root :to => "homes#index"
-
+  match 'proces_detail' =>  'examines#proces_datail' ,:as => :proces_detail ,:via => :post
 
   match 'cancan_error'    => 'exceptions#cancan_error'
   match 'render_404'      => 'exceptions#render_404'
   match 'browser'    => 'exceptions#browser_error'
+  root :to => "homes#index"
 
   match '/:anything', to: "exceptions#routing_error", as: :error, :constraints => {:anything => /.*/}
   

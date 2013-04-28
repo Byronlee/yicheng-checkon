@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-require "#{File.dirname(__FILE__)}/../lib/utils"
-require "#{File.dirname(__FILE__)}/../lib/access_mongo"
+require "#{File.dirname(__FILE__)}/../lib/org_stru/utils"
+require "#{File.dirname(__FILE__)}/../lib/org_stru/access_mongo"
 
 
 describe MongoCache do

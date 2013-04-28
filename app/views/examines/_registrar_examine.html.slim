@@ -1,0 +1,9 @@
+- Proce.where(registrar: current_user.staffid).asc(:state).each_with_index do |proce,index|
+  tr
+    td 
+      span.badge = index+1
+    td = proce.examine.end_time
+    td = proce.examine.start_time
+    td = proce.examine.user.username
+    td  = render_cell :examine , :examine_proces_registrar ,:examine =>proce.examine,:current_user => current_user
+    td = render "examine_operate" , :examine => proce.examine

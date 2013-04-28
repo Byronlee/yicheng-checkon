@@ -45,7 +45,7 @@ class QueryData
     if @connect_name == 'sqlite' then
       require 'sqlite3'
       db_file = @config['connect']['sqlite']['db']
-      db_file = '../ref/test_data.db' if db_file.nil?
+      db_file = 'ref/test_data.db' if db_file.nil?
       db = File.expand_path(db_file,"#{File.dirname(__FILE__)}/../")
       unless File.exist? db then
         @log.error("SQLite db file '#{db}' is not exist")

@@ -19,9 +19,10 @@ def GetLogLevel (level_str)
 end
 
 def LoadConfigFile
-  config_file = "#{File.dirname(__FILE__)}/../config.yaml"
-  return YAML.load_file config_file if  File.exist? config_file
-  raise "Can't found the config file #{file_name} in the following directory:\n"+dir_list.join("\n")
+  config_file = "#{File.dirname(__FILE__)}/../../config.yaml"
+  return YAML.load_file(config_file) if File.exist?(config_file)
+  # raise "Can't found the config file #{config_file} in the following directory:\n"+dir_list.join("\n")
+  raise "Can't found the config file" 
 end
 
 def Date2UTC (date)

@@ -7,8 +7,8 @@ class Ability
       can :manage , Trainee
       can :manage , StaffRecord
       can :registrar ,Task
-      can :index, Count
-      can :update ,Examine
+      can :manage, Count
+      can [:index,:update,:show] ,Examine
       can [:create,:destroy], Modify
     end
     
@@ -18,11 +18,9 @@ class Ability
 
     if user.approval?
       can :manage , Count
-      can [:create,:destroy] , Examine
+      can [:index,:show,:create,:destroy,:proces_datail] , Examine
       can :update , Modify
-   #   can [:index,:search] , StaffRecord
       can :approval , Task
-   #   can [:operate,:update] , StaffRecord
       can :manage ,StaffRecord
     end
   end
