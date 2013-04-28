@@ -28,4 +28,16 @@ class Examine
   def user
     User.resource(launcher)
   end
+
+  def underway?
+    state.eql?('underway') || false
+  end
+
+  def canceled?
+    state.eql?('canceled') || false
+  end
+
+  def finished?
+    state.eql?('finished') || false
+  end
 end

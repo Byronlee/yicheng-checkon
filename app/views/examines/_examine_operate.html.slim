@@ -1,11 +1,11 @@
 .btn-group
   button.btn.btn-primary.btn-mini type="button"
     a href=examine_path(examine)  data-toggle="modal" 查看
-  - if examine.state.eql?('underway')
+  - if examine.underway?
     button.btn.btn-primary.btn-mini type="button"
       a href="##{examine.id}cancel_examine"  data-toggle="modal"  取消      
   button.btn.btn-primary.btn-mini type="button"
     - params = [start_time: examine.start_time,end_time: examine.end_time].to_param
     a#export href="/export?#{params}" data-remote="true" data-disable-with="处理.." 下载
-- if examine.state.eql?('underway')
+- if examine.underway?
   = render "cancel_examine" ,:examine => examine

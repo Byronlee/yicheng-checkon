@@ -12,7 +12,7 @@
         td = examine.end_time
         td = examine.start_time
         td = examine.user.username
-        - if examine.state.eql?('finished')
+        - if examine.finished?
           td
             span.alert.alert-success
               i.icon-ok &nbsp;
