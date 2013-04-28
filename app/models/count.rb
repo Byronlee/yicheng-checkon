@@ -35,7 +35,7 @@ class Count
     end
   end  # class << self
 
-  def behave_name
+  def behave_name 
     Behave.find(id["behave_id"]).name
   end
 
