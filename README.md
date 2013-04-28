@@ -36,6 +36,22 @@
         # 用户名和密码相同
        人事部： yaye  ,  文员： cangnan
        
+## 定时任务
+写入定时任务：
+
+        whenever -iw  #=> [write] crontab file updated
+        
+查看定时任务：
+
+        crontab -l
+        # 提示信息
+        # Begin Whenever generated tasks for: w
+        * * * /bin/bash -l -c 'cd your rails root path && rails runner -e production '\''Crontask.produce_everyday_records'\'''
+  
+        * * * /bin/bash -l -c 'cd your rails root path && rails runner -e production '\'' Crontask.submit_everyday_records'\'''
+
+        # End Whenever generated tasks for: w
+        
 h1. 项目背景及意义
 
 h2. 背景
