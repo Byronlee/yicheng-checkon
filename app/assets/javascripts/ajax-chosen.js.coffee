@@ -2,8 +2,8 @@ do ($ = jQuery) ->
 
   $.fn.ajaxChosen = (settings = {}, callback, chosenOptions = {}) ->
     defaultOptions =
-      minTermLength: 2
-      afterTypeDelay: 100
+      minTermLength: 1
+      afterTypeDelay: 500
       jsonTermKey: "term"
       keepTypingMsg: "输入.."
       lookingForMsg: "查询中.."

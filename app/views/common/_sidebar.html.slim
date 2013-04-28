@@ -19,23 +19,22 @@
                 i.icon-chevron-right
                 span
                   a href=staff_records_path 考勤查询
-            li
-              a href="#"
-                i.icon-chevron-right
-                span
-                  a href=perssions_path 权限管理
-            - if can? :create,Count
+            - if can? :index,Perssion
               li
                 a href="#"
                   i.icon-chevron-right
                   span
-                    a href=counts_path 考勤统计
-            - if can? :index,Examine
-              li 
-                a href="#"
-                  i.icon-chevron-right
-                  span
-                    a href=examines_path 考勤审核
+                    a href=perssions_path 权限管理
+            li
+              a href="#"
+                i.icon-chevron-right
+                span
+                  a href=counts_path 考勤统计
+            li 
+              a href="#"
+                i.icon-chevron-right
+                span
+                  a href=examines_path 考勤审核
               
             - if can? :index,Trainee
               li

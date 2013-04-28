@@ -24,10 +24,10 @@ jQuery(function(){
             $("input[id$=end_time]").val(start.getFullYear()+"-"+farmat((start.getMonth()+1))+"-"+farmat(start.getDate()));
     }
    $('input[name=range_time]').daterangepicker(datapicker_option,datapicker_callback)
-   count_reslut("#new_examine","创建失败！，请查看上次的考勤审核任务是否完成！")
+ //  count_reslut("#new_examine","创建失败！，请查看上次的考勤审核任务是否完成！")
    count_reslut("#new_count","统计失败！请稍后再试！")
    count_reslut("#delete_examine","取消失败！请稍后再试！")
-   count_reslut(".update_examine","处理失败！请稍后再试！")
+//   count_reslut(".update_examine","处理失败！请稍后再试！")
 
     function  count_reslut(object_name,message){	
 	$(object_name).live('ajax:success', function(event,data,status, xhr) {
@@ -37,6 +37,9 @@ jQuery(function(){
 	}).live('ajax:beforeSend', function(event,data,status, xhr) {
 	    $('.modal').modal('hide')
 	    $("body").prepend('<div class="modal-backdrop waiting fade in"><strong>请稍等，正在处理中,可能会几分钟.....<strong></div>')
+	}).live('ajax:error', function(event,data,status, xhr) {
+	     $("body").find(".waiting").remove();
+	     alert("出错了，你所访问资源不存在，请稍后再试!")
 	});
     }
 

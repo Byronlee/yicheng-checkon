@@ -2,7 +2,7 @@
 class ExaminesController < ApplicationController
 
   def index
-   @examines = Examine.all
+   @examines = Examine.all.limit(20)
   end
 
   def create
@@ -28,10 +28,12 @@ class ExaminesController < ApplicationController
   end
 
   def update
-    examine = Examine.find(params[:examine_id])
-    examine.proces.where(registrar: current_user.staffid).first.update_attributes(state: true)
+    examine = Examine.find(params[:id])
+    registrars = $ACCESSOR.users_with_role(:registrar,current_user.dept_id)
+    examine.proces.in(:registrar => registrars).update_all(state: true)
     examine.notices.where(receiver: current_user.staffid).first.update_attributes(state: true)
-    render "counts/_count_page" ,:locals => {:counts => Count.counts(current_user)}, :layout => false
+    examine.update_attributes(state: "finished") if examine.proces.map(&:state).all? 
+    redirect_to :back
   end
 
   def destroy

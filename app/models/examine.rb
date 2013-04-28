@@ -26,7 +26,7 @@ class Examine
   end  
 
   def user
-    User.resource(launcher)
+   @user ||= User.resource(launcher)
   end
 
   def underway?

@@ -34,11 +34,11 @@ module Mongoid
       end
 
       def user
-        User.resource(staffid)
+        @user ||= User.resource(staffid)
       end
       
       def record_person_name
-        User.resource(record_person)
+        @name ||= User.resource(record_person)
       end
 
     module  ClassMethods 
