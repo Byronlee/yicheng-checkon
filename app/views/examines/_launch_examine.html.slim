@@ -1,0 +1,12 @@
+
+  = simple_form_for Examine.new ,:remote => true do |f|
+    .modal-body
+      = f.simple_fields_for :data do |d|
+        = d.input :start_time, as: :hidden , input_html: {value: range_time[:start_time]}
+        = d.input :end_time, as: :hidden , input_html: {value: range_time[:end_time]}
+      = f.simple_fields_for :notice do |n|
+        = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid }
+        = n.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 513px;"}
+    .modal-footer
+      button.btn data-dismiss="modal" aria-hidden="true" 关闭
+      = f.button :submit
