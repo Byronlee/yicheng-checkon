@@ -9,10 +9,10 @@
       tr
         td 
           span.badge = index+1
-        td = examine.start_time
         td = examine.end_time
-        td "dsd"
-        - if examine.state
+        td = examine.start_time
+        td = examine.user.username
+        - if examine.state.eql?('finished')
           td
             span.alert.alert-success
               i.icon-ok &nbsp;

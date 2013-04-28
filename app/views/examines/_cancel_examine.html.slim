@@ -4,9 +4,9 @@
     h3  取消本次考勤审核
   .modal-body
     p 你确认要取消#{examine.start_time}至#{examine.start_time}的考勤审核吗？
-    form#delete_examine(action="/examines/destroy" method="delete" data-remote="true")
-      input type="hidden" value="#{examine.id}" name="examine_id"
+    form#delete_examine action="examines/#{examine.id}" method="post"
       .modal-footer
+        input name="_method" type="hidden" value="delete"
         button.btn data-dismiss="modal" aria-hidden="true" 取消
         button.btn.btn-primary type="submit" 确定
         

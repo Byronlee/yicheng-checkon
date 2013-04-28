@@ -18,8 +18,8 @@ class HomesController < ApplicationController
   def ajax_attend_tree 
     tree = $ACCESSOR.dept_tree(params[:dept_id])
     node=  $ACCESSOR.produce_tree_to_map tree
-    if node["children"]
-      choices =  node["children"].map{|v|[v["name"].strip , v["id"]]}
+    if node[:children]
+      choices =  node[:children].map{|v|[v[:name].strip , v[:id]]}
       render "common/_organization_select",locals: {object:"condition",node: choices,html_options: {}},:layout => false
     else
       render :json => false

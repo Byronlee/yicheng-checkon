@@ -12,5 +12,5 @@ table.table.table-condensed.table-bordered
       td = user.username
       td = Behave.find(stat["_id"]["behave_id"]).name
       td = stat["value"]["count"]*count_radix
-      td = render "counts/exception_detail" ,:stat => stat ,type: type,username: user.username
+      td = render "counts/exception_detail" ,:stat => stat ,tag:tag+=1,username: user.username
 /!= will_paginate stats, :renderer => BootstrapPagination::Rails

@@ -5,7 +5,6 @@ class ExaminesController < ApplicationController
    @examines = Examine.all
   end
 
-
   def create
     examine = Examine.new(params[:examine][:data])
     if examine.save_with_have_records
@@ -28,9 +27,6 @@ class ExaminesController < ApplicationController
     @counts = Count.create @examine.start_time,@examine.end_time,current_user.users_with_subdept
   end
 
-
-
-
   def update
     examine = Examine.find(params[:examine_id])
     examine.proces.where(registrar: current_user.staffid).first.update_attributes(state: true)
@@ -38,11 +34,11 @@ class ExaminesController < ApplicationController
     render "counts/_count_page" ,:locals => {:counts => Count.counts(current_user)}, :layout => false
   end
 
-
   def destroy
-    examine = Examine.find(params[:examine_id])
+    examine = Examine.find(params[:id])
     examine.notices.update_all(state: true)
-    examine.update_attributes(state: false)
-    render "counts/_count_page" ,:locals => {:counts => Count.counts(current_user)}, :layout => false
+    examine.update_attributes(state: 'canceled')
+    flash[:success] = '取消成功!'
+    redirect_to :action => 'index' 
   end
 end

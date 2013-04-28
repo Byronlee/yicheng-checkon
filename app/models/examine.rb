@@ -3,12 +3,15 @@ class Examine
   include Mongoid::Document
 
    field :start_time ,type: String
+   field :launcher ,type: String
    field :end_time ,  type: String
-   field :state , type: Boolean, default: false
+   # state: underway , canceled , finished
+   field :state , type: String, default: 'underway' 
+   
+   default_scope self.in(state: ['underway','finished'])
   
    has_many :proces
    has_many :notices
-
  
   def unfinish_registrar 
     proces.clone.keep_if{|i|!i.state}
@@ -22,4 +25,7 @@ class Examine
     "#{proces.where(state: true).count}/#{proces.count}"
   end  
 
+  def user
+    User.resource(launcher)
+  end
 end

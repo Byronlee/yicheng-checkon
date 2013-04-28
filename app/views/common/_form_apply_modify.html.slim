@@ -3,19 +3,20 @@
   .modal.hide.fade id=record.id tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
     .modal-header
       button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
-      h3 id="myModalLabel" 申请修改<font color="red">#{staff.username}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
+      h3 id="myModalLabel" 申请修改<font color="red">#{record.user.username}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
     = simple_form_for Modify.new do |f|
       .modal-body
         = f.simple_fields_for :data do |d|
-          = d.input :staff_record_id, as: :hidden, input_html: {value: record.id}
+          - id = defined?(record_id) ? record_id : record.id
+          = d.input :staff_record_id, as: :hidden, input_html: {value: id}
           = raw(unit_selects(record.checkins,"modify[data][checkins]"))
         = f.simple_fields_for :notice do |n|
           = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid}
           = n.input :receiver ,as: :hidden, input_html: {value: "approval"}
           hr
-          = n.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 431px;"}
+          = n.input :remark,as: :text,label: false,required: false, input_html: {rows: "3", style: "width: 431px;"}
       .modal-footer
         button.btn data-dismiss="modal" aria-hidden="true" 关闭
         = f.button :submit
 - else
-  = render "common/direct_modify_record" ,:record => record ,:staff => staff
+  = render "common/direct_modify_record" ,:record => record 
