@@ -43,4 +43,11 @@ class ExaminesController < ApplicationController
     flash[:success] = '取消成功!'
     redirect_to :action => 'index' 
   end
+
+  def proces_datail
+    examine = Examine.find(params[:examine_id])
+    render "_proces_detail_content",locals:{:examine => examine },:layout => false
+  end
+
+
 end

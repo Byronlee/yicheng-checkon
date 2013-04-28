@@ -2,7 +2,7 @@
 class StaffRecordsController < ApplicationController
 
    def index
-    @records =  StaffRecord.state('submitted').limit(50)
+    @records =  StaffRecord.state('submitted').limit(20)
     @records =  @records.paginate(:page => params[:page], :per_page => Settings.per_page)
    end
 
