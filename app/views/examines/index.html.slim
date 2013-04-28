@@ -1,5 +1,6 @@
-.examine_head
-  = render "form_create_examine"
+- if can? :create ,Examine
+  .examine_head
+    = render "form_create_examine"
 - unless @examines.blank?
   table.table.table-condensed.table-bordered
     tr
@@ -12,7 +13,10 @@
         td = examine.end_time
         td = examine.start_time
         td = examine.user.username
-        - if examine.state.eql?('finished')
+        - if current_user.registrar?
+          td 
+            = render_cell :examine , :examine_proces_registrar ,:examine =>examine,:current_user => current_user
+        - elsif examine.state.eql?('finished')
           td
             span.alert.alert-success
               i.icon-ok &nbsp;
@@ -25,3 +29,6 @@
                 span  = examine.percent
             = render "progress_detail" ,:examine => examine
         td = render "examine_operate" , :examine => examine
+- else
+  = render "common/no_content" , :message => "无过往数据..."
+  

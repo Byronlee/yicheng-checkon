@@ -8,7 +8,7 @@ class Ability
       can :manage , StaffRecord
       can :registrar ,Task
       can :manage, Count
-      can [:update,:show] ,Examine
+      can [:index,:update,:show] ,Examine
       can [:create,:destroy], Modify
     end
     
@@ -20,9 +20,7 @@ class Ability
       can :manage , Count
       can [:index,:show,:create,:destroy] , Examine
       can :update , Modify
-   #   can [:index,:search] , StaffRecord
       can :approval , Task
-   #   can [:operate,:update] , StaffRecord
       can :manage ,StaffRecord
     end
   end

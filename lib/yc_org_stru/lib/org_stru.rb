@@ -185,7 +185,7 @@ class OrgStru
   def all_users_with_role(role)
     posts = role_posts(role).join("','")
     return [] if posts.empty?
-    @qd.query_field_to_array("SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID in ('#{posts}')") 
+    @qd.query_field_to_array("SELECT SURP_USER_ID FROM SYS_USER_R_POST WHERE SURP_POST_ID in ('#{posts}')").uniq 
   end
   
   def registrar_attend_scope(registrar_id)

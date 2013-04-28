@@ -10,9 +10,9 @@ class BehaveType
     behaves = Settings.behaves
     behaves[behave_type.name.to_sym].each do |bh|
       if bh == "全勤"
-        behave_type.behaves.create(name: bh,proper: false,default: true)
+        behave_type.behaves.create(name: bh,default: true)
       else
-        behave_type.behaves.create(name: bh,proper: false)
+        behave_type.behaves.create(name: bh)
       end
     end
   end
@@ -24,7 +24,4 @@ class BehaveType
   def self.behave_ids_by_name name
     find_by(name: name).behave_ids
   end
-
-# validates_presence_of :name
-# validates_uniqueness_of :name
 end

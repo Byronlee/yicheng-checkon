@@ -2,7 +2,7 @@
 class CountsController < ApplicationController
 
   def index
-    @counts = Count.package_counts Count.where(id: nil)
+    @counts = Count.package_counts Count.all
   end
 
   def create 

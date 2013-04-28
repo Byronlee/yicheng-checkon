@@ -10,7 +10,7 @@ class Department
   end
 
   def users
-    $ACCESSOR.dept_users(id).map do |user_id|
+   @users ||=  $ACCESSOR.dept_users(id).map do |user_id|
       User.resource(user_id)
     end
   end
