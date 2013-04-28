@@ -18,7 +18,7 @@ class TraineesController < ApplicationController
 
   def merge
     new_id = params[:dept][:user_id]
-    if (new_id = new_id).blank?
+    if new_id.blank?
       flash[:error] = '请选择你需要合并的员工'
     elsif Trainee.find(params[:old_trainee_id]).finish?
       flash[:error] = '你还没有完成该无工号员工的考勤任务,请完成后重试!'
