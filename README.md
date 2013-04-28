@@ -46,13 +46,9 @@
         crontab -l
         # 提示信息
         # Begin Whenever generated tasks for: w
-        0 2 * * * /bin/bash -l -c 'cd /home/simlegate/workspace/yicheng-checkon && rails runner -e development '\''Crontask.produce_everyday_records'\'''
-
-        0 2 * * * /bin/bash -l -c 'cd /home/simlegate/workspace/yicheng-checkon && rails runner -e production '\''Crontask.produce_everyday_records'\'''
+        * * * /bin/bash -l -c 'cd your rails root path && rails runner -e production '\''Crontask.produce_everyday_records'\'''
   
-        0 23 * * * /bin/bash -l -c 'cd /home/simlegate/workspace/yicheng-checkon && rails runner -e development '\'' Crontask.submit_everyday_records'\'''
-
-        0 23 * * * /bin/bash -l -c 'cd /home/simlegate/workspace/yicheng-checkon && rails runner -e production '\'' Crontask.submit_everyday_records'\'''
+        * * * /bin/bash -l -c 'cd your rails root path && rails runner -e production '\'' Crontask.submit_everyday_records'\'''
 
         # End Whenever generated tasks for: w
         
