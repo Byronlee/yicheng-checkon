@@ -26,7 +26,7 @@ class Modify
     Notice.find(data[:notice_id]).read
     return nil if !data[:decision].eql?("agree")
     staff_record.update_checkins(checkins)
-    examine =  Examine.unfinish_examine
-    Count.create({start_time: examine.start_time ,end_time: examine.end_time}) unless examine.blank?
+  # examine =  Examine.unfinish_examine
+  # Count.create({start_time: examine.start_time ,end_time: examine.end_time}) unless examine.blank?
   end
 end

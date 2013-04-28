@@ -30,7 +30,9 @@
                   i.icon-chevron-right
                   span
                     a href=counts_path 考勤统计
-              li href="#"
+            - if can? :index,Examine
+              li 
+                a href="#"
                   i.icon-chevron-right
                   span
                     a href=examines_path 考勤审核

@@ -40,6 +40,10 @@ jQuery(function(){
 	});
     }
 
+   $(".submit_trainee_records").bind('click',function(){
+         $(this).parent().siblings().children('form').submit()
+   })
+
     $(".chzn-select").ajaxChosen({
 	type: 'GET',
 	url: '/autocomplete/search_users',

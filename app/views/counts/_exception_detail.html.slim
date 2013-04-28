@@ -1,5 +1,5 @@
-a href="##{stat['_id']['user_id']}_#{type}_1" role="button" class="btn btn-mini btn-primary" data-toggle="modal" 查看详情
-.modal.hide.fade id="#{stat['_id']['user_id']}_#{type}_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+a href="##{stat['_id']['user_id']}_#{tag}" role="button" class="btn btn-mini btn-primary" data-toggle="modal" 查看详情
+.modal.hide.fade id="#{stat['_id']['user_id']}_#{tag}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
   .modal-header
     button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
     h3 id="myModalLabel" <font color="red">#{username}</font>出勤详细情况
@@ -17,7 +17,7 @@ a href="##{stat['_id']['user_id']}_#{type}_1" role="button" class="btn btn-mini 
             - record.checkins.each do |checkin|
               td = checkin.behave.name         
             td 
-              = render "common/form_apply_modify" ,:record => record ,:staff =>record.user 
+              = render "common/form_apply_modify" ,:record => record ,:record_id => r["_id"]
               
     .modal-footer
       button.btn data-dismiss="modal" aria-hidden="true" 确定

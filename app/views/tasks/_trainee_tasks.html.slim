@@ -15,6 +15,6 @@
             = raw unit_selects task.checkins,"record[#{task.staffid}]" 
         td 
           - if task.state.eql?("checking")
-            button.btn.btn-primary type="type" onclick="$('#u_form').submit()" = btn_name(task.state)
+            button.btn.btn-primary class='submit_trainee_records' = btn_name(task.state)
           - else     
-            button.btn.btn-success type="type" onclick="$('#u_form').submit()" = btn_name(task.state)
+            button.btn.btn-success class='submit_trainee_records' = btn_name(task.state)

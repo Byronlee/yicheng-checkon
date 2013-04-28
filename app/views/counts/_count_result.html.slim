@@ -16,16 +16,17 @@ ul.nav.nav-tabs#tab
         li
           a href="##{behave}" data-toggle="tab" =name
 #myTabContent.tab-content
+  - tag = 0
   - Settings.count_types.map do |type,behaves|
     - active=type.eql?("leave") ? 'active': ''
     .tab-pane.fade.in class=active id=type
       - unless counts[type].map{|k,v|v.blank?}.all?
-        = render "counts/item_count_result" ,:stats => counts[type].map {|k,v|v}.flatten ,:type => type
+        = render "counts/item_count_result" ,:stats => counts[type].map {|k,v|v}.flatten ,:tag => tag+=1
       - else
         = render_no_content
   - counts["leave"].map do |behave,value|
     .tab-pane.fade id=behave
       - unless value.blank?
-        = render "counts/item_count_result" ,:stats =>value ,:type => behave
+        = render "counts/item_count_result" ,:stats =>value ,:tag => tag+=1
       - else
         = render_no_content

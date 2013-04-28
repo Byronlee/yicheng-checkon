@@ -7,8 +7,8 @@ class Ability
       can :manage , Trainee
       can :manage , StaffRecord
       can :registrar ,Task
-      can :index, Count
-      can :update ,Examine
+      can :manage, Count
+      can [:update,:show] ,Examine
       can [:create,:destroy], Modify
     end
     
