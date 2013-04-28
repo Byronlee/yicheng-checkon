@@ -24,10 +24,10 @@ jQuery(function(){
             $("input[id$=end_time]").val(start.getFullYear()+"-"+farmat((start.getMonth()+1))+"-"+farmat(start.getDate()));
     }
    $('input[name=range_time]').daterangepicker(datapicker_option,datapicker_callback)
- //  count_reslut("#new_examine","创建失败！，请查看上次的考勤审核任务是否完成！")
+//  count_reslut("#new_examine","创建失败！，请查看上次的考勤审核任务是否完成！")
    count_reslut("#new_count","统计失败！请稍后再试！")
    count_reslut("#delete_examine","取消失败！请稍后再试！")
-//   count_reslut(".update_examine","处理失败！请稍后再试！")
+//  count_reslut(".update_examine","处理失败！请稍后再试！")
 
     function  count_reslut(object_name,message){	
 	$(object_name).live('ajax:success', function(event,data,status, xhr) {
@@ -43,10 +43,10 @@ jQuery(function(){
 	});
     }
 
-   $(".submit_trainee_records").bind('click',function(){
-         $(this).parent().siblings().children('form').submit()
-   })
-
+    $(".submit_trainee_records").bind('click',function(){
+        $(this).parent().siblings().children('form').submit()
+    })
+    
     $(".chzn-select").ajaxChosen({
 	type: 'GET',
 	url: '/autocomplete/search_users',
@@ -61,45 +61,54 @@ jQuery(function(){
 
 });
 
-    function ajax_dept_users_select(o){
-      $.get("/ajax_dept_users",{dept_id : o.val()},function(html){
-      o.parents("form").find(".staff_select").parents('.input-prepend').replaceWith(html);
-      })
-    }
+function ajax_dept_users_select(o){
+    $.get("/ajax_dept_users",{dept_id : o.val()},function(html){
+	o.parents("form").find(".staff_select").parents('.input-prepend').replaceWith(html);
+    })
+}
 
-    function ajax_attend_tree(o){
-	o.parents(".selects_group").nextAll().find("#search_dept_id").parents(".input-prepend").html('<option value="">--全部--</option>');
-	$.post("/ajax_attend_tree",{dept_id :o.val()}, function(html){
+function ajax_attend_tree(o){
+    o.parents(".selects_group").nextAll().find("#search_dept_id").parents(".input-prepend").html('<option value="">--全部--</option>');
+    $.post("/ajax_attend_tree",{dept_id :o.val()}, function(html){
 	    if(html){	  
-	     o.parents(".input-prepend").next().find("select").html(html);
+		o.parents(".input-prepend").next().find("select").html(html);
 	    }
 	})     
-        ajax_dept_users_select(o)
-    }
+    ajax_dept_users_select(o)
+}
 
-    function query_attach(o){
-     if(o.attr("order")=="false"&&o.val()=="") return false
-        $.post("operate" ,{value: o.val() , 
-			 field: o.attr("field"),
-			 order: o.attr("order"),
-			 type : "attach"
-			},
-               function(html){
-		   $(".show_query_result").html(html);
-	       });
-	
-    }
+function query_attach(o){
+    if(o.attr("order")=="false"&&o.val()=="") return false
+    $.post("operate" ,{value: o.val() , 
+		       field: o.attr("field"),
+		       order: o.attr("order"),
+		       type : "attach"
+		      },
+           function(html){
+	       $(".show_query_result").html(html);
+	   });
+    
+}
 
-  function merge_submit(o,update){
+function merge_submit(o,update){
        if(confirm("学员的考勤记录将会覆盖此员工的所有考勤记录,是否继续")){
-         o.parent().siblings().children('form').submit()
+           o.parent().siblings().children('form').submit()
        }
   }
 
-  function  config_approval_title(o){
-      o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
-      o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
-  }
+
+function examine_proce(o){
+    $.post("/proces_detail",{examine_id : o.attr("href").substr(1) }, function(html){
+	$(o.attr("href")).find(".modal-body").html(html)
+    })     
+}
+
+
+
+function  config_approval_title(o){
+    o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
+    o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
+}
 
 $('.query_data_form').live('ajax:before', function(event,data,status, xhr) {
     var user_id = $("#dept_user_id").val() ;
@@ -111,10 +120,11 @@ $('.query_data_form').live('ajax:before', function(event,data,status, xhr) {
     $('.show_query_result').html(data)
 });
 
+
 $('#export').live('ajax:success',function(evt, data, status, xhr){
     if(data.state == 1){
-      window.location.href = data.url
+	window.location.href = data.url
     }else{
-     alert(data.notice)
+	alert(data.notice)
     }
 });

@@ -23,7 +23,7 @@
               span 完成
         - else
           td 
-            a href="##{examine.id}" data-toggle="modal"
+            a href="##{examine.id}" data-toggle="modal"  onclick="examine_proce($(this))"
               span.alert.alert-important
                 i.icon-remove &nbsp;
                 span  = examine.percent
