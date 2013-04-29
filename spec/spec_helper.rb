@@ -48,6 +48,14 @@ Spork.each_run do
 end
 
 
-def login 
-  CASClient::Frameworks::Rails::Filter.fake("admin",{:user => "wo"})
+def registrar_login
+  CASClient::Frameworks::Rails::Filter.fake('cangnan',{"attrs" => {"SU_USER_ID"=>"2",'roles'=> ['Registrar','Rightsman']}})
+end
+
+def approval_login
+  CASClient::Frameworks::Rails::Filter.fake('cangnan',{'attrs' => {"SU_USER_ID" => "2",'roles'=> ['Approval']}})
+end
+
+def no_role_login 
+  CASClient::Frameworks::Rails::Filter.fake('any',{'attrs' => {"SU_USER_ID" => "2",'roles'=> []}})
 end
