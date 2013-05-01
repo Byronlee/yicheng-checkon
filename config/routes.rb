@@ -1,9 +1,7 @@
 Attendance::Application.routes.draw do
 
-  resources :counts do
-    collection do
-      get :amount
-    end
+  resources :counts , :only => [:index, :create] do
+    get :export ,:on => :collection
   end
 
   resources :trainees do
@@ -29,8 +27,6 @@ Attendance::Application.routes.draw do
   resources :perssions
 
   resources :notices
-  resources :counts
-  post 'counts/update'
 
   match 'logout'     => 'application#logout'
   match 'registrar'  => 'tasks#registrar' ,:as => :registrar
@@ -38,7 +34,6 @@ Attendance::Application.routes.draw do
   match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
   match 'ajax_dept_users' => 'homes#ajax_dept_users'
   match 'autocomplete/search_users' => 'homes#search_users'
-  match 'export' => 'counts#export'
   match 'proces_detail' =>  'examines#proces_datail' ,:as => :proces_detail ,:via => :post
 
   match 'cancan_error'    => 'exceptions#cancan_error'
