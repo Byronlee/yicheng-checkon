@@ -1,7 +1,5 @@
 Attendance::Application.routes.draw do
 
-  resources :tasks
-
   resources :counts do
     collection do
       get :amount
@@ -49,6 +47,4 @@ Attendance::Application.routes.draw do
   root :to => "homes#index"
 
   match '/:anything', to: "exceptions#routing_error", as: :error, :constraints => {:anything => /.*/}
-  
-
 end
