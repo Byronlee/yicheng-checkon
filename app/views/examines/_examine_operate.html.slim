@@ -5,7 +5,7 @@
     button.btn.btn-primary.btn-mini type="button"
       a href="##{examine.id}cancel_examine"  data-toggle="modal" data-disable-with="处理中..."  取消      
   button.btn.btn-primary.btn-mini type="button"
-    - params = [start_time: examine.start_time,end_time: examine.end_time].to_param
-    a#export href="/export?#{params}" data-remote="true" data-disable-with="处理中.." 下载
+    - params = '?'+[start_time: examine.start_time,end_time: examine.end_time].to_param.to_s
+    a#export href=export_counts_path+params.to_s data-remote="true" data-disable-with="处理中.." 下载
 - if examine.underway?&&current_user.approval?
   = render "cancel_examine" ,:examine => examine

@@ -3,15 +3,14 @@ class HomesController < ApplicationController
 
   skip_authorize_resource
 
-
   def index
     if current_user.registrar?
-      redirect_to registrar_path
+      return redirect_to registrar_path
     end
     if current_user.approval?
-      redirect_to approval_path
+      return redirect_to approval_path
     end
-    # 当我不是已这两个角色登录 没有处理
+    redirect_to cancan_error_path
   end
 
   

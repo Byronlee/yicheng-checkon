@@ -44,10 +44,8 @@ class ExaminesController < ApplicationController
     redirect_to :action => 'index' 
   end
 
-  def proces_datail
+  def proces_detail
     examine = Examine.find(params[:examine_id])
     render "_proces_detail_content",locals:{:examine => examine },:layout => false
   end
-
-
 end
