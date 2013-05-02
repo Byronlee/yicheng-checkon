@@ -9,10 +9,14 @@ require "date"
 class OrgStru
   attr_reader :user_attr_key,:dept_attr_key
 
-  def initialize
-    @config = LoadConfigFile()
-    @log = Logger.new(@config.fetch('logger_file',"#{File.dirname(__FILE__)}/../ws.log"))
-    @log.level = GetLogLevel(@config.fetch('logger_level','warn'))
+  def initialize(config,log=nil)
+    @config = config
+    if log.nil? 
+      @log = Logger.new(STDOUT)
+      @log.level = Logger::WARN
+    else
+      @log = log
+    end 
 
     @qd = QueryData.new(@config,@log)
 
@@ -220,7 +224,11 @@ class OrgStru
   end
 
   def tempreg_peroid_remove(user_id)
-    tempreg_mongo_collection.remove("user_id" => user_id)
+    begin
+      tempreg_mongo_collection.remove("user_id" => user_id)
+    rescue
+      @log.error("Remove #{user_id} fail!")
+    end
   end
 
   def temp_registrar_rights_peroid(user_id,peroid=nil)

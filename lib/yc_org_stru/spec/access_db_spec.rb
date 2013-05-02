@@ -8,9 +8,11 @@ require "#{File.dirname(__FILE__)}/../lib/org_stru/access_db"
 describe QueryData do
   before do
     config  = LoadConfigFile()
-    log = Logger.new(config.fetch('logger_file',"#{File.dirname(__FILE__)}/../ws.log"))
-    log.level = GetLogLevel(config.fetch('logger_level','warn'))
-    @qd = QueryData.new(config,log)
+    @qd = QueryData.new(config)
+  end
+
+  it "现在使用的是sqlite" do 
+    @qd.connect_name.should eq 'sqlite'
   end
 
   it "即便错误的配置也不能抛出异常,只能写日志" do
@@ -27,7 +29,6 @@ describe QueryData do
     tables = []
     if @qd.connect_name == 'sqlite'
       @qd.query("SELECT * FROM sqlite_master"){|row| tables << row }
-      
     else
       @qd.query("select TABLE_NAME from all_tables"){|row| tables << row }
     end
