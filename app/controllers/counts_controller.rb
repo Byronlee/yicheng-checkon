@@ -15,6 +15,3 @@ class CountsController < ApplicationController
     render :json => message.to_json
   end
 end
-
-
-

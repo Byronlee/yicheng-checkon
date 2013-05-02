@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 class ExceptionsController < ActionController::Base
 
-
   def browser_error
    render layout: false
   end
@@ -20,5 +19,4 @@ class ExceptionsController < ActionController::Base
     flash[:error]= "你无权限访问此页面！"
     render :error ,:layout => false
   end
-
 end
