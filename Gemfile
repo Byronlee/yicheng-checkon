@@ -13,7 +13,6 @@ group :test do
   gem "launchy"
   gem 'guard-spork'
   gem 'guard-rspec'
-  gem 'guard-livereload'
   gem 'guard-bundler'
   gem 'rb-fsevent'
   gem 'simplecov', :require => false
