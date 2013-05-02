@@ -15,8 +15,9 @@ Attendance::Application.routes.draw do
   end
 
   resources :modifies, :only => ['create','update','destroy']
-  resources :examines
+  resources :examines, :except => ['new','edit']
 
+  # not be test 
   resources :perssions
 
   resources :notices

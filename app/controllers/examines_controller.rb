@@ -48,6 +48,4 @@ class ExaminesController < ApplicationController
     examine = Examine.find(params[:examine_id])
     render "_proces_detail_content",locals:{:examine => examine },:layout => false
   end
-
-
 end
