@@ -8,19 +8,14 @@ Attendance::Application.routes.draw do
     post :merge ,:on => :collection
   end
 
+  # TODO move update to resources
   post "staff_records/update" 
+  resources :staff_records do
+    post :search ,:on => :collection
+  end
 
   resources :modifies
   resources :examines
-
-  resources :staff_records do
-    collection do 
-      get  :fast_register
-      get  :operate
-      post :search
-      post :query_attach
-    end
-  end
 
   resources :perssions
 
