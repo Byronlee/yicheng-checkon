@@ -6,7 +6,7 @@ require 'casclient/frameworks/rails/filter'
 
 Attendance::Application.initialize!
 
-$ACCESSOR = OrgStru.new
+$ACCESSOR = OrgStru.new(Settings.yc_org_stru,Rails.configuration.logger)
 
 cas_logger = CASClient::Logger.new("#{Rails.root}/log/cas.log")
 cas_logger.level = Logger::DEBUG
