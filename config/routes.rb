@@ -4,10 +4,8 @@ Attendance::Application.routes.draw do
     get :export ,:on => :collection
   end
 
-  resources :trainees do
-    collection do
-      post :merge
-    end
+  resources :trainees, :only => [:index, :create] do
+    post :merge ,:on => :collection
   end
 
   post "staff_records/update" 
