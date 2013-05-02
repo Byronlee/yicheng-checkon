@@ -23,11 +23,14 @@ Attendance::Application.routes.draw do
   resources :perssions
 
   match 'logout'     => 'application#logout'
+
   match 'registrar'  => 'tasks#registrar' ,:as => :registrar
   match 'approval'   => 'tasks#approval' ,:as => :approval
+
   match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
   match 'ajax_dept_users' => 'homes#ajax_dept_users'
   match 'autocomplete/search_users' => 'homes#search_users'
+  root :to => "homes#index"
 
   match 'cancan_error'    => 'exceptions#cancan_error'
   match 'render_404'      => 'exceptions#render_404'
