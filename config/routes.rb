@@ -35,7 +35,6 @@ Attendance::Application.routes.draw do
   match 'cancan_error'    => 'exceptions#cancan_error'
   match 'render_404'      => 'exceptions#render_404'
   match 'browser'    => 'exceptions#browser_error'
-  root :to => "homes#index"
 
   match '/:anything', to: "exceptions#routing_error", as: :error, :constraints => {:anything => /.*/}
 end

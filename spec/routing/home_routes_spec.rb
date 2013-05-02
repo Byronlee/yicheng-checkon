@@ -1,6 +1,6 @@
 require 'spec_helper'
 describe "routing to tasks" do
-  it "routes / to homes#index" do
+  it "routes root to homes#index" do
     expect(:get => root_path).to route_to(
       :controller => "homes",
       :action => "index",
