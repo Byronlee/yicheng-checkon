@@ -10,11 +10,11 @@ Attendance::Application.routes.draw do
 
   # TODO move update to resources
   post "staff_records/update" 
-  resources :staff_records do
+  resources :staff_records,:only => ['index','show','edit'] do
     post :search ,:on => :collection
   end
 
-  resources :modifies
+  resources :modifies, :only => ['create','update','destroy']
   resources :examines
 
   resources :perssions
