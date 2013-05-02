@@ -3,7 +3,9 @@ require "#{File.dirname(__FILE__)}/../lib/org_stru"
 
 describe OrgStru do
   before do
-    @orgstru = OrgStru.new  
+    config  = LoadConfigFile()
+    @orgstru = OrgStru.new (config)
+
     @test_data_user_id = "4028809b3c6fbaa7013c6fbc3db41bc3"
     @test_data_user_id_registrar = "4028809b3c6fbaa7013c6fbc3da51b48"
     @test_data_user_id_approval = "4028809b3c6fbaa7013c6fbc3da51a13"

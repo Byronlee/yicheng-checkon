@@ -13,9 +13,6 @@ connect :
 
 default_connect : sqlite
 
-logger_file : ws.log
-logger_level : warn
-
 mongo :
   host : localhost
   port : 27017
