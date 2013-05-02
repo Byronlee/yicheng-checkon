@@ -1,21 +1,56 @@
 # -*- coding: utf-8 -*-
 
 require 'spec_helper'
-
-describe "用户数据" do
+require "cancan/matchers"
   
-# 
-#  before(:all) do
-#   @user = User.resource("4028809b3c6fbaa7013c6fbc3db41bc3")
-#  end
-#
-#  it "实例化User对象" do
-#    @user.should be_instance_of(User)
-#  end
-#  
-#  it "通过用户id和webservice返回他所能考勤的部门" do
-#    @user.attend_depts.count.should ==  (Webservice.get_data("/attend/tree/"+@user.staffid)).count
-#  end
-#
+describe Ability do
+  before :each do
+    @user = User.resource("123456")
+  end
+  context "when current_user include registrar role" do
+    before :each do 
+      @user.roles = ['Registrar']
+    end
+    it {@user.should have_ability(:manage, for: Trainee.new)}
+    it {@user.should have_ability(:manage, for: StaffRecord.new)}
+    it {@user.should have_ability(:manage, for: Count.new)}
+
+    it {@user.should have_ability(:registrar, for: Task.new)}
+    it {@user.should_not have_ability(:approval, for: Task.new)}
+  
+    it {@user.should have_ability([:index,:update,:show], for: Examine.new)}
+    it {@user.should_not have_ability([:index,:show,:create,:destroy,:proces_detail], for: Examine.new)}
+
+    it {@user.should have_ability([:create,:destroy], for: Modify.new)}
+    it {@user.should_not have_ability(:update, for: Modify.new)}
+
+    it {@user.should_not have_ability(:manage, for: Perssion.new)}
+  end
+
+  context "when current_user include rightsman role" do
+    before :each do 
+      @user.roles = ['Rightsman']
+    end
+    it {@user.should have_ability(:manage, for: Perssion.new)}
+  end
+
+  context "when current_user include approval role" do
+    before :each do 
+      @user.roles = ['Approval']
+    end
+
+    it {@user.should have_ability(:manage, for: Count.new)}
+    it {@user.should have_ability(:manage, for: StaffRecord.new)}
+    it {@user.should_not have_ability(:manage, for: Perssion.new)}
+
+    it {@user.should have_ability([:index,:show,:create,:destroy,:proces_detail], for: Examine.new)}
+    it {@user.should_not have_ability([:index,:update,:show], for: Examine.new)}
+
+    it {@user.should have_ability(:update, for: Modify.new)}
+    it {@user.should_not have_ability([:create,:destroy], for: Modify.new)}
+
+    it {@user.should have_ability(:approval, for: Task.new)}
+    it {@user.should_not have_ability(:registrar, for: Task.new)}
+  end
 end
 
