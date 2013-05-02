@@ -48,6 +48,82 @@ defaults: &defaults
     - "4028809b3c6fbaa7013c6fbc39800239"
     - "4028809b3c6fbaa7013c6fbc39900359"
 
+  yc_org_stru:
+    connect :
+      oracle :
+        host : 61.139.76.161
+        port : 1521
+        sid : ORCL
+        username : ecen_kq
+        password : 123456
+      test-expection : 
+        username : ecen_kq
+        password : 123456
+      sqlite :
+        db : ../../ref/test_data.db 
+    
+    default_connect : sqlite
+    
+    mongo :
+      host : localhost
+      port : 27017
+      db : web_service
+    
+    
+    table :
+      user :
+        - "SU_USER_ID"
+        - "SU_NICKNAME_CODE"
+        - "SU_NICKNAME_DISPLAY"
+        - "SU_PHONE_NUM"
+        - "SU_USERNAME"
+        - "SU_USER_NO"
+        - "SU_DEPT_ID"
+      dept :
+        - "SD_DEPT_CODE"
+        - "SD_DEPT_NAME"
+    
+    # "402880fb3d66f0c5013d66f6a1c20009":"文员",
+    # "402880fb3d66f0c5013d66f6a1c20017":"店文员",
+    # "402880fb3d66f0c5013d66f6a1c2003d":"区域文员",
+     
+    # 402880fb3d66f0c5013d66f6a1c20003||见习店经理
+    # 402880fb3d66f0c5013d66f6a1c20004|14|区域经理
+    # 402880fb3d66f0c5013d66f6a1c20005||高级店经理
+    # 402880fb3d66f0c5013d66f6a1c20006|13|店经理
+    # 402880fb3d66f0c5013d66f6a1c20011||资深店经理
+      
+    # 4028809b3c6fbaa7013c6fbc39610081|06|【西南区】|4028809b3c6fbaa7013c6fbc39510002
+    # 4028809b3c6fbaa7013c6fbc3951000f|02|【城中区】|4028809b3c6fbaa7013c6fbc39510002
+    # 4028809b3c6fbaa7013c6fbc39700129|03|【东北区】|4028809b3c6fbaa7013c6fbc39510002
+    # 4028809b3c6fbaa7013c6fbc398002be|05|【西北区】|4028809b3c6fbaa7013c6fbc39510002
+    # 4028809b3c6fbaa7013c6fbc39800239|01|【城南区】|4028809b3c6fbaa7013c6fbc39510002
+    # 4028809b3c6fbaa7013c6fbc39900359|04|【东南区】|4028809b3c6fbaa7013c6fbc39510002
+    
+    attend :
+      role_registrar_posts :
+        - "402880fb3d66f0c5013d66f6a1c20009"
+        - "402880fb3d66f0c5013d66f6a1c20017"
+        - "402880fb3d66f0c5013d66f6a1c2003d"
+      role_rightsman_posts :
+        - "402880fb3d66f0c5013d66f6a1c2003d"
+      role_registrarsman_posts :
+        - "402880fb3d66f0c5013d66f6a1c2003d"
+      role_tempregistrar_posts :
+        - "402880fb3d66f0c5013d66f6a1c20003"
+        - "402880fb3d66f0c5013d66f6a1c20004"
+        - "402880fb3d66f0c5013d66f6a1c20005"
+        - "402880fb3d66f0c5013d66f6a1c20006"
+        - "402880fb3d66f0c5013d66f6a1c20011"
+    
+      scope :
+        - "4028809b3c6fbaa7013c6fbc39610081"
+        - "4028809b3c6fbaa7013c6fbc3951000f"
+        - "4028809b3c6fbaa7013c6fbc39700129"
+        - "4028809b3c6fbaa7013c6fbc398002be"
+        - "4028809b3c6fbaa7013c6fbc39800239"
+        - "4028809b3c6fbaa7013c6fbc39900359"
+
 
 development:
   <<: *defaults
