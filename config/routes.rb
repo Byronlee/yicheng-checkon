@@ -15,12 +15,12 @@ Attendance::Application.routes.draw do
   end
 
   resources :modifies, :only => ['create','update','destroy']
+
+  match 'proces_detail' =>  'examines#proces_detail' ,:via => :post
   resources :examines, :except => ['new','edit']
 
   # not be test 
   resources :perssions
-
-  resources :notices
 
   match 'logout'     => 'application#logout'
   match 'registrar'  => 'tasks#registrar' ,:as => :registrar
@@ -28,7 +28,6 @@ Attendance::Application.routes.draw do
   match 'ajax_attend_tree' => 'homes#ajax_attend_tree' ,:via => :post
   match 'ajax_dept_users' => 'homes#ajax_dept_users'
   match 'autocomplete/search_users' => 'homes#search_users'
-  match 'proces_detail' =>  'examines#proces_datail' ,:as => :proces_detail ,:via => :post
 
   match 'cancan_error'    => 'exceptions#cancan_error'
   match 'render_404'      => 'exceptions#render_404'

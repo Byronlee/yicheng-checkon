@@ -37,4 +37,11 @@ describe "routing to examines" do
       :id => "123456",
     )
   end
+
+  it "routes proces_detail to examines#proces_detail" do
+    expect(:post => proces_detail_path).to route_to(
+      :controller => "examines",
+      :action => "proces_detail",
+    )
+  end
 end
