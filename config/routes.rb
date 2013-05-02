@@ -1,7 +1,7 @@
 Attendance::Application.routes.draw do
 
   resources :counts , :only => [:index, :create] do
-    get :export ,:on => :collection
+    get :export ,:on => :collection,:as => 'export' 
   end
 
   resources :trainees, :only => [:index, :create] do
