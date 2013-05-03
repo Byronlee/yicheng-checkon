@@ -48,6 +48,21 @@ defaults: &defaults
     - "4028809b3c6fbaa7013c6fbc39800239"
     - "4028809b3c6fbaa7013c6fbc39900359"
 
+    # 'modify_applied'   | registrar申请修改发出的通知            
+    # 'modify_approved'  | approval审批申请修改发出的通知 
+    # 'modify_direct'    | approval直接修改考勤记录发出的通知 
+    # 'examine_applied'  | approval发出审核时产生的通知
+    # 'exception_leave'  | 后台定时任务检测出员工连续三天离职发出的通知
+    # 'unfinished_attend'| 后台定时任务检测出当天未完成考勤任务发出的通知
+
+  notice_types:
+    - 'modify_applied'            
+    - 'modify_approved'
+    - 'modify_direct'
+    - 'examine_applied'
+    - 'exception_leave'
+    - 'unfinished_attend'
+
   yc_org_stru:
     connect :
       oracle :

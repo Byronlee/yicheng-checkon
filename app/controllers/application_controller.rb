@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
 # rescue_from NoMethodError ,  :with => :render_404
 # rescue_from Moped::Errors::OperationFailure , :with => :render_404
 
+
   def render_404
     redirect_to render_404_path
   end
