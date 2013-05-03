@@ -1,29 +1,6 @@
-require 'yaml'
 require 'tree'
 require 'date'
 
-def GetLogLevel (level_str)
-  log_level_table = {
-    'FATAL'=>Logger::FATAL,
-    'ERROR'=>Logger::ERROR ,
-    'WARN'=>Logger::WARN ,
-    'INFO'=>Logger::INFO ,
-    'DEBUG'=>Logger::DEBUG ,
-  }
-  level_str.upcase!
-  if log_level_table.has_key? level_str 
-    return log_level_table[level_str]
-  else
-    return Logger::WARN
-  end
-end
-
-def LoadConfigFile
-  config_file = "#{File.dirname(__FILE__)}/../../config.yaml"
-  return YAML.load_file(config_file) if File.exist?(config_file)
-  # raise "Can't found the config file #{config_file} in the following directory:\n"+dir_list.join("\n")
-  raise "Can't found the config file" 
-end
 
 def Date2UTC (date)
   Time.utc(date.year, date.month, date.day)
