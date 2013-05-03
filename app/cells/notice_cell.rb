@@ -1,4 +1,5 @@
 class NoticeCell < Cell::Rails
+  helper NoticesHelper
 
   def operate args
     @notice = args[:notice]

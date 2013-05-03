@@ -1,2 +1,5 @@
-# encoding: utf-8
+- unless @notice.state
 a.btn.btn-primary.btn-mini href=examine_path(@notice.examine) role="button" 开始审核  
+- else
+  span.label style="padding: 8px 12px" 已审核
+

@@ -1,20 +1,23 @@
-.btn-group
-  a.btn.btn-primary href="##{@notice.id}_dec"  role="button"  data-toggle="modal" dec="agree" attr="请确定同意此申请" onclick="config_approval_title($(this))" 同意
-  a.btn.btn-primary href="##{@notice.id}_dec"  role="button"  data-toggle="modal" dec="disagree" attr="请确定拒绝此申请" onclick="config_approval_title($(this))" 拒绝
-div.modal.hide.fade id="#{@notice.id}_dec" tabindex="-1" role="dialog" aria-labelledby="#{@notice.id}_dec" aria-hidden="true"
-  = simple_form_for @notice.modify do |f|
-    .modal-header
-      button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
-      h3.config_approval_title
-    .modal-body
-      = f.simple_fields_for :notice do |n|
-        = n.input :launcher  ,as: :hidden, input_html: {value: @current_user.staffid}
-        = n.input :receiver  ,as: :hidden, input_html: {value: @notice.launcher}
-        = n.input :modify_id ,as: :hidden, input_html: {value: @notice.modify.id}
-        = n.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 431px;"}
-      = f.simple_fields_for :data do |d|
-        = d.input :decision  ,as: :hidden 
-        = d.input :notice_id ,as: :hidden, input_html: {value: @notice.id}
-    .modal-footer
-      button.btn data-dismiss="modal" aria-hidden="true" 取消
-      = f.button :submit 
+- unless @notice.state
+  .btn-group
+    a.btn.btn-primary href="##{@notice.id}_dec"  role="button"  data-toggle="modal" dec="agree" attr="请确定同意此申请" onclick="config_approval_title($(this))" 同意
+    a.btn.btn-primary href="##{@notice.id}_dec"  role="button"  data-toggle="modal" dec="disagree" attr="请确定拒绝此申请" onclick="config_approval_title($(this))" 拒绝
+  div.modal.hide.fade id="#{@notice.id}_dec" tabindex="-1" role="dialog" aria-labelledby="#{@notice.id}_dec" aria-hidden="true"
+    = simple_form_for @notice.modify do |f|
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
+        h3.config_approval_title
+      .modal-body
+        = f.simple_fields_for :notice do |n|
+          = n.input :launcher  ,as: :hidden, input_html: {value: @current_user.staffid}
+          = n.input :receiver  ,as: :hidden, input_html: {value: @notice.launcher}
+          = n.input :modify_id ,as: :hidden, input_html: {value: @notice.modify.id}
+          = n.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 431px;"}
+        = f.simple_fields_for :data do |d|
+          = d.input :decision  ,as: :hidden 
+          = d.input :notice_id ,as: :hidden, input_html: {value: @notice.id}
+      .modal-footer
+        button.btn data-dismiss="modal" aria-hidden="true" 取消
+        = f.button :submit 
+- else
+  span.label style="padding: 8px 12px" = decision(@notice.modify.decision)

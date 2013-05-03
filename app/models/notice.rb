@@ -18,11 +18,15 @@ class Notice
   class << self
 
     def registrar  current_user
-      where(receiver: current_user.staffid).or({state: false} ,{state: true ,"updated_at.gt" => Date.today.beginning_of_day,"updated_at.lt" => Date.today.end_of_day})    # 留意看看是否有重复数据
+      where(receiver: current_user.staffid).today_or_unread 
     end
 
     def approval
-      where(receiver: "approval").or({state: false} ,{state: true ,"updated_at.gt" => Date.today.beginning_of_day,"updated_at.lt" => Date.today.end_of_day})
+      where(receiver: "approval").today_or_unread 
+    end
+
+    def today_or_unread
+      self.or({state: false} ,{:updated_at.gte => Date.today.beginning_of_day,:updated_at.lte => Date.today.end_of_day}).asc(:state)
     end
 
   end
