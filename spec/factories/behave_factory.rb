@@ -36,5 +36,10 @@ FactoryGirl.define do
       name '轮休'
 #     association :behave_type, factory: :away
     end
+
+    factory :away do
+      name '离职'
+#     association :behave_type, factory: :away
+    end
   end
 end

@@ -13,8 +13,6 @@ class Notice
   belongs_to :modify
   belongs_to :examine
 
-
-
   class << self
 
     def registrar  current_user

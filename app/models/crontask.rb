@@ -21,4 +21,18 @@ class Crontask
     end
   end
 
+  def self.three_leave
+    behave = Behave.find_by(name: '离职')
+    result = [Date.today,Date.yesterday,Date.yesterday - 1].inject(TraineeRecord) do |object,date|
+      object.where(:created_date => date,"checkins.behave_id" => behave.id)
+    end
+    unless result.blank?
+      user = User.resource(result.first.staffid)
+      Notice.create!(launcher: user.staffid,
+                     receiver: 'approval',
+                     content:  user.username+"连续三天离职,请做相应的处理"
+                     )
+    end
+  end
+    
 end

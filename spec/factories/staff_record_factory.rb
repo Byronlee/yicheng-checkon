@@ -2,15 +2,14 @@
 FactoryGirl.define do
   factory :staff_record do
     sequence(:staffid) {|n| "#{n}" }
+    sequence(:created_date) {|n| Date.today - n }
 
-    factory :yesterday_record do
-      created_date Date.today -1
-      attend_date Date.today 
+    factory :three_away do
+      
     end
-
-      before(:create) do |record|
-        [:work ,:sick_leave, :forenoon, :afternoon ].map { |unit|create unit }
-      end
+    before(:create) do |record|
+      [:work ,:sick_leave,:away, :forenoon, :afternoon ].map { |unit|create unit }
+    end
 
   end
 end
