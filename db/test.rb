@@ -7,3 +7,9 @@ end
 [:上午,:下午].each do |unit|
   CheckUnit.create(name: unit,ratio: 50)
 end
+
+Settings.notice_types.each do |type|
+  NoticeType.create(name: type)
+end
+
+
