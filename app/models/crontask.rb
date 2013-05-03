@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 class Crontask 
 
-  # TODO should save in memory then insert db
   def self.produce_everyday_records 
     users = Settings.scope.map do |region_id|
       $ACCESSOR.dept_users_with_subdept(region_id).map do |user_id|
@@ -13,7 +12,7 @@ class Crontask
     Trainee.scoped.map do | user |  
       TraineeRecord.create!(staffid: user.id)
     end
-  end  # checkers end
+  end
 
 
   def self.submit_everyday_records
