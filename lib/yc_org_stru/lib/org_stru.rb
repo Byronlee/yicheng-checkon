@@ -56,7 +56,7 @@ class OrgStru
     return ext_attrs
   end
 
-  def search_user(keyword)
+  def search_users (keyword)
     if keyword =~ /\d+/
       keyword = keyword[1..-1] if  keyword[0] = "0"
       sql_string = "SELECT SU_USER_ID FROM SYS_USER where SU_USER_NO = '#{keyword}'"
@@ -67,13 +67,10 @@ class OrgStru
     else
       return []
     end
-    @qd.query_field_to_array(sql_string)
+    user_id_list = @qd.query_field_to_array(sql_string)
+    return  user_id_list.map{|id| user_attr id}
   end
 
-  def search_users keyword
-    search_user(keyword).map{|id| user_attr id}
-  end
-  
   def dept_attr(dept_id)
     @qd.select_one_as_map('SYS_DEPT',@dept_attr_key,"SD_DEPT_ID",dept_id)
   end
@@ -90,9 +87,8 @@ class OrgStru
 
   def dept_users_with_subdept(dept_id)
     result = []
-    dept_tree(dept_id).each do |dept_node|  
-      dept_node_id = dept_node.content[:id]
-      result.concat(dept_users(dept_node_id))
+    org_tree.search(dept_id).each do |dept_node|  
+      result.concat(dept_users(dept_node.content[:id]))
     end
     result 
   end
@@ -112,49 +108,19 @@ class OrgStru
   end
 
 
-  def produce_org_tree
-    return if @org_tree # tree not nil 
-    tree_table = []
-    @qd.query("SELECT SD_DEPT_ID,SD_PARENT_DEPT_ID,SD_DEPT_CODE,SD_DEPT_NAME FROM SYS_DEPT ") do |row|
-      tree_table << {:id=>row[0],:pid=>row[1],:data=>row}
-    end
-    @org_tree = Tree::TreeNode.produce_tree(tree_table)    
-  end 
-
-  def produce_tree_to_map(tree_node)
-    return nil unless tree_node.class == Tree::TreeNode
-    result = {}
-    data = tree_node.content[:data]
-    if data.is_a? Array then
-      result = Hash[[:id,:pid,:code,:name].zip data]
-    end
-    if tree_node.has_children? then
-      result[:children] = tree_node.children.map {|e| produce_tree_to_map e}
-    end
-    return result
-  end
-
-  def produce_tree_to_json(tree_node) 
-    JSON.dump(produce_tree_to_map tree_node)
-  end
-
-  def org_tree
-    produce_org_tree unless @org_tree
-    @org_tree
-  end
-
   def dept_tree(dept_id=nil)
     if dept_id.nil? then
-      org_tree
+      org_tree_map
     else
-      org_tree.search dept_id
+      search_on_org_tree dept_id
     end
   end
   
   def attend_tree(user_id)
+    ## TODO 一定要再次梳理考勤结构 
     scope_dept_id = registrar_attend_scope user_id
     return nil if scope_dept_id.nil?
-    produce_tree_to_map (dept_tree scope_dept_id)
+    dept_tree scope_dept_id
   end
 
   def post_map
@@ -193,7 +159,6 @@ class OrgStru
   end
   
   def registrar_attend_scope(registrar_id)
-    return nil unless have_roles?(:registrar,registrar_id)
 
     registrar_dept_id = user_attr(registrar_id)["SU_DEPT_ID"]
     registrar_ancestors = dept_ancestors(registrar_dept_id)
@@ -215,68 +180,99 @@ class OrgStru
     @qd.query_not_empty "SELECT SU_USER_ID FROM SYS_USER WHERE SU_DEPT_ID= '#{@approval_depa_id}' and SU_USER_ID='#{user_id}'" 
   end
 
-  def tempreg_mongo_collection
-    @mcache.collection_tempreg
+
+  private 
+
+  def produce_org_tree
+    tree_table = []
+    @qd.query("SELECT SD_DEPT_ID,SD_PARENT_DEPT_ID,SD_DEPT_CODE,SD_DEPT_NAME FROM SYS_DEPT ") do |row|
+      tree_table << {:id=>row[0],:pid=>row[1],:data=>row}
+    end
+    @org_tree = Tree::TreeNode.produce_tree(tree_table)    
+  end 
+
+  def org_tree
+    produce_org_tree unless @org_tree
+    @org_tree
   end
 
-  def tempreg_peroid(user_id)
-    tempreg_mongo_collection.find("user_id" => user_id).to_a.first
+  def org_tree_map
+    @org_tree_map = produce_tree_to_map(org_stee) unless @org_tree_map
+    @org_tree_map
   end
 
-  def tempreg_peroid_remove(user_id)
+  def search_on_org_tree dept_id 
+      produce_tree_to_map(org_tree.search dept_id)
+  end
+
+  def produce_tree_to_map(tree_node)
+    return {} unless tree_node.class == Tree::TreeNode
+    result = {}
+    data = tree_node.content[:data]
+    if data.is_a? Array then
+      result = Hash[[:id,:pid,:code,:name].zip data]
+    end
+    if tree_node.has_children? then
+      result[:children] = tree_node.children.map {|e| produce_tree_to_map e}
+    end
+    return result
+  end
+end
+
+
+class TempRegistratorLimitation
+  def initialize(config,log=nil)
+    @config = config
+    if log.nil? 
+      @log = Logger.new(STDOUT)
+      @log.level = Logger::WARN
+    else
+      @log = log
+    end 
+    @mcache = MongoCache.new(@config['mongo'])
+    @coll = @mcache.collection_tempreg
+  end
+
+  def peroid(user_id)
+    saved_tempreg = find_user user_id
+    if saved_tempreg.nil?
+      return nil
+    else
+      {
+        :begin => saved_tempreg["begin"].to_date,
+        :end => saved_tempreg["end"].to_date 
+      }
+    end
+  end
+
+  def remove(user_id)
     begin
-      tempreg_mongo_collection.remove("user_id" => user_id)
+      @coll.remove("user_id" => user_id)
     rescue
       @log.error("Remove #{user_id} fail!")
     end
   end
 
-  def temp_registrar_rights_peroid(user_id,peroid=nil)
-    saved_tempreg = tempreg_peroid user_id
-    if peroid.nil? 
-      return nil if saved_tempreg.nil?
-      {
-        :begin => saved_tempreg["begin"].to_date,
-        :end => saved_tempreg["end"].to_date 
-      }
-    else
-      if peroid.has_key? :begin and peroid.has_key? :end
-        doc = {
-          :user_id => user_id,
-          :begin => Date2UTC(peroid[:begin]),
-          :end => Date2UTC(peroid[:end])
-        } 
+  def set_peroid(user_id,peroid)
+    saved_tempreg = find_user user_id
+    return unless peroid.has_key? :begin and peroid.has_key? :end
+    doc = {
+      :user_id => user_id,
+      :begin => Date2UTC(peroid[:begin]),
+      :end => Date2UTC(peroid[:end])
+    } 
 
-        if saved_tempreg.nil? 
-          tempreg_mongo_collection.insert(doc)
-        else
-          tempreg_mongo_collection.update({"_id" => saved_tempreg["_id"]},doc)
-        end
-      ##else ??
-      end
+    if saved_tempreg.nil? 
+      @coll.insert(doc)
+    else
+      @coll.update({"_id" => saved_tempreg["_id"]},doc)
     end
   end
   
- 
-  def temp_registrars(user_id)
-    return [] unless have_roles? :registrarsman,user_id
-    
-    scope_id = registrar_attend_scope user_id
-    return [] if scope_id.nil?
-    temp_regs = users_with_role(:tempregistrar,scope_id)
-    temp_regs.map do |temp_reg_id|
-      peroid = temp_registrar_rights_peroid(temp_reg_id)
-      today = Date.today
-      peroid ? 
-      {
-        :user_id => temp_reg_id,
-        :state => (peroid[:begin]<=today and today <= peroid[:end]),
-        :peroid => peroid 
-      }:{
-        :user_id => temp_reg_id,
-        :state => false
-      }
-    end
+  private 
+
+  def find_user(user_id)
+    @coll.find("user_id" => user_id).to_a.first
   end
 
 end

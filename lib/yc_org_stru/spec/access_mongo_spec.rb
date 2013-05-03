@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+require 'yaml'
 require "#{File.dirname(__FILE__)}/../lib/org_stru/utils"
 require "#{File.dirname(__FILE__)}/../lib/org_stru/access_mongo"
 
 
 describe MongoCache do
   before do
-    @mcache = MongoCache.new(LoadConfigFile()['mongo'])
+    config  = YAML.load_file("#{File.dirname(__FILE__)}/../../../config/settings.yml")["test"]["yc_org_stru"]['mongo']  
+    @mcache = MongoCache.new(config)
   end
 
   it "测试Mongo连接" do

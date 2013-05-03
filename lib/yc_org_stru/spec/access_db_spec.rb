@@ -1,5 +1,5 @@
 # coding: utf-8 
-
+require 'yaml'
 require 'logger'
 require "#{File.dirname(__FILE__)}/../lib/org_stru/utils"
 require "#{File.dirname(__FILE__)}/../lib/org_stru/access_db"
@@ -7,7 +7,7 @@ require "#{File.dirname(__FILE__)}/../lib/org_stru/access_db"
 
 describe QueryData do
   before do
-    config  = LoadConfigFile()
+    config  = YAML.load_file("#{File.dirname(__FILE__)}/../../../config/settings.yml")["test"]["yc_org_stru"]  
     @qd = QueryData.new(config)
   end
 

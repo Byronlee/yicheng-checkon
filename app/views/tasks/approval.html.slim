@@ -3,7 +3,7 @@
     li.active
       a(href="#1" data-toggle="tab")
         strong 修改审批
-        span.badge.badge-error = @approval_notices.count
+        span.badge.badge-error = count_notices @approval_notices
   .tab-content
     .tab-pane.active id="1"       
       - if @approval_notices.blank?

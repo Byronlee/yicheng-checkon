@@ -11,7 +11,7 @@
     li
       a href="#3" data-toggle="tab"
         strong 未读通知
-        span.badge.badge-error = @registrar_notices.count
+        span.badge.badge-error = count_notices @registrar_notices
   .tab-content
     .tab-pane.active id="1" 
       - unless @staffs.blank?
