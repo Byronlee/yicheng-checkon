@@ -12,6 +12,7 @@
           = n.input :launcher  ,as: :hidden, input_html: {value: @current_user.staffid}
           = n.input :receiver  ,as: :hidden, input_html: {value: @notice.launcher}
           = n.input :modify_id ,as: :hidden, input_html: {value: @notice.modify.id}
+          = n.input :notice_type_id ,as: :hidden, input_html: {value: NoticeType.find_by(name: "modify_approved")          
           = n.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 431px;"}
         = f.simple_fields_for :data do |d|
           = d.input :decision  ,as: :hidden 

@@ -46,7 +46,7 @@ zh_CN:
         register_attend: 考勤填报
   controller:
     modifies:
-      success: 你已成功申请修改该条考勤记录！
+      success: 你已成功处理该条考勤记录！
       error: 你尚未对该考勤记录做任何修改，请对该条考勤记录做相应的修改后，再提交申请！       
     staff_records:
       success: 修改成功！

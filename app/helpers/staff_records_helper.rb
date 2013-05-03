@@ -33,4 +33,9 @@ module StaffRecordsHelper
     state.eql?("registered") ? "修改" : "保存"
   end
 
+  def modify_button
+    return "修改考勤" if  current_user.approval? 
+    "申请修改"
+  end
+
 end

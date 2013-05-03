@@ -9,7 +9,7 @@ class Modify
   has_many :notices
 
   after_create do |modify|
-    modify.staff_record.apply
+    modify.staff_record.apply if modify.update_way.blank?
   end
   
   after_update do |modify|
@@ -26,7 +26,5 @@ class Modify
     Notice.find(data[:notice_id]).read
     return nil if !data[:decision].eql?("agree")
     staff_record.update_checkins(checkins)
-  # examine =  Examine.unfinish_examine
-  # Count.create({start_time: examine.start_time ,end_time: examine.end_time}) unless examine.blank?
   end
 end
