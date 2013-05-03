@@ -19,8 +19,8 @@ class ModifiesController < ApplicationController
      notice = Notice.create(params[:modify][:notice])
      notice.modify.handle(params[:modify][:data])
      notice.modify_notice_content current_user
+     flash[:success] = "处理成功！"
      redirect_to root_path 
-     #  todo 提示处理结果
    end
 
    def destroy 

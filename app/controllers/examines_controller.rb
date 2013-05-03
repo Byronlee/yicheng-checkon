@@ -12,6 +12,7 @@ class ExaminesController < ApplicationController
       checkers.each do |checker_id |
         examine.proces.create(registrar: checker_id)
         params[:examine][:notice][:receiver] = checker_id
+        params[:examine][:notice][:notice_type_id] = NoticeType.find_by(name: "examine_applied").id
         examine.notices.create(params[:examine][:notice]).examine_notice_content
       end
       flash[:success] ="成功创建审核任务!"

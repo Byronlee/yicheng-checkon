@@ -15,8 +15,10 @@ a href="##{record.id}" role="button" class="btn btn-mini btn-primary" data-toggl
         = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid}
         - if current_user.approval?             
           = n.input :receiver ,as: :hidden, input_html: {value: record.record_person}
+          = n.input :notice_type_id ,as: :hidden, input_html: {value: NoticeType.find_by(name: "modify_direct").id}
         - else
           = n.input :receiver ,as: :hidden, input_html: {value: "approval"}
+          = n.input :notice_type_id ,as: :hidden, input_html: {value: NoticeType.find_by(name: "modify_applied").id}
         - if current_user.registrar? 
           hr
           = n.input :remark,as: :text,label: false,required: false, input_html: {rows: "3", style: "width: 431px;"}
