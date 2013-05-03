@@ -9,8 +9,6 @@ class Notice
   field :content,type: String
   field :state,type: Boolean,default: false
   field :remark, type:String  
-  # modify_applied, modify_approved, modify_direct
-  # examine_applied, exception_leave,unfinished_attend
 
   belongs_to :modify
   belongs_to :notice_type

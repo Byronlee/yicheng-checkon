@@ -10,3 +10,9 @@ every :day, :at => '11:00pm' do
   runner " Crontask.submit_everyday_records", :environment => :development
   runner " Crontask.submit_everyday_records", :environment => :production 
 end
+
+every :day, :at => '11:00pm' do
+  runner " Crontask.three_continue_leave", :environment => :development
+  runner " Crontask.three_continue_leave", :environment => :production 
+end
+

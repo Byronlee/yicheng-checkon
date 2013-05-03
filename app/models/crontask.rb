@@ -21,10 +21,10 @@ class Crontask
     end
   end
 
-  def self.three_leave
+  def self.three_continue_leave
     behave = Behave.find_by(name: '离职')
     result = [Date.today,Date.yesterday,Date.yesterday - 1].inject(StaffRecord) do |object,date|
-      object.where(:created_date => date,"checkins.behave_id" => behave.id)
+      object.and({:created_date => date , "checkins.behave_id" => behave.id})
     end
     unless result.blank?
       user = User.resource(result.first.staffid)
