@@ -31,11 +31,6 @@ class StaffRecord
     def by_staffid staffid
       where(staffid: staffid)
     end
-
-    def direct_update args ,current_user
-      record = find(args[:staff_record_id])
-      record.update_checkins(args[:checkins])
-    end
   
     def trainee_register arg ,current_user
       TraineeRecord.register arg,current_user
@@ -72,5 +67,9 @@ class StaffRecord
        checkins.find_by(check_unit_id: check_unit_id).behave_id.to_s.eql?(behave_id)
      end
      bool.all? ? false : true
+   end
+
+   def direct_update args 
+     update_checkins(args[:checkins])
    end
 end

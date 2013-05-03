@@ -11,7 +11,7 @@ zh_CN:
   helpers:
     submit:
       modify:
-        create: '确定申请'
+        create: '确定'
         update: '确定'
       trainee:
         create: '添加'
