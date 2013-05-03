@@ -1,22 +1,26 @@
-- if can? :create, Modify
-  a href="##{record.id}" role="button" class="btn btn-mini btn-primary" data-toggle="modal" 申请修改
-  .modal.hide.fade id=record.id tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-    .modal-header
-      button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
-      h3 id="myModalLabel" 申请修改<font color="red">#{record.user.username}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
-    = simple_form_for Modify.new do |f|
-      .modal-body
-        = f.simple_fields_for :data do |d|
-          - id = defined?(record_id) ? record_id : record.id
-          = d.input :staff_record_id, as: :hidden, input_html: {value: id}
-          = raw(unit_selects(record.checkins,"modify[data][checkins]"))
-        = f.simple_fields_for :notice do |n|
-          = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid}
+- id = defined?(record_id) ? record_id : record.id
+a href="##{record.id}" role="button" class="btn btn-mini btn-primary" data-toggle="modal" = modify_button
+.modal.hide.fade id=record.id tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+  .modal-header
+    button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
+    h3 id="myModalLabel" #{modify_button}<font color="red">#{record.user.username}</font>&nbsp;<font color="green">#{record.created_date}</font> 日考勤记录
+  = simple_form_for Modify.new do |f|
+    .modal-body
+      = f.simple_fields_for :data do |d|
+        = d.input :staff_record_id, as: :hidden, input_html: {value: id}
+        = raw(unit_selects(record.checkins,"modify[data][checkins]"))
+        - if current_user.approval?
+          = d.input :update_way ,as: :hidden , input_html: {value: "direct_update"}
+      = f.simple_fields_for :notice do |n|
+        = n.input :launcher,as: :hidden, input_html: {value: current_user.staffid}
+        - if current_user.approval?             
+          = n.input :receiver ,as: :hidden, input_html: {value: record.record_person}
+        - else
           = n.input :receiver ,as: :hidden, input_html: {value: "approval"}
+        - if current_user.registrar? 
           hr
           = n.input :remark,as: :text,label: false,required: false, input_html: {rows: "3", style: "width: 431px;"}
-      .modal-footer
-        button.btn data-dismiss="modal" aria-hidden="true" 关闭
-        = f.button :submit
-- else
-  = render "common/direct_modify_record" ,:record => record 
+    .modal-footer
+      button.btn data-dismiss="modal" aria-hidden="true" 关闭
+      = f.button :submit
+

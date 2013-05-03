@@ -5,13 +5,15 @@ class ModifiesController < ApplicationController
      modify = Modify.new(params[:modify][:data])
      if modify.save_with_change
        modify.notices.create(params[:modify][:notice]).modify_notice_content current_user
+       modify.staff_record.send(params[:modify][:data][:update_way],params[:modify][:data]) unless modify.update_way.blank?
        flash[:success] = t('controller.modifies.success')
      else
        flash[:error] =  t('controller.modifies.error')
      end
      redirect_to(:back)
-     # redirect_to operate_staff_records_path
    end
+
+
 
    def update
      notice = Notice.create(params[:modify][:notice])

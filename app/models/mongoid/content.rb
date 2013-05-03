@@ -15,7 +15,7 @@ module Mongoid
       def modify_notice_content current_user 
         record = modify.staff_record
         launcher = User.resource(self.launcher)    
-        content = launcher.username+'('+launcher.ancestors+')'+opt_str(current_user)+'申请将'\
+        content = launcher.username+'('+launcher.ancestors+')'+opt_str(current_user,modify)+'将'\
                   +record.user.username+'('+record.user.ancestors+')'+record.created_date+'日'      
         modify.checkins.each do |check_unit_id,behave_id|
           old_behave = record.checkins.find_by(check_unit_id: check_unit_id).behave.name
@@ -35,9 +35,10 @@ module Mongoid
         ',<strong>'+CheckUnit.find(unit_id).name+'的考勤'
       end
 
-      def opt_str current_user
-        return '' unless current_user.approval?
-        modify.decision.eql?('agree') ? '同意你' : '拒绝你' 
+      def opt_str current_user,modify
+        return '' unless modify.update_way.blank?
+        return '申请' unless current_user.approval?
+        modify.decision.eql?('agree') ? '同意你申请' : '拒绝你申请' 
       end
       
     end
