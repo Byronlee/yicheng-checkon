@@ -11,7 +11,7 @@ class StaffRecord
     end
 
     def by_day time
-      between(created_date: [time.end_of_day,time.beginning_of_day])
+      between(created_date: [time.beginning_of_day,time.end_of_day])
     end
 
     def fast_register arg ,current_user
