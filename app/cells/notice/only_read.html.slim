@@ -1,1 +1,7 @@
-
+- unless @notice.state
+  form action='/modifies/destory' method="post"
+    input name="_method" type="hidden" value="delete"
+    input name="modify[notice_id]" type="hidden" value=@notice.id
+    input.btn.btn-primary type='submit' value='确定'
+- else
+  span.label style="padding: 8px 12px" 已读
