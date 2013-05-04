@@ -16,3 +16,7 @@ every :day, :at => '11:00pm' do
   runner " Crontask.three_continue_leave", :environment => :production 
 end
 
+every :day, :at => '5:00pm' do
+  runner " Crontask.unfinished_attend_task", :environment => :development
+  runner " Crontask.unfinished_attend_task", :environment => :production 
+end

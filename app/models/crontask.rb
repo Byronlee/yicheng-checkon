@@ -37,7 +37,7 @@ class Crontask
 
 
   def self.unfinished_attend_task
-    return if (records = StaffRecord.state("registered")).blank?
+    return if (records = StaffRecord.state("checking")).blank?
     Settings.scope.map do |region_id|
       $ACCESSOR.dept_tree(region_id)[:children].map do |dept|
         group_names = dept[:children].map do |group|
@@ -45,12 +45,12 @@ class Crontask
           next if reds.count == 0
           group[:name]
         end.flatten.compact
-       next if group_names.blank?
-       ancestor = $ACCESSOR.dept_attr(region_id)["SD_DEPT_NAME"] + '/'+ dept[:name]+'['+group_names.join(',')+']'
-      NoticeType.find_by(name: 'unfinished_attend').notices.create(
-                     launcher: 'system',
-                     receiver: 'approval',
-                     content:  "(<strong>#{ancestor}</strong>)未完成今天的考勤任务,请做相应的处理")
+        next if group_names.blank?
+        ancestor = $ACCESSOR.dept_attr(region_id)["SD_DEPT_NAME"] + '/'+ dept[:name]+'['+group_names.join(',')+']'
+        NoticeType.find_by(name: 'unfinished_attend').notices.create(
+          launcher: 'system',
+          receiver: 'approval',
+          content:  "(<strong>#{ancestor}</strong>)未完成今天的考勤任务,请做相应的处理")
 
       end
     end
