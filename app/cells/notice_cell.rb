@@ -12,7 +12,7 @@ class NoticeCell < Cell::Rails
     when "examine_applied"
       render view: :examine_notice
     else
-      render "only_read"
+      render view: "only_read"
     end
   end
 end
