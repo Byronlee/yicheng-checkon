@@ -108,6 +108,13 @@ function examine_proce(o){
 function  config_approval_title(o){
     o.parents("td").find(".config_approval_title").html(o.attr("attr")) ;
     o.parents("td").find("#modify_data_decision").val(o.attr("dec"));
+    if(o.attr("dec")=="agree"){
+	html = '<label class="checkbox" style="width: 257px;padding-left: 64px;"><input name="modify[data][exception]" type="checkbox" value="true">此修改为修改上月或上月以前的考勤数据</label>'
+	o.parents("td").find(".checkbox").remove();
+	o.parents("td").find(".modal-body").append(html)
+    }else{
+    	o.parents("td").find(".checkbox").remove();
+    }
 }
 
 $('.query_data_form').live('ajax:before', function(event,data,status, xhr) {
