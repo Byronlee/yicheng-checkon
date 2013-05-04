@@ -14,7 +14,7 @@
             }
 
             body {
-                max-width: 500px;
+                max-width: 60%;
                 _width: 500px;
                 padding: 30px 20px 50px;
                 background-color: white;
@@ -25,12 +25,6 @@
                 -webkit-box-shadow: 0 0px 2px rgba(0, 0, 0, 0.05);
                 -moz-box-shadow: 0 0px 2px rgba(0,0,0,0.1);
                 box-shadow: 0 0px 2px rgba(0, 0, 0, 0.05);
-            }
-
-            h1 {
-                margin: 0 10px;
-                font-size: 50px;
-                text-align: center;
             }
 
             h1 span {
@@ -51,8 +45,8 @@
             }
 
             .container {
-                max-width: 380px;
-                _width: 380px;
+               /* max-width: 380px; 
+                _width: 380px; */
                 margin: 0 auto;
             }
 
