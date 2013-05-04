@@ -14,4 +14,4 @@
         td.notice_title colspan=3
           .accordion-body.collapse id="#{notice.id}"
             p 1.详细情况：#{raw(notice.content)}	
-            p 2.备注：#{notice.remark.eql?("") ? "无" : notice.remark }
+            p 2.备注：#{notice.remark.blank? ? "无" : notice.remark }

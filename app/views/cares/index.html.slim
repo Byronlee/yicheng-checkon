@@ -1,0 +1,10 @@
+.examine_head
+  = render "form_create_care"
+- unless @cares.blank?
+  table.table.table-condensed.table-bordered
+    - @cares.each do | care |
+      tr
+        td = care.created_at.to_date
+        td = raw(care.content)
+- else
+  = render "common/no_content" , :message => "无过往数据..."
