@@ -6,6 +6,6 @@ class Behave
   belongs_to :behave_type
 
   def self.default
-    where(default: true).first
+    @default ||= where(default: true).first
   end
 end
