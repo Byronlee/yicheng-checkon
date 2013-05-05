@@ -71,4 +71,3 @@ gem 'simple_form'
 gem "settingslogic", "~> 2.0.9"
 gem 'chosen-rails'
 gem 'yc_org_stru',:path => "lib/yc_org_stru", :require => 'org_stru'
-
