@@ -42,3 +42,9 @@
                   i.icon-chevron-right
                   span
                     a href=trainees_path = t("sidebar_users")
+            - if can? :index,Care
+              li
+                a href="#"
+                  i.icon-chevron-right
+                  span
+                    a href=cares_path 行为关注

@@ -1,7 +1,7 @@
 - unless @notice.state
   .btn-group
-    a.btn.btn-primary href="##{@notice.id}_dec"  role="button"  data-toggle="modal" dec="agree" attr="请确定同意此申请" onclick="config_approval_title($(this))" 同意
-    a.btn.btn-primary href="##{@notice.id}_dec"  role="button"  data-toggle="modal" dec="disagree" attr="请确定拒绝此申请" onclick="config_approval_title($(this))" 拒绝
+    a.btn.btn-primary href="##{@notice.id}_dec"  role="button"  data-toggle="modal" dec="agree" attr="请确认同意此申请" onclick="config_approval_title($(this))" 同意
+    a.btn.btn-primary href="##{@notice.id}_dec"  role="button"  data-toggle="modal" dec="disagree" attr="请确认拒绝此申请" onclick="config_approval_title($(this))" 拒绝
   div.modal.hide.fade id="#{@notice.id}_dec" tabindex="-1" role="dialog" aria-labelledby="#{@notice.id}_dec" aria-hidden="true"
     = simple_form_for @notice.modify do |f|
       .modal-header
@@ -12,7 +12,7 @@
           = n.input :launcher  ,as: :hidden, input_html: {value: @current_user.staffid}
           = n.input :receiver  ,as: :hidden, input_html: {value: @notice.launcher}
           = n.input :modify_id ,as: :hidden, input_html: {value: @notice.modify.id}
-          = n.input :notice_type_id ,as: :hidden, input_html: {value: NoticeType.find_by(name: "modify_approved")          
+          = n.input :notice_type_id ,as: :hidden, input_html: {value: NoticeType.find_by(name: "modify_approved").id}          
           = n.input :remark,as: :text,label: false, input_html: {rows: "3", style: "width: 431px;"}
         = f.simple_fields_for :data do |d|
           = d.input :decision  ,as: :hidden 

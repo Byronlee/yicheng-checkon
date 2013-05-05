@@ -21,6 +21,7 @@ Attendance::Application.routes.draw do
 
   # not be test 
   resources :perssions
+  resources :cares
 
   match 'logout'     => 'application#logout'
 

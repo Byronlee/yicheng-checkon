@@ -22,6 +22,7 @@ class Ability
       can [:index,:show,:create,:destroy,:proces_detail] , Examine
       can [:update,:create,:destroy] , Modify
       can :approval , Task
+      can :manage ,Care
       can :manage ,StaffRecord
     end
   end
