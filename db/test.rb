@@ -11,5 +11,3 @@ end
 Settings.notice_types.each do |type|
   NoticeType.create(name: type)
 end
-
-
