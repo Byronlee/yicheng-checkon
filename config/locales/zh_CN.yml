@@ -44,6 +44,14 @@ zh_CN:
         user_number: 员工编号
         name: 姓名
         register_attend: 考勤填报
+  cares:
+    form_create_care:
+      modify_applied: 区域文员发出的申请修改流程
+      modify_approved: 审批的申请修改
+      modify_direct: 人事部直接修改的考勤记录
+      examine_applied: 发出的审核流程
+      exception_leave: 员工连续三天离职
+      unfinished_attend: 未按时完成考勤的区域
   controller:
     modifies:
       success: 你已成功处理该条考勤记录！
