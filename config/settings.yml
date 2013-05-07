@@ -82,7 +82,7 @@ defaults: &defaults
     mongo :
       host : localhost
       port : 27017
-      db : web_service
+      db : tmp_registrar
     
     
     table :
