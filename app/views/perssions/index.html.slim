@@ -1,33 +1,10 @@
-div.control-group.alert.alert-info
-  label.control-label for="inlineCheckboxes" 设置考勤文员权限：
-  - @users.map do |user|
-    .controls
-      label.checkbox.inline
-        input type="checkbox" name="ck" checked="true" #{user.username}(#{user.dept_name}) 
-a.btn.btn-success data-toggle="modal" href="#set-permission" data-backdrop="false" 设置权限
-span &nbsp;
-a.btn.btn-success data-toggle="modal" href="#cancel-permission" data-backdrop="false" 取消权限
-.modal.hide.fade#set-permission
-  .modal-header
-    a.close data-dismiss="modal" ×
-    h3 设置权限
-  .modal-body
-    p 
-      span 是否赋予
-      strong style="color:red" 张三
-      span ,
-      strong style="color:red" 李四
-      span 报考勤的权限
-  .modal-footer
-    a href="#" class="btn btn-primary" 保存
-.modal.hide.fade#cancel-permission
-  .modal-header
-    a.close data-dismiss="modal" ×
-    h3 取消权限
-  .modal-body
-    p
-      span 是否取消 
-      strong style="color:red" 王二
-      span 报考勤的权限
-  .modal-footer
-    a href="#" class="btn btn-primary" 保存
+table.users_have_perssions.table.table-bordered
+  - @users.each_with_index do |user,index|
+    tr
+      td
+        span.badge = index+1
+      td = user.dept_name
+      td = user.user_no
+      td = user.username
+      td = user.nickname_display
+      td 取消
