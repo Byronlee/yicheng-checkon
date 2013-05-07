@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class ApplicationController <  ExceptionsController
+class ApplicationController <  ApplicationWithExceptionsController
 
   protect_from_forgery
   before_filter :browser_filter unless Rails.env.test?

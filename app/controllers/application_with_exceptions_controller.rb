@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class  ExceptionsController < ActionController::Base
+class  ApplicationWithExceptionsController < ActionController::Base
   # 异常种类：
   # rescue_from ActionController::UnknownController 
   # rescue_from AbstractController::ActionNotFound
@@ -11,10 +11,10 @@ class  ExceptionsController < ActionController::Base
   # rescue_from NameError
   # rescue_from CanCan::AccessDenied
   
-#  rescue_from Exception do | exception|
-#    flash[:error]=  exception.message
-#    render :error , :layout => false
-#  end
+  rescue_from Exception do | exception|
+    flash[:error]=  exception.message
+    render :error , :layout => false
+  end
   
   def browser_error
     render layout: false
