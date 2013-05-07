@@ -239,10 +239,15 @@ class TempRegistratorLimitation
     if saved_tempreg.nil?
       return nil
     else
-      {
-        :begin => saved_tempreg["begin"].to_date,
-        :end => saved_tempreg["end"].to_date 
-      }
+      peroid_begin = saved_tempreg["begin"].to_date
+      peroid_end = saved_tempreg["end"].to_date
+      if peroid_begin == peroid_end and (peroid_begin - Date.today ) == 1 
+        ## NOW. Can only be set to tomorrow !!!
+        ##      begin == end 
+        return {:begin => peroid_begin,:end => peroid_end}
+      else
+        return nil
+      end
     end
   end
 

@@ -35,9 +35,9 @@ describe OrgStru do
     @orgstru.user_attr_key.each do |f|
       user.has_key?(f).should be_true
     end
-    user["SU_NICKNAME_CODE"].should eq "cangnan"
-    user["SU_USERNAME"].should eq "廖玥"
-	user["SU_USER_NO"].should eq "072016350"
+    user["SU_NICKNAME_CODE"].should == "cangnan"
+    user["SU_USERNAME"].should == "廖玥"
+	user["SU_USER_NO"].should == "072016350"
 
     @orgstru.user_attr("id.err").should be_empty 
   end
@@ -48,8 +48,8 @@ describe OrgStru do
     @orgstru.dept_attr_key.each do |f|
       dept.has_key?(f).should be_true
     end
-    dept["SD_DEPT_CODE"].should eq "0407"
-    dept["SD_DEPT_NAME"].should eq "三圣区"
+    dept["SD_DEPT_CODE"].should == "0407"
+    dept["SD_DEPT_NAME"].should == "三圣区"
     @orgstru.dept_attr("errid").should be_empty
   end
 
@@ -67,20 +67,20 @@ describe OrgStru do
       m[user["SU_NICKNAME_CODE"]]= user["SU_USERNAME"] 
       m ##
     end
-    users_map["cangnan"].should eq "廖玥"
+    users_map["cangnan"].should == "廖玥"
   end
 
   it "根据文员ID返回考勤树组织结构树" do
     @orgstru.have_roles?(:registrar,@test_user_id).should be_true
     tree_map = @orgstru.attend_tree @test_user_id
     tree_map[:children].should_not be_empty
-    tree_map[:id].should eq @test_dept_id
-    tree_map[:name].should eq "三圣区" 
+    tree_map[:id].should == @test_dept_id
+    tree_map[:name].should == "三圣区" 
   end
 
   it "返回所有部门的列表" do
     dept_array = @orgstru.dept_list 
-    dept_array.length.should eq @dept_count
+    dept_array.length.should == @dept_count
     dept_array.should include  @test_dept_id
   end 
 
@@ -137,11 +137,14 @@ describe OrgStru do
     tr.should include "4028809b3c6fbaa7013c6fbc3da51b47" 
 
     find_a_manager = tr.select {|m| @tempreg.peroid(m).nil? }.first
+    # 只能设置为明天有权限
+    @tempreg.set_peroid(find_a_manager,:begin => Date.today+1,:end => Date.today+1)
+    read_back = @tempreg.peroid(find_a_manager)
+    read_back[:begin].should == (Date.today+1)
+    read_back[:end].should == (Date.today+1)
 
     @tempreg.set_peroid(find_a_manager,:begin => Date.today,:end => Date.today+1)
-    read_back = @tempreg.peroid(find_a_manager)
-    read_back[:begin].should eq Date.today
-    read_back[:end].should eq Date.today + 1
+    @tempreg.peroid(find_a_manager).should == nil 
 
     @tempreg.remove(find_a_manager)
     
