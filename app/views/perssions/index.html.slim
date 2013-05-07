@@ -1,0 +1,13 @@
+table.table.table-bordered
+  .title
+   .content
+     strong 权限设置列表
+  - @users.each_with_index do |user,index|
+    tr
+      td
+        span.badge = index+1
+      td = user[:user].dept_name
+      td = user[:user].user_no
+      td = user[:user].username
+      td = user[:user].nickname_display
+      td = render_cell :perssion ,:operate,:user => user

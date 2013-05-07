@@ -10,6 +10,6 @@ form.query_data_form action=search_staff_records_path method='post' data-remote=
     div.selects_group      
       = raw(unit_depts_selects 'search')
       = depts_select('dept','user_id',[],{prompt: '--员工--'},{class: 'span9 staff_select chzn-select'})
-      = depts_select('search','behave_id',behaves,{prompt: '考勤项'},{class: "span9"})      
+      = depts_select('search','behave_id',behaves,{prompt: '--考勤项--'},{class: "span9"})      
       input.btn.btn-primary type="submit" value='查询' data-disable-with="查询中.."
 

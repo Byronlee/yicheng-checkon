@@ -14,7 +14,6 @@ group :test do
   gem 'guard-spork'
   gem 'guard-rspec'
   gem 'guard-bundler'
-  gem 'rb-fsevent'
   gem 'simplecov', :require => false
   gem 'mongoid-rspec'
 end
@@ -42,7 +41,6 @@ gem "mongoid", "~> 3.1.2"
 gem "bson_ext"
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem "less-rails" 
   gem 'therubyracer'
