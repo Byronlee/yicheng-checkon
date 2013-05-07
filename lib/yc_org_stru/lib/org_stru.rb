@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-require "org_stru/utils"
-require "org_stru/access_db"
-require "org_stru/access_mongo"
+require "#{File.dirname(__FILE__)}/org_stru/utils"
+require "#{File.dirname(__FILE__)}/org_stru/access_db"
+require "#{File.dirname(__FILE__)}/org_stru/access_mongo"
+
 
 require "logger"
 require "date"

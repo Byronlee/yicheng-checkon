@@ -43,6 +43,7 @@ gem "bson_ext"
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem "less-rails" 
+  gem 'bootstrap-sass', '~> 2.3.1.1'
   gem 'therubyracer'
   gem 'uglifier', '>= 1.0.3'
   gem "twitter-bootstrap-rails"
@@ -50,7 +51,6 @@ group :assets do
   gem 'bootstrap-datepicker-rails'
 end
 
-gem "patron"
 gem "rubycas-client", "2.3.9"
 gem 'jquery-rails',"2.1.4"
 gem 'slim-rails',"1.1.0"
