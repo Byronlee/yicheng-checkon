@@ -18,4 +18,8 @@ module RegistrarRole
    @users ||=  $ACCESSOR.dept_users_with_subdept(dept_id)
   end
 
+  def tempregistrars
+    dept_scope = $ACCESSOR.registrar_attend_scope(staffid)
+    $ACCESSOR.users_with_role(:tempregistrar,dept_scope) 
+  end
 end
