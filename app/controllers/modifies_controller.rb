@@ -15,8 +15,6 @@ class ModifiesController < ApplicationController
      redirect_to(:back)
    end
 
-
-
    def update
      notice = Notice.create(params[:modify][:notice])
      notice.modify.handle(params[:modify][:data])

@@ -20,8 +20,9 @@ Attendance::Application.routes.draw do
   resources :examines, :except => ['new','edit']
 
   # not be test 
-  resources :perssions
-  resources :cares
+  resources :perssions , :only => ['create','index','destroy']
+
+  resources :cares , :only => ['index']
 
   match 'logout'     => 'application#logout'
 
@@ -33,9 +34,8 @@ Attendance::Application.routes.draw do
   match 'autocomplete/search_users' => 'homes#search_users'
   root :to => "homes#index"
 
-  match 'cancan_error'    => 'exceptions#cancan_error'
-  match 'render_404'      => 'exceptions#render_404'
-  match 'browser'    => 'exceptions#browser_error'
+  match 'cancan_error'    => 'application_with_exceptions#cancan_error'
+  match 'browser'    => 'application_with_exceptions#browser_error'
 
-  match '/:anything', to: "exceptions#routing_error", as: :error, :constraints => {:anything => /.*/}
+  match '/:anything', to: "application_with_exceptions#routing_error", as: :error, :constraints => {:anything => /.*/}
 end

@@ -46,8 +46,7 @@ describe Ability do
     it {@user.should have_ability([:index,:show,:create,:destroy,:proces_detail], for: Examine.new)}
     it {@user.should_not have_ability([:index,:update,:show], for: Examine.new)}
 
-    it {@user.should have_ability(:update, for: Modify.new)}
-    it {@user.should_not have_ability([:create,:destroy], for: Modify.new)}
+    it {@user.should have_ability([:update,:create,:destroy], for: Modify.new)}
 
     it {@user.should have_ability(:approval, for: Task.new)}
     it {@user.should_not have_ability(:registrar, for: Task.new)}

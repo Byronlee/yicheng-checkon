@@ -9,7 +9,6 @@ class Ability
       can :registrar ,Task
       can :manage, Count
       can [:index,:update,:show] ,Examine
-
       can [:create,:destroy], Modify
     end
     
