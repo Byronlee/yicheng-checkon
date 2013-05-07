@@ -4,15 +4,15 @@ class NoticeCell < Cell::Rails
   def operate args
     @notice = args[:notice]
     @current_user = args[:current_user]     
-    case @notice.notice_type
+    case @notice.notice_type.name
     when "modify_applied"
-      render view: :form_approval
+      return  render view: :form_approval
     when "modify_approved"
-      render view: :approval_decision
+      return  render view: :approval_decision
     when "examine_applied"
-      render view: :examine_notice
+      return  render view: :examine_notice
     else
-      render view: "only_read"
+      return  render view: :only_read
     end
   end
 end

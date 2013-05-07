@@ -36,7 +36,7 @@ module Mongoid
       end
 
       def opt_str current_user,modify
-        return '' unless modify.update_way.blank?
+        return '' if modify[:update_way]
         return '申请' unless current_user.approval?
         modify.decision.eql?('agree') ? '同意你申请' : '拒绝你申请' 
       end
