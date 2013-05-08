@@ -20,8 +20,8 @@ jQuery(function(){
             }	}
 
     var datapicker_callback = function(start, end) {
-	    $("input[id$=start_time]").val(end.getFullYear()+"-"+farmat((end.getMonth()+1))+"-"+farmat(end.getDate()));
-            $("input[id$=end_time]").val(start.getFullYear()+"-"+farmat((start.getMonth()+1))+"-"+farmat(start.getDate()));
+	    $("input[id$=end_time]").val(end.getFullYear()+"-"+farmat((end.getMonth()+1))+"-"+farmat(end.getDate()));
+            $("input[id$=start_time]").val(start.getFullYear()+"-"+farmat((start.getMonth()+1))+"-"+farmat(start.getDate()));
     }
    $('input[name=range_time]').daterangepicker(datapicker_option,datapicker_callback)
 //  count_reslut("#new_examine","创建失败！，请查看上次的考勤审核任务是否完成！")

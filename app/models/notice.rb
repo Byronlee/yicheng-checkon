@@ -25,7 +25,7 @@ class Notice
     end
 
     def today_or_unread
-      self.or({state: false} ,{:updated_at.gte => Date.today.beginning_of_day,:updated_at.lte => Date.today.end_of_day}).asc(:state)
+      self.or({state: false} ,{:updated_at.gte => Date.today.beginning_of_day,:updated_at.lte => Date.today.end_of_day}).asc(:state).desc(:created_at)
     end
 
     def between_date begin_time,end_time

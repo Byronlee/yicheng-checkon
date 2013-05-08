@@ -5,7 +5,7 @@ a.btn.btn-primary.btn-mini href="##{@examine.id}" role="button" data-toggle="mod
     h3  确认本次考勤审核
   .modal-body
     p 你确认#{@examine.start_time}至#{@examine.start_time}的考勤记录全部准确吗？
-    form.update_examine(action="examines/#{@examine.id}" method="post")
+    form.update_examine(action=examine_path(@examine) method="post")
       .modal-footer
         input name="_method" type="hidden" value="put"
         button.btn data-dismiss="modal" aria-hidden="true" 取消
