@@ -9,6 +9,6 @@
         td
           = render_cell :task,:onekey , task: task
         td
-          a href="/staff_records/edit?dept_id=#{task[:dept_id]}&time=#{task[:created_at]}&dept_name=#{task[:dept_name]}"
+          a href="staff_records/edit?dept_id=#{task[:dept_id]}&time=#{task[:created_at]}&dept_name=#{task[:dept_name]}"
             = register_or_modify task[:state]
           i class="icon-fast-forward"
