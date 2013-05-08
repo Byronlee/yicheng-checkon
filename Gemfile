@@ -1,4 +1,4 @@
-source 'http://ruby.taobao.org'
+source 'http://rubygems.org'
 
 ruby '1.9.3'
 gem 'rails'
@@ -43,7 +43,7 @@ gem "bson_ext"
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem "less-rails" 
-  gem 'bootstrap-sass', '~> 2.3.1.1'
+# gem 'bootstrap-sass', '~> 2.3.1.1'
   gem 'therubyracer'
   gem 'uglifier', '>= 1.0.3'
   gem "twitter-bootstrap-rails"

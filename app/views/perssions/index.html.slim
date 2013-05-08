@@ -1,3 +1,13 @@
+.alert.alert-error
+  a.close data-dismiss="alert" href="#" ×
+  strong 注意:
+  span 分配的权限默认
+  strong [第二天]
+  span 生效,并且作用时间为
+  strong [一天]
+  span ,并且
+  strong [不能]
+  span 修改当天考勤权限
 table.table.table-bordered
   .title
    .content
@@ -9,5 +19,5 @@ table.table.table-bordered
       td = user[:user].dept_name
       td = user[:user].user_no
       td = user[:user].username
-      td = user[:user].nickname_display
+      td = user[:user].post
       td = render_cell :perssion ,:operate,:user => user
