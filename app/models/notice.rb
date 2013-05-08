@@ -28,6 +28,10 @@ class Notice
       self.or({state: false} ,{:updated_at.gte => Date.today.beginning_of_day,:updated_at.lte => Date.today.end_of_day}).asc(:state)
     end
 
+    def between_date begin_time,end_time
+      between(:created_at => [begin_time.beginning_of_day,end_time.end_of_day])
+    end
+
   end
   
   def read 

@@ -127,6 +127,9 @@ $('.query_data_form').live('ajax:before', function(event,data,status, xhr) {
     $('.show_query_result').html(data)
 });
 
+$('.new_care').live('ajax:success',function(evt, data, status, xhr){
+    $('.cares-body').html(data)
+}).live('ajax:error',function(event, xhr, status){alert(xhr.responseText)});
 
 $('#export').live('ajax:success',function(evt, data, status, xhr){
     if(data.state == 1){

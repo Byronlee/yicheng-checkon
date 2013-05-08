@@ -22,7 +22,9 @@ Attendance::Application.routes.draw do
   # not be test 
   resources :perssions , :only => ['create','index','destroy']
 
-  resources :cares , :only => ['index']
+  resources :cares , :only => ['index'] do
+    post :query ,:on => :collection
+  end
 
   match 'logout'     => 'application#logout'
 
