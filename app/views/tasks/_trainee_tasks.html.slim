@@ -9,7 +9,7 @@
         td
           = FormatDate task.created_date
         td
-         form action="/staff_records/update" method="post" id="u_form"
+         form action="staff_records/update" method="post" id="u_form"
            input name="time" type="hidden" value=task[:created_date]
            input name="register_way" type="hidden" value="trainee_register"
             = raw unit_selects task.checkins,"record[#{task.staffid}]" 
