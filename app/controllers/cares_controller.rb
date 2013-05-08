@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 class CaresController < ApplicationController
 
-  def index
-    @cares = Notice.all
-  end
-
   def query
     begin
       notices = NoticeType.find(params[:notice_type][:id]).notices
