@@ -49,7 +49,7 @@ jQuery(function(){
     
     $(".chzn-select").ajaxChosen({
 	type: 'GET',
-	url: '/autocomplete/search_users',
+	url: 'autocomplete/search_users',
 	dataType: 'json'
     }, function (data) {
 	var results = [];	
@@ -62,14 +62,14 @@ jQuery(function(){
 });
 
 function ajax_dept_users_select(o){
-    $.get("/ajax_dept_users",{dept_id : o.val()},function(html){
+    $.get("ajax_dept_users",{dept_id : o.val()},function(html){
 	o.parents("form").find(".staff_select").parents('.input-prepend').replaceWith(html);
     })
 }
 
 function ajax_attend_tree(o){
     o.parents(".selects_group").nextAll().find("#search_dept_id").parents(".input-prepend").html('<option value="">--全部--</option>');
-    $.post("/ajax_attend_tree",{dept_id :o.val()}, function(html){
+    $.post("ajax_attend_tree",{dept_id :o.val()}, function(html){
 	    if(html){	  
 		o.parents(".input-prepend").next().find("select").html(html);
 	    }
@@ -98,7 +98,7 @@ function merge_submit(o,update){
 
 
 function examine_proce(o){
-    $.post("/proces_detail",{examine_id : o.attr("href").substr(1) }, function(html){
+    $.post("proces_detail",{examine_id : o.attr("href").substr(1) }, function(html){
 	$(o.attr("href")).find(".modal-body").html(html)
     })     
 }

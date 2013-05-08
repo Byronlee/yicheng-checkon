@@ -3,7 +3,7 @@ html
   head
     meta charset="UTF-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
-    link rel="shortcut icon" href="/assets/favicon.ico" 
+    link rel="shortcut icon" href="assets/favicon.ico" 
     title = t("system_name") 
     meta name="author" content="Byronlee and simlegate"
     = stylesheet_link_tag  :application , :recursive => true
@@ -21,7 +21,7 @@ html
           li
             a = t(".contact")
           li
-            = link_to '反馈','/feedback/feedback_infos/new',:id => "add_feedback", :remote => true, "data-type" => "script"
+            = link_to '反馈','feedback/feedback_infos/new',:id => "add_feedback", :remote => true, "data-type" => "script"
           li
             a href=logout_path 退出
         p.navbar-text.pull-right 
