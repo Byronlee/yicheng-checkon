@@ -12,14 +12,13 @@ html
   body
     .navbar-inverse.navbar.navbar-fixed-top
       .navbar-inner
-        a.brand = t(".title")
         ul.nav
           li.active
-            a = t(".home")
+            a.brand = t(".title")
           li
-            a = t(".about")
+            a href="#about" data-toggle="modal" = t(".about")
           li
-            a = t(".contact")
+            a href="#contact" data-toggle="modal" = t(".contact")
           li
             a#feedback 反馈
           li
@@ -27,10 +26,13 @@ html
         p.navbar-text.pull-right 
           span 当前时间：
           span#time
+      
     .container-fluid
       .row-fluid
         = render "common/sidebar"
         .span10
+          = render "common/contact"
+          = render "common/about"
           = render "common/user_information"
           = render "common/flash_error_message"
           = render "common/flash_success_message"
