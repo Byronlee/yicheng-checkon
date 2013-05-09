@@ -59,6 +59,7 @@ jQuery(function(){
 	return results;
     });
 
+
 });
 
 function ajax_dept_users_select(o){
