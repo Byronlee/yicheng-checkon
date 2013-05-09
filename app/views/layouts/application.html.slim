@@ -18,8 +18,6 @@ html
           li
             a href="#about" data-toggle="modal" = t(".about")
           li
-            a href="#contact" data-toggle="modal" = t(".contact")
-          li
             a#feedback 反馈
           li
             a href=logout_path 退出
@@ -31,7 +29,6 @@ html
       .row-fluid
         = render "common/sidebar"
         .span10
-          = render "common/contact"
           = render "common/about"
           = render "common/user_information"
           = render "common/flash_error_message"
