@@ -28,11 +28,17 @@ class  ApplicationWithExceptionsController < ActionController::Base
   
   def browser_filter
     @user_agent = UserAgentParser.parse(request.user_agent)
+    p '_______________'
+    p @user_agent
+    p @user_agent.name
+    p @user_agent.version
+    p @user_agent.os
     return if @user_agent.nil? 
     name = @user_agent.name.downcase
-    return redirect_to browser_path if name.eql?('ie') && @user_agent.version.major.to_i < 10
-    unless  ['chrome','safari','firefox','opera','sougo','maxthon'].include?(name)  then
-      return redirect_to browser_path
+    if ['chrome','safari','firefox','opera','sogou explorer','maxthon','ie'].include?(name)  then
+      return redirect_to browser_path if name.eql?('ie') && @user_agent.version.major.to_i < 10
+    else
+     return redirect_to browser_path
     end
   end
 end
