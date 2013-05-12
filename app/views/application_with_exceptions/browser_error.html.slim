@@ -12,15 +12,45 @@ html
    .container
      .inner style="text-align: center;"
        h1 伊诚考勤系统,浏览器性能要求温馨提示：
+       h4 
+         font color="red" 
+           span 当前浏览器信息=> &nbsp;
+           span 类型：#{@user_agent.name}&nbsp;&nbsp;
+           span 版本：#{@user_agent.version}
        .inner
-         p 伊诚考勤系统需要您采用支持HTML5标准的浏览器，IE由于对HTML规范符合度不佳未被采</br>   用，请使用<span class="label label-important">Google Chrome</span>、<span class="label label-important">Firefox</span>等浏览器。
-         p  如果您的系统中没有标准浏览器，可在以下地址下载安装：
-
-     .well style="max-width: 400px; margin: 0 auto 10px;"
-       button.btn.btn-large.btn-block.btn-primary
-         a style="color: #000" href="http://www.google.cn/intl/zh-CN/chrome/browser/" Google浏览器（推荐)
-       button.btn.btn-large.btn-block
-         a style="color: #000" href="http://firefox.com.cn/download/" Firefox浏览器
-
-
-
+         p 此型号的浏览器版本太低或不支持，伊诚考勤系统需要您采用支持HTML5标准的浏览器，IE由于对HTML规范符合度不佳未被采</br>   用，请使用<span class="label label-important">Google Chrome</span>、<span class="label label-important">Firefox</span> <span class="label label-important">傲游3.0以上版本</span>、<span class="label label-important">搜狗高速浏览器</span>、<span class="label label-important">safari</span>、<span class="label label-important">IE9.0以上版本</span>、<span class="label label-important">opera</span>、<span class="label label-important">360急速浏览器</span>浏览器。
+         p  如果您的系统中没有标准浏览器，可在以下地址下载安装或者更新：
+     .bowser_list
+       ul style="list-style: none;width: 425px;margin: 0 auto;"
+         li
+           a(href="http://windows.microsoft.com/ie")
+             img src="assets/ie.png"
+           strong Internet Explorer 10
+         li
+           a(href="http://www.google.cn/intl/zh-CN/chrome/browser/")
+             img src="assets/chrome.png"
+           strong Chrome
+         li
+           a(href="http://firefox.com.cn/download/")
+             img src="assets/firefox.png"
+           strong Firefox
+         li
+           a(href="http://www.apple.com/safari")
+             img src="assets/safari.png"
+           strong Safari
+         li
+           a(href="http://www.opera.com")
+             img src="assets/opera.png"
+           strong Opera
+         li
+           a(href="http://ie.sogou.com/")
+             img src="assets/sougo.png"
+           strong Sougo
+         li
+           a(href="http://www.maxthon.cn/")
+             img src="assets/maxthon.png"
+           strong Maxthon
+         li
+           a(href="http://chrome.360.cn/")
+             img src="assets/360.png"
+           strong 360急速浏览器
